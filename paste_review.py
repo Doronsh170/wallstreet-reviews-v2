@@ -53,7 +53,21 @@ TEXT_FIXES = [
     (r'מיקרוסופט\s+השיקה?\s+את\s+ChatGPT', 'OpenAI השיקה את ChatGPT', 'ChatGPT is by OpenAI'),
     (r'הנפקה\s+ראשונית\s+לציבור\s*\(ETF\)', 'תעודת סל (ETF)', 'IPO ≠ ETF'),
     (r'תעודת\s+סל\s*\(IPO\)', 'הנפקה ראשונית (IPO)', 'ETF ≠ IPO'),
+    (r'תנודתיותת', 'תנודתיות', 'typo: תנודתיותת'),
 ]
+
+# Hebrew company names for rewriting "* $TSLA:" bullet openers → "* מניית טסלה (TSLA):"
+HEB_COMPANY_NAMES = {
+    "TSLA": "טסלה", "AMZN": "אמזון", "META": "מטא", "AAPL": "אפל", "MSFT": "מיקרוסופט",
+    "GOOGL": "אלפאבית", "GOOG": "אלפאבית", "NVDA": "אנבידיה", "NFLX": "נטפליקס",
+    "INTC": "אינטל", "AMD": "AMD", "AVGO": "ברודקום", "MU": "מיקרון", "TSM": "TSMC",
+    "HOOD": "רובינהוד", "COIN": "קוינבייס", "PLTR": "פלנטיר", "UBER": "אובר", "ORCL": "אורקל",
+    "BA": "בואינג", "DIS": "דיסני", "JPM": "ג'יי.פי מורגן", "GS": "גולדמן זאקס",
+    "DAL": "דלתא איירליינס", "XOM": "אקסון מוביל", "CVX": "שברון", "BABA": "עליבאבא",
+}
+
+ISO_DATE_IN_TEXT_RE = re.compile(r'\b(20\d{2})-(\d{2})-(\d{2})\b')
+FUTURE_DATA_PHRASE_RE = re.compile(r'[,;]?\s*נתון בפועל עדיין לא קיים[,;]?\s*')
 
 PRE_MARKET_TENSE_FIXES = [
     (r'השוק\s+נפתח\s+הבוקר', 'השוק צפוי להיפתח', 'market has not opened yet'),
@@ -105,9 +119,13 @@ DIRECTION_ASSETS = {
 }
 
 TICKER_UP_TOKENS = UP_WORDS + ["עלתה", "מטפסת", "מזנקת", "זינקה", "קופצת", "קפץ", "קפצה", "קפצו",
-                               "מתחזקת", "התחזקה", "ירוק", "בירוק", "מוסיפה", "מוסיף", "הוסיפה", "הוסיף"]
+                               "מתחזקת", "התחזקה", "ירוק", "בירוק", "מוסיפה", "מוסיף", "הוסיפה", "הוסיף",
+                               "הובילה את העליות", "הוביל את העליות", "הובילו את העליות",
+                               "בלטה לחיוב", "בלט לחיוב", "בלטו לחיוב"]
 TICKER_DOWN_TOKENS = DOWN_WORDS + ["יורדת", "ירדה", "נופלת", "נפלה", "צונחת", "צנחה", "צניחה", "נחלשה",
-                                   "אדום", "באדום", "מאבדת", "איבדה"]
+                                   "אדום", "באדום", "מאבדת", "איבדה",
+                                   "הובילה את הירידות", "הוביל את הירידות", "הובילו את הירידות",
+                                   "בלטה לשלילה", "בלט לשלילה", "בלטו לשלילה"]
 
 
 # ══════════════════════════════════════════════════════════════
@@ -243,6 +261,44 @@ def apply_text_fixes(result: Dict[str, Any]) -> Dict[str, Any]:
     return apply_to_result_texts(result, fix)
 
 
+def _rewrite_ticker_opener(line: str) -> str:
+    m = re.match(r'^(\*\s*)(\$)?([A-Z]{1,6})\s*:\s*(.*)$', line)
+    if not m:
+        return line
+    has_dollar, ticker = m.group(2), m.group(3)
+    # Without a $ prefix, rewrite only known tickers (avoid mangling "* AI:" etc.)
+    if not has_dollar and ticker not in HEB_COMPANY_NAMES:
+        return line
+    name = HEB_COMPANY_NAMES.get(ticker)
+    lead = f"מניית {name} ({ticker})" if name else f"מניית {ticker}"
+    return f"{m.group(1)}{lead}: {m.group(4)}"
+
+
+def apply_style_fixes(result: Dict[str, Any]) -> Dict[str, Any]:
+    """Deterministic Hebrew-style safety net:
+    ISO dates in visible text → Israeli format, no semicolons, no
+    'נתון בפועל עדיין לא קיים', bullet openers with Hebrew company names."""
+    def fix(text: str) -> str:
+        new = ISO_DATE_IN_TEXT_RE.sub(lambda m: f"{int(m.group(3))}.{int(m.group(2))}.{m.group(1)}", text)
+        if new != text:
+            print("  ✅ Style: ISO dates in text converted to Israeli format")
+            text = new
+        if ";" in text:
+            text = re.sub(r'\s*;\s*', ', ', text)
+            print("  ✅ Style: semicolons replaced with commas")
+        new = FUTURE_DATA_PHRASE_RE.sub(', ', text)
+        if new != text:
+            new = re.sub(r',\s*,+', ',', new)
+            new = re.sub(r'\s+([,.])', r'\1', new)
+            print("  ✅ Style: removed 'נתון בפועל עדיין לא קיים'")
+            text = new
+        lines = [_rewrite_ticker_opener(l) for l in text.split("\n")]
+        if lines != text.split("\n"):
+            print("  ✅ Style: raw $TICKER bullet openers rewritten with Hebrew company names")
+        return "\n".join(lines)
+    return apply_to_result_texts(result, fix)
+
+
 def strip_meta_and_markdown(result: Dict[str, Any]) -> Dict[str, Any]:
     def clean(text: str) -> str:
         text = text.replace("**", "").replace("###", "").replace("##", "")
@@ -330,7 +386,9 @@ def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict
     content = result["sections"][0].get("content", "")
     for bullet in (l for l in str(content).split("\n") if l.strip()):
         for ticker, q in ticker_quotes.items():
-            if not re.search(rf'\${re.escape(ticker)}\b', bullet):
+            # Match "$TSLA", "(TSLA)" and bare "TSLA" — bullet openers are
+            # rewritten to "מניית טסלה (TSLA):", so $-only matching would miss them.
+            if not re.search(rf'(?<![A-Za-z0-9]){re.escape(ticker)}(?![A-Za-z0-9])', bullet):
                 continue
             has_up = any(re.search(rf'(?<!\w){re.escape(t)}(?!\w)', bullet) for t in TICKER_UP_TOKENS)
             has_down = any(re.search(rf'(?<!\w){re.escape(t)}(?!\w)', bullet) for t in TICKER_DOWN_TOKENS)
@@ -428,6 +486,16 @@ def hard_content_validation(result: Dict[str, Any]) -> None:
     hits = [p for p in FORBIDDEN_META_PHRASES if p in blob]
     if hits:
         raise ValueError(f"הסקירה מכילה ביטויים אסורים: {hits}. בקש מהצ'אט לשכתב בלי להזכיר ציוצים/פוסטים ובלי Markdown.")
+    tech_hits = [p for p in ("finnhub", "proxy") if p in blob.lower()]
+    if re.search(r'דרך\s+[A-Z]{2,6}(?![A-Za-z])', blob):
+        tech_hits.append("דרך <TICKER>")
+    if "האינדיקציה מ" in blob:
+        tech_hits.append("האינדיקציה מ-")
+    if tech_hits:
+        raise ValueError(
+            f"הסקירה חושפת את שכבת האימות הטכנית: {tech_hits}. "
+            f"בקש מהצ'אט לתאר את הנכס עצמו (נפט/זהב/דולר/תשואות) בלי להזכיר Finnhub, proxy או תעודות סל של מדידה."
+        )
     if not re.search(r"[א-ת]", blob):
         raise ValueError("הסקירה לא בעברית. בקש מהצ'אט לכתוב את הסקירה בעברית בלבד.")
     content = result["sections"][0].get("content", "")
@@ -464,6 +532,7 @@ def main() -> None:
     print("── Text fixes ──")
     result = strip_meta_and_markdown(result)
     result = apply_text_fixes(result)
+    result = apply_style_fixes(result)
 
     print("── Market direction guard (vs gather-time Finnhub snapshot) ──")
     result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
