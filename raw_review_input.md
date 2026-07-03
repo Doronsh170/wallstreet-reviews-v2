@@ -1,7 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
 You are a senior Wall Street market analyst writing an on-demand INTRADAY UPDATE in Hebrew,
-covering ONLY the last two hours: 21:12–23:12 שעון ישראל, on 2026-07-03 (יום שישי).
+covering ONLY the last two hours: 21:25–23:25 שעון ישראל, on 2026-07-03 (יום שישי).
 Market state right now: השוק סגור (לילה / סוף שבוע / חג). Frame ALL market descriptions accordingly — if the cash market is not
 open, NEVER describe it as trading or reacting. Futures / pre-market / after-hours moves may be described,
 but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
@@ -57,7 +57,7 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 3.7.2026, 23:12",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 3.7.2026, 23:25",
   "date": "2026-07-03",
   "sections": [
     {
@@ -119,7 +119,7 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 
 ══ MANDATORY MACRO DATA CHECK ══
 Use web search to check if ANY US economic data (CPI, PPI, NFP, Jobless Claims, ISM PMI, GDP, Retail Sales,
-Consumer Sentiment), an FOMC decision/minutes, or a Fed official's speech happened between 21:12–23:12 Israel time
+Consumer Sentiment), an FOMC decision/minutes, or a Fed official's speech happened between 21:25–23:25 Israel time
 on 2026-07-03. If yes — include actual vs forecast vs previous AND the immediate market reaction.
 If none — skip, but you MUST check first. Do NOT include data released earlier today, outside the window.
 ══════════════════════════════════
@@ -136,6 +136,8 @@ Already published on the site. Your update covers ONLY the last two hours. Menti
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in the review that these came from tweets/posts:
+
+@KobeissiLetter [Fri Jul 03 20:14:47 +0000 2026]: The AI Revolution is reshaping South Korea’s economy: The value of South Korea’s exports rose to a record ~$270 billion in Q2 2026. This comes as South Korea's exports jumped +59.5% YoY in June, an acceleration from the already strong +53.4% gain in May. Semiconductor exports continue to lead the gains, surging +199.5% YoY, to $44.8 billion, driven by strong AI and data center investments. Shipments of computer-related products soared +308.8%, while petroleum products rose +49.8%. AI demand has made South Korea into an economic powerhouse.
 
 @wallstengine [Fri Jul 03 19:15:22 +0000 2026]: Trump’s outgoing AI adviser Sriram Krishnan told FT the administration will not create a formal AI licensing regime. “There will not be an FDA for AI,” he said. Krishnan said requiring companies to go through lawyers before releasing a model would put “sand in the gears” of AI development and is “never, never going to happen under President Trump.” He also blamed part of the AI backlash on the industry’s own messaging, saying AI companies focused too much on dystopian risks and “have done a terrible job” explaining real benefits like medical diagnosis.
 
