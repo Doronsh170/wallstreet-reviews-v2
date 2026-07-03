@@ -83,11 +83,20 @@ NON_TICKER = {
 }
 
 
+def heb_date(date_str: str) -> str:
+    """'2026-07-06' → '6.7.2026' — Israeli display format for visible text."""
+    try:
+        y, m, d = date_str.split("-")
+        return f"{int(d)}.{int(m)}.{y}"
+    except Exception:
+        return date_str
+
+
 def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Optional[str]) -> str:
     if mode == "daily_prep":
-        return f"נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום {day_name} {date_str}"
+        return f"נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
     if mode == "daily_summary":
-        return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name} {date_str}"
+        return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
     return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
 
 
@@ -322,7 +331,7 @@ FINNHUB_SYMBOLS = {
 WEEKLY_SYMBOLS = ["SPY", "QQQ", "DIA", "IWM", "XLE", "XLK", "XLF", "XLY", "XLV", "USO", "BNO", "GLD", "IBIT", "TLT"]
 
 DIRECTION_ASSETS_LABELS = [
-    (["USO", "BNO"], "נפט (WTI/Brent proxies)"),
+    (["USO", "BNO"], "נפט (WTI/ברנט)"),
     (["GLD"], "זהב"),
     (["IBIT"], "ביטקוין"),
     (["UUP"], "דולר"),
@@ -442,6 +451,7 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str]) -> Tuple[str, Dict[
     block += [
         "",
         "The % changes above are ACCURATE — use them for direction and magnitude.",
+        "The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.",
         "For exact index LEVELS (points), gold/oil absolute prices, VIX level, Bitcoin price, 10Y yield: verify via web search. Do NOT estimate them from ETF prices.",
         "For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — never invent sector percentages.",
         "If ANY percentage you write contradicts the data above, you are WRONG. Fix it.",
@@ -551,7 +561,13 @@ SHARED_RULES = """Rules:
 - CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
 - IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
-- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only."""
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
+- Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
+- NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
+- Never write "נתון בפועל עדיין לא קיים". If a figure has not been released yet, give only the forecast (צפי) and the previous reading (נתון קודם).
+- Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
+- SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה"."""
 
 
 def mode_instructions(mode: str, d: Dict[str, Any]) -> str:
@@ -578,12 +594,17 @@ transmission mechanism: event → oil → inflation → rates → equities), NEW
 commodity/currency signals. Futures: direction only unless a specific futures percentage appears in the sources —
 never copy an ETF percentage as a futures percentage."""
     if mode == "daily_summary":
-        return f"""You are a senior Wall Street market analyst writing an end-of-day market wrap in Hebrew for
-{d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE. Explain WHY things happened, not just what.
-7-12 bullets ordered by market impact: index performance (%, point levels, context), macro data with FULL numbers
-and market reaction, key market-moving events with cause-and-effect, commodities/currencies/VIX with %,
-notable stock moves with the reason ($TICKER +/- %), sector rotation (ONLY from the Finnhub sector data).
-If two bullets describe causally linked events, merge them into one bullet that explains the link."""
+        return f"""You are a senior Wall Street market analyst writing an end-of-day market review in Hebrew for
+{d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE. This is a professional, readable MARKET REVIEW —
+NOT a data dump. EXACTLY 5 bullets, in this order:
+* המדדים: what the major indices did (direction + rounded %), one flowing analytical sentence or two.
+* הסיפור של היום: WHY the market moved — the main driver(s), with clear cause-and-effect.
+* סקטורים ומניות בולטות: the 1-3 most notable sector/stock stories with the reason. Stock items open with "מניית <שם בעברית> (TICKER)".
+* סחורות, דולר ותשואות: oil, gold, dollar and yields in brief — direction and meaning, not a list of prices.
+* שורה תחתונה למחר: what investors should watch in the next session.
+Each bullet: 2-4 short sentences. Do NOT list ETF prices, do NOT dump long series of percentages or price levels,
+do NOT mention Finnhub or any ETF proxy in the text. Explain the day — don't copy the data.
+Every direction word MUST match the DIRECTIONAL FACTS block."""
     return f"""You are a senior Wall Street strategist writing a weekly review in Hebrew for the trading week
 {d['week_range']}. PAST TENSE. ONLY events and moves from THIS specific week.
 Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse
