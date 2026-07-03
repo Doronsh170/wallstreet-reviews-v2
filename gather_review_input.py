@@ -587,12 +587,24 @@ def mode_instructions(mode: str, d: Dict[str, Any]) -> str:
 Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}).
 {status}
 
-FORWARD-LOOKING ONLY: no yesterday's index performance, no closing levels, zero backward-looking data,
-and nothing that already appears in the prior-context block. 7-12 bullets covering: scheduled economic data
-(Israel times + consensus), expected earnings, NEW overnight geopolitical developments (always with the market
-transmission mechanism: event → oil → inflation → rates → equities), NEW overnight company news and analyst moves,
-commodity/currency signals. Futures: direction only unless a specific futures percentage appears in the sources —
-never copy an ETF percentage as a futures percentage."""
+This is a professional, readable BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index
+performance, no closing levels, and nothing that already appears in the prior-context block.
+EXACTLY 5 bullets, in this order:
+* תמונת פתיחה: the mood and backdrop heading into the session — the single most important theme, and futures
+  direction ONLY (no percentage unless a specific futures figure appears in the sources; never copy an ETF
+  percentage as a futures percentage).
+* הסיפור המרכזי: the main driver investors will watch and why it matters, with the transmission mechanism
+  explained simply (event → oil → inflation → rates → equities) only when it is genuinely relevant.
+* מאקרו ואירועים: the economic releases and Fed events scheduled for the day — Israel time, consensus and the
+  previous reading, plus one sentence on why the number matters. If nothing is scheduled, say so in one short
+  sentence and point to the next key date.
+* דוחות ומניות במוקד: expected earnings and the 1-3 most important NEW overnight stock stories (company news,
+  analyst moves). Stock items open with "מניית <שם בעברית> (TICKER)". Positive news about a falling stock →
+  "למרות החדשות, המניה ירדה".
+* שורה תחתונה: what will decide the direction of the session, in 1-2 sentences.
+Each bullet: 2-4 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
+continue in Hebrew words — never open with a ticker, a price or an English term. Do NOT stack prices, price
+targets and percentages: pick only the few figures that carry the story. No ETF proxies, no Finnhub, no ISO dates."""
     if mode == "daily_summary":
         return f"""You are a senior Wall Street market analyst writing an end-of-day market review in Hebrew for
 {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE. This is a professional, readable MARKET REVIEW —
