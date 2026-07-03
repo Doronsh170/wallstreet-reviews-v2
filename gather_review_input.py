@@ -57,12 +57,28 @@ DATA_JSON = Path("data.json")
 OUT_MD = Path("raw_review_input.md")
 OUT_JSON = Path("raw_review_input.json")
 SOURCES_FILE = Path("sources/wallstreet.txt")
-DEFAULT_ACCOUNTS = ["StockMKTNewz", "AIStockSavvy", "wallstengine", "KobeissiLetter", "gurgavin"]
+DEFAULT_ACCOUNTS = ["AIStockSavvy", "wallstengine", "DeIaone", "StockMKTNewz", "zerohedge", "financialjuice"]
 
 MAX_TWEETS_PER_ACCOUNT = int(os.environ.get("MAX_TWEETS_PER_ACCOUNT", "10"))
 MAX_TWEETS_FOR_REVIEW = int(os.environ.get("MAX_TWEETS_FOR_REVIEW", "40"))
 
 PY_TO_HEB = {0: "שני", 1: "שלישי", 2: "רביעי", 3: "חמישי", 4: "שישי", 5: "שבת", 6: "ראשון"}
+
+
+def israel_date_label(date_str: str) -> str:
+    """Return visible Israeli date format D.M.YYYY from YYYY-MM-DD.
+    Kept separate from machine dates, because data.json still needs ISO dates."""
+    try:
+        y, m, d = [int(x) for x in date_str.split("-")]
+        return f"{d}.{m}.{y}"
+    except Exception:
+        return date_str
+
+
+def israel_week_range_label(week_range: Optional[str]) -> str:
+    if not week_range:
+        return ""
+    return week_range.replace("/", ".")
 
 EXPECTED_FIRST_HEADING = {
     "daily_prep": "נקודות מרכזיות",
@@ -84,11 +100,12 @@ NON_TICKER = {
 
 
 def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Optional[str]) -> str:
+    visible_date = israel_date_label(date_str)
     if mode == "daily_prep":
-        return f"נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום {day_name} {date_str}"
+        return f"נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום {day_name}, {visible_date}"
     if mode == "daily_summary":
-        return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name} {date_str}"
-    return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
+        return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name}, {visible_date}"
+    return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {israel_week_range_label(week_range)}"
 
 
 # ══════════════════════════════════════════════════════════════
@@ -497,23 +514,30 @@ def fetch_economic_data(days_back: int, days_forward: int) -> str:
 
 
 def get_macro_checklist(mode: str, date_str: str, week_range: Optional[str]) -> str:
+    visible_date = israel_date_label(date_str)
+    visible_week = israel_week_range_label(week_range)
     if mode == "daily_summary":
         return f"""══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on {date_str}: CPI (headline AND core),
+Use web search to check if ANY of these were released on {visible_date}: CPI (headline AND core),
 PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
 Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
 AND the market implication. If none — skip, but you MUST check first.
+Use Israeli date format in visible Hebrew text. Do not write ISO dates such as YYYY-MM-DD.
 ══════════════════════════════════"""
     if mode == "weekly_summary":
         return f"""══ MANDATORY MACRO DATA CHECK ══
-Use web search to find ALL major US economic data released during the week of {week_range or date_str}:
+Use web search to find ALL major US economic data released during the week of {visible_week or visible_date}:
 CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
 ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
 Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
+Use Israeli date format in visible Hebrew text. Do not write ISO dates such as YYYY-MM-DD.
 ══════════════════════════════════"""
     return f"""══ SCHEDULED DATA CHECK ══
-Use web search to find what US economic data is scheduled for release on {date_str}.
+Use web search to find what US economic data is scheduled for release on {visible_date}.
 Include the release time in Israel time and the market consensus/forecast.
+If a data point is scheduled for the future, do NOT write that the actual value does not exist.
+Simply write the scheduled time, consensus/forecast, and previous reading.
+Use Israeli date format in visible Hebrew text. Do not write ISO dates such as YYYY-MM-DD.
 ══════════════════════════════════"""
 
 
@@ -551,10 +575,19 @@ SHARED_RULES = """Rules:
 - CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
 - IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
-- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only."""
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
+- Visible dates must use Israeli format only, for example: יום שני, 6.7.2026. Do NOT write YYYY-MM-DD inside the Hebrew review text.
+- Do NOT use the semicolon character ; anywhere in the visible review. Use a comma or a full stop.
+- For future scheduled data, do NOT write "נתון בפועל עדיין לא קיים" or any equivalent. Write only the scheduled time, consensus/forecast, and previous reading.
+- Do NOT start bullets with raw tickers such as $TSLA or $AMZN. Use natural wording: מניית טסלה (TSLA): or מניית אמזון (AMZN):.
+- Finnhub is a background validation layer only. Never mention "Finnhub", "האינדיקציה מ-Finnhub", or ETF-proxy phrasing such as "דרך USO" in the visible review.
+- Commodities/currencies must be written as a short human market paragraph, not as a mechanical list of ETF proxies.
+- Avoid broken RTL/ticker formatting. Prefer Hebrew company name + ticker in parentheses."""
 
 
 def mode_instructions(mode: str, d: Dict[str, Any]) -> str:
+    run_visible_date = israel_date_label(d["date_str"])
+    target_visible_date = israel_date_label(d["title_date_str"])
     if mode == "daily_prep":
         if d["target_is_trading"]:
             if d["date_str"] == d["title_date_str"]:
@@ -562,13 +595,13 @@ def mode_instructions(mode: str, d: Dict[str, Any]) -> str:
                           "trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described "
                           "in present tense; the cash market may not.")
             else:
-                status = (f"This runs on {d['date_str']} but the briefing is for the NEXT trading day: {d['title_date_str']} "
+                status = (f"This runs on {run_visible_date} but the briefing is for the NEXT trading day: {target_visible_date} "
                           f"(יום {d['title_day_name']}). Do NOT use 'היום'/'הבוקר' — use 'ביום {d['title_day_name']}'. "
                           f"Do NOT describe futures/pre-market as live — they are not available yet.")
         else:
-            status = f"The target date {d['title_date_str']} is NOT a trading day (weekend/US holiday). State this in the first bullet."
+            status = f"The target date {target_visible_date} is NOT a trading day (weekend/US holiday). State this in the first bullet."
         return f"""You are a senior Wall Street market analyst writing a PRE-MARKET briefing in Hebrew.
-Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}).
+Script run date: {run_visible_date} (יום {d['day_name']}). Briefing target date: {target_visible_date} (יום {d['title_day_name']}).
 {status}
 
 FORWARD-LOOKING ONLY: no yesterday's index performance, no closing levels, zero backward-looking data,
@@ -579,13 +612,13 @@ commodity/currency signals. Futures: direction only unless a specific futures pe
 never copy an ETF percentage as a futures percentage."""
     if mode == "daily_summary":
         return f"""You are a senior Wall Street market analyst writing an end-of-day market wrap in Hebrew for
-{d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE. Explain WHY things happened, not just what.
+{target_visible_date} (יום {d['title_day_name']}). PAST TENSE. Explain WHY things happened, not just what.
 7-12 bullets ordered by market impact: index performance (%, point levels, context), macro data with FULL numbers
 and market reaction, key market-moving events with cause-and-effect, commodities/currencies/VIX with %,
 notable stock moves with the reason ($TICKER +/- %), sector rotation (ONLY from the Finnhub sector data).
 If two bullets describe causally linked events, merge them into one bullet that explains the link."""
     return f"""You are a senior Wall Street strategist writing a weekly review in Hebrew for the trading week
-{d['week_range']}. PAST TENSE. ONLY events and moves from THIS specific week.
+{israel_week_range_label(d['week_range'])}. PAST TENSE. ONLY events and moves from THIS specific week.
 Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse
 Friday's daily change with the weekly change. 8-14 bullets: weekly index performance with leading/lagging sectors,
 all macro data of the week with FULL numbers, key market-moving events with the transmission mechanism,
@@ -618,7 +651,9 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
 - EXACTLY 1 section. Heading EXACTLY "{first_heading}". Title EXACTLY as given above.
 - content = one string, bullets separated by \\n, each bullet starts with "* ".
 - No "שורה תחתונה"/summary section — merge any concluding insight as a regular bullet.
-- No **, no ##, no HTML, no URLs inside content.""",
+- No **, no ##, no HTML, no URLs inside content.
+- The visible title may contain Israeli date format. The JSON date field may remain ISO for the site logic, but do not copy ISO dates into content.
+- If you write any bullet about a stock, start it naturally, for example: "* מניית אמזון (AMZN): ..." not "* $AMZN: ...".""",
         "",
         get_time_conversion_block(now_il),
     ]
