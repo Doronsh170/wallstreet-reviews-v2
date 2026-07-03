@@ -1,6 +1,6 @@
 {
   "mode": "daily_prep",
-  "generated_at": "2026-07-03T17:07:07.942009+03:00",
+  "generated_at": "2026-07-03T20:20:57.484630+03:00",
   "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
   "first_heading": "נקודות מרכזיות",
   "review_date": "2026-07-06",
@@ -30,65 +30,65 @@
     "VIXY": -1.3011
   },
   "ticker_quotes": {
-    "TSLA": {
-      "price": 393.49,
-      "pct": -7.4794,
-      "prev_close": 425.3
-    },
     "META": {
       "price": 582.94,
       "pct": -4.8898,
       "prev_close": 612.91
     },
-    "MU": {
-      "price": 975.6,
-      "pct": -5.4908,
-      "prev_close": 1032.28
+    "TSLA": {
+      "price": 393.49,
+      "pct": -7.4794,
+      "prev_close": 425.3
     },
     "NVDA": {
       "price": 194.86,
       "pct": -1.3767,
       "prev_close": 197.58
     },
+    "MU": {
+      "price": 975.6,
+      "pct": -5.4908,
+      "prev_close": 1032.28
+    },
     "SNDK": {
       "price": 1745.04,
       "pct": -14.1313,
       "prev_close": 2032.22
-    },
-    "SPCX": {
-      "price": 162.03,
-      "pct": 2.8501,
-      "prev_close": 157.54
-    },
-    "RIVN": {
-      "price": 18.65,
-      "pct": 8.5565,
-      "prev_close": 17.18
-    },
-    "MSTR": {
-      "price": 100.8,
-      "pct": 7.9345,
-      "prev_close": 93.39
-    },
-    "CCXI": {
-      "price": 19.12,
-      "pct": 12.075,
-      "prev_close": 17.06
-    },
-    "ORCL": {
-      "price": 140.3,
-      "pct": -1.5439,
-      "prev_close": 142.5
     },
     "PLTR": {
       "price": 129.33,
       "pct": 2.8633,
       "prev_close": 125.73
     },
-    "HTZ": {
-      "price": 2.14,
-      "pct": -2.7273,
-      "prev_close": 2.2
+    "INTC": {
+      "price": 120.38,
+      "pct": -5.2275,
+      "prev_close": 127.02
+    },
+    "MSFT": {
+      "price": 390.53,
+      "pct": 1.6264,
+      "prev_close": 384.28
+    },
+    "SPCX": {
+      "price": 162.03,
+      "pct": 2.8501,
+      "prev_close": 157.54
+    },
+    "AMD": {
+      "price": 517.86,
+      "pct": -4.256,
+      "prev_close": 540.88
+    },
+    "AVGO": {
+      "price": 360.49,
+      "pct": -2.3962,
+      "prev_close": 369.34
+    },
+    "GOOGL": {
+      "price": 359.95,
+      "pct": -0.3488,
+      "prev_close": 361.21
     }
   }
 }

@@ -93,18 +93,18 @@ DAILY PERFORMANCE:
   VIX Volatility (VIXY ETF): $21.24 (daily: -1.30%), prev close: $21.52
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $TSLA: $393.49 (daily: -7.48%), prev close: $425.30
   $META: $582.94 (daily: -4.89%), prev close: $612.91
-  $MU: $975.60 (daily: -5.49%), prev close: $1032.28
+  $TSLA: $393.49 (daily: -7.48%), prev close: $425.30
   $NVDA: $194.86 (daily: -1.38%), prev close: $197.58
+  $MU: $975.60 (daily: -5.49%), prev close: $1032.28
   $SNDK: $1745.04 (daily: -14.13%), prev close: $2032.22
-  $SPCX: $162.03 (daily: +2.85%), prev close: $157.54
-  $RIVN: $18.65 (daily: +8.56%), prev close: $17.18
-  $MSTR: $100.80 (daily: +7.93%), prev close: $93.39
-  $CCXI: $19.12 (daily: +12.07%), prev close: $17.06
-  $ORCL: $140.30 (daily: -1.54%), prev close: $142.50
   $PLTR: $129.33 (daily: +2.86%), prev close: $125.73
-  $HTZ: $2.14 (daily: -2.73%), prev close: $2.20
+  $INTC: $120.38 (daily: -5.23%), prev close: $127.02
+  $MSFT: $390.53 (daily: +1.63%), prev close: $384.28
+  $SPCX: $162.03 (daily: +2.85%), prev close: $157.54
+  $AMD: $517.86 (daily: -4.26%), prev close: $540.88
+  $AVGO: $360.49 (daily: -2.40%), prev close: $369.34
+  $GOOGL: $359.95 (daily: -0.35%), prev close: $361.21
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): עולה (USO: +0.72%, BNO: +0.69%)
@@ -149,33 +149,39 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 
 @wallstengine [Thu Jul 02 18:56:37 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that AI agent development over the last four months has not “accelerated in the way we expected.” - Reuters https://t.co/tT20xKh2bm
 
-@KobeissiLetter [Thu Jul 02 13:35:17 +0000 2026]: BREAKING: President Trump says Micron stock, $MU, went up “9 points” after the company announced a $250 million contribution to Trump Accounts. https://t.co/444Y3BIl9T
-
 @gurgavin [Wed Jul 01 18:02:23 +0000 2026]: SPACEX HAS BEEN SHOWING OFF A PROTOTYPE OF A NEW “AI DEVICE” WHICH IS SIMILAR THAN AS IPHONE PER WSJ THE DEVICE RUNS ON CUSTOM SOFTWARE AND USED XAI’S TECH $SPCX
 
-@StockMKTNewz [Fri Jul 03 00:07:45 +0000 2026]: Cathie Wood and Ark Invest bought 96,935 shares of Tesla $TSLA today https://t.co/iUfRbH6TQ5
-
-@StockMKTNewz [Thu Jul 02 20:10:05 +0000 2026]: Meta Platforms $META CEO Mark Zuckerberg reportedly told employees at an internal town hall meeting that HE EXPECTS META TO FEEL MORE OF THE BENEFITS FROM ITS AI INVESTMENT IN THE NEXT 3-6 MONTHS https://t.co/e2o9qInLmL
+@StockMKTNewz [Fri Jul 03 15:38:27 +0000 2026]: Palantir $PLTR CEO Alex Karp said that some 🇺🇸 government customers have switched from proprietary AI models to Nvidia’s $NVDA open-source Nemotron models - The Information https://t.co/D3chr9tdsv
 
 @wallstengine [Thu Jul 02 20:07:36 +0000 2026]: $META CEO MARK ZUCKERBERG SAYS IN INTERNAL TOWN HALL HE EXPECTS COMPANY TO FEEL MORE BENEFITS OF AI INVESTMENT IN NEXT 3-6 MONTHS
 
 @gurgavin [Thu Jul 02 18:04:16 +0000 2026]: AN AUTOGRAPHED JACKET OF NVIDIA CEO JENSEN HUANG IS UP FOR AUCTION ON SOTHEBYS IT'S SIGNED BY HIM AND HE ACTUALLY WORE THIS EXACT JACKET IN THE PAST IT'S ESTIMATED TO SELL FOR $40,000–$60,000 $NVDA https://t.co/jedGiznXYO
 
+@KobeissiLetter [Fri Jul 03 16:23:00 +0000 2026]: BREAKING: Since the start of 2025, US jobs numbers have now been revised down in 14 out of 17 months by a total of -710,000 jobs. May and April jobs numbers were revised down by a total of -74,000, the largest 2-month downward revision since December. April jobs were revised down by -31,000, to +148,000, while May jobs were revised down by -43,000, to +129,000. This means -41,765 jobs have been revised out of previously reported data, on average, in each month of this period. If we apply this average to the +57,000 June nonfarm payrolls, it would imply just ~15,000 jobs were added last month. Job market revisions are concerning.
+
 @KobeissiLetter [Thu Jul 02 22:00:02 +0000 2026]: Levered ETFs have become one of the most powerful forces in US equity markets: Daily rebalancing activity in US equity leveraged ETFs is up to a record $50 billion. Leveraged ETFs must rebalance daily to stay at their target leverage, adding more exposure after markets rise and reducing it after markets fall. This figure has more than QUADRUPLED since the start of 2026. Rebalancing activity now accounts for a record 1.60% of S&P 500 futures volume, exceeding the 2020-2024 peaks by 200%. To put it simply, leveraged ETFs have grown large enough that their daily rebalancing can now amplify market moves in both directions. Leveraged ETFs are amplifying market volatility like never before.
+
+@wallstengine [Thu Jul 02 19:17:29 +0000 2026]: $META’s Zuckerberg reportedly told employees in an internal town hall that the bets behind the company’s reorganization “haven’t come to fruition yet.” He still believes long-term trends remain aligned with the basic shape of the reorg.
+
+@StockMKTNewz [Fri Jul 03 16:06:30 +0000 2026]: Tesla $TSLA just said its Robotaxi service is now available in Miami https://t.co/BWJPgQ2raa
+
+@AIStockSavvy [Fri Jul 03 14:48:48 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $META Meta Is Reportedly Considering a Partnership With Samsung to Produce a ₩100 Trillion Custom AI Chip. - $GOOGL $AVGO $NVDA $AMD $INTC Meta is considering a collaboration with Samsung Electronics to produce a custom artificial intelligence chip worth about 100 trillion South Korean won. If the collaboration is successful, it will become one of Samsung's important AI orders for its semiconductor foundry business. The two parties have not officially announced the collaboration yet.
+
+@AIStockSavvy [Fri Jul 03 14:17:57 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: Kioxia, $SNDK Sandisk Begin Production of 10th-Gen 3D NAND Flash at K2 Fab 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐊𝐢𝐨𝐱𝐢𝐚 and 𝐒𝐚𝐧𝐝𝐢𝐬𝐤 began production of 𝐭𝐡-𝐠𝐞𝐧 𝟑𝐃 𝐍𝐀𝐍𝐃 at Japan's K2 Fab. ➤ K2 previously produced 𝐞𝐢𝐠𝐡𝐭𝐡-𝐠𝐞𝐧 𝟑𝐃 𝐍𝐀𝐍𝐃 and will now scale 10th-gen output. ➤ Both generations use 𝐂𝐁𝐀 technology for higher performance, capacity, and lower power. ➤ K2 features 𝐞𝐚𝐫𝐭𝐡𝐪𝐮𝐚𝐤𝐞-𝐫𝐞𝐬𝐢𝐬𝐭𝐚𝐧𝐭 design, AI-driven production, and energy-efficient equipment. ➤ Companies extended their 𝐣𝐨𝐢𝐧𝐭 𝐯𝐞𝐧𝐭𝐮𝐫𝐞 through 𝐃𝐞𝐜𝐞𝐦𝐛𝐞𝐫 𝟐𝟎𝟑𝟒. ➤ Continued investments aim to support 𝐦𝐮𝐥𝐭𝐢-𝐲𝐞𝐚𝐫 NAND bit growth and manufacturing expansion. ➤ Partnership has collaborated on 𝐍𝐀𝐍𝐃 𝐟𝐥𝐚𝐬𝐡 innovation for more than 𝟐𝟓 years. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Expands manufacturing capacity to meet rising 𝐀𝐈 and data storage demand. ➤ Strengthens long-term 𝐍𝐀𝐍𝐃 𝐟𝐥𝐚𝐬𝐡 supply and technology leadership. ➤ Reinforces the strategic 𝐔.𝐒.-𝐉𝐚𝐩𝐚𝐧 semiconductor manufacturing partnership. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "We are pleased to begin production of our advanced 10th-generation flash memory here in Kitakami. The eighth and further generation flash memory products produced at the Fab2 will deliver new value to the rapidly growing AI market. Leveraging the partnership and scale advantages, Kioxia will continue to manufacture leading-edge flash memory products and achieve sustainable corporate growth. Kioxia will continue to contribute to the advancement of the semiconductor industry and the development of local and domestic economies." — 𝐊𝐨𝐢𝐜𝐡𝐢𝐫𝐨 𝐒𝐡𝐢𝐛𝐚𝐲𝐚𝐦𝐚, President and CEO of Kioxia Iwate Corporation. ➤ "Beginning production of our 10th-generation 3D flash memory at our Kitakami facility marks an important milestone for the two companies as demand for high-performance flash technologies continues to increase. Through our K2 facility we will continue to support our customers with the world's leading NAND technology, while providing new economic opportunities for the communities we operate in and serving as an example of strong U.S.-Japan economic relations." — 𝐀𝐥𝐩𝐞𝐫 𝐈𝐥𝐤𝐛𝐚𝐡𝐚𝐫, Chief Technology Officer of Sandisk Corporation.
 
 @AIStockSavvy [Thu Jul 02 19:21:31 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $TSLA Tesla Caps Employee AI Spend At $200 A Week - Information
 
-@AIStockSavvy [Thu Jul 02 17:36:55 +0000 2026]: $RIVN | Canaccord reiterates 𝐁𝐮𝐲 on 𝐑𝐢𝐯𝐢𝐚𝐧, maintains 𝐏𝐓 𝐚𝐭 $𝟐𝟐 Analyst sees a unique opportunity for Rivian to become the #2 EV alternative to Tesla in the US as other OEMs retreat from EV commitments. https://t.co/9DwLSWnAUp
+@StockMKTNewz [Fri Jul 03 15:11:13 +0000 2026]: Here is Microsoft's $MSFT market cap every July since going public 1986: $790 MILLION 1987: $2.7 BILLION 1988: $3.5B 1989: $3B 1990: $8B 1991: $11B 1992: $19B 1993: $25B 1994: $28B 1995: $55B 1996: $70B 1997: $160B 1998: $270B 1999: $470B 2000: $420B - Steve Ballmer replaces Bill Gates as CEO 2001: $380B 2002: $290B 2003: $280B 2004: $310B 2005: $265B 2006: $235B 2007: $280B 2008: $240B 2009: $210B 2010: $200B 2011: $220B 2012: $255B 2013: $280B 2014: $345B - Satya Nadella replaces Steve Ballmer as CEO 2015: $355B 2016: $400B 2017: $530B 2018: $765B 2019: $1 TRILLION 2020: $1.5T 2021: $2T 2022: $1.9T 2023: $2.5T 2024: $3.4T 2025: $3.8T 2026: $2.9T
 
 @StockMKTNewz [Fri Jul 03 11:40:34 +0000 2026]: Michael Burry is now reportedly short Micron $MU stock - MarketWatch https://t.co/pKrkOSp87L
+
+@KobeissiLetter [Fri Jul 03 14:05:24 +0000 2026]: What is happening with the US labor market? The difference between nonfarm payrolls and the household survey was a massive 564,000 jobs in June. This comes as Thursday’s job report showed +57,000 non-farm payrolls were added last month. At the same time, -507,000 Americans lost their job, the 3rd-largest drop since January 2024, according to the household survey. The household survey is a closely followed metric because it counts each worker only once, even if they hold multiple jobs. Year-to-date, total employment in the household survey has declined -1.7 million, to 162.26 million, the lowest since December 2024. Over the same period, total nonfarm employment has risen +552,000, to a record 158.98 million. Something does not add up here.
 
 @KobeissiLetter [Thu Jul 02 17:11:59 +0000 2026]: BREAKING: The Strategic Petroleum Reserve (SPR) fell -5.5 million barrels last week, to 326 million barrels, the lowest since May 1983. This marks the 13th consecutive weekly decline, the longest streak since the 2021-2023 period, per Zerohedge. Over this time period, US oil reserves in the SPR have fallen -89 million barrels. This represents 51.7% of the planned 172 million barrels to be released under a relief program coordinated by the IEA to lower energy costs. By comparison, the US added +69 million barrels of oil to the SPR between July 2023 and March 2026. US oil reserves are being depleted at a historic pace.
 
 @KobeissiLetter [Thu Jul 02 16:15:56 +0000 2026]: Retail dip-buying is reaching historic extremes: Average daily equity purchases by retail investors during S&P 500 down days are running at nearly 3.5 times the daily average seen since 2020, the highest on record. This is +56% higher than during the meme stock mania in 2021. Year-to-date, retail purchases on down days are 2.3 times larger than on up days. Even during S&P 500 up days, retail investors purchased nearly 1.5 times the daily average seen since 2020, so far this year, and double the figure posted in 2025. Individual investors have consistently purchased more equities on down days than on up days in each of the last 7 years. Retail investors are eager to buy dips.
 
 @KobeissiLetter [Thu Jul 02 14:51:00 +0000 2026]: History points to a strong July for US stocks: Since 2005, the S&P 500 has recorded an average gain of +2.5% in July, more than 4 times the average increase seen in the other 11 months of the year. The index has not declined in July for 11 consecutive years, the longest positive streak of any month over this period. Meanwhile, the S&P 500 has posted 24 all-time highs so far in 2026. This ranks among the top 20 strongest starts to a year for the index since World War II.. Historically, when the index has seen such a streak, it has rallied another +6% over the following 6 months, on average. Seasonal patterns suggest continued bullish momentum this month.
-
-@KobeissiLetter [Thu Jul 02 13:47:10 +0000 2026]: US-hiring plans remain historically depressed: US-based employers announced plans to add 10,933 jobs in June, marking a -44% decline from 19,536 in May. Year-to-date, US hiring plans rose +10% YoY, to 91,405 workers. This comes as technology sector hiring plans surged +167% YoY, to 14,761 workers. However, excluding technology, hiring plans are down -1% YoY, to 76,644 workers. The decline has been driven by entertainment and leisure hiring plans, which are down -57% YoY to 12,096 workers so far in 2026. This also follows 5 consecutive years of declining hiring intentions, which fell -84% since 2020, to 508,000 for the full year 2025. Hiring continues to weaken beneath the surface.
 
 @gurgavin [Thu Jul 02 04:05:46 +0000 2026]: JUST IN : OPEN AI TO HANDOVER 5% OF IT’S ENTIRE COMPANY TO THE US GOVT PER FT
 
@@ -185,17 +191,17 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 
 @wallstengine [Thu Jul 02 19:38:45 +0000 2026]: BlueCrest Capital Management and Michael Platt reported beneficial ownership of 2,354,233 Class A shares of $CCXI Churchill Capital Corp XI, equal to 5.6%. https://t.co/EYRuQhlutE
 
+@wallstengine [Thu Jul 02 19:04:19 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that the company’s 2026 reorganization “wasn’t as clean as it could have been.”
+
+@StockMKTNewz [Fri Jul 03 16:14:26 +0000 2026]: Tesla $TSLA posted this earlier in the week: “Engineering tests of the first production Cybercab have begun in Austin” https://t.co/iYPkaKMMIM
+
+@AIStockSavvy [Fri Jul 03 14:33:24 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: Report Says $BABA Alibaba Bans Claude Code Over Security Concerns 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐀𝐥𝐢𝐛𝐚𝐛𝐚 reportedly banned employees from using 𝐂𝐥𝐚𝐮𝐝𝐞 𝐂𝐨𝐝𝐞 for work. ➤ Internal notice reportedly labels Claude Code as 𝐡𝐢𝐠𝐡-𝐫𝐢𝐬𝐤 software with security vulnerabilities. ➤ Workplace ban is scheduled to take effect on 𝐉𝐮𝐥𝐲 𝟏𝟎. ➤ Report cites concerns over hidden code allegedly tracking 𝐂𝐡𝐢𝐧𝐞𝐬𝐞 users. ➤ Anthropic engineer said the tracking mechanism was an 𝐞𝐱𝐩𝐞𝐫𝐢𝐦𝐞𝐧𝐭 introduced in March. ➤ Anthropic said the feature targeted 𝐚𝐜𝐜𝐨𝐮𝐧𝐭 𝐚𝐛𝐮𝐬𝐞 and model distillation concerns. ➤ The company said the tracking system would be 𝐫𝐨𝐥𝐥𝐞𝐝 𝐛𝐚𝐜𝐤. ➤ Alibaba reportedly recommended employees use its 𝐐𝐨𝐝𝐞𝐫 coding platform instead. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Highlights growing 𝐔.𝐒.-𝐂𝐡𝐢𝐧𝐚 AI security and technology tensions. ➤ May accelerate adoption of 𝐝𝐨𝐦𝐞𝐬𝐭𝐢𝐜 AI development tools in China. ➤ Underscores increasing focus on 𝐞𝐧𝐭𝐞𝐫𝐩𝐫𝐢𝐬𝐞 AI security and data governance. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "It was an experiment... designed to prevent account abuse from unauthorised resellers and protect against distillation." — 𝐓𝐡𝐚𝐫𝐢𝐪 𝐒𝐡𝐢𝐡𝐢𝐩𝐚𝐫, Anthropic Engineer. ➤ "If a US AI coding tool can detect Chinese usage or proxy access, then it's not surprising for major Chinese tech companies to not want employees using it internally." — 𝐋𝐢𝐳𝐳𝐢 𝐋𝐞𝐞, Fellow at the Asia Society Policy Institute's Centre for China Analysis.
+
 @AIStockSavvy [Thu Jul 02 23:58:18 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: Data center startup Crusoe in talks to raise $3 bln; valuation could double to $30 bln - $META $ORCL Crusoe, a data-center startup supplying AI compute to Meta Platforms and Oracle, is in talks to raise roughly $3 bln, people familiar with the matter said, a deal that could roughly double its valuation to about $30 bln. The company is still negotiating the round and no final valuation has been set; investors expect a post-money valuation near $30 bln including the new capital. Crusoe was valued at about $10 bln in October last year.
 
 @AIStockSavvy [Thu Jul 02 19:52:37 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $PLTR Palantir CEO said some U.S. government clients have shifted to open-source AI. - The Information
 
 @AIStockSavvy [Thu Jul 02 19:09:25 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $META Meta CEO Mark Zuckerberg Says In Internal Town Hall That Ai Agent Development Over The Last Four Months Hasn't 'accelerated In The Way We Expected' - Reuters
-
-@AIStockSavvy [Thu Jul 02 17:37:31 +0000 2026]: $TSLA | Truist Securities 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 on 𝐓𝐞𝐬𝐥𝐚 to $𝟒𝟑𝟎 from $𝟒𝟎𝟎, maintains 𝐇𝐨𝐥𝐝 https://t.co/BNs7VbHHBG
-
-@AIStockSavvy [Thu Jul 02 17:35:33 +0000 2026]: $TSLA | Freedom Broker reiterates 𝐇𝐨𝐥𝐝 on 𝐓𝐞𝐬𝐥𝐚, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟒𝟐𝟎 𝐟𝐫𝐨𝐦 $𝟒𝟎𝟎 Analyst raises PT on strong Q2 deliveries that beat expectations, but maintains a Hold rating. https://t.co/rcWFRmAlT1
-
-@wallstengine [Thu Jul 02 19:17:29 +0000 2026]: $META’s Zuckerberg reportedly told employees in an internal town hall that the bets behind the company’s reorganization “haven’t come to fruition yet.” He still believes long-term trends remain aligned with the basic shape of the reorg.
 
 @KobeissiLetter [Thu Jul 02 20:05:00 +0000 2026]: BREAKING: The Dow surges nearly +600 points and closes at its highest level on record. https://t.co/YYa1kGCaYD
 
@@ -203,20 +209,14 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 
 @gurgavin [Tue Jun 30 20:52:21 +0000 2026]: JUST IN: TRUMP MADE $635 MILLION DOLLARS IN ROYALTIES LINKED TO HIS MEME COIN https://t.co/X3oXvQ7wPc
 
+@AIStockSavvy [Fri Jul 03 14:28:57 +0000 2026]: 🏆 TOP 10 WEEKLY ANALYST RATINGS: $MU $FCEL $INTC $BE $ALAB $SNDK $AMAT $ABSI $MRVL $HIMS https://t.co/Icw8ePDvvr
+
 @AIStockSavvy [Thu Jul 02 20:20:17 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Jane Street Group Discloses Passive Stake of 5% in $HTZ Hertz Global as of June 26 - Filing
 
 @AIStockSavvy [Thu Jul 02 17:40:09 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $MSFT Microsoft is planning to merge its consumer and enterprise Copilot chatbots in August - The Information
 
-@AIStockSavvy [Thu Jul 02 17:35:04 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $AMZN Amazon to Begin Internet Service This Year After Latest Launch - Bloomberg
-
-@wallstengine [Thu Jul 02 19:04:19 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that the company’s 2026 reorganization “wasn’t as clean as it could have been.”
-
-@StockMKTNewz [Thu Jul 02 22:07:49 +0000 2026]: 🇺🇸 President Trump just said he - Didn't know about his Crypto Earnings, that his kids run his business, and he is "not involved"
-
-@StockMKTNewz [Thu Jul 02 21:58:47 +0000 2026]: 🇺🇸 PRESIDENT TRUMP JUST SAID - I THINK AI IS BIGGER THAN THE INTERNET
-
-@KobeissiLetter [Fri Jul 03 14:05:24 +0000 2026]: What is happening with the US labor market? The difference between nonfarm payrolls and the household survey was a massive 564,000 jobs in June. This comes as Thursday’s job report showed +57,000 non-farm payrolls were added last month. At the same time, -507,000 Americans lost their job, the 3rd-largest drop since January 2024, according to the household survey. The household survey is a closely followed metric because it counts each worker only once, even if they hold multiple jobs. Year-to-date, total employment in the household survey has declined -1.7 million, to 162.26 million, the lowest since December 2024. Over the same period, total nonfarm employment has risen +552,000, to a record 158.98 million. Something does not add up here.
-
 @StockMKTNewz [Fri Jul 03 12:03:28 +0000 2026]: SK HYNIX MADE MORE PROFIT IN Q1 OF THIS YEAR THAN REVENUE IT BROUGHT IN ALL OF 2023 Here is what SK Hynix's numbers have looked like over the last couple of years - 2023: Revenue $21.24B, Profit/(loss) -$5.92B - 2024: Revenue $42.91B, Profit $12.83B - 2025: Revenue $62.98B, Profit $27.84B - Q1 2026: Revenue $34.08B, Profit $26.15B SK Hynix is on pace to bring in more than $100 Billion of PROFIT in 2026 which would be almost 4x more than 2025 SK Hynix will be listing its shares on the Nasdaq next week Shoutout to my partners over at Leverage Shares for making the graphic
+
+@KobeissiLetter [Fri Jul 03 15:14:00 +0000 2026]: Foreign investors are piling into US equities at a record pace: Cumulative year-to-date inflows from global investment funds into US equities are up to ~2.5% of their total assets under management. This percentage has more than DOUBLED since May alone. This is also significantly above the 2002-2025 average of -0.3% in outflows for this point in the year. By comparison, excluding the top 10% with the largest inflows and the bottom 10% with the largest outflows of the 2002-2025 period, global fund inflows averaged just ~1.5% by this point in the year. The YTD pace has already exceeded the full-year total recorded in the middle 50% of years since 2002. Current demand for US equities is unprecedented.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
