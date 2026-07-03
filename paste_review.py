@@ -6,8 +6,7 @@ NO language-model API is used. Everything here is deterministic:
     and surrounding text),
   - forces the exact title, date, one section, exact heading, "* " bullets,
   - runs the anti-hallucination guards against the Finnhub snapshot taken at
-    gather time: asset direction guard (auto-fix), and a per-ticker sign-flip
-    guard — a material sign-flip FAILS the publish and data.json is not touched,
+    gather time (asset direction guard, per-ticker sign-flip guard),
   - fixes known recurring errors (tense before market open, political titles,
     IPO/ETF confusion), strips URLs, removes duplicate bullets,
   - writes the result into data.json under the right key for the website.
@@ -38,6 +37,23 @@ DATA_JSON_KEY = {
     "daily_prep": "dailyPrep",
     "daily_summary": "dailySummary",
     "weekly_summary": "weeklySummary",
+}
+
+
+COMPANY_NAME_MAP = {
+    "AAPL": "אפל", "MSFT": "מיקרוסופט", "AMZN": "אמזון", "GOOGL": "אלפבית", "GOOG": "אלפבית",
+    "META": "מטא", "TSLA": "טסלה", "NVDA": "אנבידיה", "AMD": "AMD", "INTC": "אינטל",
+    "MU": "מיקרון", "ASML": "ASML", "AMAT": "אפלייד מטיריאלס", "LRCX": "Lam Research",
+    "KLAC": "KLA", "ADBE": "אדובי", "NOW": "ServiceNow", "CRM": "סיילספורס",
+    "HOOD": "רובינהוד", "SOFI": "SoFi", "COIN": "Coinbase", "MSTR": "Strategy",
+    "PENG": "Penguin Solutions", "DAL": "דלתא איירליינס", "ROKU": "Roku", "FOX": "Fox",
+    "WIX": "Wix", "AVNW": "Aviat Networks", "PLTR": "Palantir", "SMCI": "Super Micro",
+    "SPY": "SPY", "QQQ": "QQQ", "DIA": "DIA", "IWM": "IWM",
+}
+
+ETF_PROXY_SYMBOLS = {
+    "USO", "BNO", "GLD", "SLV", "IBIT", "TLT", "UUP", "VIXY",
+    "SPY", "QQQ", "DIA", "IWM", "XLE", "XLK", "XLF", "XLY", "XLV", "XLI", "XLP", "XLU",
 }
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
@@ -232,6 +248,76 @@ def fix_numeric_spacing(text: str) -> str:
     return text
 
 
+
+def format_iso_date_he(match: re.Match) -> str:
+    """Convert visible YYYY-MM-DD dates into D.M.YYYY for Hebrew output."""
+    try:
+        y, m, d = int(match.group(1)), int(match.group(2)), int(match.group(3))
+        return f"{d}.{m}.{y}"
+    except Exception:
+        return match.group(0)
+
+
+def remove_future_actual_noise(text: str) -> str:
+    patterns = [
+        r'[,،]?\s*נתון בפועל עדיין לא קיים[,،]?',
+        r'[,،]?\s*הנתון בפועל עדיין לא קיים[,،]?',
+        r'[,،]?\s*actual value does not exist[,،]?',
+        r'[,،]?\s*actual is not available yet[,،]?',
+        r'[,،]?\s*אין עדיין נתון בפועל[,،]?',
+    ]
+    for p in patterns:
+        text = re.sub(p, '', text, flags=re.I)
+    return text
+
+
+def ticker_display(ticker: str) -> str:
+    name = COMPANY_NAME_MAP.get(ticker, ticker)
+    if name == ticker:
+        return f"מניית {ticker} ({ticker})"
+    return f"מניית {name} ({ticker})"
+
+
+def normalize_ticker_formatting(text: str) -> str:
+    # Bullet starts: "* $TSLA:" → "* מניית טסלה (TSLA):"
+    def repl_bullet(m: re.Match) -> str:
+        prefix, ticker = m.group(1), m.group(2)
+        return f"{prefix}{ticker_display(ticker)}:"
+
+    text = re.sub(r'(^|\n)(\s*\*\s*)\$([A-Z]{1,6})\s*:',
+                  lambda m: f"{m.group(1)}{m.group(2)}{ticker_display(m.group(3))}:", text)
+    text = re.sub(r'(^|\n)(\s*)\$([A-Z]{1,6})\s*:',
+                  lambda m: f"{m.group(1)}{m.group(2)}{ticker_display(m.group(3))}:", text)
+    # Text starts after label: "$AMZN צפויה" → "מניית אמזון (AMZN) צפויה" when at sentence start.
+    text = re.sub(r'(?:(?<=^)|(?<=[\n\.\!\?]\s))\$([A-Z]{1,6})\b',
+                  lambda m: ticker_display(m.group(1)), text)
+    # Everywhere else remove the dollar sign but keep ticker parentheses style when natural.
+    text = re.sub(r'\$([A-Z]{1,6})\b', r'(\1)', text)
+    return text
+
+
+def normalize_hebrew_style(text: str) -> str:
+    text = text.replace(';', ',')
+    text = re.sub(r'\b(20\d{2})-(\d{2})-(\d{2})\b', format_iso_date_he, text)
+    text = remove_future_actual_noise(text)
+    text = normalize_ticker_formatting(text)
+    text = text.replace('תנודתיותת', 'תנודתיות')
+    text = text.replace('נעים בתנודתיותת', 'נעים בתנודתיות')
+    text = text.replace('תנודתיות נעים', 'התנודתיות נעה')
+    text = re.sub(r'\s+([,\.])', r'\1', text)
+    text = re.sub(r'([,\.]){2,}', r'\1', text)
+    text = re.sub(r'\s{2,}', ' ', text)
+    return text.strip()
+
+
+def visible_data_source_leaks(blob: str) -> List[str]:
+    hits: List[str] = []
+    if re.search(r'Finnhub|פינהאב|האינדיקציה\s+מ', blob, flags=re.I):
+        hits.append('אזכור גלוי של Finnhub או מקור אימות טכני')
+    if re.search(r'דרך\s+(?:' + '|'.join(sorted(ETF_PROXY_SYMBOLS)) + r')\b', blob):
+        hits.append('ניסוח ETF proxy גלוי כמו "דרך USO"')
+    return hits
+
 def apply_text_fixes(result: Dict[str, Any]) -> Dict[str, Any]:
     def fix(text: str) -> str:
         for pattern, replacement, desc in TEXT_FIXES:
@@ -239,7 +325,9 @@ def apply_text_fixes(result: Dict[str, Any]) -> Dict[str, Any]:
             if new_text != text:
                 print(f"  ✅ Auto-fixed: {desc}")
                 text = new_text
-        return fix_numeric_spacing(text)
+        text = fix_numeric_spacing(text)
+        text = normalize_hebrew_style(text)
+        return text
     return apply_to_result_texts(result, fix)
 
 
@@ -316,21 +404,17 @@ def apply_market_direction_guard(result: Dict[str, Any], pcts: Dict[str, float])
     return result
 
 
-def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict[str, float]],
-                           threshold: float = 0.3) -> None:
-    """Per-bullet sign-flip check against the gather-time snapshot.
-    A HIGH-severity contradiction (bullet says up, verified quote says down, or
-    vice versa) FAILS the publish — data.json is not touched. A claim against a
-    ~flat quote is only a warning (usually a real pre/after-market move)."""
+def ticker_direction_warnings(result: Dict[str, Any], ticker_quotes: Dict[str, Dict[str, float]],
+                              threshold: float = 0.3) -> List[str]:
+    """Per-bullet sign-flip check against the gather-time snapshot. Returns human-readable
+    warnings. Material sign-flips now stop publishing before data.json is changed."""
+    warnings: List[str] = []
     if not ticker_quotes:
-        return
-    hard: List[str] = []
-    soft: List[str] = []
-    heb = {"up": "עלייה", "down": "ירידה"}
+        return warnings
     content = result["sections"][0].get("content", "")
     for bullet in (l for l in str(content).split("\n") if l.strip()):
         for ticker, q in ticker_quotes.items():
-            if not re.search(rf'\${re.escape(ticker)}\b', bullet):
+            if not re.search(rf'(?:\${re.escape(ticker)}\b|\({re.escape(ticker)}\))', bullet):
                 continue
             has_up = any(re.search(rf'(?<!\w){re.escape(t)}(?!\w)', bullet) for t in TICKER_UP_TOKENS)
             has_down = any(re.search(rf'(?<!\w){re.escape(t)}(?!\w)', bullet) for t in TICKER_DOWN_TOKENS)
@@ -339,24 +423,12 @@ def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict
                 continue
             pct = float(q["pct"])
             actual = "flat" if abs(pct) < threshold else ("up" if pct > 0 else "down")
-            if claimed == actual:
-                continue
-            msg = (f"${ticker}: הבולט טוען {heb[claimed]} אבל הנתון המאומת בזמן האיסוף היה {pct:+.2f}%."
-                   f"\n     הבולט: {bullet.strip()[:200]}")
-            if actual == "flat":
-                soft.append(msg)
-            else:
-                hard.append(msg)
-    for w in soft:
-        print(f"  ⚠️  אזהרה (ציטוט כמעט ללא שינוי — ייתכן מהלך פרה/אפטר-מרקט): {w}")
-    if hard:
-        details = "\n  ".join(hard)
-        raise ValueError(
-            f"הפרסום נכשל: {len(hard)} סתירות כיוון מהותיות (sign-flip) במניות:\n  {details}\n"
-            f"מה לעשות: חזור לצ'אט, הצג לו את הבולטים האלה ואת האחוז המאומת, "
-            f"ובקש לתקן את הכיוון והאחוז או להסיר את הבולט. אז הדבק שוב ל-review_output.json."
-        )
-    print("  ✅ אין סתירות כיוון מהותיות במניות שנבדקו")
+            if claimed != actual and actual != "flat":
+                warnings.append(
+                    f"${ticker}: הבולט טוען {claimed} אבל הנתון המאומת בזמן האיסוף היה {pct:+.2f}% ({actual}).\n"
+                    f"   הבולט: {bullet.strip()[:200]}"
+                )
+    return warnings
 
 
 # ══════════════════════════════════════════════════════════════
@@ -430,6 +502,23 @@ def hard_content_validation(result: Dict[str, Any]) -> None:
         raise ValueError(f"הסקירה מכילה ביטויים אסורים: {hits}. בקש מהצ'אט לשכתב בלי להזכיר ציוצים/פוסטים ובלי Markdown.")
     if not re.search(r"[א-ת]", blob):
         raise ValueError("הסקירה לא בעברית. בקש מהצ'אט לכתוב את הסקירה בעברית בלבד.")
+    if ';' in blob:
+        raise ValueError("הסקירה מכילה נקודה-פסיק (;). בקש מהצ'אט לשכתב עם פסיקים או נקודות בלבד.")
+    if re.search(r'\b20\d{2}-\d{2}-\d{2}\b', blob):
+        raise ValueError("הסקירה מכילה תאריכים בפורמט ISO. בקש מהצ'אט להשתמש בפורמט ישראלי כמו 6.7.2026.")
+    if re.search(r'נתון בפועל עדיין לא קיים|אין עדיין נתון בפועל|actual value does not exist', blob, flags=re.I):
+        raise ValueError("הסקירה כוללת ניסוח מיותר על נתון עתידי שלא פורסם. בקש לכתוב רק צפי וקודם, בלי 'נתון בפועל עדיין לא קיים'.")
+    source_leaks = visible_data_source_leaks(blob)
+    if source_leaks:
+        raise ValueError(
+            "הסקירה חושפת שכבת אימות טכנית במקום ניסוח אנושי: "
+            + ", ".join(source_leaks)
+            + ". בקש מהצ'אט לנסח סחורות/מטבעות בשפה אנושית, בלי Finnhub ובלי 'דרך USO'."
+        )
+    if 'תנודתיותת' in blob:
+        raise ValueError("הסקירה מכילה מילה משובשת: תנודתיותת. בקש תיקון ניסוח.")
+    if re.search(r'(^|\n)\s*\*\s*\$[A-Z]{1,6}\s*:', blob):
+        raise ValueError("יש בולט שמתחיל בסימבול גולמי כמו $TSLA:. בקש ניסוח טבעי: מניית טסלה (TSLA):")
     content = result["sections"][0].get("content", "")
     bullets = [l for l in str(content).split("\n") if l.strip().startswith("* ")]
     if len(bullets) < 5:
@@ -467,13 +556,22 @@ def main() -> None:
 
     print("── Market direction guard (vs gather-time Finnhub snapshot) ──")
     result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
+    result = apply_text_fixes(result)
 
     print("── Per-ticker direction check (vs snapshot) ──")
-    # Raises on a material sign-flip → publish fails, data.json untouched.
-    ticker_direction_check(result, snapshot.get("ticker_quotes", {}))
+    warnings = ticker_direction_warnings(result, snapshot.get("ticker_quotes", {}))
+    if warnings:
+        details = "\n".join(f"- {w}" for w in warnings)
+        raise ValueError(
+            "נמצאו סתירות כיוון מהותיות במניות מול נתוני Finnhub שנשמרו בזמן האיסוף. "
+            "הפרסום נעצר ו-data.json לא עודכן. בקש מהצ'אט לתקן את הבולטים הבאים:\n" + details
+        )
+    else:
+        print("  ✅ אין סתירות כיוון במניות שנבדקו")
 
     print("── Tense guard / links / dedupe ──")
     result = apply_pre_market_tense_guard(result, mode)
+    result = apply_text_fixes(result)
     result = strip_links_from_result(result)
     result = dedupe_exact_review_lines(result)
 
