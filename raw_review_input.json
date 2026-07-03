@@ -1,0 +1,94 @@
+{
+  "mode": "daily_prep",
+  "generated_at": "2026-07-03T11:58:38.428115+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני 2026-07-06",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-07-06",
+  "title_date_str": "2026-07-06",
+  "title_day_name": "שני",
+  "week_range": null,
+  "etf_pcts": {
+    "SPY": -0.1314,
+    "QQQ": -1.7334,
+    "DIA": 1.049,
+    "IWM": -0.5813,
+    "XLE": 0.7764,
+    "XLK": -2.7098,
+    "XLF": 1.5334,
+    "XLY": -0.8214,
+    "XLV": 2.6326,
+    "XLI": 0.3,
+    "XLP": 2.0288,
+    "XLU": 2.2113,
+    "USO": 0.6875,
+    "BNO": 0.6597,
+    "GLD": 2.0318,
+    "SLV": 2.6876,
+    "IBIT": 2.5588,
+    "TLT": -0.0117,
+    "UUP": -0.5265,
+    "VIXY": -1.3476
+  },
+  "ticker_quotes": {
+    "META": {
+      "price": 582.9,
+      "pct": -4.8963,
+      "prev_close": 612.91
+    },
+    "TSLA": {
+      "price": 393.45,
+      "pct": -7.4888,
+      "prev_close": 425.3
+    },
+    "MU": {
+      "price": 975.56,
+      "pct": -5.4946,
+      "prev_close": 1032.28
+    },
+    "SPCX": {
+      "price": 162.0,
+      "pct": 2.831,
+      "prev_close": 157.54
+    },
+    "HOOD": {
+      "price": 112.73,
+      "pct": 3.7552,
+      "prev_close": 108.65
+    },
+    "AAPL": {
+      "price": 308.63,
+      "pct": 4.8407,
+      "prev_close": 294.38
+    },
+    "AAL": {
+      "price": 17.92,
+      "pct": -1.2672,
+      "prev_close": 18.15
+    },
+    "ABBV": {
+      "price": 261.07,
+      "pct": 3.9871,
+      "prev_close": 251.06
+    },
+    "AHR": {
+      "price": 55.04,
+      "pct": 2.5909,
+      "prev_close": 53.65
+    },
+    "APGE": {
+      "price": 132.91,
+      "pct": 0.1054,
+      "prev_close": 132.77
+    },
+    "ASB": {
+      "price": 30.64,
+      "pct": -1.8578,
+      "prev_close": 31.22
+    },
+    "BCS": {
+      "price": 27.77,
+      "pct": 1.8335,
+      "prev_close": 27.27
+    }
+  }
+}
