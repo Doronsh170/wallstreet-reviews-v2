@@ -1,7 +1,7 @@
 {
   "mode": "daily_summary",
-  "generated_at": "2026-07-03T14:06:47.048026+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי 2026-07-02",
+  "generated_at": "2026-07-03T16:20:05.400437+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי, 2.7.2026",
   "first_heading": "סיכום המסחר",
   "review_date": "2026-07-02",
   "title_date_str": "2026-07-02",
@@ -30,65 +30,65 @@
     "VIXY": -1.3476
   },
   "ticker_quotes": {
-    "META": {
-      "price": 582.9,
-      "pct": -4.8963,
-      "prev_close": 612.91
-    },
     "TSLA": {
       "price": 393.45,
       "pct": -7.4888,
       "prev_close": 425.3
+    },
+    "META": {
+      "price": 582.9,
+      "pct": -4.8963,
+      "prev_close": 612.91
     },
     "MU": {
       "price": 975.56,
       "pct": -5.4946,
       "prev_close": 1032.28
     },
+    "NVDA": {
+      "price": 194.83,
+      "pct": -1.3918,
+      "prev_close": 197.58
+    },
+    "SNDK": {
+      "price": 1745.0,
+      "pct": -14.1333,
+      "prev_close": 2032.22
+    },
     "SPCX": {
       "price": 162.0,
       "pct": 2.831,
       "prev_close": 157.54
     },
-    "HOOD": {
-      "price": 112.73,
-      "pct": 3.7552,
-      "prev_close": 108.65
+    "RIVN": {
+      "price": 18.63,
+      "pct": 8.44,
+      "prev_close": 17.18
     },
-    "AAPL": {
-      "price": 308.63,
-      "pct": 4.8407,
-      "prev_close": 294.38
+    "MSTR": {
+      "price": 100.77,
+      "pct": 7.9023,
+      "prev_close": 93.39
     },
-    "AAL": {
-      "price": 17.92,
-      "pct": -1.2672,
-      "prev_close": 18.15
+    "CCXI": {
+      "price": 19.1,
+      "pct": 11.9578,
+      "prev_close": 17.06
     },
-    "ABBV": {
-      "price": 261.07,
-      "pct": 3.9871,
-      "prev_close": 251.06
+    "ORCL": {
+      "price": 140.27,
+      "pct": -1.5649,
+      "prev_close": 142.5
     },
-    "AHR": {
-      "price": 55.04,
-      "pct": 2.5909,
-      "prev_close": 53.65
+    "PLTR": {
+      "price": 129.3,
+      "pct": 2.8394,
+      "prev_close": 125.73
     },
-    "APGE": {
-      "price": 132.91,
-      "pct": 0.1054,
-      "prev_close": 132.77
-    },
-    "ASB": {
-      "price": 30.64,
-      "pct": -1.8578,
-      "prev_close": 31.22
-    },
-    "BCS": {
-      "price": 27.77,
-      "pct": 1.8335,
-      "prev_close": 27.27
+    "HTZ": {
+      "price": 2.12,
+      "pct": -3.6364,
+      "prev_close": 2.2
     }
   }
 }
