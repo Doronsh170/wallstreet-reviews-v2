@@ -139,13 +139,13 @@ Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY 
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in the review that these came from tweets/posts:
 
+@KobeissiLetter [Fri Jul 03 12:57:12 +0000 2026]: Leverage in South Korean stocks is out of control: Assets under management (AUM) in South Korea's leveraged ETFs are up to a record ~$45 billion. AUM has surged +800% since the start of 2026. As a result, leveraged exposure as a % of free float market capitalization, the portion of shares actually available for public trading, is up to a record ~2.9%, more than TRIPLING since January. Meanwhile, the Hong Kong-listed 2x leveraged long SK Hynix ETF rose to ~$15 billion in assets at its peak, the largest single-stock leveraged product in the world. By comparison, four leading 2x leveraged long ETFs tracking Micron, $MU, Nvidia, $NVDA, Sandisk, $SNDK, and Tesla, $TSLA, have each never exceeded $10 billion in assets. Leverage in Korea is at extreme levels.
+
 @gurgavin [Thu Jul 02 19:10:49 +0000 2026]: TESLA CAPS EMPLOYEE AI SPEND AT $200 PER WEEK PER THE INFORMATION $TSLA
 
 @gurgavin [Tue Jun 30 20:38:47 +0000 2026]: MICHAEL BURRY IS REPORTEDLY SHORT TESLA NOW HE NEVER LEARNS , NO ONE MAKES MONEY BETTING AGAINST ELON $TSLA https://t.co/wsBIQluMTg
 
 @wallstengine [Thu Jul 02 19:14:20 +0000 2026]: $TSLA reportedly told employees it will cap AI spending at $200 per week starting July 6, per The Information. Some Tesla software engineers were reportedly using thousands of dollars worth of AI tokens per week. Employees will need approval to exceed the cap, though beta versions of xAI products are reportedly excluded.
-
-@KobeissiLetter [Fri Jul 03 12:57:12 +0000 2026]: Leverage in South Korean stocks is out of control: Assets under management (AUM) in South Korea's leveraged ETFs are up to a record ~$45 billion. AUM has surged +800% since the start of 2026. As a result, leveraged exposure as a % of free float market capitalization, the portion of shares actually available for public trading, is up to a record ~2.9%, more than TRIPLING since January. Meanwhile, the Hong Kong-listed 2x leveraged long SK Hynix ETF rose to ~$15 billion in assets at its peak, the largest single-stock leveraged product in the world. By comparison, four leading 2x leveraged long ETFs tracking Micron, $MU, Nvidia, $NVDA, Sandisk, $SNDK, and Tesla, $TSLA, have each never exceeded $10 billion in assets. Leverage in Korea is at extreme levels.
 
 @wallstengine [Thu Jul 02 18:56:37 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that AI agent development over the last four months has not “accelerated in the way we expected.” - Reuters https://t.co/tT20xKh2bm
 
@@ -162,8 +162,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 @gurgavin [Thu Jul 02 18:04:16 +0000 2026]: AN AUTOGRAPHED JACKET OF NVIDIA CEO JENSEN HUANG IS UP FOR AUCTION ON SOTHEBYS IT'S SIGNED BY HIM AND HE ACTUALLY WORE THIS EXACT JACKET IN THE PAST IT'S ESTIMATED TO SELL FOR $40,000–$60,000 $NVDA https://t.co/jedGiznXYO
 
 @KobeissiLetter [Thu Jul 02 22:00:02 +0000 2026]: Levered ETFs have become one of the most powerful forces in US equity markets: Daily rebalancing activity in US equity leveraged ETFs is up to a record $50 billion. Leveraged ETFs must rebalance daily to stay at their target leverage, adding more exposure after markets rise and reducing it after markets fall. This figure has more than QUADRUPLED since the start of 2026. Rebalancing activity now accounts for a record 1.60% of S&P 500 futures volume, exceeding the 2020-2024 peaks by 200%. To put it simply, leveraged ETFs have grown large enough that their daily rebalancing can now amplify market moves in both directions. Leveraged ETFs are amplifying market volatility like never before.
-
-@KobeissiLetter [Thu Jul 02 12:31:26 +0000 2026]: BREAKING: The US economy adds 57,000 jobs in June, well below expectations of 114,000. The unemployment rate fell to 4.2%, below expectations of 4.3%. May's jobs number was also revised down by -43,000 jobs. The labor market remains in a volatile situation.
 
 @AIStockSavvy [Thu Jul 02 19:21:31 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $TSLA Tesla Caps Employee AI Spend At $200 A Week - Information
 
@@ -216,6 +214,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 @StockMKTNewz [Thu Jul 02 22:07:49 +0000 2026]: 🇺🇸 President Trump just said he - Didn't know about his Crypto Earnings, that his kids run his business, and he is "not involved"
 
 @StockMKTNewz [Thu Jul 02 21:58:47 +0000 2026]: 🇺🇸 PRESIDENT TRUMP JUST SAID - I THINK AI IS BIGGER THAN THE INTERNET
+
+@KobeissiLetter [Fri Jul 03 14:05:24 +0000 2026]: What is happening with the US labor market? The difference between nonfarm payrolls and the household survey was a massive 564,000 jobs in June. This comes as Thursday’s job report showed +57,000 non-farm payrolls were added last month. At the same time, -507,000 Americans lost their job, the 3rd-largest drop since January 2024, according to the household survey. The household survey is a closely followed metric because it counts each worker only once, even if they hold multiple jobs. Year-to-date, total employment in the household survey has declined -1.7 million, to 162.26 million, the lowest since December 2024. Over the same period, total nonfarm employment has risen +552,000, to a record 158.98 million. Something does not add up here.
 
 @StockMKTNewz [Fri Jul 03 12:03:28 +0000 2026]: SK HYNIX MADE MORE PROFIT IN Q1 OF THIS YEAR THAN REVENUE IT BROUGHT IN ALL OF 2023 Here is what SK Hynix's numbers have looked like over the last couple of years - 2023: Revenue $21.24B, Profit/(loss) -$5.92B - 2024: Revenue $42.91B, Profit $12.83B - 2025: Revenue $62.98B, Profit $27.84B - Q1 2026: Revenue $34.08B, Profit $26.15B SK Hynix is on pace to bring in more than $100 Billion of PROFIT in 2026 which would be almost 4x more than 2025 SK Hynix will be listing its shares on the Nasdaq next week Shoutout to my partners over at Leverage Shares for making the graphic
 
