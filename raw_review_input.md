@@ -1,15 +1,11 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street market analyst writing a PRE-MARKET briefing in Hebrew.
-Script run date: 3.7.2026 (יום שישי). Briefing target date: 6.7.2026 (יום שני).
-This runs on 3.7.2026 but the briefing is for the NEXT trading day: 6.7.2026 (יום שני). Do NOT use 'היום'/'הבוקר' — use 'ביום שני'. Do NOT describe futures/pre-market as live — they are not available yet.
-
-FORWARD-LOOKING ONLY: no yesterday's index performance, no closing levels, zero backward-looking data,
-and nothing that already appears in the prior-context block. 7-12 bullets covering: scheduled economic data
-(Israel times + consensus), expected earnings, NEW overnight geopolitical developments (always with the market
-transmission mechanism: event → oil → inflation → rates → equities), NEW overnight company news and analyst moves,
-commodity/currency signals. Futures: direction only unless a specific futures percentage appears in the sources —
-never copy an ETF percentage as a futures percentage.
+You are a senior Wall Street market analyst writing an end-of-day market wrap in Hebrew for
+2026-07-02 (יום חמישי). PAST TENSE. Explain WHY things happened, not just what.
+7-12 bullets ordered by market impact: index performance (%, point levels, context), macro data with FULL numbers
+and market reaction, key market-moving events with cause-and-effect, commodities/currencies/VIX with %,
+notable stock moves with the reason ($TICKER +/- %), sector rotation (ONLY from the Finnhub sector data).
+If two bullets describe causally linked events, merge them into one bullet that explains the link.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -25,32 +21,23 @@ Rules:
 - IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
 - No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
-- Visible dates must use Israeli format only, for example: יום שני, 6.7.2026. Do NOT write YYYY-MM-DD inside the Hebrew review text.
-- Do NOT use the semicolon character ; anywhere in the visible review. Use a comma or a full stop.
-- For future scheduled data, do NOT write "נתון בפועל עדיין לא קיים" or any equivalent. Write only the scheduled time, consensus/forecast, and previous reading.
-- Do NOT start bullets with raw tickers such as $TSLA or $AMZN. Use natural wording: מניית טסלה (TSLA): or מניית אמזון (AMZN):.
-- Finnhub is a background validation layer only. Never mention "Finnhub", "האינדיקציה מ-Finnhub", or ETF-proxy phrasing such as "דרך USO" in the visible review.
-- Commodities/currencies must be written as a short human market paragraph, not as a mechanical list of ETF proxies.
-- Avoid broken RTL/ticker formatting. Prefer Hebrew company name + ticker in parentheses.
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
-  "date": "2026-07-06",
+  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי 2026-07-02",
+  "date": "2026-07-02",
   "sections": [
     {
-      "heading": "נקודות מרכזיות",
+      "heading": "סיכום המסחר",
       "content": "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\n* נושא שני: ...\n* נושא שלישי: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - No "שורה תחתונה"/summary section — merge any concluding insight as a regular bullet.
 - No **, no ##, no HTML, no URLs inside content.
-- The visible title may contain Israeli date format. The JSON date field may remain ISO for the site logic, but do not copy ISO dates into content.
-- If you write any bullet about a stock, start it naturally, for example: "* מניית אמזון (AMZN): ..." not "* $AMZN: ...".
 
 US-ISRAEL TIME OFFSET TODAY: +7 hours (add 7 hours to US Eastern Time)
 Key times in Israel time today:
@@ -111,13 +98,29 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ SCHEDULED DATA CHECK ══
-Use web search to find what US economic data is scheduled for release on 3.7.2026.
-Include the release time in Israel time and the market consensus/forecast.
-If a data point is scheduled for the future, do NOT write that the actual value does not exist.
-Simply write the scheduled time, consensus/forecast, and previous reading.
-Use Israeli date format in visible Hebrew text. Do not write ISO dates such as YYYY-MM-DD.
+══ MANDATORY MACRO DATA CHECK ══
+Use web search to check if ANY of these were released on 2026-07-03: CPI (headline AND core),
+PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
+Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
+AND the market implication. If none — skip, but you MUST check first.
 ══════════════════════════════════
+
+══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
+Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+
+[נקודות מרכזיות]
+* מאקרו: ל־2026-07-03 לא מתוכננים נתוני מאקרו אמריקאיים בגלל חופשת 4 ביולי; ביום שני ב־17:00 שעון ישראל יתפרסם ISM Services PMI ליוני, נתון בפועל עדיין לא קיים, קונצנזוס 54.5 מול 54.5 קודם.
+* Fed: ביום רביעי ב־21:00 שעון ישראל יתפרסם פרוטוקול ישיבת ה־FOMC של יוני; המוקד לשוק ביום שני יהיה ניסוח סביב יעד אינפלציה של 2% והאם חולשת התעסוקה מקטינה לחץ להעלאת ריבית.
+* דוחות: ביום שני 2026-07-06 אין דוחות אמריקאיים מהותיים בלוח המרכזי; ביום שלישי 2026-07-07 אחרי הנעילה $PENG צפויה לדווח עם תחזית EPS של $0.54 והכנסות של $407.5M, ובהמשך השבוע $DAL במוקד עם תחזית EPS של $1.53 והכנסות של $17.5B.
+* גיאופוליטיקה ונפט: לפי Reuters, מאמצי השלום בין ארה״ב לאיראן עדיין מחזיקים חלקית, Brent סביב $71.87 ו־WTI סביב $68.63; מנגנון השוק ליום שני הוא הסכם יציב יותר → נפט רגוע יותר → פחות לחץ אינפלציוני → פחות לחץ ריבית → תמיכה במניות, אך פגיעה מחודשת בשיט דרך הורמוז תהפוך את השרשרת.
+* סחורות ומטבעות: האינדיקציה מ־Finnhub מצביעה על נפט נעים בתנודתיות דרך USO +0.69% ו־BNO +0.66%, זהב נעים בתנודתיות דרך GLD +2.03%, ביטקוין נעים בתנודתיות דרך IBIT +2.56%, דולר נעים בתנודתיות דרך UUP -0.53%, אג״ח ארוכות כמעט ללא שינוי דרך TLT -0.01%, ותנודתיות נעים בתנודתיותת דרך VIXY -1.35%.
+* $TSLA: ביום שני 2026-07-06 תיכנס לתוקף תקרת שימוש פנימית של $200 בשבוע לעובד עבור כלי בינה מלאכותית, Truist העלתה יעד ל־$430 מ־$400 ו־Freedom Broker העלתה יעד ל־$420 מ־$400, כאשר שתי ההמלצות נשארו ברמת החזק.
+* $META: לפי Reuters, מארק צוקרברג אמר לעובדים שפיתוח סוכני בינה מלאכותית לא הואץ כמצופה ב־4 החודשים האחרונים, אך החברה מצפה להרגיש יותר תועלת מההשקעות בבינה מלאכותית בטווח של 3–6 חודשים.
+* $AMZN: לפי Reuters, Amazon Leo צפויה להתחיל שירות אינטרנט לווייני ראשוני ב־2026 לאחר שיגור נוסף של 29 לוויינים, עם 394 מתוך 398 לוויינים ששוגרו במסלול ותוכנית ארוכת טווח של יותר מ־3,200 לוויינים.
+* $HOOD: החברה אישרה שתפרסם את דוחות Q2 2026 ביום רביעי 2026-07-29 אחרי נעילת המסחר, עם שיחת הנהלה ב־5:00 PM ET; קונצנזוס EPS חיצוני עומד על $0.41.
+* בינה מלאכותית ומדיניות: לפי Reuters וה־FT, OpenAI דנה בהענקת נתח של 5% לממשלת ארה״ב לפני IPO, בעוד סנאטור ברני סנדרס הציע מודל של 50%; ביום שני זה עשוי להחזיר למוקד את $MSFT, $GOOGL ו־$META סביב סיכון רגולטורי במודלי בינה מלאכותית.
+* מבנה שוק: פעילות האיזון היומית של תעודות סל ממונפות במניות ארה״ב הגיעה לשיא של $50B ומהווה 1.60% מנפח החוזים על S&P 500, יותר מפי 4 מתחילת 2026; המשמעות ליום שני היא רגישות גבוהה יותר לתנועה כיוונית במדדים בשעה האחרונה של המסחר.
+══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in the review that these came from tweets/posts:
 

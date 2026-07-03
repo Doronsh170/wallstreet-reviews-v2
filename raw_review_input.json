@@ -1,11 +1,11 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-07-03T13:04:10.123256+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
-  "first_heading": "נקודות מרכזיות",
-  "review_date": "2026-07-06",
-  "title_date_str": "2026-07-06",
-  "title_day_name": "שני",
+  "mode": "daily_summary",
+  "generated_at": "2026-07-03T13:43:16.620617+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי 2026-07-02",
+  "first_heading": "סיכום המסחר",
+  "review_date": "2026-07-02",
+  "title_date_str": "2026-07-02",
+  "title_day_name": "חמישי",
   "week_range": null,
   "etf_pcts": {
     "SPY": -0.1314,
