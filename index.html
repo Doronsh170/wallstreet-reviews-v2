@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>סקירות וול סטריט | Market Desk</title>
+<meta name="description" content="סקירות וול סטריט בעברית: הכנה ליום מסחר, סיכום יומי וסיכום שבועי">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF6;      /* warm bulletin paper */
+  --card:#FFFFFF;
+  --ink:#12202F;        /* market navy */
+  --ink-soft:#42546A;
+  --muted:#7A8699;
+  --line:#E4E1D7;
+  --brass:#A98735;      /* masthead rule */
+  --desk:#0E3A46;       /* deep desk teal — active tab */
+  --desk-soft:#EAF2F3;
+  --up:#0E7C5B;
+  --danger:#B4452F;
+}
+*{box-sizing:border-box}
+html,body{direction:rtl;text-align:right}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Heebo',Arial,'Noto Sans Hebrew',sans-serif;
+  font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.wrap{max-width:840px;margin:0 auto;padding:0 18px 40px}
+
+/* ── Masthead ── */
+.masthead{padding:30px 0 16px;text-align:center}
+.masthead .kicker{font-size:12.5px;letter-spacing:.25em;color:var(--brass);font-weight:700;text-transform:uppercase}
+.masthead h1{
+  font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(30px,6vw,44px);
+  margin:6px 0 4px;color:var(--ink);letter-spacing:-.01em;
+}
+.masthead .tagline{margin:0;color:var(--ink-soft);font-size:15px}
+.rule{max-width:840px;margin:14px auto 0;border-top:3px double var(--brass);position:relative}
+.rule::after{content:"";position:absolute;inset-inline:0;top:5px;border-top:1px solid var(--line)}
+.updated{max-width:840px;margin:10px auto 0;padding:0 18px;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:13.5px}
+.updated b{color:var(--ink-soft);font-weight:500}
+
+/* ── Desk switcher (the three modes) ── */
+.tabs{display:flex;gap:8px;margin:20px 0 16px}
+.tab{
+  flex:1;appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:12px;padding:12px 8px;font:inherit;font-weight:500;font-size:15.5px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:2px;transition:border-color .15s, background .15s;
+}
+.tab small{font-size:12px;color:var(--muted);font-weight:400}
+.tab:hover{border-color:var(--desk)}
+.tab[aria-selected="true"]{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
+.tab[aria-selected="true"] small{color:#BFD8DC}
+.tab:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+
+/* ── Review card ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 26px rgba(18,32,47,.05);padding:26px 26px 20px}
+.review-head{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:6px}
+.review-head h2{
+  font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:clamp(20px,4vw,26px);
+  margin:0;line-height:1.35;color:var(--ink);unicode-bidi:plaintext;
+}
+.review-head .date{margin-top:6px;color:var(--muted);font-size:14px}
+ul.bullets{list-style:none;margin:14px 0 4px;padding:0}
+ul.bullets li{
+  padding:11px 26px 11px 2px;position:relative;border-bottom:1px solid #F0EEE6;
+  color:#1E2B3A;unicode-bidi:plaintext;
+}
+ul.bullets li:last-child{border-bottom:none}
+ul.bullets li::before{content:"";position:absolute;right:4px;top:1.35em;width:9px;height:2px;background:var(--brass)}
+ul.bullets li b.lead{font-weight:700;color:var(--ink)}
+
+/* ── Empty state ── */
+.empty{text-align:center;padding:46px 16px;color:var(--muted)}
+.empty .mark{font-family:'Frank Ruhl Libre',serif;font-size:40px;color:var(--line);line-height:1}
+.empty h3{margin:10px 0 6px;color:var(--ink-soft);font-weight:700;font-size:18px}
+.empty p{margin:0;font-size:14.5px}
+
+/* ── Actions ── */
+.actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+.actions button{
+  appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:10px;padding:10px 16px;font:inherit;font-weight:500;font-size:15px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.actions button:hover{border-color:var(--desk)}
+.actions button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.actions .primary{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
+
+.status{color:var(--muted);font-size:14px;margin:8px 0}
+.status.error{color:var(--danger)}
+.footer{margin-top:26px;text-align:center;color:var(--muted);font-size:12.5px}
+.footer .disclaimer{border-top:1px solid var(--line);padding-top:14px;color:var(--ink-soft);font-size:13px;max-width:640px;margin:0 auto}
+.footer .credit{margin-top:8px;font-weight:700;color:var(--ink-soft)}
+
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .tabs{display:grid;grid-template-columns:1fr;gap:7px}
+  .tab{flex-direction:row;justify-content:space-between;padding:12px 14px}
+  .card{padding:18px 16px 14px;border-radius:13px}
+  .actions{display:grid;grid-template-columns:1fr 1fr}
+  .updated{flex-direction:column;gap:2px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:rise .25s ease-out}
+  @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+}
+@media print{
+  .tabs,.actions,.status,.updated{display:none!important}
+  body{background:#fff;font-size:14.5px}
+  .card{box-shadow:none;border:none;padding:0}
+  .masthead{padding-top:0}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="masthead wrap">
+    <div class="kicker">MARKET DESK</div>
+    <h1>סקירות וול סטריט</h1>
+    <p class="tagline">הכנה, סיכום יומי וסיכום שבועי — בעברית, על בסיס נתונים מאומתים</p>
+  </div>
+  <div class="rule"></div>
+  <div class="updated"><span id="updatedLine"></span><b id="activeLabel"></b></div>
+</header>
+
+<main class="wrap">
+  <nav class="tabs" role="tablist" aria-label="סוג סקירה">
+    <button class="tab" role="tab" data-key="dailyPrep" aria-selected="false">הכנה ליום מסחר<small>daily prep</small></button>
+    <button class="tab" role="tab" data-key="dailySummary" aria-selected="false">סיכום יום מסחר<small>daily summary</small></button>
+    <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי<small>weekly summary</small></button>
+  </nav>
+
+  <div class="status" id="status">טוען נתונים…</div>
+  <article class="card" id="screen" aria-live="polite"></article>
+
+  <footer class="footer">
+    <div class="disclaimer">⚠️ גילוי נאות: תוכן זה נוצר באמצעות AI לצרכים אינפורמטיביים בלבד. אין באמור ייעוץ השקעות או המלצה לפעולה בניירות ערך.</div>
+    <div class="credit">פותח ע"י דורון שרייבמן</div>
+  </footer>
+</main>
+
+<script>
+const DATA_PATH = 'data.json';
+const LABELS = {
+  dailyPrep:   {he:'הכנה ליום מסחר',  empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
+  dailySummary:{he:'סיכום יום מסחר',  empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
+  weeklySummary:{he:'סיכום שבועי',    empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
+};
+let data = null;
+let active = 'dailyPrep';
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const stripCtl = s => String(s ?? '').replace(/[\u200E\u200F\u202A-\u202E\u2066-\u2069\u200B-\u200D\uFEFF\u00AD]/g,'');
+
+function fmtDateTime(iso){
+  if(!iso) return '';
+  try{
+    return new Intl.DateTimeFormat('he-IL',{timeZone:'Asia/Jerusalem',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(iso));
+  }catch(e){ return String(iso).slice(0,16).replace('T',' '); }
+}
+function fmtDate(ymd){
+  if(!ymd) return '';
+  try{
+    const [y,m,d] = String(ymd).split('-');
+    return `${d}/${m}/${y}`;
+  }catch(e){ return ymd; }
+}
+
+function bulletsOf(review){
+  const section = (review.sections && review.sections[0]) || {};
+  let content = section.content ?? '';
+  if(Array.isArray(content)) content = content.join('\n');
+  return String(content).split('\n')
+    .map(l => stripCtl(l).trim().replace(/^\*\s+/,'').replace(/^[•■\-–—]\s+/,''))
+    .filter(Boolean);
+}
+
+/* "נושא: פירוט" → the lead label gets weight */
+function bulletHtml(line){
+  const m = line.match(/^([^:：]{2,40})[:：]\s+(.+)$/s);
+  if(m) return `<b class="lead">${esc(m[1])}:</b> ${esc(m[2])}`;
+  return esc(line);
+}
+
+function renderEmpty(key){
+  return `<div class="empty">
+    <div class="mark">◦</div>
+    <h3>עדיין לא נוצרה סקירה</h3>
+    <p>${esc(LABELS[key].empty)}</p>
+  </div>`;
+}
+
+function renderReview(review, key){
+  const bullets = bulletsOf(review);
+  const heading = stripCtl((review.sections && review.sections[0] && review.sections[0].heading) || LABELS[key].he);
+  let html = `<div class="review-head">
+      <h2>${esc(stripCtl(review.title || heading))}</h2>
+      <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}</div>
+    </div>`;
+  html += bullets.length
+    ? `<ul class="bullets">${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`
+    : `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
+  html += `<div class="actions">
+      <button class="primary" onclick="window.print()">שמירה ל-PDF</button>
+      <button onclick="shareWhatsApp()">שליחה בווטסאפ</button>
+    </div>`;
+  return html;
+}
+
+function render(){
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.key === active)));
+  document.getElementById('activeLabel').textContent = LABELS[active].he;
+  const review = data ? data[active] : null;
+  document.getElementById('screen').innerHTML = review ? renderReview(review, active) : renderEmpty(active);
+}
+
+function shareWhatsApp(){
+  const review = data && data[active];
+  if(!review) return;
+  const lines = [stripCtl(review.title || LABELS[active].he), ...bulletsOf(review).slice(0,6).map(b => '• ' + b), location.href];
+  window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+}
+
+function pickDefaultTab(){
+  const dated = ['dailySummary','dailyPrep','weeklySummary']
+    .filter(k => data[k] && data[k].date)
+    .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
+  return dated[0] || 'dailyPrep';
+}
+
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { active = t.dataset.key; render(); }));
+
+(async function load(){
+  const status = document.getElementById('status');
+  try{
+    const r = await fetch(DATA_PATH + '?v=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('data.json לא נמצא (' + r.status + ')');
+    data = await r.json();
+    active = pickDefaultTab();
+    document.getElementById('updatedLine').textContent = data.lastUpdated ? 'עודכן לאחרונה: ' + fmtDateTime(data.lastUpdated) : 'טרם פורסמה סקירה ראשונה';
+    status.textContent = '';
+    render();
+  }catch(e){
+    status.textContent = 'שגיאה בטעינת data.json — ' + (e.message || e);
+    status.className = 'status error';
+    document.getElementById('screen').innerHTML = renderEmpty(active);
+  }
+})();
+</script>
+</body>
+</html>
