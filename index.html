@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירות וול סטריט | Market Desk</title>
-<meta name="description" content="סקירות וול סטריט בעברית: הכנה ליום מסחר, סיכום יומי וסיכום שבועי">
+<meta name="description" content="סקירות וול סטריט בעברית: הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -122,7 +122,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   <div class="masthead wrap">
     <div class="kicker">MARKET DESK</div>
     <h1>סקירות וול סטריט</h1>
-    <p class="tagline">הכנה, סיכום יומי וסיכום שבועי — בעברית, על בסיס נתונים מאומתים</p>
+    <p class="tagline">הכנה, עדכון ביניים, סיכום יומי וסיכום שבועי — בעברית, על בסיס נתונים מאומתים</p>
   </div>
   <div class="rule"></div>
   <div class="updated"><span id="updatedLine"></span><b id="activeLabel"></b></div>
@@ -131,6 +131,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 <main class="wrap">
   <nav class="tabs" role="tablist" aria-label="סוג סקירה">
     <button class="tab" role="tab" data-key="dailyPrep" aria-selected="false">הכנה ליום מסחר<small>daily prep</small></button>
+    <button class="tab" role="tab" data-key="intradayUpdate" aria-selected="false">עדכון ביניים<small>intraday update</small></button>
     <button class="tab" role="tab" data-key="dailySummary" aria-selected="false">סיכום יום מסחר<small>daily summary</small></button>
     <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי<small>weekly summary</small></button>
   </nav>
@@ -148,6 +149,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 const DATA_PATH = 'data.json';
 const LABELS = {
   dailyPrep:   {he:'הכנה ליום מסחר',  empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
+  intradayUpdate:{he:'עדכון ביניים',  empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר',  empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
   weeklySummary:{he:'סיכום שבועי',    empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
 };
@@ -227,7 +229,7 @@ function shareWhatsApp(){
 }
 
 function pickDefaultTab(){
-  const dated = ['dailySummary','dailyPrep','weeklySummary']
+  const dated = ['intradayUpdate','dailySummary','dailyPrep','weeklySummary']
     .filter(k => data[k] && data[k].date)
     .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
   return dated[0] || 'dailyPrep';

@@ -38,7 +38,11 @@ DATA_JSON_KEY = {
     "daily_prep": "dailyPrep",
     "daily_summary": "dailySummary",
     "weekly_summary": "weeklySummary",
+    "intraday_update": "intradayUpdate",
 }
+
+# The intraday update is intentionally short (4 bullets); the rest need 5+.
+MIN_BULLETS = {"intraday_update": 4}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
@@ -479,7 +483,7 @@ def dedupe_exact_review_lines(result: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-def hard_content_validation(result: Dict[str, Any]) -> None:
+def hard_content_validation(result: Dict[str, Any], min_bullets: int = 5) -> None:
     """Failures here mean the chat reply needs another round — the error message
     tells you exactly what to ask the chat to fix."""
     blob = review_text_blob(result)
@@ -500,8 +504,8 @@ def hard_content_validation(result: Dict[str, Any]) -> None:
         raise ValueError("הסקירה לא בעברית. בקש מהצ'אט לכתוב את הסקירה בעברית בלבד.")
     content = result["sections"][0].get("content", "")
     bullets = [l for l in str(content).split("\n") if l.strip().startswith("* ")]
-    if len(bullets) < 5:
-        raise ValueError(f"רק {len(bullets)} בולטים בסקירה — נדרשים לפחות 5. בקש מהצ'אט סקירה מלאה יותר.")
+    if len(bullets) < min_bullets:
+        raise ValueError(f"רק {len(bullets)} בולטים בסקירה — נדרשים לפחות {min_bullets}. בקש מהצ'אט סקירה מלאה יותר.")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -547,7 +551,7 @@ def main() -> None:
     result = dedupe_exact_review_lines(result)
 
     print("── Final validation ──")
-    hard_content_validation(result)
+    hard_content_validation(result, MIN_BULLETS.get(mode, 5))
     print("  ✅ Validation passed")
 
     original_date = result.get("date", "")
