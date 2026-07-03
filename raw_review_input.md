@@ -130,11 +130,11 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 
 @wallstengine [Thu Jul 02 19:14:20 +0000 2026]: $TSLA reportedly told employees it will cap AI spending at $200 per week starting July 6, per The Information. Some Tesla software engineers were reportedly using thousands of dollars worth of AI tokens per week. Employees will need approval to exceed the cap, though beta versions of xAI products are reportedly excluded.
 
+@wallstengine [Thu Jul 02 18:56:37 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that AI agent development over the last four months has not “accelerated in the way we expected.” - Reuters https://t.co/tT20xKh2bm
+
 @KobeissiLetter [Thu Jul 02 13:35:17 +0000 2026]: BREAKING: President Trump says Micron stock, $MU, went up “9 points” after the company announced a $250 million contribution to Trump Accounts. https://t.co/444Y3BIl9T
 
 @gurgavin [Wed Jul 01 18:02:23 +0000 2026]: SPACEX HAS BEEN SHOWING OFF A PROTOTYPE OF A NEW “AI DEVICE” WHICH IS SIMILAR THAN AS IPHONE PER WSJ THE DEVICE RUNS ON CUSTOM SOFTWARE AND USED XAI’S TECH $SPCX
-
-@wallstengine [Thu Jul 02 18:56:37 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that AI agent development over the last four months has not “accelerated in the way we expected.” - Reuters https://t.co/tT20xKh2bm
 
 @StockMKTNewz [Fri Jul 03 00:07:45 +0000 2026]: Cathie Wood and Ark Invest bought 96,935 shares of Tesla $TSLA today https://t.co/iUfRbH6TQ5
 
