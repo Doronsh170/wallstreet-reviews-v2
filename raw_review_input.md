@@ -1,16 +1,27 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street market analyst writing an end-of-day market review in Hebrew for
-2026-07-02 (יום חמישי). PAST TENSE. This is a professional, readable MARKET REVIEW —
-NOT a data dump. EXACTLY 5 bullets, in this order:
-* המדדים: what the major indices did (direction + rounded %), one flowing analytical sentence or two.
-* הסיפור של היום: WHY the market moved — the main driver(s), with clear cause-and-effect.
-* סקטורים ומניות בולטות: the 1-3 most notable sector/stock stories with the reason. Stock items open with "מניית <שם בעברית> (TICKER)".
-* סחורות, דולר ותשואות: oil, gold, dollar and yields in brief — direction and meaning, not a list of prices.
-* שורה תחתונה למחר: what investors should watch in the next session.
-Each bullet: 2-4 short sentences. Do NOT list ETF prices, do NOT dump long series of percentages or price levels,
-do NOT mention Finnhub or any ETF proxy in the text. Explain the day — don't copy the data.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+You are a senior Wall Street market analyst writing a PRE-MARKET briefing in Hebrew.
+Script run date: 2026-07-03 (יום שישי). Briefing target date: 2026-07-06 (יום שני).
+This runs on 2026-07-03 but the briefing is for the NEXT trading day: 2026-07-06 (יום שני). Do NOT use 'היום'/'הבוקר' — use 'ביום שני'. Do NOT describe futures/pre-market as live — they are not available yet.
+
+This is a professional, readable BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index
+performance, no closing levels, and nothing that already appears in the prior-context block.
+EXACTLY 5 bullets, in this order:
+* תמונת פתיחה: the mood and backdrop heading into the session — the single most important theme, and futures
+  direction ONLY (no percentage unless a specific futures figure appears in the sources; never copy an ETF
+  percentage as a futures percentage).
+* הסיפור המרכזי: the main driver investors will watch and why it matters, with the transmission mechanism
+  explained simply (event → oil → inflation → rates → equities) only when it is genuinely relevant.
+* מאקרו ואירועים: the economic releases and Fed events scheduled for the day — Israel time, consensus and the
+  previous reading, plus one sentence on why the number matters. If nothing is scheduled, say so in one short
+  sentence and point to the next key date.
+* דוחות ומניות במוקד: expected earnings and the 1-3 most important NEW overnight stock stories (company news,
+  analyst moves). Stock items open with "מניית <שם בעברית> (TICKER)". Positive news about a falling stock →
+  "למרות החדשות, המניה ירדה".
+* שורה תחתונה: what will decide the direction of the session, in 1-2 sentences.
+Each bullet: 2-4 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
+continue in Hebrew words — never open with a ticker, a price or an English term. Do NOT stack prices, price
+targets and percentages: pick only the few figures that carry the story. No ETF proxies, no Finnhub, no ISO dates.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -36,16 +47,16 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי, 2.7.2026",
-  "date": "2026-07-02",
+  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
+  "date": "2026-07-06",
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "נקודות מרכזיות",
       "content": "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\n* נושא שני: ...\n* נושא שלישי: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - No "שורה תחתונה"/summary section — merge any concluding insight as a regular bullet.
 - No **, no ##, no HTML, no URLs inside content.
@@ -60,48 +71,48 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $744.78 (daily: -0.13%), prev close: $745.76
-  Nasdaq 100 (QQQ ETF): $712.60 (daily: -1.73%), prev close: $725.17
-  Dow Jones (DIA ETF): $527.88 (daily: +1.05%), prev close: $522.40
-  Russell 2000 (IWM ETF): $297.58 (daily: -0.58%), prev close: $299.32
-  Energy Sector (XLE ETF): $53.22 (daily: +0.78%), prev close: $52.81
-  Technology Sector (XLK ETF): $180.59 (daily: -2.71%), prev close: $185.62
-  Financials Sector (XLF ETF): $55.62 (daily: +1.53%), prev close: $54.78
-  Consumer Discretionary Sector (XLY ETF): $117.12 (daily: -0.82%), prev close: $118.09
-  Healthcare Sector (XLV ETF): $163.74 (daily: +2.63%), prev close: $159.54
-  Industrials Sector (XLI ETF): $183.91 (daily: +0.30%), prev close: $183.36
-  Consumer Staples Sector (XLP ETF): $84.99 (daily: +2.03%), prev close: $83.30
-  Utilities Sector (XLU ETF): $45.76 (daily: +2.21%), prev close: $44.77
-  WTI Crude Oil (USO ETF): $103.98 (daily: +0.69%), prev close: $103.27
-  Brent Crude Oil (BNO ETF): $39.67 (daily: +0.66%), prev close: $39.41
-  Gold (GLD ETF): $378.13 (daily: +2.03%), prev close: $370.60
-  Silver (SLV ETF): $55.02 (daily: +2.69%), prev close: $53.58
-  Bitcoin (IBIT ETF): $34.87 (daily: +2.56%), prev close: $34.00
-  US 20Y+ Bonds (TLT ETF): $85.51 (daily: -0.01%), prev close: $85.52
-  US Dollar (UUP ETF): $28.34 (daily: -0.53%), prev close: $28.49
-  VIX Volatility (VIXY ETF): $21.23 (daily: -1.35%), prev close: $21.52
+  S&P 500 (SPY ETF): $744.82 (daily: -0.13%), prev close: $745.76
+  Nasdaq 100 (QQQ ETF): $712.64 (daily: -1.73%), prev close: $725.17
+  Dow Jones (DIA ETF): $527.92 (daily: +1.06%), prev close: $522.40
+  Russell 2000 (IWM ETF): $297.62 (daily: -0.57%), prev close: $299.32
+  Energy Sector (XLE ETF): $53.24 (daily: +0.81%), prev close: $52.81
+  Technology Sector (XLK ETF): $180.62 (daily: -2.69%), prev close: $185.62
+  Financials Sector (XLF ETF): $55.64 (daily: +1.57%), prev close: $54.78
+  Consumer Discretionary Sector (XLY ETF): $117.15 (daily: -0.80%), prev close: $118.09
+  Healthcare Sector (XLV ETF): $163.77 (daily: +2.65%), prev close: $159.54
+  Industrials Sector (XLI ETF): $183.94 (daily: +0.32%), prev close: $183.36
+  Consumer Staples Sector (XLP ETF): $85.01 (daily: +2.05%), prev close: $83.30
+  Utilities Sector (XLU ETF): $45.77 (daily: +2.23%), prev close: $44.77
+  WTI Crude Oil (USO ETF): $104.01 (daily: +0.72%), prev close: $103.27
+  Brent Crude Oil (BNO ETF): $39.68 (daily: +0.69%), prev close: $39.41
+  Gold (GLD ETF): $378.17 (daily: +2.04%), prev close: $370.60
+  Silver (SLV ETF): $55.04 (daily: +2.72%), prev close: $53.58
+  Bitcoin (IBIT ETF): $34.89 (daily: +2.62%), prev close: $34.00
+  US 20Y+ Bonds (TLT ETF): $85.53 (daily: +0.01%), prev close: $85.52
+  US Dollar (UUP ETF): $28.33 (daily: -0.56%), prev close: $28.49
+  VIX Volatility (VIXY ETF): $21.24 (daily: -1.30%), prev close: $21.52
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $TSLA: $393.45 (daily: -7.49%), prev close: $425.30
-  $META: $582.90 (daily: -4.90%), prev close: $612.91
-  $MU: $975.56 (daily: -5.49%), prev close: $1032.28
-  $NVDA: $194.83 (daily: -1.39%), prev close: $197.58
-  $SNDK: $1745.00 (daily: -14.13%), prev close: $2032.22
-  $SPCX: $162.00 (daily: +2.83%), prev close: $157.54
-  $RIVN: $18.63 (daily: +8.44%), prev close: $17.18
-  $MSTR: $100.77 (daily: +7.90%), prev close: $93.39
-  $CCXI: $19.10 (daily: +11.96%), prev close: $17.06
-  $ORCL: $140.27 (daily: -1.56%), prev close: $142.50
-  $PLTR: $129.30 (daily: +2.84%), prev close: $125.73
-  $HTZ: $2.12 (daily: -3.64%), prev close: $2.20
+  $TSLA: $393.49 (daily: -7.48%), prev close: $425.30
+  $META: $582.94 (daily: -4.89%), prev close: $612.91
+  $MU: $975.60 (daily: -5.49%), prev close: $1032.28
+  $NVDA: $194.86 (daily: -1.38%), prev close: $197.58
+  $SNDK: $1745.04 (daily: -14.13%), prev close: $2032.22
+  $SPCX: $162.03 (daily: +2.85%), prev close: $157.54
+  $RIVN: $18.65 (daily: +8.56%), prev close: $17.18
+  $MSTR: $100.80 (daily: +7.93%), prev close: $93.39
+  $CCXI: $19.12 (daily: +12.07%), prev close: $17.06
+  $ORCL: $140.30 (daily: -1.54%), prev close: $142.50
+  $PLTR: $129.33 (daily: +2.86%), prev close: $125.73
+  $HTZ: $2.14 (daily: -2.73%), prev close: $2.20
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +0.69%, BNO: +0.66%)
-  זהב: עולה (GLD: +2.03%)
-  ביטקוין: עולה (IBIT: +2.56%)
-  דולר: יורד (UUP: -0.53%)
-  תנודתיות / VIX: יורד (VIXY: -1.35%)
-  אג"ח ארוכות / TLT: יציב/כמעט ללא שינוי (TLT: -0.01%)
+  נפט (WTI/ברנט): עולה (USO: +0.72%, BNO: +0.69%)
+  זהב: עולה (GLD: +2.04%)
+  ביטקוין: עולה (IBIT: +2.62%)
+  דולר: יורד (UUP: -0.56%)
+  תנודתיות / VIX: יורד (VIXY: -1.30%)
+  אג"ח ארוכות / TLT: יציב/כמעט ללא שינוי (TLT: +0.01%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -110,28 +121,20 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on 2026-07-03: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+══ SCHEDULED DATA CHECK ══
+Use web search to find what US economic data is scheduled for release on 2026-07-03.
+Include the release time in Israel time and the market consensus/forecast.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
 
-[נקודות מרכזיות]
-* מאקרו: ל־2026-07-03 לא מתוכננים נתוני מאקרו אמריקאיים בגלל חופשת 4 ביולי; ביום שני ב־17:00 שעון ישראל יתפרסם ISM Services PMI ליוני, נתון בפועל עדיין לא קיים, קונצנזוס 54.5 מול 54.5 קודם.
-* Fed: ביום רביעי ב־21:00 שעון ישראל יתפרסם פרוטוקול ישיבת ה־FOMC של יוני; המוקד לשוק ביום שני יהיה ניסוח סביב יעד אינפלציה של 2% והאם חולשת התעסוקה מקטינה לחץ להעלאת ריבית.
-* דוחות: ביום שני 2026-07-06 אין דוחות אמריקאיים מהותיים בלוח המרכזי; ביום שלישי 2026-07-07 אחרי הנעילה $PENG צפויה לדווח עם תחזית EPS של $0.54 והכנסות של $407.5M, ובהמשך השבוע $DAL במוקד עם תחזית EPS של $1.53 והכנסות של $17.5B.
-* גיאופוליטיקה ונפט: לפי Reuters, מאמצי השלום בין ארה״ב לאיראן עדיין מחזיקים חלקית, Brent סביב $71.87 ו־WTI סביב $68.63; מנגנון השוק ליום שני הוא הסכם יציב יותר → נפט רגוע יותר → פחות לחץ אינפלציוני → פחות לחץ ריבית → תמיכה במניות, אך פגיעה מחודשת בשיט דרך הורמוז תהפוך את השרשרת.
-* סחורות ומטבעות: האינדיקציה מ־Finnhub מצביעה על נפט נעים בתנודתיות דרך USO +0.69% ו־BNO +0.66%, זהב נעים בתנודתיות דרך GLD +2.03%, ביטקוין נעים בתנודתיות דרך IBIT +2.56%, דולר נעים בתנודתיות דרך UUP -0.53%, אג״ח ארוכות כמעט ללא שינוי דרך TLT -0.01%, ותנודתיות נעים בתנודתיותת דרך VIXY -1.35%.
-* $TSLA: ביום שני 2026-07-06 תיכנס לתוקף תקרת שימוש פנימית של $200 בשבוע לעובד עבור כלי בינה מלאכותית, Truist העלתה יעד ל־$430 מ־$400 ו־Freedom Broker העלתה יעד ל־$420 מ־$400, כאשר שתי ההמלצות נשארו ברמת החזק.
-* $META: לפי Reuters, מארק צוקרברג אמר לעובדים שפיתוח סוכני בינה מלאכותית לא הואץ כמצופה ב־4 החודשים האחרונים, אך החברה מצפה להרגיש יותר תועלת מההשקעות בבינה מלאכותית בטווח של 3–6 חודשים.
-* $AMZN: לפי Reuters, Amazon Leo צפויה להתחיל שירות אינטרנט לווייני ראשוני ב־2026 לאחר שיגור נוסף של 29 לוויינים, עם 394 מתוך 398 לוויינים ששוגרו במסלול ותוכנית ארוכת טווח של יותר מ־3,200 לוויינים.
-* $HOOD: החברה אישרה שתפרסם את דוחות Q2 2026 ביום רביעי 2026-07-29 אחרי נעילת המסחר, עם שיחת הנהלה ב־5:00 PM ET; קונצנזוס EPS חיצוני עומד על $0.41.
-* בינה מלאכותית ומדיניות: לפי Reuters וה־FT, OpenAI דנה בהענקת נתח של 5% לממשלת ארה״ב לפני IPO, בעוד סנאטור ברני סנדרס הציע מודל של 50%; ביום שני זה עשוי להחזיר למוקד את $MSFT, $GOOGL ו־$META סביב סיכון רגולטורי במודלי בינה מלאכותית.
-* מבנה שוק: פעילות האיזון היומית של תעודות סל ממונפות במניות ארה״ב הגיעה לשיא של $50B ומהווה 1.60% מנפח החוזים על S&P 500, יותר מפי 4 מתחילת 2026; המשמעות ליום שני היא רגישות גבוהה יותר לתנועה כיוונית במדדים בשעה האחרונה של המסחר.
+[סיכום המסחר]
+* המדדים: וול סטריט נסגרה במגמה מעורבת, כאשר S&P 500 ירד ב-0.13%, Nasdaq 100 ירד ב-1.73%, Dow Jones עלה ב-1.05% ו-Russell 2000 ירד ב-0.58%. הפער בין Dow Jones החזק לבין Nasdaq 100 החלש שיקף מעבר חד ממניות צמיחה וטכנולוגיה למניות ערך וסקטורים דפנסיביים.
+* הסיפור של היום: שוק העבודה היה המנוע המרכזי של המסחר, לאחר שנוספו ביוני 57 אלף משרות בלבד מול צפי של 110 אלף, כאשר מאי תוקן מטה ל-129 אלף מ-172 אלף. שיעור האבטלה ירד ל-4.2% מול צפי של 4.3%, אך הירידה הגיעה לצד יציאה של כ-720 אלף איש מכוח העבודה, ולכן השוק פירש את הנתון כחולשה תעסוקתית שמפחיתה לחץ להעלאת ריבית.
+* סקטורים ומניות בולטות: סקטור הטכנולוגיה ירד ב-2.71%, בזמן שסקטור הבריאות עלה ב-2.63%, שירותים ציבוריים עלו ב-2.21% וצריכה בסיסית עלתה ב-2.03%. מניית טסלה (TSLA) ירדה ב-7.49% למרות העלאות יעדים ל-420 ו-430 דולר, על רקע דיווח על תקרת שימוש פנימית של 200 דולר בשבוע לכלי בינה מלאכותית. מניית מטא (META) ירדה ב-4.90% לאחר שמארק צוקרברג אמר כי פיתוח סוכני AI בארבעת החודשים האחרונים לא האיץ בקצב שהחברה ציפתה לו.
+* סחורות, דולר ותשואות: הנפט נעים בתנודתיות בכ-0.7%, הזהב נעים בתנודתיות ב-2.03% והביטקוין נעים בתנודתיות ב-2.56%, שילוב שמתאים ליום שבו הדולר נעים בתנודתיות ב-0.53%. אג״ח ארוכות היו כמעט ללא שינוי עם ירידה של 0.01%, והתנודתיות ירדה ב-1.35%, כלומר השוק לא תימחר אירוע לחץ רחב למרות הירידה החדה בטכנולוגיה.
+* שורה תחתונה למחר: ביום שישי, 3.7.2026, לא פורסמו נתוני מאקרו מרכזיים בארה״ב בגלל חופשת 4 ביולי, ולכן המוקד עבר ליום שני, 6.7.2026. המשקיעים עקבו בעיקר אחרי ISM Services PMI ליוני בשעה 17:00 שעון ישראל, עם צפי של 54.5 מול 54.5 קודם, ואחרי השאלה אם חולשת התעסוקה תמשיך לתמוך בדולר חלש ובמעבר מסקטור הטכנולוגיה לסקטורים דפנסיביים.
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in the review that these came from tweets/posts:
