@@ -1,24 +1,17 @@
 name: 1 - Gather Review Input
 
-# שלב 1: איסוף חומר גלם בלבד — בלי שום מודל שפה.
-# Actions → "1 - Gather Review Input" → Run workflow → בחירת מצב.
-# בסיום: קובץ raw_review_input.md מחכה ברפו — פותחים, מעתיקים הכל לצ'אט.
 on:
   workflow_dispatch:
     inputs:
       review_mode:
-        description: "Review mode"
+        description: "Choose review mode"
         required: true
+        default: "daily_prep"
         type: choice
-        default: daily_summary
         options:
           - daily_prep
           - daily_summary
           - weekly_summary
-
-concurrency:
-  group: manual-review
-  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -26,35 +19,34 @@ permissions:
 jobs:
   gather:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - run: pip install requests
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - name: Gather raw input (${{ inputs.review_mode }})
+      - name: Gather review input
         env:
-          REVIEW_MODE: ${{ inputs.review_mode }}
+          REVIEW_MODE: ${{ github.event.inputs.review_mode }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
-        run: python gather_review_input.py
+        run: python gather_review_input.py "${{ github.event.inputs.review_mode }}"
 
       - name: Commit raw input files
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git add raw_review_input.md raw_review_input.json
           if git diff --cached --quiet; then
-            echo "::error::raw input files unchanged — gathering failed. Check the logs."
-            exit 1
+            echo "No changes to commit"
+          else
+            git commit -m "Update raw review input"
+            git push
           fi
-          git commit -m "gather: ${{ inputs.review_mode }} raw input ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-          git pull --rebase origin ${{ github.ref_name }}
-          git push
-          echo "### ✅ raw_review_input.md מוכן" >> $GITHUB_STEP_SUMMARY
-          echo "פתח את הקובץ ברפו, העתק את כל התוכן ל-Claude/ChatGPT, ואת תשובת ה-JSON הדבק לקובץ review_output.json" >> $GITHUB_STEP_SUMMARY
-
