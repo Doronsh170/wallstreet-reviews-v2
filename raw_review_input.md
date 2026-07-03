@@ -1,27 +1,11 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street market analyst writing a PRE-MARKET briefing in Hebrew.
-Script run date: 2026-07-03 (יום שישי). Briefing target date: 2026-07-06 (יום שני).
-This runs on 2026-07-03 but the briefing is for the NEXT trading day: 2026-07-06 (יום שני). Do NOT use 'היום'/'הבוקר' — use 'ביום שני'. Do NOT describe futures/pre-market as live — they are not available yet.
-
-This is a professional, readable BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index
-performance, no closing levels, and nothing that already appears in the prior-context block.
-EXACTLY 5 bullets, in this order:
-* תמונת פתיחה: the mood and backdrop heading into the session — the single most important theme, and futures
-  direction ONLY (no percentage unless a specific futures figure appears in the sources; never copy an ETF
-  percentage as a futures percentage).
-* הסיפור המרכזי: the main driver investors will watch and why it matters, with the transmission mechanism
-  explained simply (event → oil → inflation → rates → equities) only when it is genuinely relevant.
-* מאקרו ואירועים: the economic releases and Fed events scheduled for the day — Israel time, consensus and the
-  previous reading, plus one sentence on why the number matters. If nothing is scheduled, say so in one short
-  sentence and point to the next key date.
-* דוחות ומניות במוקד: expected earnings and the 1-3 most important NEW overnight stock stories (company news,
-  analyst moves). Stock items open with "מניית <שם בעברית> (TICKER)". Positive news about a falling stock →
-  "למרות החדשות, המניה ירדה".
-* שורה תחתונה: what will decide the direction of the session, in 1-2 sentences.
-Each bullet: 2-4 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
-continue in Hebrew words — never open with a ticker, a price or an English term. Do NOT stack prices, price
-targets and percentages: pick only the few figures that carry the story. No ETF proxies, no Finnhub, no ISO dates.
+You are a senior Wall Street strategist writing a weekly review in Hebrew for the trading week
+22/06–26/06/2026. PAST TENSE. ONLY events and moves from THIS specific week.
+Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse
+Friday's daily change with the weekly change. 8-14 bullets: weekly index performance with leading/lagging sectors,
+all macro data of the week with FULL numbers, key market-moving events with the transmission mechanism,
+commodities with weekly context, notable company news/earnings/M&A merged where related, earnings-season outlook.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -47,16 +31,16 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
-  "date": "2026-07-06",
+  "title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 22/06–26/06/2026",
+  "date": "2026-06-26",
   "sections": [
     {
-      "heading": "נקודות מרכזיות",
+      "heading": "סיכום השבוע",
       "content": "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\n* נושא שני: ...\n* נושא שלישי: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - No "שורה תחתונה"/summary section — merge any concluding insight as a regular bullet.
 - No **, no ##, no HTML, no URLs inside content.
@@ -121,21 +105,12 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ SCHEDULED DATA CHECK ══
-Use web search to find what US economic data is scheduled for release on 2026-07-03.
-Include the release time in Israel time and the market consensus/forecast.
+══ MANDATORY MACRO DATA CHECK ══
+Use web search to find ALL major US economic data released during the week of 22/06–26/06/2026:
+CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
+ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
+Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
 ══════════════════════════════════
-
-══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
-Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
-
-[סיכום המסחר]
-* המדדים: וול סטריט נסגרה במגמה מעורבת, כאשר S&P 500 ירד ב-0.13%, Nasdaq 100 ירד ב-1.73%, Dow Jones עלה ב-1.05% ו-Russell 2000 ירד ב-0.58%. הפער בין Dow Jones החזק לבין Nasdaq 100 החלש שיקף מעבר חד ממניות צמיחה וטכנולוגיה למניות ערך וסקטורים דפנסיביים.
-* הסיפור של היום: שוק העבודה היה המנוע המרכזי של המסחר, לאחר שנוספו ביוני 57 אלף משרות בלבד מול צפי של 110 אלף, כאשר מאי תוקן מטה ל-129 אלף מ-172 אלף. שיעור האבטלה ירד ל-4.2% מול צפי של 4.3%, אך הירידה הגיעה לצד יציאה של כ-720 אלף איש מכוח העבודה, ולכן השוק פירש את הנתון כחולשה תעסוקתית שמפחיתה לחץ להעלאת ריבית.
-* סקטורים ומניות בולטות: סקטור הטכנולוגיה ירד ב-2.71%, בזמן שסקטור הבריאות עלה ב-2.63%, שירותים ציבוריים עלו ב-2.21% וצריכה בסיסית עלתה ב-2.03%. מניית טסלה (TSLA) ירדה ב-7.49% למרות העלאות יעדים ל-420 ו-430 דולר, על רקע דיווח על תקרת שימוש פנימית של 200 דולר בשבוע לכלי בינה מלאכותית. מניית מטא (META) ירדה ב-4.90% לאחר שמארק צוקרברג אמר כי פיתוח סוכני AI בארבעת החודשים האחרונים לא האיץ בקצב שהחברה ציפתה לו.
-* סחורות, דולר ותשואות: הנפט נעים בתנודתיות בכ-0.7%, הזהב נעים בתנודתיות ב-2.03% והביטקוין נעים בתנודתיות ב-2.56%, שילוב שמתאים ליום שבו הדולר נעים בתנודתיות ב-0.53%. אג״ח ארוכות היו כמעט ללא שינוי עם ירידה של 0.01%, והתנודתיות ירדה ב-1.35%, כלומר השוק לא תימחר אירוע לחץ רחב למרות הירידה החדה בטכנולוגיה.
-* שורה תחתונה למחר: ביום שישי, 3.7.2026, לא פורסמו נתוני מאקרו מרכזיים בארה״ב בגלל חופשת 4 ביולי, ולכן המוקד עבר ליום שני, 6.7.2026. המשקיעים עקבו בעיקר אחרי ISM Services PMI ליוני בשעה 17:00 שעון ישראל, עם צפי של 54.5 מול 54.5 קודם, ואחרי השאלה אם חולשת התעסוקה תמשיך לתמוך בדולר חלש ובמעבר מסקטור הטכנולוגיה לסקטורים דפנסיביים.
-══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in the review that these came from tweets/posts:
 
@@ -152,6 +127,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 @gurgavin [Wed Jul 01 18:02:23 +0000 2026]: SPACEX HAS BEEN SHOWING OFF A PROTOTYPE OF A NEW “AI DEVICE” WHICH IS SIMILAR THAN AS IPHONE PER WSJ THE DEVICE RUNS ON CUSTOM SOFTWARE AND USED XAI’S TECH $SPCX
 
 @StockMKTNewz [Fri Jul 03 15:38:27 +0000 2026]: Palantir $PLTR CEO Alex Karp said that some 🇺🇸 government customers have switched from proprietary AI models to Nvidia’s $NVDA open-source Nemotron models - The Information https://t.co/D3chr9tdsv
+
+@StockMKTNewz [Fri Jul 03 16:14:26 +0000 2026]: Tesla $TSLA posted this earlier in the week: “Engineering tests of the first production Cybercab have begun in Austin” https://t.co/iYPkaKMMIM
 
 @wallstengine [Thu Jul 02 20:07:36 +0000 2026]: $META CEO MARK ZUCKERBERG SAYS IN INTERNAL TOWN HALL HE EXPECTS COMPANY TO FEEL MORE BENEFITS OF AI INVESTMENT IN NEXT 3-6 MONTHS
 
@@ -192,8 +169,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-03. Never mention in t
 @wallstengine [Thu Jul 02 19:38:45 +0000 2026]: BlueCrest Capital Management and Michael Platt reported beneficial ownership of 2,354,233 Class A shares of $CCXI Churchill Capital Corp XI, equal to 5.6%. https://t.co/EYRuQhlutE
 
 @wallstengine [Thu Jul 02 19:04:19 +0000 2026]: $META CEO Mark Zuckerberg told employees in an internal town hall that the company’s 2026 reorganization “wasn’t as clean as it could have been.”
-
-@StockMKTNewz [Fri Jul 03 16:14:26 +0000 2026]: Tesla $TSLA posted this earlier in the week: “Engineering tests of the first production Cybercab have begun in Austin” https://t.co/iYPkaKMMIM
 
 @AIStockSavvy [Fri Jul 03 14:33:24 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: Report Says $BABA Alibaba Bans Claude Code Over Security Concerns 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐀𝐥𝐢𝐛𝐚𝐛𝐚 reportedly banned employees from using 𝐂𝐥𝐚𝐮𝐝𝐞 𝐂𝐨𝐝𝐞 for work. ➤ Internal notice reportedly labels Claude Code as 𝐡𝐢𝐠𝐡-𝐫𝐢𝐬𝐤 software with security vulnerabilities. ➤ Workplace ban is scheduled to take effect on 𝐉𝐮𝐥𝐲 𝟏𝟎. ➤ Report cites concerns over hidden code allegedly tracking 𝐂𝐡𝐢𝐧𝐞𝐬𝐞 users. ➤ Anthropic engineer said the tracking mechanism was an 𝐞𝐱𝐩𝐞𝐫𝐢𝐦𝐞𝐧𝐭 introduced in March. ➤ Anthropic said the feature targeted 𝐚𝐜𝐜𝐨𝐮𝐧𝐭 𝐚𝐛𝐮𝐬𝐞 and model distillation concerns. ➤ The company said the tracking system would be 𝐫𝐨𝐥𝐥𝐞𝐝 𝐛𝐚𝐜𝐤. ➤ Alibaba reportedly recommended employees use its 𝐐𝐨𝐝𝐞𝐫 coding platform instead. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Highlights growing 𝐔.𝐒.-𝐂𝐡𝐢𝐧𝐚 AI security and technology tensions. ➤ May accelerate adoption of 𝐝𝐨𝐦𝐞𝐬𝐭𝐢𝐜 AI development tools in China. ➤ Underscores increasing focus on 𝐞𝐧𝐭𝐞𝐫𝐩𝐫𝐢𝐬𝐞 AI security and data governance. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "It was an experiment... designed to prevent account abuse from unauthorised resellers and protect against distillation." — 𝐓𝐡𝐚𝐫𝐢𝐪 𝐒𝐡𝐢𝐡𝐢𝐩𝐚𝐫, Anthropic Engineer. ➤ "If a US AI coding tool can detect Chinese usage or proxy access, then it's not surprising for major Chinese tech companies to not want employees using it internally." — 𝐋𝐢𝐳𝐳𝐢 𝐋𝐞𝐞, Fellow at the Asia Society Policy Institute's Centre for China Analysis.
 
