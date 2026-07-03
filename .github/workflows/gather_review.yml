@@ -12,6 +12,7 @@ on:
           - daily_prep
           - daily_summary
           - weekly_summary
+          - intraday_update
 
 permissions:
   contents: write

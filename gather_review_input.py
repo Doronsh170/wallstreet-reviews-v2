@@ -38,7 +38,7 @@ import requests
 ISR_TZ = ZoneInfo("Asia/Jerusalem")
 NY_TZ = ZoneInfo("America/New_York")
 
-VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary")
+VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "intraday_update")
 REVIEW_MODE = (
     (sys.argv[1] if len(sys.argv) > 1 else "")
     or os.environ.get("REVIEW_MODE", "")
@@ -68,7 +68,10 @@ EXPECTED_FIRST_HEADING = {
     "daily_prep": "נקודות מרכזיות",
     "daily_summary": "סיכום המסחר",
     "weekly_summary": "סיכום השבוע",
+    "intraday_update": "עדכון ביניים",
 }
+
+INTRADAY_WINDOW_HOURS = 2
 
 FALLBACK_US_HOLIDAYS = [
     "2026-01-01", "2026-01-19", "2026-02-16", "2026-04-03", "2026-05-25",
@@ -92,11 +95,14 @@ def heb_date(date_str: str) -> str:
         return date_str
 
 
-def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Optional[str]) -> str:
+def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Optional[str],
+                         time_str: Optional[str] = None) -> str:
     if mode == "daily_prep":
         return f"נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
     if mode == "daily_summary":
         return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
+    if mode == "intraday_update":
+        return f"עדכון ביניים מוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}, {time_str}"
     return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
 
 
@@ -140,6 +146,23 @@ def get_last_trading_day(now: datetime, holidays: List[str]) -> datetime:
     return now - timedelta(days=1)
 
 
+def get_market_state(now_il: datetime, holidays: List[str]) -> str:
+    """US market session right now: open / premarket / afterhours / closed."""
+    ny = now_il.astimezone(NY_TZ)
+    if not is_trading_day(ny, holidays):
+        return "closed"
+    t = (ny.hour, ny.minute)
+    if t < (4, 0):
+        return "closed"
+    if t < (9, 30):
+        return "premarket"
+    if t < (16, 0):
+        return "open"
+    if t < (20, 0):
+        return "afterhours"
+    return "closed"
+
+
 def get_prev_week_range_str(now: datetime) -> str:
     weekday = now.weekday()
     monday = now - timedelta(days=weekday) if weekday >= 5 else now - timedelta(days=weekday + 7)
@@ -163,6 +186,8 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         target = get_last_trading_day(now, holidays)
         title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
         review_date = title_date_str
+    elif mode == "intraday_update":
+        review_date = date_str
     else:
         week_range = get_prev_week_range_str(now)
         weekday = now.weekday()
@@ -174,6 +199,9 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         "title_date_str": title_date_str, "title_day_name": title_day_name,
         "week_range": week_range, "target_is_trading": target_is_trading,
         "review_date": review_date,
+        "time_str": now.strftime("%H:%M"),
+        "window_from": (now - timedelta(hours=INTRADAY_WINDOW_HOURS)).strftime("%H:%M"),
+        "market_state": get_market_state(now, holidays),
     }
 
 
@@ -207,6 +235,22 @@ def read_accounts() -> List[str]:
         if accounts:
             return accounts
     return DEFAULT_ACCOUNTS
+
+
+def parse_tweet_time(s: str) -> Optional[datetime]:
+    """Parses the createdAt formats TwitterAPI.io returns. None if unparseable."""
+    s = str(s or "").strip()
+    if not s:
+        return None
+    try:  # classic Twitter format: "Thu Jul 03 17:40:12 +0000 2026"
+        return datetime.strptime(s, "%a %b %d %H:%M:%S %z %Y")
+    except ValueError:
+        pass
+    try:  # ISO 8601, with or without Z
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
 
 
 def looks_like_tweet(x: Any) -> bool:
@@ -271,11 +315,14 @@ def tweet_score(t: Dict[str, Any]) -> float:
     return score
 
 
-def fetch_and_select_tweets() -> Tuple[str, List[str]]:
-    """Returns (formatted tweet blocks, top cashtags mentioned)."""
+def fetch_and_select_tweets(since: Optional[datetime] = None) -> Tuple[str, List[str]]:
+    """Returns (formatted tweet blocks, top cashtags mentioned).
+    since — keep only tweets created at/after this moment (intraday window)."""
     if not TWITTER_API_KEY:
         print("  No TWITTER_API_KEY — skipping tweets (the review will rely on the chat model's web search)")
         return "", []
+    # With a time window most tweets get dropped, so take more per account.
+    per_account = MAX_TWEETS_PER_ACCOUNT * 2 if since is not None else MAX_TWEETS_PER_ACCOUNT
     all_tweets: List[Dict[str, Any]] = []
     for acc in read_accounts():
         try:
@@ -292,11 +339,25 @@ def fetch_and_select_tweets() -> Tuple[str, List[str]]:
             tweets = [normalize_tweet(t, acc) for t in find_tweets(r.json())]
             tweets = [t for t in tweets if t["text"]]
             print(f"    -> {len(tweets)} tweets")
-            all_tweets.extend(tweets[:MAX_TWEETS_PER_ACCOUNT])
+            all_tweets.extend(tweets[:per_account])
         except Exception as e:
             print(f"  Error fetching @{acc}: {e}")
     dedup = {t["text"]: t for t in all_tweets}
-    selected = sorted(dedup.values(), key=tweet_score, reverse=True)[:MAX_TWEETS_FOR_REVIEW]
+    pool = list(dedup.values())
+    if since is not None:
+        in_window, too_old, unparsed = [], 0, 0
+        for t in pool:
+            ts = parse_tweet_time(t["createdAt"])
+            if ts is None:
+                unparsed += 1
+            elif ts < since:
+                too_old += 1
+            else:
+                in_window.append(t)
+        print(f"  Time-window filter (since {since.astimezone(ISR_TZ):%H:%M} Israel): "
+              f"kept {len(in_window)}, dropped {too_old} older, {unparsed} unparseable timestamps")
+        pool = in_window
+    selected = sorted(pool, key=tweet_score, reverse=True)[:MAX_TWEETS_FOR_REVIEW]
     if not selected:
         print("  ⚠️  Zero usable tweets — continuing with market data only")
         return "", []
@@ -506,7 +567,15 @@ def fetch_economic_data(days_back: int, days_forward: int) -> str:
         return ""
 
 
-def get_macro_checklist(mode: str, date_str: str, week_range: Optional[str]) -> str:
+def get_macro_checklist(mode: str, date_str: str, week_range: Optional[str],
+                        window: Optional[str] = None) -> str:
+    if mode == "intraday_update":
+        return f"""══ MANDATORY MACRO DATA CHECK ══
+Use web search to check if ANY US economic data (CPI, PPI, NFP, Jobless Claims, ISM PMI, GDP, Retail Sales,
+Consumer Sentiment), an FOMC decision/minutes, or a Fed official's speech happened between {window} Israel time
+on {date_str}. If yes — include actual vs forecast vs previous AND the immediate market reaction.
+If none — skip, but you MUST check first. Do NOT include data released earlier today, outside the window.
+══════════════════════════════════"""
     if mode == "daily_summary":
         return f"""══ MANDATORY MACRO DATA CHECK ══
 Use web search to check if ANY of these were released on {date_str}: CPI (headline AND core),
@@ -536,6 +605,15 @@ def get_prior_review_context(mode: str, data: Dict[str, Any]) -> str:
         prior = data.get("dailyPrep")
         header = ("══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══\n"
                   "Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.")
+    elif mode == "intraday_update":
+        candidates = [data.get(k) for k in ("intradayUpdate", "dailySummary", "dailyPrep")]
+        prior = max(
+            (p for p in candidates if isinstance(p, dict) and p.get("date") and p.get("sections")),
+            key=lambda p: str(p.get("date", "")), default=None,
+        )
+        header = ("══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══\n"
+                  "Already published on the site. Your update covers ONLY the last two hours. Mention an item "
+                  "below ONLY if there is a genuinely NEW development about it inside the two-hour window.")
     else:
         return ""
     if not (prior and prior.get("sections")):
@@ -571,6 +649,45 @@ SHARED_RULES = """Rules:
 
 
 def mode_instructions(mode: str, d: Dict[str, Any]) -> str:
+    if mode == "intraday_update":
+        state_heb = {
+            "open": "השוק פתוח — שעות המסחר הרגילות בניו יורק",
+            "premarket": "טרום מסחר (pre-market) — השוק טרם נפתח היום",
+            "afterhours": "אחרי סגירה (after-hours) — המסחר הרגיל הסתיים היום",
+            "closed": "השוק סגור (לילה / סוף שבוע / חג)",
+        }[d["market_state"]]
+        return f"""You are a senior Wall Street market analyst writing an on-demand INTRADAY UPDATE in Hebrew,
+covering ONLY the last two hours: {d['window_from']}–{d['time_str']} שעון ישראל, on {d['date_str']} (יום {d['day_name']}).
+Market state right now: {state_heb}. Frame ALL market descriptions accordingly — if the cash market is not
+open, NEVER describe it as trading or reacting. Futures / pre-market / after-hours moves may be described,
+but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
+
+STRICT RECENCY RULE — this is the whole point of this update:
+- Include ONLY news, data releases, headlines and price moves from INSIDE the two-hour window above.
+  An older story may get HALF A SENTENCE of context, and only if it directly explains a move inside the window.
+- Use web search to verify WHEN each item happened. If you cannot confirm it happened inside the window — OMIT it.
+- Do NOT recycle content from the prior-review context block below. If the last two hours were genuinely quiet,
+  say so honestly in the first bullet ("שעתיים רגועות יחסית, ללא אירועים מהותיים") — never pad with old news.
+
+TIMEFRAME OF NUMBERS — critical:
+- The verified Finnhub percentages above are DAILY changes (vs. the previous close), NOT two-hour changes.
+  When you use them, label them explicitly: "מתחילת היום". NEVER present a daily number as a two-hour move.
+- A two-hour figure ("בשעתיים האחרונות עלתה ב-...") may appear ONLY if a source tweet or your web search
+  states that intraday figure explicitly. NEVER derive a two-hour change from the daily numbers.
+- Direction words must still match the DIRECTIONAL FACTS block (daily direction), framed as "מתחילת היום".
+
+EXACTLY 4 bullets, in this order:
+* מה קרה בשעתיים האחרונות: the single most important development inside the window and the market's
+  immediate reaction (or the futures / pre-market reaction if the cash market is closed).
+* הסיפור המרכזי: WHY the market moved — the main driver with clear cause-and-effect, and the transmission
+  mechanism explained simply only when genuinely relevant.
+* מניות ונכסים בתנועה: the 1-3 most notable movers WITHIN the window, each with its trigger.
+  Stock items open with "מניית <שם בעברית> (TICKER)".
+* מה הלאה: what to watch in the COMING hours (scheduled data, Fed speakers, earnings after the close) —
+  Israel time, with the consensus where known.
+Each bullet: 2-3 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
+continue in Hebrew words — never open with a ticker, a price or an English term. No ETF proxies, no Finnhub,
+no ISO dates."""
     if mode == "daily_prep":
         if d["target_is_trading"]:
             if d["date_str"] == d["title_date_str"]:
@@ -674,22 +791,32 @@ def main() -> None:
     now = datetime.now(ISR_TZ)
     holidays = load_holidays()
     d = compute_dates(REVIEW_MODE, now, holidays)
-    expected_title = build_expected_title(REVIEW_MODE, d["title_day_name"], d["title_date_str"], d["week_range"])
+    expected_title = build_expected_title(
+        REVIEW_MODE, d["title_day_name"], d["title_date_str"], d["week_range"], d["time_str"],
+    )
 
     print(f"Gathering raw input: {REVIEW_MODE} for {d['date_str']} ({d['day_name']})")
     print(f"  Target: {d['title_date_str']} ({d['title_day_name']}), week_range: {d['week_range']}")
+    if REVIEW_MODE == "intraday_update":
+        print(f"  Window: {d['window_from']}–{d['time_str']} Israel time, market state: {d['market_state']}")
     print(f"  Expected title: {expected_title}")
 
     print("\n── Tweets ──")
-    tweets, top_cashtags = fetch_and_select_tweets()
+    since = now - timedelta(hours=INTRADAY_WINDOW_HOURS) if REVIEW_MODE == "intraday_update" else None
+    tweets, top_cashtags = fetch_and_select_tweets(since)
 
     print("\n── Finnhub market data ──")
     market_block, pcts, ticker_quotes = fetch_market_data(REVIEW_MODE == "weekly_summary", top_cashtags)
 
     print("\n── Economic calendar ──")
-    econ_days = {"daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 0)}[REVIEW_MODE]
+    econ_days = {
+        "daily_prep": (1, 1), "daily_summary": (1, 0),
+        "weekly_summary": (7, 0), "intraday_update": (1, 0),
+    }[REVIEW_MODE]
     econ_block = fetch_economic_data(*econ_days)
-    checklist = get_macro_checklist(REVIEW_MODE, d["date_str"], d["week_range"])
+    checklist = get_macro_checklist(
+        REVIEW_MODE, d["date_str"], d["week_range"], f"{d['window_from']}–{d['time_str']}",
+    )
 
     prior_context = get_prior_review_context(REVIEW_MODE, load_data_json())
     if prior_context:
