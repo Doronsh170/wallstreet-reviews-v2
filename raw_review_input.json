@@ -1,11 +1,11 @@
 {
   "mode": "intraday_update",
-  "generated_at": "2026-07-03T23:25:35.834509+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 3.7.2026, 23:25",
+  "generated_at": "2026-07-04T10:16:10.190317+03:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שבת, 4.7.2026, 10:16",
   "first_heading": "עדכון ביניים",
-  "review_date": "2026-07-03",
-  "title_date_str": "2026-07-03",
-  "title_day_name": "שישי",
+  "review_date": "2026-07-04",
+  "title_date_str": "2026-07-04",
+  "title_day_name": "שבת",
   "week_range": null,
   "etf_pcts": {
     "SPY": -0.1314,
