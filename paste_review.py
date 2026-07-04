@@ -41,8 +41,9 @@ DATA_JSON_KEY = {
     "intraday_update": "intradayUpdate",
 }
 
-# The intraday update is intentionally short (4 bullets); the rest need 5+.
-MIN_BULLETS = {"intraday_update": 4}
+# The intraday update is intentionally short: 2 bullets when the market is
+# closed / the two-hour window is quiet, up to 4 otherwise. The rest need 5+.
+MIN_BULLETS = {"intraday_update": 2}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
@@ -58,6 +59,15 @@ TEXT_FIXES = [
     (r'הנפקה\s+ראשונית\s+לציבור\s*\(ETF\)', 'תעודת סל (ETF)', 'IPO ≠ ETF'),
     (r'תעודת\s+סל\s*\(IPO\)', 'הנפקה ראשונית (IPO)', 'ETF ≠ IPO'),
     (r'תנודתיותת', 'תנודתיות', 'typo: תנודתיותת'),
+]
+
+# The intraday update must never say "מסחר במזומן" / "שוק המזומן" (awkward calque
+# of "cash market") — deterministic rewrite, applied to intraday_update only.
+INTRADAY_TEXT_FIXES = [
+    (r'המסחר\s+במזומן', 'המסחר הרגיל', 'forbidden phrase "המסחר במזומן"'),
+    (r'במסחר\s+במזומן', 'במסחר הרגיל', 'forbidden phrase "במסחר במזומן"'),
+    (r'מסחר\s+במזומן', 'מסחר רגיל', 'forbidden phrase "מסחר במזומן"'),
+    (r'שוק\s+המזומן', 'המסחר הרגיל', 'forbidden phrase "שוק המזומן"'),
 ]
 
 # Hebrew company names for rewriting "* $TSLA:" bullet openers → "* מניית טסלה (TSLA):"
@@ -303,6 +313,17 @@ def apply_style_fixes(result: Dict[str, Any]) -> Dict[str, Any]:
     return apply_to_result_texts(result, fix)
 
 
+def apply_intraday_fixes(result: Dict[str, Any]) -> Dict[str, Any]:
+    def fix(text: str) -> str:
+        for pattern, replacement, desc in INTRADAY_TEXT_FIXES:
+            new_text = re.sub(pattern, replacement, text)
+            if new_text != text:
+                print(f"  ✅ Intraday fix: {desc}")
+                text = new_text
+        return text
+    return apply_to_result_texts(result, fix)
+
+
 def strip_meta_and_markdown(result: Dict[str, Any]) -> Dict[str, Any]:
     def clean(text: str) -> str:
         text = text.replace("**", "").replace("###", "").replace("##", "")
@@ -537,6 +558,8 @@ def main() -> None:
     result = strip_meta_and_markdown(result)
     result = apply_text_fixes(result)
     result = apply_style_fixes(result)
+    if mode == "intraday_update":
+        result = apply_intraday_fixes(result)
 
     print("── Market direction guard (vs gather-time Finnhub snapshot) ──")
     result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
