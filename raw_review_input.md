@@ -1,7 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
 You are a senior Wall Street market analyst writing an on-demand INTRADAY UPDATE in Hebrew,
-covering ONLY the last two hours: 08:34–10:34 שעון ישראל, on 2026-07-04 (יום שבת).
+covering ONLY the last two hours: 08:45–10:45 שעון ישראל, on 2026-07-04 (יום שבת).
 Market state right now: השוק סגור (לילה / סוף שבוע / חג). Frame ALL market descriptions accordingly — if the regular session is
 not open, NEVER describe the market as trading or reacting. Futures / pre-market / after-hours moves may be
 described, but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
@@ -61,7 +61,7 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שבת, 4.7.2026, 10:34",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שבת, 4.7.2026, 10:45",
   "date": "2026-07-04",
   "sections": [
     {
@@ -123,7 +123,7 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 
 ══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming numbers, times and names that already appear in the source
-tweets or in the verified data blocks, for the window 08:34–10:34 Israel time on 2026-07-04. Do NOT use it to
+tweets or in the verified data blocks, for the window 08:45–10:45 Israel time on 2026-07-04. Do NOT use it to
 find additional news, headlines or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
@@ -138,6 +138,6 @@ Already published on the site. Your update covers ONLY the last two hours. Menti
 * שורה תחתונה: כיוון המסחר ביום שני ייקבע בעיקר בנתון ה-ISM בשעה 17:00 ובשאלה אם הרוטציה מהטכנולוגיה אל הסקטורים הדפנסיביים נמשכת או מתמתנת. גורם מעצים שכדאי להכיר: פעילות האיזון היומית של תעודות סל ממונפות הגיעה לשיא של כ-50 מיליארד דולר ומהווה 1.6% מנפח החוזים על S&P 500, ולכן תנועה כיוונית עשויה להתעצם דווקא בשעה האחרונה של המסחר.
 ══════════════════════════════════════════════════════════════
 
-NOTE: no source tweets from the window 08:34–10:34 Israel time were gathered for this run. Per the rules above, return the SHORT 2-bullet form — do NOT use web search to fill the update with news, and do NOT recycle older headlines, stale daily data or unrelated macro.
+NOTE: no source tweets from the window 08:45–10:45 Israel time were gathered for this run. Per the rules above, return the SHORT 2-bullet form — do NOT use web search to fill the update with news, and do NOT recycle older headlines, stale daily data or unrelated macro.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
