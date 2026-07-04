@@ -78,6 +78,15 @@ FALLBACK_US_HOLIDAYS = [
     "2026-06-19", "2026-07-03", "2026-09-07", "2026-11-26", "2026-12-25",
 ]
 
+# Promotional/engagement-bait tweets (webinars, giveaways) carry no market news —
+# in the tight intraday window they crowd out real headlines, so drop them there.
+PROMO_TWEET_RE = re.compile(
+    r"giveaway|webinar|sweepstakes?|promo code|discount code|affiliate link|"
+    r"secure your seats?|winners will be|like & (?:rt|retweet)|rt this post|"
+    r"comment a ticker|tap the bell",
+    re.IGNORECASE,
+)
+
 CASHTAG_RE = re.compile(r"(?<![A-Za-z0-9_])\$([A-Z]{1,6})(?![A-Za-z0-9_])")
 NON_TICKER = {
     "USD", "EUR", "GBP", "JPY", "USA", "EU", "UK", "AM", "PM", "ET", "ETF", "IPO", "API",
@@ -345,17 +354,20 @@ def fetch_and_select_tweets(since: Optional[datetime] = None) -> Tuple[str, List
     dedup = {t["text"]: t for t in all_tweets}
     pool = list(dedup.values())
     if since is not None:
-        in_window, too_old, unparsed = [], 0, 0
+        in_window, too_old, unparsed, promo = [], 0, 0, 0
         for t in pool:
             ts = parse_tweet_time(t["createdAt"])
             if ts is None:
                 unparsed += 1
             elif ts < since:
                 too_old += 1
+            elif PROMO_TWEET_RE.search(t["text"]):
+                promo += 1
             else:
                 in_window.append(t)
         print(f"  Time-window filter (since {since.astimezone(ISR_TZ):%H:%M} Israel): "
-              f"kept {len(in_window)}, dropped {too_old} older, {unparsed} unparseable timestamps")
+              f"kept {len(in_window)}, dropped {too_old} older, {promo} promotional, "
+              f"{unparsed} unparseable timestamps")
         pool = in_window
     selected = sorted(pool, key=tweet_score, reverse=True)[:MAX_TWEETS_FOR_REVIEW]
     if not selected:
@@ -521,7 +533,20 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str]) -> Tuple[str, Dict[
     return "\n".join(block), pcts, ticker_quotes
 
 
-def fetch_economic_data(days_back: int, days_forward: int) -> str:
+def parse_econ_time(s: str) -> Optional[datetime]:
+    """Finnhub economic-calendar 'time' is UTC, e.g. '2026-07-03 12:30:00'."""
+    s = str(s or "").strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
+        try:
+            return datetime.strptime(s, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    return None
+
+
+def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datetime] = None) -> str:
+    """since — intraday window start: keep only releases at/after it. Data released
+    yesterday or earlier today must NOT reach the intraday update with a MUST-include order."""
     if not FINNHUB_API_KEY:
         return ""
     now = datetime.now(ISR_TZ)
@@ -539,9 +564,15 @@ def fetch_economic_data(days_back: int, days_forward: int) -> str:
             print(f"  Finnhub economic calendar: status {r.status_code}")
             return ""
         us_events = []
+        dropped_outside_window = 0
         for e in r.json().get("economicCalendar", []):
             if e.get("country") != "US" or e.get("actual") is None:
                 continue
+            if since is not None:
+                event_dt = parse_econ_time(e.get("time", ""))
+                if event_dt is None or event_dt < since:
+                    dropped_outside_window += 1
+                    continue
             unit = e.get("unit", "")
             line = f"  {e.get('time', '')[:10]} | {e.get('event', '')}: actual={e['actual']}{unit}"
             if e.get("estimate") is not None:
@@ -552,10 +583,17 @@ def fetch_economic_data(days_back: int, days_forward: int) -> str:
                 line += f" [{e['impact']} impact]"
             us_events.append(line)
             print(f"  Econ: {e.get('event', '')} = {e['actual']}{unit}")
+        if since is not None:
+            print(f"  Econ window filter: kept {len(us_events)}, dropped {dropped_outside_window} outside the window")
         if not us_events:
             return ""
+        header = (
+            "══ VERIFIED US ECONOMIC DATA RELEASED INSIDE THE TWO-HOUR WINDOW (from Finnhub — FACTS, you MUST include them) ══"
+            if since is not None else
+            "══ VERIFIED US ECONOMIC DATA (from Finnhub — FACTS, you MUST include them) ══"
+        )
         return "\n".join([
-            "══ VERIFIED US ECONOMIC DATA (from Finnhub — FACTS, you MUST include them) ══",
+            header,
             *us_events,
             "- Every data point above MUST appear in the review, woven into analytical bullets (not raw numbers).",
             "- Always explain WHY the number matters for Fed policy / markets.",
@@ -665,9 +703,16 @@ but always labeled as such (בחוזים העתידיים, בטרום מסחר, 
 STRICT RECENCY RULE — this is the whole point of this update:
 - Include ONLY news, data releases, headlines and price moves from INSIDE the two-hour window above.
   An older story may get HALF A SENTENCE of context, and only if it directly explains a move inside the window.
+- FORBIDDEN content: anything from yesterday or from earlier today outside the window — yesterday's session
+  recap, this morning's headlines, economic data released before {d['window_from']}, weekly/seasonal themes,
+  and any story already covered in the prior-review context block. If it was known before {d['window_from']},
+  it does NOT belong here.
 - Use web search to verify WHEN each item happened. If you cannot confirm it happened inside the window — OMIT it.
+- When the release/report time inside the window is known, state it: "בשעה 22:40 שעון ישראל". This anchors
+  the update to the window and proves freshness.
 - Do NOT recycle content from the prior-review context block below. If the last two hours were genuinely quiet,
-  say so honestly in the first bullet ("שעתיים רגועות יחסית, ללא אירועים מהותיים") — never pad with old news.
+  say so honestly in the first bullet ("שעתיים רגועות יחסית, ללא אירועים מהותיים"), keep every bullet short,
+  and put the weight on the "מה הלאה" bullet — never pad with old news.
 
 TIMEFRAME OF NUMBERS — critical:
 - The verified Finnhub percentages above are DAILY changes (vs. the previous close), NOT two-hour changes.
@@ -777,6 +822,12 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
             parts += ["", block]
     if tweets:
         parts += ["", f"Source tweets/posts from X (Twitter) — gathered {d['date_str']}. Never mention in the review that these came from tweets/posts:", "", tweets]
+    elif mode == "intraday_update":
+        parts += ["", (f"NOTE: no tweets from the last two hours were gathered for this run. Base the update ONLY on "
+                       f"the verified data above plus your own web search RESTRICTED to the window "
+                       f"{d['window_from']}–{d['time_str']} Israel time on {d['date_str']} (Reuters, Bloomberg, CNBC). "
+                       f"Do NOT fall back to older news from earlier today or yesterday — if the window was genuinely "
+                       f"quiet, say so honestly in the first bullet and keep the update short.")]
     else:
         parts += ["", "NOTE: no tweets were gathered for this run. Base the review on the verified data above plus your own web search of today's major market news from reliable sources (Reuters, Bloomberg, CNBC)."]
     parts += ["", "החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."]
@@ -813,7 +864,7 @@ def main() -> None:
         "daily_prep": (1, 1), "daily_summary": (1, 0),
         "weekly_summary": (7, 0), "intraday_update": (1, 0),
     }[REVIEW_MODE]
-    econ_block = fetch_economic_data(*econ_days)
+    econ_block = fetch_economic_data(*econ_days, since=since)
     checklist = get_macro_checklist(
         REVIEW_MODE, d["date_str"], d["week_range"], f"{d['window_from']}–{d['time_str']}",
     )
