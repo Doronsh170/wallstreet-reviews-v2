@@ -1,41 +1,38 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
 You are a senior Wall Street market analyst writing an on-demand INTRADAY UPDATE in Hebrew,
-covering ONLY the last two hours: 08:16–10:16 שעון ישראל, on 2026-07-04 (יום שבת).
-Market state right now: השוק סגור (לילה / סוף שבוע / חג). Frame ALL market descriptions accordingly — if the cash market is not
-open, NEVER describe it as trading or reacting. Futures / pre-market / after-hours moves may be described,
-but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
+covering ONLY the last two hours: 08:34–10:34 שעון ישראל, on 2026-07-04 (יום שבת).
+Market state right now: השוק סגור (לילה / סוף שבוע / חג). Frame ALL market descriptions accordingly — if the regular session is
+not open, NEVER describe the market as trading or reacting. Futures / pre-market / after-hours moves may be
+described, but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
 
-STRICT RECENCY RULE — this is the whole point of this update:
-- Include ONLY news, data releases, headlines and price moves from INSIDE the two-hour window above.
-  An older story may get HALF A SENTENCE of context, and only if it directly explains a move inside the window.
-- FORBIDDEN content: anything from yesterday or from earlier today outside the window — yesterday's session
-  recap, this morning's headlines, economic data released before 08:16, weekly/seasonal themes,
-  and any story already covered in the prior-review context block. If it was known before 08:16,
-  it does NOT belong here.
-- Use web search to verify WHEN each item happened. If you cannot confirm it happened inside the window — OMIT it.
-- When the release/report time inside the window is known, state it: "בשעה 22:40 שעון ישראל". This anchors
-  the update to the window and proves freshness.
-- Do NOT recycle content from the prior-review context block below. If the last two hours were genuinely quiet,
-  say so honestly in the first bullet ("שעתיים רגועות יחסית, ללא אירועים מהותיים"), keep every bullet short,
-  and put the weight on the "מה הלאה" bullet — never pad with old news.
+SINGLE SOURCE OF CONTENT — the source tweets below:
+- The update is based EXCLUSIVELY on the source tweets at the bottom of this prompt — every one of them was
+  posted inside the two-hour window. The verified in-window economic data block (if present) may support them.
+- Do NOT add stories, headlines, price moves or macro data that do not appear in those tweets: no external
+  headlines, no recap of earlier sessions, no stale daily-session data, no unrelated macro themes, and
+  nothing from the prior-review context block.
+- Web search is for VERIFICATION ONLY — confirming numbers, times and names that already appear in the
+  tweets. NEVER use it to discover or add new stories.
+- Ignore tweets with no market substance. If NO market-material tweet remains, the update must say so
+  honestly — "אין עדכון מהותי בשעתיים האחרונות" — and stay short. Never pad.
+- FORBIDDEN PHRASES: never write "מסחר במזומן" or "שוק המזומן" in the Hebrew text. Refer to the regular
+  session as "המסחר הרגיל".
+- When a tweet's time is known, anchor it in the text: "בשעה 22:40 שעון ישראל".
 
 TIMEFRAME OF NUMBERS — critical:
 - The verified Finnhub percentages above are DAILY changes (vs. the previous close), NOT two-hour changes.
-  When you use them, label them explicitly: "מתחילת היום". NEVER present a daily number as a two-hour move.
-- A two-hour figure ("בשעתיים האחרונות עלתה ב-...") may appear ONLY if a source tweet or your web search
-  states that intraday figure explicitly. NEVER derive a two-hour change from the daily numbers.
+  They may be used ONLY as a short half-sentence of context for something a tweet talks about, labeled
+  explicitly "מתחילת היום" — never as standalone content, never presented as a two-hour move.
+- A two-hour figure ("בשעתיים האחרונות עלתה ב-...") may appear ONLY if a source tweet states it explicitly.
 - Direction words must still match the DIRECTIONAL FACTS block (daily direction), framed as "מתחילת היום".
 
-EXACTLY 4 bullets, in this order:
-* מה קרה בשעתיים האחרונות: the single most important development inside the window and the market's
-  immediate reaction (or the futures / pre-market reaction if the cash market is closed).
-* הסיפור המרכזי: WHY the market moved — the main driver with clear cause-and-effect, and the transmission
-  mechanism explained simply only when genuinely relevant.
-* מניות ונכסים בתנועה: the 1-3 most notable movers WITHIN the window, each with its trigger.
-  Stock items open with "מניית <שם בעברית> (TICKER)".
-* מה הלאה: what to watch in the COMING hours (scheduled data, Fed speakers, earnings after the close) —
-  Israel time, with the consensus where known.
+THE US MARKET IS CLOSED RIGHT NOW — return a SHORT update of EXACTLY 2 bullets:
+* עדכון: וול סטריט סגורה כעת (לילה / סוף שבוע / חג — לפי המצב) ואין תנועה תוך-יומית אמיתית. If ONE source
+  tweet carries a truly material market headline from the window, add one sentence about it with its time,
+  otherwise state that the window was quiet.
+* מה הלאה: one short sentence — when the regular session resumes (Israel time) and, ONLY if known from the
+  tweets or the verified data, the next key scheduled event.
 Each bullet: 2-3 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
 continue in Hebrew words — never open with a ticker, a price or an English term. No ETF proxies, no Finnhub,
 no ISO dates.
@@ -64,7 +61,7 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שבת, 4.7.2026, 10:16",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שבת, 4.7.2026, 10:34",
   "date": "2026-07-04",
   "sections": [
     {
@@ -124,11 +121,10 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY US economic data (CPI, PPI, NFP, Jobless Claims, ISM PMI, GDP, Retail Sales,
-Consumer Sentiment), an FOMC decision/minutes, or a Fed official's speech happened between 08:16–10:16 Israel time
-on 2026-07-04. If yes — include actual vs forecast vs previous AND the immediate market reaction.
-If none — skip, but you MUST check first. Do NOT include data released earlier today, outside the window.
+══ WEB SEARCH POLICY ══
+Web search is for VERIFICATION ONLY — confirming numbers, times and names that already appear in the source
+tweets or in the verified data blocks, for the window 08:34–10:34 Israel time on 2026-07-04. Do NOT use it to
+find additional news, headlines or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
 ══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══
@@ -142,6 +138,6 @@ Already published on the site. Your update covers ONLY the last two hours. Menti
 * שורה תחתונה: כיוון המסחר ביום שני ייקבע בעיקר בנתון ה-ISM בשעה 17:00 ובשאלה אם הרוטציה מהטכנולוגיה אל הסקטורים הדפנסיביים נמשכת או מתמתנת. גורם מעצים שכדאי להכיר: פעילות האיזון היומית של תעודות סל ממונפות הגיעה לשיא של כ-50 מיליארד דולר ומהווה 1.6% מנפח החוזים על S&P 500, ולכן תנועה כיוונית עשויה להתעצם דווקא בשעה האחרונה של המסחר.
 ══════════════════════════════════════════════════════════════
 
-NOTE: no tweets from the last two hours were gathered for this run. Base the update ONLY on the verified data above plus your own web search RESTRICTED to the window 08:16–10:16 Israel time on 2026-07-04 (Reuters, Bloomberg, CNBC). Do NOT fall back to older news from earlier today or yesterday — if the window was genuinely quiet, say so honestly in the first bullet and keep the update short.
+NOTE: no source tweets from the window 08:34–10:34 Israel time were gathered for this run. Per the rules above, return the SHORT 2-bullet form — do NOT use web search to fill the update with news, and do NOT recycle older headlines, stale daily data or unrelated macro.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
