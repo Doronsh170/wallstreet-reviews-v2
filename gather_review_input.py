@@ -609,9 +609,9 @@ def get_macro_checklist(mode: str, date_str: str, week_range: Optional[str],
                         window: Optional[str] = None) -> str:
     if mode == "intraday_update":
         return f"""══ WEB SEARCH POLICY ══
-Web search is for VERIFICATION ONLY — confirming numbers, times and names that already appear in the source
-tweets or in the verified data blocks, for the window {window} Israel time on {date_str}. Do NOT use it to
-find additional news, headlines or macro data. Content that is not present in the tweets does not enter the update.
+Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
+tweets, for the window {window} Israel time on {date_str}. Do NOT use it to find additional news, headlines,
+prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════"""
     if mode == "daily_summary":
         return f"""══ MANDATORY MACRO DATA CHECK ══
@@ -684,6 +684,19 @@ SHARED_RULES = """Rules:
 - Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
 - SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה"."""
 
+# intraday_update summarizes the sources only — no Finnhub blocks exist in its prompt,
+# so it gets a reduced rule set with no references to verified market data.
+INTRADAY_RULES = """Rules:
+- Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
+- EVERY number in the update must appear in a source tweet. NEVER invent, estimate, or recall numbers from memory. A topic whose tweet has no figures is summarized WITHOUT figures.
+- No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
+- Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when the tweet itself cites them.
+- Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
+- NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
+- Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- Never mention in the review that the items came from tweets/posts/X accounts."""
+
 
 def mode_instructions(mode: str, d: Dict[str, Any], has_tweets: bool = True) -> str:
     if mode == "intraday_update":
@@ -693,70 +706,31 @@ def mode_instructions(mode: str, d: Dict[str, Any], has_tweets: bool = True) -> 
             "afterhours": "אחרי סגירה (after-hours) — המסחר הרגיל הסתיים היום",
             "closed": "השוק סגור (לילה / סוף שבוע / חג)",
         }[d["market_state"]]
-        base = f"""You are a senior Wall Street market analyst writing an on-demand INTRADAY UPDATE in Hebrew,
-covering ONLY the last two hours: {d['window_from']}–{d['time_str']} שעון ישראל, on {d['date_str']} (יום {d['day_name']}).
-Market state right now: {state_heb}. Frame ALL market descriptions accordingly — if the regular session is
-not open, NEVER describe the market as trading or reacting. Futures / pre-market / after-hours moves may be
-described, but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
+        return f"""You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
+plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
+{d['window_from']}–{d['time_str']} שעון ישראל, on {d['date_str']} (יום {d['day_name']}) — and nothing else.
+Market state right now: {state_heb}. Never describe the market as trading or reacting when the regular
+session is not open.
 
-SINGLE SOURCE OF CONTENT — the source tweets below:
-- The update is based EXCLUSIVELY on the source tweets at the bottom of this prompt — every one of them was
-  posted inside the two-hour window. The verified in-window economic data block (if present) may support them.
-- Do NOT add stories, headlines, price moves or macro data that do not appear in those tweets: no external
-  headlines, no recap of earlier sessions, no stale daily-session data, no unrelated macro themes, and
-  nothing from the prior-review context block.
-- Web search is for VERIFICATION ONLY — confirming numbers, times and names that already appear in the
-  tweets. NEVER use it to discover or add new stories.
-- Ignore tweets with no market substance. If NO market-material tweet remains, the update must say so
-  honestly — "אין עדכון מהותי בשעתיים האחרונות" — and stay short. Never pad.
+THE UPDATE SUMMARIZES THE SOURCES — it is NOT market analysis:
+- Content comes EXCLUSIVELY from the source tweets at the bottom of this prompt. Nothing else enters the
+  update: no price data, no daily-change percentages, no movers lists, no macro backdrop, no external
+  headlines, no recap of earlier sessions, and no independent market interpretation of your own.
+- The update does NOT determine who rose or fell in trading. Do NOT attach a price, percentage or direction
+  to any story — unless the tweet itself states that figure/move explicitly, in which case report it as the
+  source reported it.
+- FILTER: keep only market-material posts. Ignore promotional posts, engagement bait, and posts with no
+  market substance. A bare list of tickers with no story is NOT material.
+- ONE bullet per topic. Several tweets about the same topic/company → merge into ONE bullet.
+- Include EVERY material topic from the window — there is NO fixed bullet count, no minimum and no cap.
+- Each bullet: 1-2 short, clear Hebrew sentences. Open with a short Hebrew topic label, then the summary.
+  Anchor a bullet to its time when known: "בשעה 22:40 שעון ישראל".
+- If the window does not contain enough material posts, return a single bullet saying simply:
+  "* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה." — nothing else. Never pad.
 - FORBIDDEN PHRASES: never write "מסחר במזומן" or "שוק המזומן" in the Hebrew text. Refer to the regular
   session as "המסחר הרגיל".
-- When a tweet's time is known, anchor it in the text: "בשעה 22:40 שעון ישראל".
-
-TIMEFRAME OF NUMBERS — critical:
-- The verified Finnhub percentages above are DAILY changes (vs. the previous close), NOT two-hour changes.
-  They may be used ONLY as a short half-sentence of context for something a tweet talks about, labeled
-  explicitly "מתחילת היום" — never as standalone content, never presented as a two-hour move.
-- A two-hour figure ("בשעתיים האחרונות עלתה ב-...") may appear ONLY if a source tweet states it explicitly.
-- Direction words must still match the DIRECTIONAL FACTS block (daily direction), framed as "מתחילת היום"."""
-        if d["market_state"] == "closed":
-            structure = """THE US MARKET IS CLOSED RIGHT NOW — frame everything as a closed market, but the bullet count is
-driven by the source tweets, NOT by a fixed number:
-* עדכון: open with וול סטריט סגורה כעת (לילה / סוף שבוע / חג — לפי המצב) ואין תנועה תוך-יומית אמיתית, plus a
-  short characterization of the window.
-* Then ONE bullet per market-material story from the source tweets — cover EVERY material tweet from the
-  window, each anchored to its Israel time when known. Merge tweets about the same story/company into one
-  bullet. Overnight/futures moves only as labeled (בחוזים העתידיים, במסחר המאוחר), and daily Finnhub figures
-  only as "מתחילת היום" context, per the rules above.
-* מה הלאה: close with when the regular session resumes (Israel time) and, ONLY if known from the tweets or
-  the verified data, the next key scheduled event.
-Write as many story bullets as the material tweets genuinely support — no cap. If NO market-material tweet
-remains, return ONLY the two framing bullets (עדכון + מה הלאה) with "אין עדכון מהותי בשעתיים האחרונות".
-Never pad with content from outside the tweets."""
-        elif not has_tweets:
-            structure = """NO source tweets were gathered inside the window — return a SHORT update of EXACTLY 2 bullets:
-* עדכון: open with "אין עדכון מהותי בשעתיים האחרונות", plus one sentence on the current market state
-  (futures / pre-market / after-hours direction ONLY if it appears in the verified data, labeled "מתחילת היום").
-* מה הלאה: the next scheduled item to watch (Israel time), ONLY if known from the verified data — otherwise
-  simply when the next session opens. Do NOT use web search to fill either bullet with news."""
-        else:
-            structure = """EXACTLY 4 bullets, in this order — ALL content derived from the source tweets:
-* מה קרה בשעתיים האחרונות: the single most important development FROM THE TWEETS and the immediate market
-  reaction (or the futures / pre-market / after-hours reaction if the regular session is not open).
-* הסיפור המרכזי: WHY it matters — cause-and-effect for the main tweet-sourced driver, with the transmission
-  mechanism explained simply only when genuinely relevant.
-* מניות ונכסים בתנועה: the 1-3 most notable movers THAT THE TWEETS MENTION, each with its trigger.
-  Stock items open with "מניית <שם בעברית> (TICKER)".
-* מה הלאה: what to watch in the COMING hours, based on the tweets and the verified data — Israel time, with
-  the consensus where known.
-If the tweets genuinely support fewer than 4 bullets, write fewer (minimum 2) rather than padding with
-content from outside the tweets."""
-        return f"""{base}
-
-{structure}
-Each bullet: 2-3 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
-continue in Hebrew words — never open with a ticker, a price or an English term. No ETF proxies, no Finnhub,
-no ISO dates."""
+- Web search may be used ONLY to verify a name, time or figure that already appears in a tweet — NEVER to
+  discover or add stories, prices or data."""
     if mode == "daily_prep":
         if d["target_is_trading"]:
             if d["date_str"] == d["title_date_str"]:
@@ -820,7 +794,7 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         "",
         mode_instructions(mode, d, bool(tweets)),
         "",
-        SHARED_RULES,
+        INTRADAY_RULES if mode == "intraday_update" else SHARED_RULES,
         "",
         f"""CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
@@ -848,9 +822,9 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         parts += ["", f"Source tweets/posts from X (Twitter) — gathered {d['date_str']}. Never mention in the review that these came from tweets/posts:", "", tweets]
     elif mode == "intraday_update":
         parts += ["", (f"NOTE: no source tweets from the window {d['window_from']}–{d['time_str']} Israel time were "
-                       f"gathered for this run. Per the rules above, return the SHORT 2-bullet form — do NOT use web "
-                       f"search to fill the update with news, and do NOT recycle older headlines, stale daily data or "
-                       f"unrelated macro.")]
+                       f"gathered for this run. Per the rules above, return the single bullet "
+                       f"\"* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה.\" — do NOT use web search to fill "
+                       f"the update with news, and do NOT recycle older headlines or unrelated macro.")]
     else:
         parts += ["", "NOTE: no tweets were gathered for this run. Base the review on the verified data above plus your own web search of today's major market news from reliable sources (Reuters, Bloomberg, CNBC)."]
     parts += ["", "החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."]
@@ -880,14 +854,23 @@ def main() -> None:
     tweets, top_cashtags = fetch_and_select_tweets(since)
 
     print("\n── Finnhub market data ──")
-    market_block, pcts, ticker_quotes = fetch_market_data(REVIEW_MODE == "weekly_summary", top_cashtags)
+    if REVIEW_MODE == "intraday_update":
+        # The intraday update only summarizes the sources — no price data, no
+        # movers, no percentages. Nothing from Finnhub enters its prompt.
+        print("  intraday_update summarizes the sources only — skipping market data")
+        market_block, pcts, ticker_quotes = "", {}, {}
+    else:
+        market_block, pcts, ticker_quotes = fetch_market_data(REVIEW_MODE == "weekly_summary", top_cashtags)
 
     print("\n── Economic calendar ──")
-    econ_days = {
-        "daily_prep": (1, 1), "daily_summary": (1, 0),
-        "weekly_summary": (7, 0), "intraday_update": (1, 0),
-    }[REVIEW_MODE]
-    econ_block = fetch_economic_data(*econ_days, since=since)
+    if REVIEW_MODE == "intraday_update":
+        print("  intraday_update summarizes the sources only — skipping economic calendar")
+        econ_block = ""
+    else:
+        econ_days = {
+            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 0),
+        }[REVIEW_MODE]
+        econ_block = fetch_economic_data(*econ_days, since=since)
     checklist = get_macro_checklist(
         REVIEW_MODE, d["date_str"], d["week_range"], f"{d['window_from']}–{d['time_str']}",
     )

@@ -41,9 +41,10 @@ DATA_JSON_KEY = {
     "intraday_update": "intradayUpdate",
 }
 
-# The intraday update needs at least the two framing bullets (עדכון + מה הלאה);
-# beyond that the bullet count is driven by the source tweets. The rest need 5+.
-MIN_BULLETS = {"intraday_update": 2}
+# The intraday update summarizes the sources: bullet count is driven by the
+# material topics in the window, and a quiet window is a single bullet
+# ("אין מספיק עדכונים משמעותיים..."). The rest need 5+.
+MIN_BULLETS = {"intraday_update": 1}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
