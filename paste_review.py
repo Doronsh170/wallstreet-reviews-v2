@@ -43,9 +43,9 @@ DATA_JSON_KEY = {
 
 # The intraday update summarizes the sources: bullet count is driven by the
 # material topics in the window, and a quiet window is a single bullet
-# ("אין מספיק עדכונים משמעותיים..."). The signature-style reviews are deeper:
-# a thin reply means the chat skipped material and needs another round.
-MIN_BULLETS = {"intraday_update": 1, "daily_prep": 6, "daily_summary": 6, "weekly_summary": 8}
+# ("אין מספיק עדכונים משמעותיים..."). The signature-style reviews target
+# 6-9 strong points — below 5 the chat skipped material and needs another round.
+MIN_BULLETS = {"intraday_update": 1}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 

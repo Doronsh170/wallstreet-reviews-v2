@@ -748,11 +748,12 @@ POINT_STYLE = """SIGNATURE POINT FORMAT (the author's own style — follow it ex
   "הנפט ממשיך לטפס", "אבן דרך במגזר הבריאות", "סנטימנט מעורב בפתיחה" — never a generic label like
   "חדשות" / "מאקרו" / "מניות". Up to 40 characters, and NO ":" inside the headline itself.
   A single-stock story opens with "מניית <שם בעברית> (TICKER)".
-- After the headline: flowing, professional Hebrew prose — 2 to 4 full sentences. EVERY point must deliver
-  real depth: (1) what happened, with the few figures that carry the story, (2) the background and context
-  (על רקע..., בעקבות...), and (3) why it matters — the mechanism or the implication for investors.
-  Never leave a point as a bare headline-fact: the reader should finish each point understanding the story,
-  not just the datum.
+- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences (a 4th only when the story
+  truly demands it). EVERY point must deliver real depth: (1) what happened, with the few figures that carry
+  the story, (2) the background and context (על רקע..., בעקבות...), and (3) why it matters — the mechanism or
+  the implication for investors. Never leave a point as a bare headline-fact.
+- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article — no
+  filler points, no padding.
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them."""
 
@@ -823,24 +824,23 @@ Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date:
 
 This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
 no closing levels, and nothing that already appears in the prior-context block.
-8-12 points, opening with the market picture and closing with the bottom line:
+6-9 points TOTAL, opening with the market picture and closing with the bottom line:
 * FIRST point — the opening picture (headline like "סנטימנט מעורב בפתיחה" / "אופטימיות זהירה לקראת הפתיחה"):
   futures direction and the mood heading into the session, plus the single most important backdrop theme.
   Futures percentages ONLY if a specific futures figure appears in the sources — never copy an ETF
   percentage as a futures percentage.
-* MIDDLE points — ONE point per real story. Cover every item below that has genuine material today,
-  and skip what doesn't:
+* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the morning from the menu below —
+  do NOT force every category, and never pad to reach a count:
   - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
     number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
   - The central story investors will watch today, with the transmission mechanism explained simply
     (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
-  - 2-4 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
+  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
     story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
   - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
   - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
   - Geopolitics / Washington politics with market impact.
-  - Overnight sessions in Europe and Asia when something material happened there.
-  - A notable investor move, IPO news or M&A headline when it exists in the sources.
+  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
 * LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
 No ETF proxies, no Finnhub, no ISO dates."""
     if mode == "daily_summary":
@@ -850,20 +850,20 @@ No ETF proxies, no Finnhub, no ISO dates."""
 {POINT_STYLE}
 
 This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-7-10 points, opening with the day's picture and closing with the bottom line:
+6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
 * FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
   what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
   session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points — ONE point per real story. Cover every item below that has genuine material, skip what doesn't:
+* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
+  do NOT force every category, and never pad to reach a count:
   - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
     mechanism explained simply.
   - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
     expectations, yields, sector rotation).
   - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 2-4 notable stock stories with the REASON for each move. Each significant story gets its own point.
+  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
   - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings or news when they exist in the sources.
-  - Geopolitics / Washington politics that moved markets today.
+  - After-hours earnings, or geopolitics that moved markets today — when truly material.
 * LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
 Every direction word MUST match the DIRECTIONAL FACTS block."""
     return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
@@ -874,19 +874,21 @@ never confuse Friday's daily change with the weekly change.
 
 {POINT_STYLE}
 
-11-15 points in three blocks, in this order:
+6-9 points TOTAL in three blocks, in this order:
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
   what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
-* SUMMARY points (6-9) — ONE thematic point per major story of the week, each with its own specific headline:
+* SUMMARY points (3-5) — ONE thematic point per major story of the week, each with its own specific headline.
+  Pick the STRONGEST stories — do NOT force every category:
   - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
-  - ALL macro data of the week with FULL numbers (actual vs forecast vs previous) and the market implication.
+  - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —
+    merge related releases into one point.
   - The week's defining sector/technology story, with the transmission mechanism.
-  - Notable company news: earnings, M&A, milestones, major corporate moves — merged where related.
-  - Commodities and the dollar with weekly context. Geopolitics with market impact.
-* PREPARATION points (2-4) — the COMING week (verify the schedule via web search):
+  - Notable company news: earnings, M&A, milestones — merged where related.
+  - Commodities and the dollar with weekly context, or geopolitics with market impact.
+* PREPARATION points (1-2) — the COMING week (verify the schedule via web search):
   - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
-  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them.
-  - Other known scheduled events (auctions, IPOs, deadlines, holidays affecting trading hours) when material.
+  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
+    (merge into the macro point when the earnings slate is thin).
 * CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
   and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified."""
 
