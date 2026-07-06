@@ -1,12 +1,94 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-07-06T10:51:14.955445+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 10:51",
-  "first_heading": "עדכון ביניים",
+  "mode": "daily_prep",
+  "generated_at": "2026-07-06T13:22:19.477071+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
+  "first_heading": "נקודות מרכזיות",
   "review_date": "2026-07-06",
   "title_date_str": "2026-07-06",
   "title_day_name": "שני",
   "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "etf_pcts": {
+    "SPY": -0.1314,
+    "QQQ": -1.7334,
+    "DIA": 1.049,
+    "IWM": -0.5813,
+    "XLE": 0.7764,
+    "XLK": -2.7098,
+    "XLF": 1.5334,
+    "XLY": -0.8214,
+    "XLV": 2.6326,
+    "XLI": 0.3,
+    "XLP": 2.0288,
+    "XLU": 2.2113,
+    "USO": 0.6875,
+    "BNO": 0.6597,
+    "GLD": 2.0318,
+    "SLV": 2.6876,
+    "IBIT": 2.5588,
+    "TLT": -0.0117,
+    "UUP": -0.5265,
+    "VIXY": -1.3476
+  },
+  "ticker_quotes": {
+    "META": {
+      "price": 582.9,
+      "pct": -4.8963,
+      "prev_close": 612.91
+    },
+    "AMZN": {
+      "price": 242.67,
+      "pct": 0.4013,
+      "prev_close": 241.7
+    },
+    "MU": {
+      "price": 975.56,
+      "pct": -5.4946,
+      "prev_close": 1032.28
+    },
+    "INTC": {
+      "price": 120.35,
+      "pct": -5.2511,
+      "prev_close": 127.02
+    },
+    "SNDK": {
+      "price": 1745.0,
+      "pct": -14.1333,
+      "prev_close": 2032.22
+    },
+    "MSFT": {
+      "price": 390.49,
+      "pct": 1.616,
+      "prev_close": 384.28
+    },
+    "GOOGL": {
+      "price": 359.91,
+      "pct": -0.3599,
+      "prev_close": 361.21
+    },
+    "ORCL": {
+      "price": 140.27,
+      "pct": -1.5649,
+      "prev_close": 142.5
+    },
+    "NVDA": {
+      "price": 194.83,
+      "pct": -1.3918,
+      "prev_close": 197.58
+    },
+    "DDOG": {
+      "price": 260.36,
+      "pct": -1.5578,
+      "prev_close": 264.48
+    },
+    "AMD": {
+      "price": 517.82,
+      "pct": -4.2634,
+      "prev_close": 540.88
+    },
+    "AMAT": {
+      "price": 603.04,
+      "pct": -7.3543,
+      "prev_close": 650.91
+    }
+  }
 }
