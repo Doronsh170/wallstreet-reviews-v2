@@ -1,8 +1,8 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-07-05T17:08:49.023586+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
-  "first_heading": "נקודות מרכזיות",
+  "mode": "intraday_update",
+  "generated_at": "2026-07-06T03:09:37.805962+03:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 03:09",
+  "first_heading": "עדכון ביניים",
   "review_date": "2026-07-06",
   "title_date_str": "2026-07-06",
   "title_day_name": "שני",
@@ -30,65 +30,65 @@
     "VIXY": -1.3476
   },
   "ticker_quotes": {
-    "META": {
-      "price": 582.9,
-      "pct": -4.8963,
-      "prev_close": 612.91
+    "ALAB": {
+      "price": 406.42,
+      "pct": -5.6724,
+      "prev_close": 430.86
+    },
+    "ARM": {
+      "price": 315.28,
+      "pct": -6.5754,
+      "prev_close": 337.47
+    },
+    "BMNR": {
+      "price": 14.36,
+      "pct": 1.4841,
+      "prev_close": 14.15
+    },
+    "CLSK": {
+      "price": 12.62,
+      "pct": -7.3421,
+      "prev_close": 13.62
+    },
+    "CRCL": {
+      "price": 64.62,
+      "pct": 4.3099,
+      "prev_close": 61.95
+    },
+    "CRWV": {
+      "price": 81.745,
+      "pct": -4.5982,
+      "prev_close": 85.685
+    },
+    "IREN": {
+      "price": 38.82,
+      "pct": -10.3878,
+      "prev_close": 43.32
+    },
+    "MRVL": {
+      "price": 245.29,
+      "pct": -9.8364,
+      "prev_close": 272.05
+    },
+    "MSTR": {
+      "price": 100.77,
+      "pct": 7.9023,
+      "prev_close": 93.39
     },
     "MU": {
       "price": 975.56,
       "pct": -5.4946,
       "prev_close": 1032.28
     },
-    "NVDA": {
-      "price": 194.83,
-      "pct": -1.3918,
-      "prev_close": 197.58
-    },
-    "TSLA": {
-      "price": 393.45,
-      "pct": -7.4888,
-      "prev_close": 425.3
-    },
-    "MSFT": {
-      "price": 390.49,
-      "pct": 1.616,
-      "prev_close": 384.28
-    },
-    "INTC": {
-      "price": 120.35,
-      "pct": -5.2511,
-      "prev_close": 127.02
-    },
-    "AMZN": {
-      "price": 242.67,
-      "pct": 0.4013,
-      "prev_close": 241.7
-    },
-    "AVGO": {
-      "price": 360.45,
-      "pct": -2.407,
-      "prev_close": 369.34
+    "NBIS": {
+      "price": 215.62,
+      "pct": -5.9167,
+      "prev_close": 229.18
     },
     "SNDK": {
       "price": 1745.0,
       "pct": -14.1333,
       "prev_close": 2032.22
-    },
-    "SPCX": {
-      "price": 162.0,
-      "pct": 2.831,
-      "prev_close": 157.54
-    },
-    "AAPL": {
-      "price": 308.63,
-      "pct": 4.8407,
-      "prev_close": 294.38
-    },
-    "GOOGL": {
-      "price": 359.91,
-      "pct": -0.3599,
-      "prev_close": 361.21
     }
   }
 }
