@@ -1,94 +1,12 @@
 {
   "mode": "intraday_update",
-  "generated_at": "2026-07-06T03:31:44.613793+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 03:31",
+  "generated_at": "2026-07-06T10:44:55.529329+03:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 10:44",
   "first_heading": "עדכון ביניים",
   "review_date": "2026-07-06",
   "title_date_str": "2026-07-06",
   "title_day_name": "שני",
   "week_range": null,
-  "etf_pcts": {
-    "SPY": -0.1314,
-    "QQQ": -1.7334,
-    "DIA": 1.049,
-    "IWM": -0.5813,
-    "XLE": 0.7764,
-    "XLK": -2.7098,
-    "XLF": 1.5334,
-    "XLY": -0.8214,
-    "XLV": 2.6326,
-    "XLI": 0.3,
-    "XLP": 2.0288,
-    "XLU": 2.2113,
-    "USO": 0.6875,
-    "BNO": 0.6597,
-    "GLD": 2.0318,
-    "SLV": 2.6876,
-    "IBIT": 2.5588,
-    "TLT": -0.0117,
-    "UUP": -0.5265,
-    "VIXY": -1.3476
-  },
-  "ticker_quotes": {
-    "ALAB": {
-      "price": 406.42,
-      "pct": -5.6724,
-      "prev_close": 430.86
-    },
-    "ARM": {
-      "price": 315.28,
-      "pct": -6.5754,
-      "prev_close": 337.47
-    },
-    "BMNR": {
-      "price": 14.36,
-      "pct": 1.4841,
-      "prev_close": 14.15
-    },
-    "CLSK": {
-      "price": 12.62,
-      "pct": -7.3421,
-      "prev_close": 13.62
-    },
-    "CRCL": {
-      "price": 64.62,
-      "pct": 4.3099,
-      "prev_close": 61.95
-    },
-    "CRWV": {
-      "price": 81.745,
-      "pct": -4.5982,
-      "prev_close": 85.685
-    },
-    "IREN": {
-      "price": 38.82,
-      "pct": -10.3878,
-      "prev_close": 43.32
-    },
-    "MRVL": {
-      "price": 245.29,
-      "pct": -9.8364,
-      "prev_close": 272.05
-    },
-    "MSTR": {
-      "price": 100.77,
-      "pct": 7.9023,
-      "prev_close": 93.39
-    },
-    "MU": {
-      "price": 975.56,
-      "pct": -5.4946,
-      "prev_close": 1032.28
-    },
-    "NBIS": {
-      "price": 215.62,
-      "pct": -5.9167,
-      "prev_close": 229.18
-    },
-    "SNDK": {
-      "price": 1745.0,
-      "pct": -14.1333,
-      "prev_close": 2032.22
-    }
-  }
+  "etf_pcts": {},
+  "ticker_quotes": {}
 }
