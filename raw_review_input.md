@@ -2,7 +2,7 @@
 
 You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
 plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
-08:44–10:44 שעון ישראל, on 2026-07-06 (יום שני) — and nothing else.
+08:51–10:51 שעון ישראל, on 2026-07-06 (יום שני) — and nothing else.
 Market state right now: השוק סגור (לילה / סוף שבוע / חג). Never describe the market as trading or reacting when the regular
 session is not open.
 
@@ -40,7 +40,7 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 10:44",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 10:51",
   "date": "2026-07-06",
   "sections": [
     {
@@ -64,7 +64,7 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
-tweets, for the window 08:44–10:44 Israel time on 2026-07-06. Do NOT use it to find additional news, headlines,
+tweets, for the window 08:51–10:51 Israel time on 2026-07-06. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
@@ -72,13 +72,9 @@ prices or macro data. Content that is not present in the tweets does not enter t
 Already published on the site. Your update covers ONLY the last two hours. Mention an item below ONLY if there is a genuinely NEW development about it inside the two-hour window.
 
 [עדכון ביניים]
-* עדכון: וול סטריט סגורה כעת בשעות הלילה שבין ראשון לשני ואין תנועה תוך-יומית אמיתית. עם זאת, החלון של השעתיים האחרונות התאפיין בתנועות חדות במיוחד במניות בודדות מחוץ לשעות המסחר הרגילות, בעיקר סביב שבבים, זיכרון וקריפטו.
-* בולטות לשלילה: בשעה 03:05 שעון ישראל בלטה רשימה רחבה של מניות בירידות חדות מתחילת היום, ובראשן מניית סנדיסק (SNDK) שצונחת 14.1%, מניית IREN שיורדת 10.4% ומניית מארוול (MRVL) שיורדת 9.8%. גם מניית ARM יורדת 6.6%, מניית מיקרון (MU) יורדת 5.5%, ומניות נביוס (NBIS), אסטרה לאבס (ALAB), קורוויב (CRWV) וקלינספארק (CLSK) רושמות ירידות של בין 4.6% ל-7.3%.
-* בולטות לחיוב: מנגד, מניית מיקרוסטרטג'י (MSTR) מזנקת 7.9% מתחילת היום, במקביל לעלייה של כ-2.6% בביטקוין. גם מניית סירקל (CRCL) עולה 4.3% ומניית ביטמיין (BMNR) מוסיפה 1.5%.
-* רובוטיקה: בשעה 02:08 שעון ישראל הציגה בוסטון דיינמיקס, זרוע הרובוטיקה של יונדאי, רובוט דמוי-אדם באירועי המונדיאל 2026, חשיפה צרכנית רחבה לתחום הרובוטים ההומנואידים שנמצא במוקד העניין של משקיעי הבינה המלאכותית.
-* מה הלאה: המסחר הרגיל בוול סטריט ייפתח היום, יום שני, 6.7.2026, בשעה 16:30 שעון ישראל, אחרי סוף השבוע הארוך של חג העצמאות האמריקאי. התנועות החדות מהלילה יעמדו למבחן עם חזרת הנזילות המלאה לשוק.
+* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה.
 ══════════════════════════════════════════════════════════════
 
-NOTE: no source tweets from the window 08:44–10:44 Israel time were gathered for this run. Per the rules above, return the single bullet "* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה." — do NOT use web search to fill the update with news, and do NOT recycle older headlines or unrelated macro.
+NOTE: no source tweets from the window 08:51–10:51 Israel time were gathered for this run. Per the rules above, return the single bullet "* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה." — do NOT use web search to fill the update with news, and do NOT recycle older headlines or unrelated macro.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
