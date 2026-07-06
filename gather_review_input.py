@@ -13,7 +13,7 @@ Output:
                            validate and publish the review into data.json.
 
 Modes (REVIEW_MODE env var or first CLI argument):
-  daily_prep | daily_summary | weekly_summary
+  daily_prep | daily_summary | weekly_summary | intraday_update
 
 Usage:
   python gather_review_input.py daily_summary
@@ -95,6 +95,27 @@ NON_TICKER = {
 }
 
 
+def http_get(url: str, *, params: Optional[Dict[str, Any]] = None,
+             headers: Optional[Dict[str, str]] = None, timeout: int = 15,
+             attempts: int = 3, label: str = "") -> requests.Response:
+    """GET with retries + exponential backoff. Retries network errors, 5xx and 429 —
+    transient API hiccups should not cost a whole gather run."""
+    last_exc: Optional[Exception] = None
+    for i in range(attempts):
+        try:
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
+            if r.status_code >= 500 or r.status_code == 429:
+                raise requests.RequestException(f"HTTP {r.status_code}")
+            return r
+        except requests.RequestException as e:
+            last_exc = e
+            if i < attempts - 1:
+                wait = 2 ** (i + 1)
+                print(f"  {label or url}: {e} — retry {i + 1}/{attempts - 1} in {wait}s")
+                time.sleep(wait)
+    raise last_exc  # type: ignore[misc]
+
+
 def heb_date(date_str: str) -> str:
     """'2026-07-06' → '6.7.2026' — Israeli display format for visible text."""
     try:
@@ -112,7 +133,7 @@ def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Op
         return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
     if mode == "intraday_update":
         return f"עדכון ביניים מוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}, {time_str}"
-    return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
+    return f"סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – {week_range}"
 
 
 # ══════════════════════════════════════════════════════════════
@@ -335,11 +356,11 @@ def fetch_and_select_tweets(since: Optional[datetime] = None) -> Tuple[str, List
     all_tweets: List[Dict[str, Any]] = []
     for acc in read_accounts():
         try:
-            r = requests.get(
+            r = http_get(
                 f"{TWITTER_BASE}/twitter/user/last_tweets",
                 headers={"X-API-Key": TWITTER_API_KEY},
                 params={"userName": acc, "includeReplies": "false"},
-                timeout=25,
+                timeout=25, label=f"@{acc}",
             )
             print(f"  @{acc}: status={r.status_code}")
             if not r.ok:
@@ -415,7 +436,8 @@ DIRECTION_ASSETS_LABELS = [
 
 def finnhub_quote(symbol: str) -> Optional[Dict[str, float]]:
     try:
-        r = requests.get(f"{FINNHUB_BASE}/quote", params={"symbol": symbol, "token": FINNHUB_API_KEY}, timeout=8)
+        r = http_get(f"{FINNHUB_BASE}/quote", params={"symbol": symbol, "token": FINNHUB_API_KEY},
+                     timeout=10, label=f"Finnhub {symbol}")
         if not r.ok:
             return None
         d = r.json()
@@ -443,10 +465,10 @@ def fetch_weekly_lines() -> List[str]:
     for symbol in WEEKLY_SYMBOLS:
         label = FINNHUB_SYMBOLS.get(symbol, symbol)
         try:
-            r = requests.get(
+            r = http_get(
                 f"{FINNHUB_BASE}/stock/candle",
                 params={"symbol": symbol, "resolution": "D", "from": from_ts, "to": now_ts, "token": FINNHUB_API_KEY},
-                timeout=8,
+                timeout=10, label=f"Finnhub weekly {symbol}",
             )
             if not r.ok:
                 continue
@@ -551,29 +573,42 @@ def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datet
         return ""
     now = datetime.now(ISR_TZ)
     try:
-        r = requests.get(
+        r = http_get(
             f"{FINNHUB_BASE}/calendar/economic",
             params={
                 "from": (now - timedelta(days=days_back)).strftime("%Y-%m-%d"),
                 "to": (now + timedelta(days=days_forward)).strftime("%Y-%m-%d"),
                 "token": FINNHUB_API_KEY,
             },
-            timeout=12,
+            timeout=15, label="Finnhub economic calendar",
         )
         if not r.ok:
             print(f"  Finnhub economic calendar: status {r.status_code}")
             return ""
         us_events = []
+        scheduled_events = []
         dropped_outside_window = 0
         for e in r.json().get("economicCalendar", []):
-            if e.get("country") != "US" or e.get("actual") is None:
+            if e.get("country") != "US":
+                continue
+            unit = e.get("unit", "")
+            if e.get("actual") is None:
+                # Not released yet — a SCHEDULED event, relevant for the preparation part.
+                if days_forward > 0 and since is None:
+                    line = f"  {e.get('time', '')[:16]} UTC | {e.get('event', '')}"
+                    if e.get("estimate") is not None:
+                        line += f": forecast={e['estimate']}{unit}"
+                    if e.get("prev") is not None:
+                        line += f", previous={e['prev']}{unit}"
+                    if e.get("impact"):
+                        line += f" [{e['impact']} impact]"
+                    scheduled_events.append(line)
                 continue
             if since is not None:
                 event_dt = parse_econ_time(e.get("time", ""))
                 if event_dt is None or event_dt < since:
                     dropped_outside_window += 1
                     continue
-            unit = e.get("unit", "")
             line = f"  {e.get('time', '')[:10]} | {e.get('event', '')}: actual={e['actual']}{unit}"
             if e.get("estimate") is not None:
                 line += f", forecast={e['estimate']}{unit}"
@@ -585,19 +620,37 @@ def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datet
             print(f"  Econ: {e.get('event', '')} = {e['actual']}{unit}")
         if since is not None:
             print(f"  Econ window filter: kept {len(us_events)}, dropped {dropped_outside_window} outside the window")
-        if not us_events:
+        if scheduled_events:
+            print(f"  Econ: {len(scheduled_events)} scheduled upcoming events")
+        if not us_events and not scheduled_events:
             return ""
         header = (
             "══ VERIFIED US ECONOMIC DATA RELEASED INSIDE THE TWO-HOUR WINDOW (from Finnhub — FACTS, you MUST include them) ══"
             if since is not None else
             "══ VERIFIED US ECONOMIC DATA (from Finnhub — FACTS, you MUST include them) ══"
         )
+        if not us_events:
+            return "\n".join([
+                "══ SCHEDULED US ECONOMIC EVENTS AHEAD (from Finnhub — times are UTC, convert with the offset block) ══",
+                *scheduled_events,
+                "- Use these for the preparation/look-ahead points. Give times in Israel time with the consensus and previous reading.",
+                "══════════════════════════════════════════════════════════════════════════════",
+            ])
+        tail = []
+        if scheduled_events:
+            tail = [
+                "",
+                "SCHEDULED US ECONOMIC EVENTS AHEAD (not yet released — times are UTC, convert with the offset block):",
+                *scheduled_events,
+                "- Use these for the preparation/look-ahead points. Give times in Israel time with the consensus and previous reading.",
+            ]
         return "\n".join([
             header,
             *us_events,
             "- Every data point above MUST appear in the review, woven into analytical bullets (not raw numbers).",
             "- Always explain WHY the number matters for Fed policy / markets.",
             "- Do NOT say data 'is expected' if it already has an actual value above — it was ALREADY released.",
+            *tail,
             "══════════════════════════════════════════════════════════════════════════════",
         ])
     except Exception as e:
@@ -626,6 +679,9 @@ Use web search to find ALL major US economic data released during the week of {w
 CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
 ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
 Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
+IN ADDITION — for the preparation points, use web search to verify the COMING week's schedule:
+economic releases and Fed events (with dates, Israel times and consensus where available) and the key
+earnings reports scheduled, and what the market will look for in each.
 ══════════════════════════════════"""
     return f"""══ SCHEDULED DATA CHECK ══
 Use web search to find what US economic data is scheduled for release on {date_str}.
@@ -683,6 +739,22 @@ SHARED_RULES = """Rules:
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
 - Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
 - SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה"."""
+
+# The signature point format shared by daily_prep / daily_summary / weekly_summary —
+# modeled on the author's own published briefings (specific mini-headline + deep prose).
+POINT_STYLE = """SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
+- Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
+- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "מניות השבבים ממשיכות לרכז עניין",
+  "הנפט ממשיך לטפס", "אבן דרך במגזר הבריאות", "סנטימנט מעורב בפתיחה" — never a generic label like
+  "חדשות" / "מאקרו" / "מניות". Up to 40 characters, and NO ":" inside the headline itself.
+  A single-stock story opens with "מניית <שם בעברית> (TICKER)".
+- After the headline: flowing, professional Hebrew prose — 2 to 4 full sentences. EVERY point must deliver
+  real depth: (1) what happened, with the few figures that carry the story, (2) the background and context
+  (על רקע..., בעקבות...), and (3) why it matters — the mechanism or the implication for investors.
+  Never leave a point as a bare headline-fact: the reader should finish each point understanding the story,
+  not just the datum.
+- Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
+  analytical, confident, readable. Weave the numbers into the story, don't stack them."""
 
 # intraday_update summarizes the sources only — no Finnhub blocks exist in its prompt,
 # so it gets a reduced rule set with no references to verified market data.
@@ -743,52 +815,91 @@ THE UPDATE SUMMARIZES THE SOURCES — it is NOT market analysis:
                           f"Do NOT describe futures/pre-market as live — they are not available yet.")
         else:
             status = f"The target date {d['title_date_str']} is NOT a trading day (weekend/US holiday). State this in the first bullet."
-        return f"""You are a senior Wall Street market analyst writing a PRE-MARKET briefing in Hebrew.
+        return f"""You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
 Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}).
 {status}
 
-This is a professional, readable BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index
-performance, no closing levels, and nothing that already appears in the prior-context block.
-EXACTLY 5 bullets, in this order:
-* תמונת פתיחה: the mood and backdrop heading into the session — the single most important theme, and futures
-  direction ONLY (no percentage unless a specific futures figure appears in the sources; never copy an ETF
-  percentage as a futures percentage).
-* הסיפור המרכזי: the main driver investors will watch and why it matters, with the transmission mechanism
-  explained simply (event → oil → inflation → rates → equities) only when it is genuinely relevant.
-* מאקרו ואירועים: the economic releases and Fed events scheduled for the day — Israel time, consensus and the
-  previous reading, plus one sentence on why the number matters. If nothing is scheduled, say so in one short
-  sentence and point to the next key date.
-* דוחות ומניות במוקד: expected earnings and the 1-3 most important NEW overnight stock stories (company news,
-  analyst moves). Stock items open with "מניית <שם בעברית> (TICKER)". Positive news about a falling stock →
-  "למרות החדשות, המניה ירדה".
-* שורה תחתונה: what will decide the direction of the session, in 1-2 sentences.
-Each bullet: 2-4 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
-continue in Hebrew words — never open with a ticker, a price or an English term. Do NOT stack prices, price
-targets and percentages: pick only the few figures that carry the story. No ETF proxies, no Finnhub, no ISO dates."""
+{POINT_STYLE}
+
+This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
+no closing levels, and nothing that already appears in the prior-context block.
+8-12 points, opening with the market picture and closing with the bottom line:
+* FIRST point — the opening picture (headline like "סנטימנט מעורב בפתיחה" / "אופטימיות זהירה לקראת הפתיחה"):
+  futures direction and the mood heading into the session, plus the single most important backdrop theme.
+  Futures percentages ONLY if a specific futures figure appears in the sources — never copy an ETF
+  percentage as a futures percentage.
+* MIDDLE points — ONE point per real story. Cover every item below that has genuine material today,
+  and skip what doesn't:
+  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
+    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
+  - The central story investors will watch today, with the transmission mechanism explained simply
+    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
+  - 2-4 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
+    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
+  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
+  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
+  - Geopolitics / Washington politics with market impact.
+  - Overnight sessions in Europe and Asia when something material happened there.
+  - A notable investor move, IPO news or M&A headline when it exists in the sources.
+* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
+No ETF proxies, no Finnhub, no ISO dates."""
     if mode == "daily_summary":
-        return f"""You are a senior Wall Street market analyst writing an end-of-day market review in Hebrew for
-{d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE. This is a professional, readable MARKET REVIEW —
-NOT a data dump. EXACTLY 5 bullets, in this order:
-* המדדים: what the major indices did (direction + rounded %), one flowing analytical sentence or two.
-* הסיפור של היום: WHY the market moved — the main driver(s), with clear cause-and-effect.
-* סקטורים ומניות בולטות: the 1-3 most notable sector/stock stories with the reason. Stock items open with "מניית <שם בעברית> (TICKER)".
-* סחורות, דולר ותשואות: oil, gold, dollar and yields in brief — direction and meaning, not a list of prices.
-* שורה תחתונה למחר: what investors should watch in the next session.
-Each bullet: 2-4 short sentences. Do NOT list ETF prices, do NOT dump long series of percentages or price levels,
-do NOT mention Finnhub or any ETF proxy in the text. Explain the day — don't copy the data.
+        return f"""You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
+{d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
+
+{POINT_STYLE}
+
+This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
+7-10 points, opening with the day's picture and closing with the bottom line:
+* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
+  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
+  session — how it opened, what moved it, how it closed — not a list of numbers.
+* MIDDLE points — ONE point per real story. Cover every item below that has genuine material, skip what doesn't:
+  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
+    mechanism explained simply.
+  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
+    expectations, yields, sector rotation).
+  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
+  - 2-4 notable stock stories with the REASON for each move. Each significant story gets its own point.
+  - Commodities, dollar and yields — direction and meaning, not a list of prices.
+  - After-hours earnings or news when they exist in the sources.
+  - Geopolitics / Washington politics that moved markets today.
+* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
 Every direction word MUST match the DIRECTIONAL FACTS block."""
-    return f"""You are a senior Wall Street strategist writing a weekly review in Hebrew for the trading week
-{d['week_range']}. PAST TENSE. ONLY events and moves from THIS specific week.
-Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse
-Friday's daily change with the weekly change. 8-14 bullets: weekly index performance with leading/lagging sectors,
-all macro data of the week with FULL numbers, key market-moving events with the transmission mechanism,
-commodities with weekly context, notable company news/earnings/M&A merged where related, earnings-season outlook."""
+    return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
+trading week {d['week_range']}. The review does BOTH: sums up the week that ended AND prepares the reader for
+the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
+summary points. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and
+never confuse Friday's daily change with the weekly change.
+
+{POINT_STYLE}
+
+11-15 points in three blocks, in this order:
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
+  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
+* SUMMARY points (6-9) — ONE thematic point per major story of the week, each with its own specific headline:
+  - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
+  - ALL macro data of the week with FULL numbers (actual vs forecast vs previous) and the market implication.
+  - The week's defining sector/technology story, with the transmission mechanism.
+  - Notable company news: earnings, M&A, milestones, major corporate moves — merged where related.
+  - Commodities and the dollar with weekly context. Geopolitics with market impact.
+* PREPARATION points (2-4) — the COMING week (verify the schedule via web search):
+  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
+  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them.
+  - Other known scheduled events (auctions, IPOs, deadlines, holidays affecting trading hours) when material.
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
+  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified."""
 
 
 def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_block: str,
                       econ_block: str, checklist: str, prior_context: str, tweets: str,
                       now_il: datetime) -> str:
     first_heading = EXPECTED_FIRST_HEADING[mode]
+    example_content = (
+        "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\\n* נושא שני: ...\\n* נושא שלישי: ..."
+        if mode == "intraday_update" else
+        "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\\n* כותרת נוספת: ..."
+    )
     parts = [
         "אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.",
         "",
@@ -804,13 +915,13 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
   "sections": [
     {{
       "heading": "{first_heading}",
-      "content": "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\\n* נושא שני: ...\\n* נושא שלישי: ..."
+      "content": "{example_content}"
     }}
   ]
 }}
 - EXACTLY 1 section. Heading EXACTLY "{first_heading}". Title EXACTLY as given above.
 - content = one string, bullets separated by \\n, each bullet starts with "* ".
-- No "שורה תחתונה"/summary section — merge any concluding insight as a regular bullet.
+- The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.""",
         "",
         get_time_conversion_block(now_il),
@@ -868,7 +979,7 @@ def main() -> None:
         econ_block = ""
     else:
         econ_days = {
-            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 0),
+            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 7),
         }[REVIEW_MODE]
         econ_block = fetch_economic_data(*econ_days, since=since)
     checklist = get_macro_checklist(

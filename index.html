@@ -122,7 +122,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   <div class="masthead wrap">
     <div class="kicker">MARKET DESK</div>
     <h1>סקירות וול סטריט</h1>
-    <p class="tagline">הכנה, עדכון ביניים, סיכום יומי וסיכום שבועי — בעברית, על בסיס נתונים מאומתים</p>
+    <p class="tagline">הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי עם מבט לשבוע הבא — בעברית, על בסיס נתונים מאומתים</p>
   </div>
   <div class="rule"></div>
   <div class="updated"><span id="updatedLine"></span><b id="activeLabel"></b></div>
@@ -133,7 +133,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
     <button class="tab" role="tab" data-key="dailyPrep" aria-selected="false">הכנה ליום מסחר<small>daily prep</small></button>
     <button class="tab" role="tab" data-key="intradayUpdate" aria-selected="false">עדכון ביניים<small>intraday update</small></button>
     <button class="tab" role="tab" data-key="dailySummary" aria-selected="false">סיכום יום מסחר<small>daily summary</small></button>
-    <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי<small>weekly summary</small></button>
+    <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי והכנה<small>weekly summary</small></button>
   </nav>
 
   <div class="status" id="status">טוען נתונים…</div>
@@ -151,7 +151,7 @@ const LABELS = {
   dailyPrep:   {he:'הכנה ליום מסחר',  empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים',  empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר',  empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
-  weeklySummary:{he:'סיכום שבועי',    empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
+  weeklySummary:{he:'סיכום שבועי והכנה', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
 };
 let data = null;
 let active = 'dailyPrep';

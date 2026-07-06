@@ -43,8 +43,9 @@ DATA_JSON_KEY = {
 
 # The intraday update summarizes the sources: bullet count is driven by the
 # material topics in the window, and a quiet window is a single bullet
-# ("אין מספיק עדכונים משמעותיים..."). The rest need 5+.
-MIN_BULLETS = {"intraday_update": 1}
+# ("אין מספיק עדכונים משמעותיים..."). The signature-style reviews are deeper:
+# a thin reply means the chat skipped material and needs another round.
+MIN_BULLETS = {"intraday_update": 1, "daily_prep": 6, "daily_summary": 6, "weekly_summary": 8}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
@@ -218,7 +219,7 @@ def normalize_bullets(text: str) -> str:
             result.append(converted)
         elif re.match(r'^\$[A-Z]{1,5}\s*:', stripped):
             result.append('* ' + stripped)
-        elif re.match(r'^[^\n]{2,35}:\s+\S', stripped) and len(lines) >= 3:
+        elif re.match(r'^[^\n]{2,40}:\s+\S', stripped) and len(lines) >= 3:
             result.append('* ' + stripped)
         else:
             result.append(stripped)
@@ -235,26 +236,23 @@ def enforce_structure(result: Dict[str, Any], first_heading: str, expected_title
     if not isinstance(sections, list) or not sections:
         raise ValueError("ה-JSON לא מכיל sections. בקש מהצ'אט להחזיר את המבנה המדויק שהוגדר בהנחיות.")
 
-    merged_parts, dropped = [], 0
+    merged_parts, converted = [], 0
     for s in sections:
         heading = str(s.get("heading", ""))
         c = s.get("content", "")
         if isinstance(c, list):
             c = "\n".join(str(x) for x in c)
-        if "שורה תחתונה" in heading or heading.lower().strip() in {"bottom line", "the bottom line"}:
-            dropped += 1
+        text = str(c).strip()
+        if not text:
             continue
-        if str(c).strip():
-            merged_parts.append(str(c).strip())
-    if not merged_parts:
-        for s in sections:
-            c = s.get("content", "")
-            if isinstance(c, list):
-                c = "\n".join(str(x) for x in c)
-            if str(c).strip():
-                merged_parts.append(str(c).strip())
-    if len(sections) != 1 or dropped:
-        print(f"  ✅ Sections normalized: {len(sections)} → 1; dropped bottom-line sections: {dropped}")
+        if "שורה תחתונה" in heading or heading.lower().strip() in {"bottom line", "the bottom line"}:
+            # The bottom line belongs in the review — fold it in as the closing bullet.
+            if not text.lstrip().startswith("*"):
+                text = "* בשורה התחתונה: " + re.sub(r'^\s*[*•\-–—]+\s*', '', text)
+            converted += 1
+        merged_parts.append(text)
+    if len(sections) != 1 or converted:
+        print(f"  ✅ Sections normalized: {len(sections)} → 1; bottom-line sections folded into a closing bullet: {converted}")
     result["sections"] = [{"heading": first_heading, "content": normalize_bullets("\n".join(merged_parts))}]
     return result
 
@@ -399,11 +397,14 @@ def apply_market_direction_guard(result: Dict[str, Any], pcts: Dict[str, float])
 
 
 def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict[str, float]],
-                           threshold: float = 0.3) -> None:
+                           threshold: float = 0.3, hard_fail: bool = True) -> None:
     """Per-bullet sign-flip check against the gather-time snapshot.
     A HIGH-severity contradiction (bullet says up, verified quote says down, or
     vice versa) FAILS the publish — data.json is not touched. A claim against a
-    ~flat quote is only a warning (usually a real pre/after-market move)."""
+    ~flat quote is only a warning (usually a real pre/after-market move).
+    hard_fail=False (weekly review) downgrades everything to warnings: the weekly
+    text describes WEEKLY moves, and the snapshot only holds DAILY percentages —
+    a contradiction there is usually not a hallucination."""
     if not ticker_quotes:
         return
     hard: List[str] = []
@@ -433,6 +434,10 @@ def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict
                 hard.append(msg)
     for w in soft:
         print(f"  ⚠️  אזהרה (ציטוט כמעט ללא שינוי — ייתכן מהלך פרה/אפטר-מרקט): {w}")
+    if hard and not hard_fail:
+        for w in hard:
+            print(f"  ⚠️  אזהרה (סקירה שבועית — הכיוון נבדק מול נתון יומי בלבד): {w}")
+        return
     if hard:
         details = "\n  ".join(hard)
         raise ValueError(
@@ -563,11 +568,18 @@ def main() -> None:
         result = apply_intraday_fixes(result)
 
     print("── Market direction guard (vs gather-time Finnhub snapshot) ──")
-    result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
+    if mode == "weekly_summary":
+        # The weekly text describes WEEKLY moves and the snapshot holds DAILY
+        # percentages — auto-"fixing" against them would corrupt correct sentences.
+        print("  weekly review — skipping the daily-based auto-fix guard")
+    else:
+        result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
 
     print("── Per-ticker direction check (vs snapshot) ──")
     # Raises on a material sign-flip → publish fails, data.json untouched.
-    ticker_direction_check(result, snapshot.get("ticker_quotes", {}))
+    # Weekly reviews describe weekly moves, so the daily snapshot is warnings-only there.
+    ticker_direction_check(result, snapshot.get("ticker_quotes", {}),
+                           hard_fail=(mode != "weekly_summary"))
 
     print("── Tense guard / links / dedupe ──")
     result = apply_pre_market_tense_guard(result, mode)
