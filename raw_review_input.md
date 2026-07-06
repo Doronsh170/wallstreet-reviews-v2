@@ -1,7 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
 You are a senior Wall Street market analyst writing an on-demand INTRADAY UPDATE in Hebrew,
-covering ONLY the last two hours: 01:09–03:09 שעון ישראל, on 2026-07-06 (יום שני).
+covering ONLY the last two hours: 01:31–03:31 שעון ישראל, on 2026-07-06 (יום שני).
 Market state right now: השוק סגור (לילה / סוף שבוע / חג). Frame ALL market descriptions accordingly — if the regular session is
 not open, NEVER describe the market as trading or reacting. Futures / pre-market / after-hours moves may be
 described, but always labeled as such (בחוזים העתידיים, בטרום מסחר, במסחר המאוחר).
@@ -27,12 +27,19 @@ TIMEFRAME OF NUMBERS — critical:
 - A two-hour figure ("בשעתיים האחרונות עלתה ב-...") may appear ONLY if a source tweet states it explicitly.
 - Direction words must still match the DIRECTIONAL FACTS block (daily direction), framed as "מתחילת היום".
 
-THE US MARKET IS CLOSED RIGHT NOW — return a SHORT update of EXACTLY 2 bullets:
-* עדכון: וול סטריט סגורה כעת (לילה / סוף שבוע / חג — לפי המצב) ואין תנועה תוך-יומית אמיתית. If ONE source
-  tweet carries a truly material market headline from the window, add one sentence about it with its time,
-  otherwise state that the window was quiet.
-* מה הלאה: one short sentence — when the regular session resumes (Israel time) and, ONLY if known from the
-  tweets or the verified data, the next key scheduled event.
+THE US MARKET IS CLOSED RIGHT NOW — frame everything as a closed market, but the bullet count is
+driven by the source tweets, NOT by a fixed number:
+* עדכון: open with וול סטריט סגורה כעת (לילה / סוף שבוע / חג — לפי המצב) ואין תנועה תוך-יומית אמיתית, plus a
+  short characterization of the window.
+* Then ONE bullet per market-material story from the source tweets — cover EVERY material tweet from the
+  window, each anchored to its Israel time when known. Merge tweets about the same story/company into one
+  bullet. Overnight/futures moves only as labeled (בחוזים העתידיים, במסחר המאוחר), and daily Finnhub figures
+  only as "מתחילת היום" context, per the rules above.
+* מה הלאה: close with when the regular session resumes (Israel time) and, ONLY if known from the tweets or
+  the verified data, the next key scheduled event.
+Write as many story bullets as the material tweets genuinely support — no cap. If NO market-material tweet
+remains, return ONLY the two framing bullets (עדכון + מה הלאה) with "אין עדכון מהותי בשעתיים האחרונות".
+Never pad with content from outside the tweets.
 Each bullet: 2-3 short sentences of flowing Hebrew prose — not a list of figures. After the Hebrew label,
 continue in Hebrew words — never open with a ticker, a price or an English term. No ETF proxies, no Finnhub,
 no ISO dates.
@@ -61,7 +68,7 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 03:09",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 6.7.2026, 03:31",
   "date": "2026-07-06",
   "sections": [
     {
@@ -137,26 +144,21 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 
 ══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming numbers, times and names that already appear in the source
-tweets or in the verified data blocks, for the window 01:09–03:09 Israel time on 2026-07-06. Do NOT use it to
+tweets or in the verified data blocks, for the window 01:31–03:31 Israel time on 2026-07-06. Do NOT use it to
 find additional news, headlines or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
 ══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══
 Already published on the site. Your update covers ONLY the last two hours. Mention an item below ONLY if there is a genuinely NEW development about it inside the two-hour window.
 
-[נקודות מרכזיות]
-* תמונת פתיחה: המסחר יחזור ביום שני, 6.7.2026, אחרי סוף שבוע ארוך של חג העצמאות האמריקאי, כשברקע רוטציה חדה ממניות הטכנולוגיה והצמיחה אל סקטורים דפנסיביים ומניות ערך. שני גורמים תומכים ברקע: עונתיות חיובית של יולי, החודש החזק בשנה עם עלייה ממוצעת של 2.5% ב-S&P 500 מאז 2005 ו-11 שנים רצופות ללא ירידה בחודש זה, וזרימות שיא של קרנות השקעה זרות למניות אמריקאיות, כ-2.5% מסך הנכסים המנוהלים מתחילת השנה.
-* הסיפור המרכזי: שוק העבודה יישאר הציר שסביבו נע השוק גם בשבוע הקרוב. הרוויזיות מטה בנתוני התעסוקה נמשכות, 14 מתוך 17 החודשים האחרונים תוקנו כלפי מטה בסך כולל של 710 אלף משרות, ואפריל ומאי תוקנו יחד ב-74 אלף נוספים. תמונה תעסוקתית רכה יותר מקטינה את הלחץ על הפדרל ריזרב להדק את המדיניות, וזה הרקע לביקוש לזהב ולחולשת הדולר בימים האחרונים.
-* מאקרו ואירועים: הנתון המרכזי ביום שני הוא מדד מנהלי הרכש במגזר השירותים ISM Services PMI ליוני, שיתפרסם בשעה 17:00 שעון ישראל, עם צפי של 54.5 מול 54.5 בקריאה הקודמת. אחרי נתוני התעסוקה החלשים, השוק יחפש בנתון הזה אישור שצד השירותים והצריכה של הכלכלה מחזיק מעמד. הפתעה כלפי מטה תחזק את תרחיש ההאטה, בעוד קריאה יציבה תתמוך בהמשך תיאבון הסיכון.
-* דוחות ומניות במוקד: לוח הדוחות ביום שני דל לקראת פתיחת עונת הדוחות, והאירוע הבולט בשבוע הקרוב הוא רישום מניות SK Hynix למסחר בנאסד"ק. מניית טסלה (TSLA): שירות הרובוטקסי הושק במיאמי ומבחני ההנדסה של ה-Cybercab הראשון מקו הייצור החלו באוסטין, אך למרות החדשות, המניה ירדה בחדות ביום המסחר האחרון. מניית מיקרון (MU): לפי דיווחים, מייקל ביורי פתח פוזיציית שורט על המניה, שירדה גם היא ביום המסחר האחרון. מניית מטא (META): דיווח חדש על מגעים עם סמסונג לייצור שבב בינה מלאכותית ייעודי בהיקף של כ-100 טריליון וון, אך למרות הדיווח, המניה ירדה.
-* שורה תחתונה: כיוון המסחר ביום שני ייקבע בעיקר בנתון ה-ISM בשעה 17:00 ובשאלה אם הרוטציה מהטכנולוגיה אל הסקטורים הדפנסיביים נמשכת או מתמתנת. גורם מעצים שכדאי להכיר: פעילות האיזון היומית של תעודות סל ממונפות הגיעה לשיא של כ-50 מיליארד דולר ומהווה 1.6% מנפח החוזים על S&P 500, ולכן תנועה כיוונית עשויה להתעצם דווקא בשעה האחרונה של המסחר.
+[עדכון ביניים]
+* עדכון: וול סטריט סגורה כעת בשעות הלילה שבין ראשון לשני, בתום סוף השבוע הארוך של חג העצמאות האמריקאי, ואין תנועה תוך-יומית אמיתית. בשעה 01:13 שעון ישראל התחדש המסחר בחוזים העתידיים על המדדים לקראת שבוע המסחר החדש. במקביל, לפי Bloomberg, בשעה 02:12 שעון ישראל החל הוון הדרום-קוריאני את יום המסחר הראשון שלו במתכונת של 24 שעות ביממה, צעד מרכזי במאמץ של דרום קוריאה לזכות בסיווג שוק מפותח.
+* מה הלאה: המסחר הרגיל בוול סטריט יתחדש היום, יום שני, 6.7.2026, בשעה 16:30 שעון ישראל, לאחר חופשת החג. עד הפתיחה, התנועה בחוזים העתידיים תספק אינדיקציה ראשונית לכיוון שבו ייפתח השבוע.
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-06. Never mention in the review that these came from tweets/posts:
 
 @AIStockSavvy [Mon Jul 06 00:05:58 +0000 2026]: 📊 Overnight Movers $SNDK $MU $IREN $MSTR $BMNR $WDC $CRCL $NBIS $CLSK $ALAB $MRVL $ARM $CRWV https://t.co/eIGsx8jphJ
-
-@StockMKTNewz [Sun Jul 05 22:13:19 +0000 2026]: Stock futures are back … we’re getting closer to the market being open again 🟢🟢🟢🟢 https://t.co/hD8qqQuVkI
 
 @StockMKTNewz [Sun Jul 05 23:08:22 +0000 2026]: Hyundai's Boston Dynamics humanoid robot unit showed off one of its robots at the 2026 FIFA World Cup https://t.co/3gzWE9JlA3
 
