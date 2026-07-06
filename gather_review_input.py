@@ -720,12 +720,19 @@ TIMEFRAME OF NUMBERS — critical:
 - A two-hour figure ("בשעתיים האחרונות עלתה ב-...") may appear ONLY if a source tweet states it explicitly.
 - Direction words must still match the DIRECTIONAL FACTS block (daily direction), framed as "מתחילת היום"."""
         if d["market_state"] == "closed":
-            structure = """THE US MARKET IS CLOSED RIGHT NOW — return a SHORT update of EXACTLY 2 bullets:
-* עדכון: וול סטריט סגורה כעת (לילה / סוף שבוע / חג — לפי המצב) ואין תנועה תוך-יומית אמיתית. If ONE source
-  tweet carries a truly material market headline from the window, add one sentence about it with its time,
-  otherwise state that the window was quiet.
-* מה הלאה: one short sentence — when the regular session resumes (Israel time) and, ONLY if known from the
-  tweets or the verified data, the next key scheduled event."""
+            structure = """THE US MARKET IS CLOSED RIGHT NOW — frame everything as a closed market, but the bullet count is
+driven by the source tweets, NOT by a fixed number:
+* עדכון: open with וול סטריט סגורה כעת (לילה / סוף שבוע / חג — לפי המצב) ואין תנועה תוך-יומית אמיתית, plus a
+  short characterization of the window.
+* Then ONE bullet per market-material story from the source tweets — cover EVERY material tweet from the
+  window, each anchored to its Israel time when known. Merge tweets about the same story/company into one
+  bullet. Overnight/futures moves only as labeled (בחוזים העתידיים, במסחר המאוחר), and daily Finnhub figures
+  only as "מתחילת היום" context, per the rules above.
+* מה הלאה: close with when the regular session resumes (Israel time) and, ONLY if known from the tweets or
+  the verified data, the next key scheduled event.
+Write as many story bullets as the material tweets genuinely support — no cap. If NO market-material tweet
+remains, return ONLY the two framing bullets (עדכון + מה הלאה) with "אין עדכון מהותי בשעתיים האחרונות".
+Never pad with content from outside the tweets."""
         elif not has_tweets:
             structure = """NO source tweets were gathered inside the window — return a SHORT update of EXACTLY 2 bullets:
 * עדכון: open with "אין עדכון מהותי בשעתיים האחרונות", plus one sentence on the current market state

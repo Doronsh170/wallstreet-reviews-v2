@@ -41,8 +41,8 @@ DATA_JSON_KEY = {
     "intraday_update": "intradayUpdate",
 }
 
-# The intraday update is intentionally short: 2 bullets when the market is
-# closed / the two-hour window is quiet, up to 4 otherwise. The rest need 5+.
+# The intraday update needs at least the two framing bullets (עדכון + מה הלאה);
+# beyond that the bullet count is driven by the source tweets. The rest need 5+.
 MIN_BULLETS = {"intraday_update": 2}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
