@@ -91,6 +91,16 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 .actions button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 .actions .primary{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
 
+/* ── How-to strip ── */
+.howto{margin:0 0 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);font-size:14px}
+.howto summary{cursor:pointer;padding:10px 14px;color:var(--ink-soft);font-weight:500;list-style-position:inside}
+.howto summary:hover{color:var(--desk)}
+.howto ol{margin:0;padding:2px 30px 12px 14px;color:var(--ink-soft)}
+.howto li{margin:7px 0;line-height:1.55}
+.howto b{color:var(--ink)}
+.howto a{color:var(--desk);font-weight:500}
+.howto .note{margin:0;padding:0 14px 12px;color:var(--muted);font-size:12.5px}
+
 .status{color:var(--muted);font-size:14px;margin:8px 0}
 .status.error{color:var(--danger)}
 .footer{margin-top:26px;text-align:center;color:var(--muted);font-size:12.5px}
@@ -122,7 +132,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   <div class="masthead wrap">
     <div class="kicker">MARKET DESK</div>
     <h1>סקירות וול סטריט</h1>
-    <p class="tagline">הכנה, עדכון ביניים, סיכום יומי וסיכום שבועי — בעברית, על בסיס נתונים מאומתים</p>
+    <p class="tagline">הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי עם מבט לשבוע הבא — בעברית, על בסיס נתונים מאומתים</p>
   </div>
   <div class="rule"></div>
   <div class="updated"><span id="updatedLine"></span><b id="activeLabel"></b></div>
@@ -133,8 +143,20 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
     <button class="tab" role="tab" data-key="dailyPrep" aria-selected="false">הכנה ליום מסחר<small>daily prep</small></button>
     <button class="tab" role="tab" data-key="intradayUpdate" aria-selected="false">עדכון ביניים<small>intraday update</small></button>
     <button class="tab" role="tab" data-key="dailySummary" aria-selected="false">סיכום יום מסחר<small>daily summary</small></button>
-    <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי<small>weekly summary</small></button>
+    <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי והכנה<small>weekly summary</small></button>
   </nav>
+
+  <details class="howto">
+    <summary>איך מפרסמים סקירה חדשה? (5 שלבים)</summary>
+    <ol>
+      <li><b>בוחרים סוג סקירה ומריצים איסוף</b> — <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/gather_review.yml" target="_blank" rel="noopener">Actions ‏← "1 - Gather Review Input"</a> ← Run workflow ← בוחרים מצב (daily_prep / intraday_update / daily_summary / weekly_summary).</li>
+      <li><b>מעתיקים את חומר הגלם לצ'אט</b> — פותחים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/raw/main/raw_review_input.md" target="_blank" rel="noopener">raw_review_input.md</a> ומדביקים את <u>כל</u> התוכן ב-Claude או ChatGPT (עם חיפוש אינטרנט). הצ'אט מחזיר JSON.</li>
+      <li><b>מדביקים את ה-JSON</b> — עורכים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/edit/main/review_output.json" target="_blank" rel="noopener">review_output.json</a>, מחליפים את התוכן בתשובת הצ'אט (מותר כולל ```json) ועושים Commit.</li>
+      <li><b>הפרסום רץ אוטומטית</b> — ה-Commit מפעיל את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/publish_review.yml" target="_blank" rel="noopener">"2 - Publish Review"</a> שמאמת ומעדכן את data.json. אם הוא אדום — פותחים את הלוג, מתקנים בצ'אט ומדביקים שוב.</li>
+      <li><b>מרעננים את העמוד הזה</b> — הסקירה החדשה מופיעה בטאב שלה.</li>
+    </ol>
+    <p class="note">כל התהליך עובד גם מהטלפון, דרך אתר GitHub בלבד.</p>
+  </details>
 
   <div class="status" id="status">טוען נתונים…</div>
   <article class="card" id="screen" aria-live="polite"></article>
@@ -151,7 +173,7 @@ const LABELS = {
   dailyPrep:   {he:'הכנה ליום מסחר',  empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים',  empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר',  empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
-  weeklySummary:{he:'סיכום שבועי',    empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
+  weeklySummary:{he:'סיכום שבועי והכנה', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
 };
 let data = null;
 let active = 'dailyPrep';
@@ -228,9 +250,17 @@ function shareWhatsApp(){
   window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank');
 }
 
+/* An intraday update whose only bullet is the "quiet window" message is real but
+   empty — it must not win the default tab over an actual review. */
+function isEmptyIntraday(review){
+  const b = bulletsOf(review);
+  return b.length === 1 && b[0].includes('אין מספיק עדכונים משמעותיים');
+}
+
 function pickDefaultTab(){
   const dated = ['intradayUpdate','dailySummary','dailyPrep','weeklySummary']
     .filter(k => data[k] && data[k].date)
+    .filter(k => !(k === 'intradayUpdate' && isEmptyIntraday(data[k])))
     .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
   return dated[0] || 'dailyPrep';
 }
