@@ -213,8 +213,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 
 @wallstengine [Tue Jul 07 19:12:12 +0000 2026]: $USO +4.5% https://t.co/7yutwsKREf
 
-@StockMKTNewz [Tue Jul 07 16:23:58 +0000 2026]: The United States 🇺🇸, Japan 🇯🇵, and South Korea 🇰🇷 just signed a new pact around working together to accelerate Small Modular Nuclear Reactor Development https://t.co/UfN0BUGzcX
-
 @KobeissiLetter [Tue Jul 07 20:19:03 +0000 2026]: China is now dominating the global auto market: China's vehicle exports jumped +68.7% YoY in May, to ~930,000. This is almost +1,100% above levels seen in May 2019. This comes as new EV exports surged +112.6% YoY, to 424,000, accounting for ~46% of the total. As a result, China exported a record 8.6 million vehicles in the 12 months ending May. By comparison, Japan exported just 4.2 million, or -51% fewer, during the same period. To put this into perspective, China exported just 1.0 million vehicles in 2019, while Japan exported 4.8 million, or +380% more. China is now the undisputed leader of the global car market.
 
 @gurgavin [Mon Jul 06 16:11:32 +0000 2026]: TRUMP SAYS “COUPLE OF GUYS WENT SHORT ( THE STOCK ) MARKET POOR BASTARDS ARE IN BIG TROUBLE THEY'RE GETTING WIPED OUT”
@@ -232,5 +230,7 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 @StockMKTNewz [Tue Jul 07 20:06:13 +0000 2026]: The 🇺🇸 stock market just closed the day Red 🔴🔴🔴🔴 https://t.co/siYr5U7NBP
 
 @StockMKTNewz [Tue Jul 07 19:29:42 +0000 2026]: SK Hynix is expected to bring in $231 Billion of revenue this year up from $67B last year https://t.co/xCuDbe4fm9
+
+@StockMKTNewz [Tue Jul 07 17:35:49 +0000 2026]: The Magnificent 7 is now mostly Green today 🟢🟢🟢🟢🟢🟢🔴 https://t.co/if11gESslI
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
