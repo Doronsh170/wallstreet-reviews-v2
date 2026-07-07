@@ -1,10 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
-trading week 29/06–03/07/2026. The review does BOTH: sums up the week that ended AND prepares the reader for
-the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
-summary points. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and
-never confuse Friday's daily change with the weekly change.
+You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
+2026-07-07 (יום שלישי). PAST TENSE.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -21,23 +18,23 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-6-9 points TOTAL in three blocks, in this order:
-* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
-  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
-* SUMMARY points (3-5) — ONE thematic point per major story of the week, each with its own specific headline.
-  Pick the STRONGEST stories — do NOT force every category:
-  - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
-  - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —
-    merge related releases into one point.
-  - The week's defining sector/technology story, with the transmission mechanism.
-  - Notable company news: earnings, M&A, milestones — merged where related.
-  - Commodities and the dollar with weekly context, or geopolitics with market impact.
-* PREPARATION points (1-2) — the COMING week (verify the schedule via web search):
-  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
-  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
-    (merge into the macro point when the earnings slate is thin).
-* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
-  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified.
+This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
+6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
+* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
+  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
+  session — how it opened, what moved it, how it closed — not a list of numbers.
+* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
+  do NOT force every category, and never pad to reach a count:
+  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
+    mechanism explained simply.
+  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
+    expectations, yields, sector rotation).
+  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
+  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
+  - Commodities, dollar and yields — direction and meaning, not a list of prices.
+  - After-hours earnings, or geopolitics that moved markets today — when truly material.
+* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
+Every direction word MUST match the DIRECTIONAL FACTS block.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -63,16 +60,16 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 29/06–03/07/2026",
-  "date": "2026-07-03",
+  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שלישי, 7.7.2026",
+  "date": "2026-07-07",
   "sections": [
     {
-      "heading": "סיכום השבוע",
+      "heading": "סיכום המסחר",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -115,10 +112,10 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $SPY: $747.71 (daily: -0.48%), prev close: $751.28
   $PENG: $62.71 (daily: -7.38%), prev close: $67.71
   $NVDA: $196.93 (daily: +0.71%), prev close: $195.55
-  $GOOGL: $367.03 (daily: +0.16%), prev close: $366.46
   $TSLA: $402.90 (daily: -4.02%), prev close: $419.77
   $MU: $938.38 (daily: -4.71%), prev close: $984.75
   $MSFT: $388.84 (daily: +0.54%), prev close: $386.74
+  $XOM: $141.69 (daily: +3.85%), prev close: $136.44
   $FIGR: $31.05 (daily: -9.78%), prev close: $34.41
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
@@ -137,14 +134,22 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ MANDATORY MACRO DATA CHECK ══
-Use web search to find ALL major US economic data released during the week of 29/06–03/07/2026:
-CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
-ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
-Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
-IN ADDITION — for the preparation points, use web search to verify the COMING week's schedule:
-economic releases and Fed events (with dates, Israel times and consensus where available) and the key
-earnings reports scheduled, and what the market will look for in each.
+Use web search to check if ANY of these were released on 2026-07-08: CPI (headline AND core),
+PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
+Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
+AND the market implication. If none — skip, but you MUST check first.
 ══════════════════════════════════
+
+══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
+Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+
+[נקודות מרכזיות]
+* תמונת פתיחה: המסחר יחזור ביום שני, 6.7.2026, אחרי סוף שבוע ארוך של חג העצמאות האמריקאי, כשברקע רוטציה חדה ממניות הטכנולוגיה והצמיחה אל סקטורים דפנסיביים ומניות ערך. שני גורמים תומכים ברקע: עונתיות חיובית של יולי, החודש החזק בשנה עם עלייה ממוצעת של 2.5% ב-S&P 500 מאז 2005 ו-11 שנים רצופות ללא ירידה בחודש זה, וזרימות שיא של קרנות השקעה זרות למניות אמריקאיות, כ-2.5% מסך הנכסים המנוהלים מתחילת השנה.
+* הסיפור המרכזי: שוק העבודה יישאר הציר שסביבו נע השוק גם בשבוע הקרוב. הרוויזיות מטה בנתוני התעסוקה נמשכות, 14 מתוך 17 החודשים האחרונים תוקנו כלפי מטה בסך כולל של 710 אלף משרות, ואפריל ומאי תוקנו יחד ב-74 אלף נוספים. תמונה תעסוקתית רכה יותר מקטינה את הלחץ על הפדרל ריזרב להדק את המדיניות, וזה הרקע לביקוש לזהב ולחולשת הדולר בימים האחרונים.
+* מאקרו ואירועים: הנתון המרכזי ביום שני הוא מדד מנהלי הרכש במגזר השירותים ISM Services PMI ליוני, שיתפרסם בשעה 17:00 שעון ישראל, עם צפי של 54.5 מול 54.5 בקריאה הקודמת. אחרי נתוני התעסוקה החלשים, השוק יחפש בנתון הזה אישור שצד השירותים והצריכה של הכלכלה מחזיק מעמד. הפתעה כלפי מטה תחזק את תרחיש ההאטה, בעוד קריאה יציבה תתמוך בהמשך תיאבון הסיכון.
+* דוחות ומניות במוקד: לוח הדוחות ביום שני דל לקראת פתיחת עונת הדוחות, והאירוע הבולט בשבוע הקרוב הוא רישום מניות SK Hynix למסחר בנאסד"ק. מניית טסלה (TSLA): שירות הרובוטקסי הושק במיאמי ומבחני ההנדסה של ה-Cybercab הראשון מקו הייצור החלו באוסטין, אך למרות החדשות, המניה ירדה בחדות ביום המסחר האחרון. מניית מיקרון (MU): לפי דיווחים, מייקל ביורי פתח פוזיציית שורט על המניה, שירדה גם היא ביום המסחר האחרון. מניית מטא (META): דיווח חדש על מגעים עם סמסונג לייצור שבב בינה מלאכותית ייעודי בהיקף של כ-100 טריליון וון, אך למרות הדיווח, המניה ירדה.
+* שורה תחתונה: כיוון המסחר ביום שני ייקבע בעיקר בנתון ה-ISM בשעה 17:00 ובשאלה אם הרוטציה מהטכנולוגיה אל הסקטורים הדפנסיביים נמשכת או מתמתנת. גורם מעצים שכדאי להכיר: פעילות האיזון היומית של תעודות סל ממונפות הגיעה לשיא של כ-50 מיליארד דולר ומהווה 1.6% מנפח החוזים על S&P 500, ולכן תנועה כיוונית עשויה להתעצם דווקא בשעה האחרונה של המסחר.
+══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in the review that these came from tweets/posts:
 
@@ -162,8 +167,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 
 @StockMKTNewz [Tue Jul 07 16:40:21 +0000 2026]: The first NASDAQ 100 ETF not by Invesco is about to launch Blackrock will be launching its Nasdaq 100 ETF $IQQ this week after getting the license from Nasdaq IMO this matters for you for just 1 reason Expect the fees on ETFs tracking the Nasdaq 100 to drop ... closer to S&P 500 ETF levels?? 👀
 
-@StockMKTNewz [Tue Jul 07 16:09:58 +0000 2026]: ChatGPT just sold some of its Google $GOOGL shares in the Rallies AI Arena
-
 @AIStockSavvy [Tue Jul 07 19:06:43 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Perplexity Adopts $NVDA NVIDIA Vera CPUs for AI Infrastructure 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐏𝐞𝐫𝐩𝐥𝐞𝐱𝐢𝐭𝐲 will deploy NVIDIA's new 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔𝐬 for AI workloads. ➤ NVIDIA expects 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔 sales to reach 𝐨𝐯𝐞𝐫 $𝟐𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 this fiscal year. ➤ Vera expands NVIDIA into the 𝐂𝐏𝐔 market dominated by Intel and AMD. ➤ NVIDIA is broadening beyond AI GPUs into 𝐠𝐞𝐧𝐞𝐫𝐚𝐥-𝐩𝐮𝐫𝐩𝐨𝐬𝐞 computing processors. ➤ Perplexity said Vera delivers about 𝟏.𝟓𝐱 faster AI agent coding performance. ➤ Perplexity did not disclose the number of 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔𝐬 it plans to purchase. ➤ OpenAI, Anthropic, and Oracle have also committed to using NVIDIA Vera CPUs. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ NVIDIA is challenging 𝐈𝐧𝐭𝐞𝐥 and 𝐀𝐌𝐃 in the multibillion-dollar CPU market. ➤ Rising AI agent workloads are driving demand for 𝐀𝐈-𝐨𝐩𝐭𝐢𝐦𝐢𝐳𝐞𝐝 CPUs. ➤ Additional customer wins strengthen NVIDIA's 𝐞𝐧𝐭𝐞𝐫𝐩𝐫𝐢𝐬𝐞 AI infrastructure strategy. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "NVIDIA's CPU performs AI agent coding tasks about 1.5 times faster than traditional CPUs." — 𝐍𝐚𝐭𝐞 𝐊𝐮𝐩𝐩, Vice President for Computer Enterprise and Infrastructure at Perplexity.
 
 @StockMKTNewz [Tue Jul 07 17:28:40 +0000 2026]: Microsoft $MSFT is looking to reduce AI costs, is starting to replace OpenAI and Anthropic with its own models in software products like Excel and Outlook - Bloomberg https://t.co/PmDskUtpjd
@@ -173,6 +176,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 @KobeissiLetter [Tue Jul 07 18:53:26 +0000 2026]: BREAKING: The US is revoking Iran's newly issued general license to export oil after Iran struck three commercial vessels in the Strait of Hormuz. The US called Iran's latest actions in the Strait of Hormuz "wholly unacceptable" and said they will be "met with consequences."
 
 @KobeissiLetter [Tue Jul 07 13:44:18 +0000 2026]: Global financial institutions are set to reduce exposure to the US Dollar: 4% of financial institutions plan to reduce their US Dollar exposure in their portfolios over the next 12-24 months, the first such reading in 3 years, according to an OMFIF survey of 74 central banks and 16 public pension and sovereign wealth funds managing over $10 trillion in reserve assets. The US Dollar is the only major currency expected to see a lower exposure among survey respondents. Furthermore, 8% expect to reduce the US Dollar in their reserves over the next 10 years. Nevertheless, the US Dollar is still the most held currency across financial institutions, at 58%, slightly down from 60% in 2025. Meanwhile, 82% of central banks surveyed now hold physical gold, up from 71% last year. 51% of respondents cite protection against geopolitical risk as a motivation for holding gold, up from 40% in 2024. Central banks are diversifying from the US Dollar into gold.
+
+@StockMKTNewz [Tue Jul 07 23:05:51 +0000 2026]: Exxon Mobil $XOM said its Q2 revenue increased by almost $4 billion as the Iran conflict boosted oil prices - Bloomberg https://t.co/zVBzz4R6s5
 
 @AIStockSavvy [Tue Jul 07 22:10:17 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $FIGR Figure Reports Record Q2 Marketplace Volume Above Guidance 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Figure said preliminary 𝐐𝟐 𝟐𝟎𝟐𝟔 results exceeded the top end of prior guidance. ➤ Consumer Loan Marketplace Volume reached 𝐚 𝐫𝐞𝐜𝐨𝐫𝐝 $𝟒.𝟐𝟓𝟗 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in Q2, up 𝟒𝟕% QoQ and 𝟏𝟑𝟐% YoY. ➤ June Consumer Loan Marketplace Volume rose to $𝟏.𝟓𝟏𝟗 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟖% MoM and 𝟏𝟓𝟓% YoY. ➤ $𝐘𝐋𝐃𝐒 in circulation totaled $𝟓𝟓𝟔 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 at June-end, roughly flat MoM. ➤ Democratized Prime 𝐌𝐚𝐭𝐜𝐡𝐞𝐝 𝐎𝐟𝐟𝐞𝐫𝐬 reached $𝟑𝟗𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟐% MoM and 𝟔% QoQ. ➤ 𝐁𝐨𝐫𝐫𝐨𝐰𝐞𝐫 𝐃𝐞𝐦𝐚𝐧𝐝 increased to $𝟒𝟏𝟒 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, while 𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐋𝐞𝐧𝐝𝐞𝐫 𝐒𝐮𝐩𝐩𝐥𝐲 rose to $𝟓𝟐𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Figure will transition from 𝐦𝐨𝐧𝐭𝐡𝐥𝐲 disclosures to a weekly performance dashboard. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Marketplace volume growth signals 𝐬𝐭𝐫𝐨𝐧𝐠 consumer lending demand and platform adoption. ➤ Results above guidance may reinforce confidence in Figure's 𝟐𝟎𝟐𝟔 growth outlook. ➤ Weekly reporting could provide investors with more 𝐟𝐫𝐞𝐪𝐮𝐞𝐧𝐭 operating performance updates.
 

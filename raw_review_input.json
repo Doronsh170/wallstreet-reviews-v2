@@ -1,12 +1,12 @@
 {
-  "mode": "weekly_summary",
-  "generated_at": "2026-07-08T02:04:26.460930+03:00",
-  "expected_title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 29/06–03/07/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-07-03",
-  "title_date_str": "2026-07-08",
-  "title_day_name": "רביעי",
-  "week_range": "29/06–03/07/2026",
+  "mode": "daily_summary",
+  "generated_at": "2026-07-08T02:10:24.463417+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שלישי, 7.7.2026",
+  "first_heading": "סיכום המסחר",
+  "review_date": "2026-07-07",
+  "title_date_str": "2026-07-07",
+  "title_day_name": "שלישי",
+  "week_range": null,
   "etf_pcts": {
     "SPY": -0.4752,
     "QQQ": -1.8525,
@@ -60,11 +60,6 @@
       "pct": 0.7057,
       "prev_close": 195.55
     },
-    "GOOGL": {
-      "price": 367.03,
-      "pct": 0.1555,
-      "prev_close": 366.46
-    },
     "TSLA": {
       "price": 402.9,
       "pct": -4.0189,
@@ -79,6 +74,11 @@
       "price": 388.84,
       "pct": 0.543,
       "prev_close": 386.74
+    },
+    "XOM": {
+      "price": 141.69,
+      "pct": 3.8478,
+      "prev_close": 136.44
     },
     "FIGR": {
       "price": 31.045,
