@@ -221,6 +221,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-07. Never mention in t
 
 @StockMKTNewz [Mon Jul 06 20:56:49 +0000 2026]: 🇺🇸 President Trump just posted this: "Great news! I have just been informed that one of the biggest, best, and smartest Retailers in America, Walmart, will be lowering prices, by a lot" https://t.co/MKyCkulNHK
 
+@KobeissiLetter [Mon Jul 06 22:50:57 +0000 2026]: Stress in the US private credit market is intensifying: Investors requested a record -$15.6 billion in redemptions from private credit funds in Q2 2026. This marks the 3rd consecutive quarterly increase by a total of +$13 billion, or +500%. Furthermore, just 38% of these requests were met, down from 53% in Q1 2026, leaving $9.7 billion in unmet redemptions, the largest backlog on record. Blue Owl's flagship fund, Blue Owl Credit Income, was the most impacted at 19% of shares outstanding, with 14% unmet, the highest redemption rate among its large competitors. This was followed by Apollo, at 16% requested with 11% unmet, and Ares, at 14% requested with 9% unmet. Meanwhile, inflows into the private credit industry declined -75% since January to ~$500 million in May, the smallest monthly intake in at least 18 months. The private credit crisis shows no signs of slowing.
+
 @KobeissiLetter [Mon Jul 06 17:32:51 +0000 2026]: Investor sentiment in the energy market is rapidly shifting: Energy funds posted -$3.2 billion in outflows in the week ending July 1st, the largest weekly withdrawal since July 2024. This is also the 2nd-biggest weekly outflow in at least 10 years. Energy funds also saw -$1.5 billion in outflows the prior week, the largest since April 2025. As a result, the 4-week average of outflows is up to -$1.8 billion, the biggest on record. This marks a sharp reversal from a record +$2.5 billion in the 4-week average of inflows seen just 2 months ago. Investors are aggressively rotating out of the energy sector.
 
 @gurgavin [Sat Jul 04 18:37:40 +0000 2026]: HAPPY INDEPENDENCE DAY TO MY AMERICAN FOLLOWERS 🇺🇸🇺🇸🇺🇸🇺🇸 “IT’S NEVER PAID TO BET AGAINST AMERICA. WE COME THROUGH THINGS, BUT IT’S NOT ALWAYS A SMOOTH RIDE. NEVER BET AGAINST AMERICA.” - WARREN BUFFETT -
@@ -230,7 +232,5 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-07. Never mention in t
 @StockMKTNewz [Mon Jul 06 23:07:00 +0000 2026]: Samsung's quarterly profit has increased by 19x The world’s largest memory maker reported preliminary operating income of $58 billion in the three months through June, dwarfing its performance for all of 2025 Samsung is expected to release a full financial statement around the end of the month - Bloomberg
 
 @StockMKTNewz [Mon Jul 06 22:51:14 +0000 2026]: THE TEXAS STOCK EXCHANGE IS HERE The Texas Stock Exchange officially began operating today with some test trades Live stock trading is expected to begin Friday with a small group of securities https://t.co/G2sQwXG0V0
-
-@wallstengine [Mon Jul 06 22:45:52 +0000 2026]: SAMSUNG ELECTRONICS REPORTED Q2 OPERATING PROFIT OF ABOUT $57.6 BILLION, ABOVE THE ~$55.6 BILLION ESTIMATE.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
