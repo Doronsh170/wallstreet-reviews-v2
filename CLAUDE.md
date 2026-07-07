@@ -27,12 +27,14 @@
 
 כשמתבקשת הרצה של סקירה (ובפרט `intraday_update`), יש להריץ **תמיד את המחזור המלא** עד שהאתר מתעדכן בפועל — לא להסתפק בעדכון `raw_review_input.*`:
 
-1. **איסוף** — הפעלת workflow ‏"1 - Gather Review Input" על `main` (ב-Actions נמצאים מפתחות ה-API בסודות; מקומית אין מפתחות). הריצה מקמטת `raw_review_input.md` + `raw_review_input.json`.
+1. **איסוף** — הפעלת workflow ‏"1 - Gather Review Input" על `main` (קריאת `run_workflow` אחת; מפתחות ה-API בסודות, מקומית אין). ההמתנה לסיום נעשית ב-`git fetch` בלולאה עד שקומיט "Update raw review input" מופיע על `origin/main` — **לא** דרך `list_workflow_runs` של Actions API.
 2. **כתיבת הסקירה** — משיכת main, קריאת `raw_review_input.md` המלא ומילוי כל ההנחיות שבו, ושמירת ה-JSON ל-`review_output.json`.
-3. **פרסום** — דחיפת `review_output.json` ל-`main`. ה-push מפעיל אוטומטית את workflow ‏"2 - Publish Review" שמריץ את `paste_review.py`, מעדכן את `data.json` ודוחף. מומלץ לאמת קודם מקומית עם `python paste_review.py review_output.json` ואז `git checkout -- data.json` לפני הדחיפה.
-4. **אימות** — לוודא ש-"2 - Publish Review" ופריסת ה-Pages שאחריו ירוקים, ושב-`data.json` על `main` מופיעה הסקירה החדשה (כותרת עם שעה חדשה).
+3. **פרסום** — `git add review_output.json` בלבד, commit, ו-push ל-`main` (אין צורך ב-`git checkout -- data.json` כי לא מוסיפים אותו ל-commit). ה-push מפעיל אוטומטית את workflow ‏"2 - Publish Review" שמריץ את `paste_review.py`, מעדכן את `data.json` ודוחף. ה-guard של `paste_review.py` רץ תמיד ב-CI, ולכן אין חובה להריץ מקומית — רק אם רוצים לתפוס טעות לפני round-trip של CI.
+4. **אימות** — `git fetch` בלולאה עד קומיט `publish:` על `origin/main`, ואז לוודא ש-`data.json` על `main` מכיל את הסקירה החדשה (כותרת/שעה חדשה + מספר בולטים צפוי). זה מספיק — פריסת ה-Pages מתבצעת אוטומטית אחרי הפרסום ואין צורך ב-polling כבד של Actions/Pages API.
 
 הסקירה מוצגת באתר רק מתוך `data.json` — עדכון של `raw_review_input.*` בלבד לא משנה את האתר.
+
+**פלט סוף מחזור — תמציתי בלבד:** (1) האם האתר התעדכן, (2) כותרת הסקירה, (3) אם נכשל — איפה. בלי הסברים ארוכים.
 
 ## כללי intraday_update (לא לשנות בלי בקשה מפורשת)
 
