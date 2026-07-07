@@ -1,7 +1,10 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-07-06 (יום שני). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
+trading week 29/06–03/07/2026. The review does BOTH: sums up the week that ended AND prepares the reader for
+the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
+summary points. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and
+never confuse Friday's daily change with the weekly change.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,23 +21,23 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
-  do NOT force every category, and never pad to reach a count:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+6-9 points TOTAL in three blocks, in this order:
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
+  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
+* SUMMARY points (3-5) — ONE thematic point per major story of the week, each with its own specific headline.
+  Pick the STRONGEST stories — do NOT force every category:
+  - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
+  - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —
+    merge related releases into one point.
+  - The week's defining sector/technology story, with the transmission mechanism.
+  - Notable company news: earnings, M&A, milestones — merged where related.
+  - Commodities and the dollar with weekly context, or geopolitics with market impact.
+* PREPARATION points (1-2) — the COMING week (verify the schedule via web search):
+  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
+  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
+    (merge into the macro point when the earnings slate is thin).
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
+  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -60,16 +63,16 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
-  "date": "2026-07-06",
+  "title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 29/06–03/07/2026",
+  "date": "2026-07-03",
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "סיכום השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -84,47 +87,47 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $751.28 (daily: +0.87%), prev close: $744.78
-  Nasdaq 100 (QQQ ETF): $722.82 (daily: +1.43%), prev close: $712.60
-  Dow Jones (DIA ETF): $530.09 (daily: +0.42%), prev close: $527.88
-  Russell 2000 (IWM ETF): $298.90 (daily: +0.44%), prev close: $297.58
-  Energy Sector (XLE ETF): $53.13 (daily: -0.17%), prev close: $53.22
-  Technology Sector (XLK ETF): $183.57 (daily: +1.65%), prev close: $180.59
-  Financials Sector (XLF ETF): $56.14 (daily: +0.93%), prev close: $55.62
-  Consumer Discretionary Sector (XLY ETF): $118.01 (daily: +0.76%), prev close: $117.12
-  Healthcare Sector (XLV ETF): $161.96 (daily: -1.09%), prev close: $163.74
-  Industrials Sector (XLI ETF): $185.56 (daily: +0.90%), prev close: $183.91
-  Consumer Staples Sector (XLP ETF): $84.10 (daily: -1.05%), prev close: $84.99
-  Utilities Sector (XLU ETF): $45.30 (daily: -1.01%), prev close: $45.76
-  WTI Crude Oil (USO ETF): $104.35 (daily: +0.36%), prev close: $103.98
-  Brent Crude Oil (BNO ETF): $39.94 (daily: +0.68%), prev close: $39.67
-  Gold (GLD ETF): $382.13 (daily: +1.06%), prev close: $378.13
-  Silver (SLV ETF): $56.11 (daily: +1.98%), prev close: $55.02
-  Bitcoin (IBIT ETF): $36.12 (daily: +3.58%), prev close: $34.87
-  US 20Y+ Bonds (TLT ETF): $85.45 (daily: -0.07%), prev close: $85.51
-  US Dollar (UUP ETF): $28.32 (daily: -0.07%), prev close: $28.34
-  VIX Volatility (VIXY ETF): $20.65 (daily: -2.73%), prev close: $21.23
+  S&P 500 (SPY ETF): $747.71 (daily: -0.48%), prev close: $751.28
+  Nasdaq 100 (QQQ ETF): $709.43 (daily: -1.85%), prev close: $722.82
+  Dow Jones (DIA ETF): $528.45 (daily: -0.31%), prev close: $530.09
+  Russell 2000 (IWM ETF): $296.19 (daily: -0.91%), prev close: $298.90
+  Energy Sector (XLE ETF): $54.64 (daily: +2.84%), prev close: $53.13
+  Technology Sector (XLK ETF): $179.18 (daily: -2.39%), prev close: $183.57
+  Financials Sector (XLF ETF): $56.05 (daily: -0.16%), prev close: $56.14
+  Consumer Discretionary Sector (XLY ETF): $117.39 (daily: -0.53%), prev close: $118.01
+  Healthcare Sector (XLV ETF): $164.44 (daily: +1.53%), prev close: $161.96
+  Industrials Sector (XLI ETF): $182.38 (daily: -1.71%), prev close: $185.56
+  Consumer Staples Sector (XLP ETF): $84.86 (daily: +0.90%), prev close: $84.10
+  Utilities Sector (XLU ETF): $45.70 (daily: +0.88%), prev close: $45.30
+  WTI Crude Oil (USO ETF): $108.92 (daily: +4.38%), prev close: $104.35
+  Brent Crude Oil (BNO ETF): $41.93 (daily: +4.98%), prev close: $39.94
+  Gold (GLD ETF): $377.49 (daily: -1.21%), prev close: $382.13
+  Silver (SLV ETF): $54.46 (daily: -2.94%), prev close: $56.11
+  Bitcoin (IBIT ETF): $36.15 (daily: +0.08%), prev close: $36.12
+  US 20Y+ Bonds (TLT ETF): $84.55 (daily: -1.05%), prev close: $85.45
+  US Dollar (UUP ETF): $28.40 (daily: +0.28%), prev close: $28.32
+  VIX Volatility (VIXY ETF): $20.87 (daily: +1.07%), prev close: $20.65
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $RIVN: $20.14 (daily: +8.11%), prev close: $18.63
-  $CRNX: $42.03 (daily: -0.47%), prev close: $42.23
-  $VRTX: $529.59 (daily: +0.29%), prev close: $528.04
-  $WMT: $110.65 (daily: -1.06%), prev close: $111.84
-  $MU: $984.75 (daily: +0.94%), prev close: $975.56
-  $DELL: $411.80 (daily: +4.43%), prev close: $394.32
-  $TSLA: $419.77 (daily: +6.69%), prev close: $393.45
-  $MSTR: $100.77 (daily: +0.00%), prev close: $100.77
-  $NVDA: $195.55 (daily: +0.37%), prev close: $194.83
-  $SPCX: $160.42 (daily: -0.98%), prev close: $162.00
-  $LAES: $3.00 (daily: -0.99%), prev close: $3.03
+  $USO: $108.92 (daily: +4.38%), prev close: $104.35
+  $SPCX: $149.47 (daily: -6.83%), prev close: $160.42
+  $QQQ: $709.43 (daily: -1.85%), prev close: $722.82
+  $SPY: $747.71 (daily: -0.48%), prev close: $751.28
+  $PENG: $62.71 (daily: -7.38%), prev close: $67.71
+  $NVDA: $196.93 (daily: +0.71%), prev close: $195.55
+  $GOOGL: $367.03 (daily: +0.16%), prev close: $366.46
+  $TSLA: $402.90 (daily: -4.02%), prev close: $419.77
+  $MU: $938.38 (daily: -4.71%), prev close: $984.75
+  $MSFT: $388.84 (daily: +0.54%), prev close: $386.74
+  $FIGR: $31.05 (daily: -9.78%), prev close: $34.41
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +0.36%, BNO: +0.68%)
-  זהב: עולה (GLD: +1.06%)
-  ביטקוין: עולה (IBIT: +3.58%)
-  דולר: יציב/כמעט ללא שינוי (UUP: -0.07%)
-  תנודתיות / VIX: יורד (VIXY: -2.73%)
-  אג"ח ארוכות / TLT: יציב/כמעט ללא שינוי (TLT: -0.07%)
+  נפט (WTI/ברנט): עולה (USO: +4.38%, BNO: +4.98%)
+  זהב: יורד (GLD: -1.21%)
+  ביטקוין: יציב/כמעט ללא שינוי (IBIT: +0.08%)
+  דולר: עולה (UUP: +0.28%)
+  תנודתיות / VIX: עולה (VIXY: +1.07%)
+  אג"ח ארוכות / TLT: יורד (TLT: -1.05%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -134,103 +137,95 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on 2026-07-07: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+Use web search to find ALL major US economic data released during the week of 29/06–03/07/2026:
+CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
+ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
+Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
+IN ADDITION — for the preparation points, use web search to verify the COMING week's schedule:
+economic releases and Fed events (with dates, Israel times and consensus where available) and the key
+earnings reports scheduled, and what the market will look for in each.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in the review that these came from tweets/posts:
 
-[נקודות מרכזיות]
-* תמונת פתיחה: המסחר יחזור ביום שני, 6.7.2026, אחרי סוף שבוע ארוך של חג העצמאות האמריקאי, כשברקע רוטציה חדה ממניות הטכנולוגיה והצמיחה אל סקטורים דפנסיביים ומניות ערך. שני גורמים תומכים ברקע: עונתיות חיובית של יולי, החודש החזק בשנה עם עלייה ממוצעת של 2.5% ב-S&P 500 מאז 2005 ו-11 שנים רצופות ללא ירידה בחודש זה, וזרימות שיא של קרנות השקעה זרות למניות אמריקאיות, כ-2.5% מסך הנכסים המנוהלים מתחילת השנה.
-* הסיפור המרכזי: שוק העבודה יישאר הציר שסביבו נע השוק גם בשבוע הקרוב. הרוויזיות מטה בנתוני התעסוקה נמשכות, 14 מתוך 17 החודשים האחרונים תוקנו כלפי מטה בסך כולל של 710 אלף משרות, ואפריל ומאי תוקנו יחד ב-74 אלף נוספים. תמונה תעסוקתית רכה יותר מקטינה את הלחץ על הפדרל ריזרב להדק את המדיניות, וזה הרקע לביקוש לזהב ולחולשת הדולר בימים האחרונים.
-* מאקרו ואירועים: הנתון המרכזי ביום שני הוא מדד מנהלי הרכש במגזר השירותים ISM Services PMI ליוני, שיתפרסם בשעה 17:00 שעון ישראל, עם צפי של 54.5 מול 54.5 בקריאה הקודמת. אחרי נתוני התעסוקה החלשים, השוק יחפש בנתון הזה אישור שצד השירותים והצריכה של הכלכלה מחזיק מעמד. הפתעה כלפי מטה תחזק את תרחיש ההאטה, בעוד קריאה יציבה תתמוך בהמשך תיאבון הסיכון.
-* דוחות ומניות במוקד: לוח הדוחות ביום שני דל לקראת פתיחת עונת הדוחות, והאירוע הבולט בשבוע הקרוב הוא רישום מניות SK Hynix למסחר בנאסד"ק. מניית טסלה (TSLA): שירות הרובוטקסי הושק במיאמי ומבחני ההנדסה של ה-Cybercab הראשון מקו הייצור החלו באוסטין, אך למרות החדשות, המניה ירדה בחדות ביום המסחר האחרון. מניית מיקרון (MU): לפי דיווחים, מייקל ביורי פתח פוזיציית שורט על המניה, שירדה גם היא ביום המסחר האחרון. מניית מטא (META): דיווח חדש על מגעים עם סמסונג לייצור שבב בינה מלאכותית ייעודי בהיקף של כ-100 טריליון וון, אך למרות הדיווח, המניה ירדה.
-* שורה תחתונה: כיוון המסחר ביום שני ייקבע בעיקר בנתון ה-ISM בשעה 17:00 ובשאלה אם הרוטציה מהטכנולוגיה אל הסקטורים הדפנסיביים נמשכת או מתמתנת. גורם מעצים שכדאי להכיר: פעילות האיזון היומית של תעודות סל ממונפות הגיעה לשיא של כ-50 מיליארד דולר ומהווה 1.6% מנפח החוזים על S&P 500, ולכן תנועה כיוונית עשויה להתעצם דווקא בשעה האחרונה של המסחר.
-══════════════════════════════════════════════════════════════
-
-Source tweets/posts from X (Twitter) — gathered 2026-07-07. Never mention in the review that these came from tweets/posts:
-
-@KobeissiLetter [Mon Jul 06 14:44:48 +0000 2026]: BREAKING: Dell stock, $DELL, extends gains to over +8% on the day, adding +$22 billion in market cap, after President Trump urges people to "go out and buy a Dell." https://t.co/czmHRU4sLE
+@KobeissiLetter [Tue Jul 07 12:13:16 +0000 2026]: BREAKING: SpaceX, $SPCX, is being added to the Nasdaq 100 today. This marks the fastest inclusion into the Nasdaq 100 in the index’s history.
 
 @gurgavin [Thu Jul 02 19:10:49 +0000 2026]: TESLA CAPS EMPLOYEE AI SPEND AT $200 PER WEEK PER THE INFORMATION $TSLA
 
-@KobeissiLetter [Mon Jul 06 20:52:48 +0000 2026]: BREAKING: President Trump says Walmart, $WMT, has informed him that they will be lowering prices "by a lot" at his request to celebrate the 250th birthday of the United States. This will include price cuts on ground beef by almost 15%, Trump says. https://t.co/8YwiQPObTS
-
-@KobeissiLetter [Mon Jul 06 12:56:14 +0000 2026]: BREAKING: Bitcoin falls below $62,000 after MicroStrategy, $MSTR, announces it has sold has sold $216 million worth of Bitcoin “to fund dividends.” https://t.co/uPZr4PessR
-
-@wallstengine [Mon Jul 06 23:27:47 +0000 2026]: Syntiant, an Intel and Microsoft-backed edge-AI chip/software maker, filed for IPO. The company makes ultra-low-power AI chips and software for on-device AI in earbuds, wearables, and industrial systems. Q1 results: Revenue: $64.5M vs $66.6M YoY Net loss: $26.2M vs $16.8M YoY Syntiant has raised $311M to date and was valued at $646.4M after its Dec. 2024 round. Expected Nasdaq ticker: $SYTN
-
-@gurgavin [Thu Jul 02 18:04:16 +0000 2026]: AN AUTOGRAPHED JACKET OF NVIDIA CEO JENSEN HUANG IS UP FOR AUCTION ON SOTHEBYS IT'S SIGNED BY HIM AND HE ACTUALLY WORE THIS EXACT JACKET IN THE PAST IT'S ESTIMATED TO SELL FOR $40,000–$60,000 $NVDA https://t.co/jedGiznXYO
+@wallstengine [Tue Jul 07 20:10:53 +0000 2026]: $PENG | Penguin Solutions Q3 FY26 Earnings Highlights 🔷 Revenue: $478.7M vs $421.4M Est. 🟢 🔷 Adj EPS: $0.84 vs $0.56 Est. 🟢 🔷 Record quarterly net sales, up 48% YoY. FY26 Outlook Raised: 🔷 Non-GAAP EPS: $2.60 ±$0.05 vs $2.28 Est. 🟢 🔷 Net sales growth now seen at 22% ±2%, up from 12% ±5% 🔷 Non-GAAP gross margin: 28.5% ±0.5% Segment Revenue: 🔷 Advanced Computing: $137.6M, up 4% YoY 🔷 Integrated Memory: $275.1M, up 111% YoY 🔷 Optimized LED: $66.1M, up 7% YoY Business Highlights: 🔷 Integrated Memory net sales more than doubled YoY 🔷 AI Infrastructure added 4 new customer logos in Q3 🔷 Became an NVIDIA AI Factory Specialized Partner 🔷 Expanded ClusterWareAI with an AI Factory Operations Agent
 
 @gurgavin [Mon Jul 06 19:52:14 +0000 2026]: SPACEX WILL BE ADDED TO THE NASDAQ 100 INDEX TOMORROW THIS IS THE QUICKEST TIME EVER FOR A COMPANY TO BE ADDED TO THE NASDAQ 100 INDEX $SPCX
 
+@gurgavin [Thu Jul 02 18:04:16 +0000 2026]: AN AUTOGRAPHED JACKET OF NVIDIA CEO JENSEN HUANG IS UP FOR AUCTION ON SOTHEBYS IT'S SIGNED BY HIM AND HE ACTUALLY WORE THIS EXACT JACKET IN THE PAST IT'S ESTIMATED TO SELL FOR $40,000–$60,000 $NVDA https://t.co/jedGiznXYO
+
 @gurgavin [Fri Jul 03 21:26:04 +0000 2026]: IMAGINE SHORTING MICRON WHEN TRUMP IS TRYNA PUMP IT EVERY SINGLE DAY $MU
 
-@KobeissiLetter [Mon Jul 06 16:01:00 +0000 2026]: We now believe the S&P 500 is setting up for 8,000+. Here's why: Chip stocks have quietly become the new leaders of this bull market. While many of the Magnificent 7 stocks have declined 20%+ from their recent highs, semiconductor names have taken over. In fact, 8 of the 10 best-performing S&P 500 stocks this year are in the chip industry. As a result, the S&P 500 now sits just ~1% below a record high despite weakness the big tech stocks which have led the market since 2022. This marks the first time since 2022 that the market traded highly with leadership outside of the Magnificent 7, while the Magnificent 7 traded in the opposite direction. In our view, this rotation is constructive as the Magnificent 7 prepares to "sub back in." As large-cap tech begins to regain leadership while semiconductors continue to outperform or even cool-off, the S&P 500 is poised for 8,000+. Asset owners will continue to win.
+@StockMKTNewz [Tue Jul 07 16:40:21 +0000 2026]: The first NASDAQ 100 ETF not by Invesco is about to launch Blackrock will be launching its Nasdaq 100 ETF $IQQ this week after getting the license from Nasdaq IMO this matters for you for just 1 reason Expect the fees on ETFs tracking the Nasdaq 100 to drop ... closer to S&P 500 ETF levels?? 👀
 
-@KobeissiLetter [Sun Jul 05 22:07:05 +0000 2026]: BREAKING: Nasdaq 100 futures surge over +1% as markets reopen after the Fourth of July weekend. https://t.co/SR4uYkiBLZ
+@StockMKTNewz [Tue Jul 07 16:09:58 +0000 2026]: ChatGPT just sold some of its Google $GOOGL shares in the Rallies AI Arena
 
-@StockMKTNewz [Mon Jul 06 21:57:55 +0000 2026]: Rivian $RIVN is offering to sell 75 million shares as the EV vehicle company seeks to fund equity contributions related to a US Department of Energy loan Rivian basically erased all of its gains from the day https://t.co/Zm0WfgsIFZ
+@AIStockSavvy [Tue Jul 07 19:06:43 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Perplexity Adopts $NVDA NVIDIA Vera CPUs for AI Infrastructure 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐏𝐞𝐫𝐩𝐥𝐞𝐱𝐢𝐭𝐲 will deploy NVIDIA's new 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔𝐬 for AI workloads. ➤ NVIDIA expects 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔 sales to reach 𝐨𝐯𝐞𝐫 $𝟐𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 this fiscal year. ➤ Vera expands NVIDIA into the 𝐂𝐏𝐔 market dominated by Intel and AMD. ➤ NVIDIA is broadening beyond AI GPUs into 𝐠𝐞𝐧𝐞𝐫𝐚𝐥-𝐩𝐮𝐫𝐩𝐨𝐬𝐞 computing processors. ➤ Perplexity said Vera delivers about 𝟏.𝟓𝐱 faster AI agent coding performance. ➤ Perplexity did not disclose the number of 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔𝐬 it plans to purchase. ➤ OpenAI, Anthropic, and Oracle have also committed to using NVIDIA Vera CPUs. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ NVIDIA is challenging 𝐈𝐧𝐭𝐞𝐥 and 𝐀𝐌𝐃 in the multibillion-dollar CPU market. ➤ Rising AI agent workloads are driving demand for 𝐀𝐈-𝐨𝐩𝐭𝐢𝐦𝐢𝐳𝐞𝐝 CPUs. ➤ Additional customer wins strengthen NVIDIA's 𝐞𝐧𝐭𝐞𝐫𝐩𝐫𝐢𝐬𝐞 AI infrastructure strategy. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "NVIDIA's CPU performs AI agent coding tasks about 1.5 times faster than traditional CPUs." — 𝐍𝐚𝐭𝐞 𝐊𝐮𝐩𝐩, Vice President for Computer Enterprise and Infrastructure at Perplexity.
 
-@StockMKTNewz [Mon Jul 06 21:27:31 +0000 2026]: RIVIAN $RIVN JUST FILED PRELIMINARY Q2 REVENUE GUIDANCE - Revenue: $1.55B - $1.65B est (+19.2% to +26.9% YoY) vs $1.30B a year ago - Cash &amp; short-term investments: $5.3B, up from $4.8B last quarter
+@StockMKTNewz [Tue Jul 07 17:28:40 +0000 2026]: Microsoft $MSFT is looking to reduce AI costs, is starting to replace OpenAI and Anthropic with its own models in software products like Excel and Outlook - Bloomberg https://t.co/PmDskUtpjd
 
-@AIStockSavvy [Mon Jul 06 20:11:20 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $LAES SEALSQ Reports H1 Revenue Up 120%, Reaffirms 2026 Outlook 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ SEALSQ reported preliminary 𝐇𝟏 𝟐𝟎𝟐𝟔 revenue of 𝐚𝐩𝐩𝐫𝐨𝐱. $𝟏𝟏 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟏𝟐𝟎% YoY. ➤ 𝐐𝟐 𝟐𝟎𝟐𝟔 revenue rose to 𝐚𝐩𝐩𝐫𝐨𝐱. $𝟕 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 from $𝟒 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 in Q1. ➤ Growth was driven by 𝐕𝐚𝐮𝐥𝐭-𝐈𝐂 demand, IC'ALPS, PKI subscriptions, and Quantix Edge. ➤ Cash and short-term investments totaled 𝐚𝐩𝐩𝐫𝐨𝐱. $𝟒𝟗𝟓 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 as of June 30. ➤ SEALSQ reaffirmed 𝟐𝟎𝟐𝟔 revenue guidance of $𝟐𝟕-$𝟑𝟔 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Business pipeline exceeds $𝟐𝟐𝟓 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 through 2029, including $𝟔𝟎+ 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 in post-quantum products. ➤ QS7001 achieved key 𝐍𝐈𝐒𝐓 and Common Criteria milestones ahead of commercialization. ➤ SEALSQ expanded through 𝐌𝐢𝐫𝐚𝐞𝐱, Wecan, and Quobly investments during H1 2026. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Triple-digit revenue growth signals 𝐬𝐭𝐫𝐨𝐧𝐠 execution across security and semiconductor businesses. ➤ Large cash balance provides flexibility for 𝐚𝐜𝐪𝐮𝐢𝐬𝐢𝐭𝐢𝐨𝐧𝐬 and product commercialization. ➤ Growing post-quantum pipeline positions SEALSQ for potential 𝐥𝐨𝐧𝐠-𝐭𝐞𝐫𝐦 revenue expansion.
+@KobeissiLetter [Tue Jul 07 19:20:54 +0000 2026]: BREAKING: Brent crude oil prices surge above $76/barrel after the US revokes Iran's general license to export oil in response to Iran striking three commercial vessels in the Strait of Hormuz. https://t.co/zTH55IWNw4
 
-@KobeissiLetter [Mon Jul 06 19:33:16 +0000 2026]: BREAKING: The odds of the Fed cutting interest rates in 2026 are now down to just 21%. Just months ago, markets saw up to 4 rate cuts this year. "Higher for longer" is back. https://t.co/5pKgegC4Tp
+@KobeissiLetter [Tue Jul 07 18:53:26 +0000 2026]: BREAKING: The US is revoking Iran's newly issued general license to export oil after Iran struck three commercial vessels in the Strait of Hormuz. The US called Iran's latest actions in the Strait of Hormuz "wholly unacceptable" and said they will be "met with consequences."
 
-@gurgavin [Thu Jul 02 04:05:46 +0000 2026]: JUST IN : OPEN AI TO HANDOVER 5% OF IT’S ENTIRE COMPANY TO THE US GOVT PER FT
+@KobeissiLetter [Tue Jul 07 13:44:18 +0000 2026]: Global financial institutions are set to reduce exposure to the US Dollar: 4% of financial institutions plan to reduce their US Dollar exposure in their portfolios over the next 12-24 months, the first such reading in 3 years, according to an OMFIF survey of 74 central banks and 16 public pension and sovereign wealth funds managing over $10 trillion in reserve assets. The US Dollar is the only major currency expected to see a lower exposure among survey respondents. Furthermore, 8% expect to reduce the US Dollar in their reserves over the next 10 years. Nevertheless, the US Dollar is still the most held currency across financial institutions, at 58%, slightly down from 60% in 2025. Meanwhile, 82% of central banks surveyed now hold physical gold, up from 71% last year. 51% of respondents cite protection against geopolitical risk as a motivation for holding gold, up from 40% in 2024. Central banks are diversifying from the US Dollar into gold.
 
-@StockMKTNewz [Mon Jul 06 20:46:50 +0000 2026]: Vertex Pharmaceuticals $VRTX has agreed to acquire $CRNX for about $10 Billion in cash - Bloomberg
+@AIStockSavvy [Tue Jul 07 22:10:17 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $FIGR Figure Reports Record Q2 Marketplace Volume Above Guidance 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Figure said preliminary 𝐐𝟐 𝟐𝟎𝟐𝟔 results exceeded the top end of prior guidance. ➤ Consumer Loan Marketplace Volume reached 𝐚 𝐫𝐞𝐜𝐨𝐫𝐝 $𝟒.𝟐𝟓𝟗 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in Q2, up 𝟒𝟕% QoQ and 𝟏𝟑𝟐% YoY. ➤ June Consumer Loan Marketplace Volume rose to $𝟏.𝟓𝟏𝟗 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟖% MoM and 𝟏𝟓𝟓% YoY. ➤ $𝐘𝐋𝐃𝐒 in circulation totaled $𝟓𝟓𝟔 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 at June-end, roughly flat MoM. ➤ Democratized Prime 𝐌𝐚𝐭𝐜𝐡𝐞𝐝 𝐎𝐟𝐟𝐞𝐫𝐬 reached $𝟑𝟗𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟐% MoM and 𝟔% QoQ. ➤ 𝐁𝐨𝐫𝐫𝐨𝐰𝐞𝐫 𝐃𝐞𝐦𝐚𝐧𝐝 increased to $𝟒𝟏𝟒 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, while 𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐋𝐞𝐧𝐝𝐞𝐫 𝐒𝐮𝐩𝐩𝐥𝐲 rose to $𝟓𝟐𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Figure will transition from 𝐦𝐨𝐧𝐭𝐡𝐥𝐲 disclosures to a weekly performance dashboard. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Marketplace volume growth signals 𝐬𝐭𝐫𝐨𝐧𝐠 consumer lending demand and platform adoption. ➤ Results above guidance may reinforce confidence in Figure's 𝟐𝟎𝟐𝟔 growth outlook. ➤ Weekly reporting could provide investors with more 𝐟𝐫𝐞𝐪𝐮𝐞𝐧𝐭 operating performance updates.
 
-@StockMKTNewz [Mon Jul 06 23:42:08 +0000 2026]: Jim Cramer just said on CNBC he thinks these are the 5 stocks to buy during this market rotation Johnson &amp; Johnson $JNJ PepsiCo $PEP Starbucks $SBUX Constellation Brands $STZ $TJX https://t.co/dm38Q9Sr4F
+@StockMKTNewz [Tue Jul 07 18:36:08 +0000 2026]: Meta Platforms $META just announced that it's rolling out Muse Image, its first image-generation model from ​Meta Superintelligence Labs - Reuters https://t.co/wwrOFL35K0
 
-@AIStockSavvy [Mon Jul 06 23:05:13 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Large Banks Held Preliminary Discussions to Acquire a Network From Fiserv That Could Allow Them to Bypass Federal Debit-Card Fee Caps - WSJ - $BAC $JPM $FISV
+@KobeissiLetter [Tue Jul 07 16:52:21 +0000 2026]: AI is the hottest topic on global earnings calls: Mentions of AI disruptions during H1 2026 earnings calls jumped to a record ~780. This marks a +310% increase from ~190 mentions in H2 2025. In the first half alone, there were more mentions of AI disruptions than in the previous 3 years combined. Meanwhile, a record 337 executives at S&P 500 firms mentioned AI during Q1 2026 earnings calls held between March 15th and June 11th, according to FactSet. This is more than double the 5-year average of 164 and more than triple the 10-year average of 103. AI is transforming corporate strategy and financial markets.
 
-@AIStockSavvy [Mon Jul 06 22:55:46 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Samsung Reports Preliminary Q2 Results, Profit Beats Estimates - $MU $SNDK 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐒𝐚𝐦𝐬𝐮𝐧𝐠 reported preliminary Q2 revenue of 𝟏𝟕𝟏 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧. ➤ Q2 revenue missed the 𝟏𝟕𝟑.𝟗 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧 consensus estimate. ➤ Q2 operating profit reached 𝟖𝟗.𝟒 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧. ➤ Operating profit exceeded the 𝟖𝟕.𝟑 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧 consensus forecast. ➤ Q1 revenue was 𝟏𝟑𝟑.𝟗 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧, with operating profit of 𝟓𝟕.𝟐 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧. ➤ Year-ago Q2 revenue was 𝟕𝟒.𝟔 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧. ➤ Year-ago Q2 operating profit was 𝟒.𝟕 𝐭𝐫𝐢𝐥𝐥𝐢𝐨𝐧 𝐰𝐨𝐧. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Profit beat suggests stronger 𝐨𝐩𝐞𝐫𝐚𝐭𝐢𝐧𝐠 performance despite softer-than-expected sales. ➤ Results offer insight into demand trends across Samsung's 𝐜𝐡𝐢𝐩 and electronics businesses. ➤ The earnings may influence investor expectations for Samsung's 𝐬𝐞𝐜𝐨𝐧𝐝-𝐡𝐚𝐥𝐟 performance
+@KobeissiLetter [Tue Jul 07 21:32:59 +0000 2026]: BREAKING: The US Military announces it has begun launching a series of powerful strikes against Iran. The US says these strikes are in response to Iranian attacks on three vessels that were transiting the Strait of Hormuz.
 
-@AIStockSavvy [Mon Jul 06 20:44:03 +0000 2026]: $WULF | Compass Point 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐁𝐮𝐲 on 𝐓𝐞𝐫𝐚𝐖𝐮𝐥𝐟, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟒𝟎 𝐟𝐫𝐨𝐦 $𝟐𝟖 Analyst raises PT on the back of a transformative 20-year, 401 MW lease with Anthropic which significantly increases capacity and revenue visibility. https://t.co/fh3VGqT6LF
+@KobeissiLetter [Tue Jul 07 15:17:43 +0000 2026]: BREAKING: US officials say Iran has struck a third commercial ship in the Strait of Hormuz, per Axios. This follows attacks on two commercial vessels yesterday and comes after a one-week agreement between the US and Iran on halting attacks in the Strait of Hormuz has expired.
 
-@AIStockSavvy [Mon Jul 06 20:31:57 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Galaxy Digital Completes Phase I of Helios AI Data Center for CoreWeave - $GLXY $CRWV 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐆𝐚𝐥𝐚𝐱𝐲 𝐃𝐢𝐠𝐢𝐭𝐚𝐥 completed 𝐏𝐡𝐚𝐬𝐞 𝐈 of its Helios data center campus. ➤ Phase I delivers 𝟐𝟎𝟎 𝐌𝐖 gross power, including 𝟏𝟑𝟑 𝐌𝐖 of critical IT load. ➤ Capacity was delivered to 𝐂𝐨𝐫𝐞𝐖𝐞𝐚𝐯𝐞 under a 𝟏𝟓-𝐲𝐞𝐚𝐫 lease agreement. ➤ Rent commenced in 𝐐𝟐 𝟐𝟎𝟐𝟔 as Helios became an operational AI data center. ➤ 𝐏𝐡𝐚𝐬𝐞 𝐈𝐈, adding 𝟐𝟔𝟎 𝐌𝐖 of critical IT load, is under development. ➤ Phase II data hall deliveries are expected to begin in 𝐇𝟏 𝟐𝟎𝟐𝟕. ➤ CoreWeave committed to 𝟓𝟐𝟔 𝐌𝐖 of critical IT load across Phases I-III. ➤ The 15-year leases are expected to generate 𝐨𝐯𝐞𝐫 $𝟏 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in average annual revenue. ➤ Helios spans 𝟐,𝟐𝟎𝟎+ acres with approved capacity of 𝟏.𝟔𝟑 𝐆𝐖, expandable to 𝟑.𝟔 𝐆𝐖. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Expands infrastructure supporting 𝐡𝐲𝐩𝐞𝐫𝐬𝐜𝐚𝐥𝐞 𝐀𝐈 computing demand. ➤ Long-term leases provide Galaxy with 𝐯𝐢𝐬𝐢𝐛𝐥𝐞, recurring revenue streams. ➤ Helios strengthens Galaxy's position in the fast-growing 𝐀𝐈 𝐝𝐚𝐭𝐚 𝐜𝐞𝐧𝐭𝐞𝐫 market. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "Completing Phase I on budget and on schedule affirms Galaxy's position as an operator capable of executing hyperscale AI data center development." — 𝐌𝐢𝐤𝐞 𝐍𝐨𝐯𝐨𝐠𝐫𝐚𝐭𝐳, Founder and CEO of Galaxy.
+@KobeissiLetter [Tue Jul 07 14:04:46 +0000 2026]: BREAKING: The Nasdaq 100 extends losses to over -1% on the day as chip stocks pull back. https://t.co/1XPmJ5WBEs
 
-@wallstengine [Mon Jul 06 20:47:33 +0000 2026]: TRUMP: WALMART $WMT, WILL BE LOWERING PRICES, BY A LOT AT ADMINISTRATION'S REQUEST https://t.co/ZP7Y7PgZUy
+@AIStockSavvy [Tue Jul 07 22:04:56 +0000 2026]: Iran says US strike seriously violates Iran-US Islamabad memorandum - $QQQ $SPY $USO State broadcaster IRIB reported early on the 8th that Iran’s government said the US strike on Iran seriously violates the Iran‑US Islamabad memorandum of understanding.
 
-@KobeissiLetter [Mon Jul 06 21:58:39 +0000 2026]: Foreign debt demand is no longer keeping up with America's growing debt: Foreign official holdings of US Treasuries are down to 12.5% of total Treasuries outstanding, the lowest this century. This percentage has declined -24 points since the 2009 peak. Over this period, marketable US Treasury debt has surged +$23 trillion, or +379%, to $29.1 trillion, near an all-time high. At the same time, US Treasuries held by foreign government entities have increased by just +$1.5 trillion, or +63%, to ~$3.9 trillion. China's Treasury holdings have more than halved, to $651.1 billion, the lowest since September 2008. The US is issuing record levels of debt.
+@AIStockSavvy [Tue Jul 07 21:51:11 +0000 2026]: U.S. officials said the strike on Iran was a "punitive action, not a proportional response," and that the operation "will not end in the short term." - CNN - $QQQ $SPY $USO
 
-@KobeissiLetter [Mon Jul 06 18:26:48 +0000 2026]: US consumer sentiment points to further job market weakness: The gap between consumers saying jobs are "plentiful" versus "hard to find" fell to just 2.4 points in June, the lowest since the 2020 pandemic. Just 24.9% of consumers now say jobs are "plentiful," down from ~55.0% in 2022, while 22.5% say jobs are "hard to find," up from ~10.0% over the same period, and the highest since January 2021. Historically, this measure has been one of the most reliable leading indicators of rising unemployment, and it now suggests the US unemployment rate could rise to as high as 6.0%, from the current 4.2%. Meanwhile, the labor force participation rate, which measures the working-age population of those either employed or looking for a job, fell to 61.5% in June, the lowest since June 1976, excluding the pandemic period. This comes as the labor force dropped -720,000 last month, to 169.36 million, the lowest since December 2024. The job market is much weaker than headlines suggest.
+@AIStockSavvy [Tue Jul 07 21:42:08 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: US Military Says It’s Launching New Wave of Strikes Against Iran - Bloomberg - $QQQ $SPY $USO
 
-@AIStockSavvy [Mon Jul 06 21:10:49 +0000 2026]: $RIVN | Rivian Updates: ➤ Offers 75 Million shares of Class A Common Stock ➤ Estimates Q2 2026 Total Revenue of $1.55 Billion–$1.65 Billion
+@AIStockSavvy [Tue Jul 07 20:57:26 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $SPCX SpaceXAI plans to release as early as Wednesday a new AI model developed in partnership with Cursor - The Information
 
-@AIStockSavvy [Mon Jul 06 20:21:13 +0000 2026]: $FSLR | Deutsche Bank 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐅𝐢𝐫𝐬𝐭 𝐒𝐨𝐥𝐚𝐫 to 𝐁𝐮𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟐𝟕𝟐 from $𝟐𝟒𝟓 https://t.co/rMfJkHGK6w
+@AIStockSavvy [Tue Jul 07 18:02:30 +0000 2026]: $COIN | US Tiger Securities 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐂𝐨𝐢𝐧𝐛𝐚𝐬𝐞 to 𝐁𝐮𝐲, sets 𝐏𝐓 𝐚𝐭 $𝟐𝟎𝟎 Analyst upgrades on a more constructive view of the Bitcoin cycle, believing the largest part of de-risking is complete and upside is ahead. https://t.co/qBUgsPsPGX
 
-@AIStockSavvy [Mon Jul 06 20:15:39 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $LCID Lucid Group draws $800M loan from Saudi Arabia's PIF affiliate
+@wallstengine [Tue Jul 07 22:36:01 +0000 2026]: $SHMD received a repeat order worth over €37M from a Chinese customer for HDI-ML and mSAP production equipment. The equipment will support capacity expansion for AI server boards and optical module applications. Including this order, SCHMID’s 2026 order intake now stands at €81.7M, up from €44.3M before the deal.
 
-@AIStockSavvy [Mon Jul 06 20:04:50 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Vertex to acquire Crinetics Pharmaceuticals for $10 billion - $VRTX $CRNX
+@KobeissiLetter [Tue Jul 07 15:10:45 +0000 2026]: The market's rally is broadening: The equal-weighted S&P 500 index has recorded 31 all-time highs so far this year, the 2nd-highest total since 2021. This comes as the index has rallied +12.2% over the period, outperforming the S&P 500's +10.1% gain. By comparison, the S&P 500 has seen 24 all-time highs year-to-date. At this pace, the equal-weighted index is on track to record 60 new all-time highs in 2026, the 2nd-highest annual total on record. This would rank only behind the 68 all-time highs posted in 2013. Market leadership is expanding.
 
-@wallstengine [Mon Jul 06 21:45:32 +0000 2026]: Vertex Pharmaceuticals $VRTX agreed to buy Crinetics Pharmaceuticals $CRNX for $10B cash, expanding into endocrinology. Deal price: $85/share, a 102% premium to Crinetics’ prior close. Crinetics’ lead drug, Palsonify, targets acromegaly, with another program in congenital adrenal hyperplasia. Vertex says the assets could generate over $5B in peak annual revenue. Deal expected to close in Q3.
+@AIStockSavvy [Tue Jul 07 21:31:12 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Netflix, Disney and YouTube Interested in Fifa World Cup U.S. Rights, Package Could Reach $2 Billion - CNBC - $NFLX $GOOGL $DIS
 
-@wallstengine [Mon Jul 06 21:33:08 +0000 2026]: Rivian released preliminary Q2 revenue of $1.55B - $1.65B, up from $1.3B last year, driven by higher deliveries, software/services, &amp; regulatory credits. Cash/ST investments rose to ~$5.3B from $4.8B. Separately, $RIVN launched a 75M share offering, plus 11.25M underwriter option https://t.co/HfCP9n21hb
+@AIStockSavvy [Tue Jul 07 20:07:49 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $FCEL FuelCell Energy launches $200M common stock offering
 
-@wallstengine [Mon Jul 06 21:15:29 +0000 2026]: RIVIAN $RIVN AUTOMOTIVE FILES TO OFFER 75M SHARES
+@AIStockSavvy [Tue Jul 07 20:05:48 +0000 2026]: $PENG | Penguin Solutions, Inc., Q3-2026 Earning Report https://t.co/GMZdwr5gxy
+
+@wallstengine [Tue Jul 07 19:12:12 +0000 2026]: $USO +4.5% https://t.co/7yutwsKREf
+
+@StockMKTNewz [Tue Jul 07 16:23:58 +0000 2026]: The United States 🇺🇸, Japan 🇯🇵, and South Korea 🇰🇷 just signed a new pact around working together to accelerate Small Modular Nuclear Reactor Development https://t.co/UfN0BUGzcX
+
+@KobeissiLetter [Tue Jul 07 20:19:03 +0000 2026]: China is now dominating the global auto market: China's vehicle exports jumped +68.7% YoY in May, to ~930,000. This is almost +1,100% above levels seen in May 2019. This comes as new EV exports surged +112.6% YoY, to 424,000, accounting for ~46% of the total. As a result, China exported a record 8.6 million vehicles in the 12 months ending May. By comparison, Japan exported just 4.2 million, or -51% fewer, during the same period. To put this into perspective, China exported just 1.0 million vehicles in 2019, while Japan exported 4.8 million, or +380% more. China is now the undisputed leader of the global car market.
 
 @gurgavin [Mon Jul 06 16:11:32 +0000 2026]: TRUMP SAYS “COUPLE OF GUYS WENT SHORT ( THE STOCK ) MARKET POOR BASTARDS ARE IN BIG TROUBLE THEY'RE GETTING WIPED OUT”
 
-@StockMKTNewz [Mon Jul 06 22:41:29 +0000 2026]: Leopold Aschenbrenner is looking to invest in the SK Hynix IPO https://t.co/CdPDkzi1rT
+@wallstengine [Tue Jul 07 18:52:51 +0000 2026]: The U.S. is revoking a general license that allowed Iranian oil sales after calling Iran’s actions in the Strait of Hormuz “wholly unacceptable.” The move follows tanker attacks near the strait, which carries about a fifth of global oil consumption. https://t.co/TSYpZf59Sx
 
-@StockMKTNewz [Mon Jul 06 20:56:49 +0000 2026]: 🇺🇸 President Trump just posted this: "Great news! I have just been informed that one of the biggest, best, and smartest Retailers in America, Walmart, will be lowering prices, by a lot" https://t.co/MKyCkulNHK
+@StockMKTNewz [Tue Jul 07 20:31:21 +0000 2026]: Anthropic has now overtaken OpenAI in paid business adoption of AI https://t.co/f28z62qIk7
 
-@KobeissiLetter [Mon Jul 06 22:50:57 +0000 2026]: Stress in the US private credit market is intensifying: Investors requested a record -$15.6 billion in redemptions from private credit funds in Q2 2026. This marks the 3rd consecutive quarterly increase by a total of +$13 billion, or +500%. Furthermore, just 38% of these requests were met, down from 53% in Q1 2026, leaving $9.7 billion in unmet redemptions, the largest backlog on record. Blue Owl's flagship fund, Blue Owl Credit Income, was the most impacted at 19% of shares outstanding, with 14% unmet, the highest redemption rate among its large competitors. This was followed by Apollo, at 16% requested with 11% unmet, and Ares, at 14% requested with 9% unmet. Meanwhile, inflows into the private credit industry declined -75% since January to ~$500 million in May, the smallest monthly intake in at least 18 months. The private credit crisis shows no signs of slowing.
-
-@KobeissiLetter [Mon Jul 06 17:32:51 +0000 2026]: Investor sentiment in the energy market is rapidly shifting: Energy funds posted -$3.2 billion in outflows in the week ending July 1st, the largest weekly withdrawal since July 2024. This is also the 2nd-biggest weekly outflow in at least 10 years. Energy funds also saw -$1.5 billion in outflows the prior week, the largest since April 2025. As a result, the 4-week average of outflows is up to -$1.8 billion, the biggest on record. This marks a sharp reversal from a record +$2.5 billion in the 4-week average of inflows seen just 2 months ago. Investors are aggressively rotating out of the energy sector.
+@gurgavin [Mon Jul 06 19:45:40 +0000 2026]: KIND OF CRAZY AMERICA WAS EXPECTED TO LOSE TODAY AFTER ITS BEST PLAYER GOT A RED CARD LAST GAME AND WASN’T ALLOWED TO PLAY TODAY BUT TRUMP CALLED FIFA AND MADE THEM OVERTURN THE DECISION NOW AMERICA IS EXPECTED TO WIN
 
 @gurgavin [Sat Jul 04 18:37:40 +0000 2026]: HAPPY INDEPENDENCE DAY TO MY AMERICAN FOLLOWERS 🇺🇸🇺🇸🇺🇸🇺🇸 “IT’S NEVER PAID TO BET AGAINST AMERICA. WE COME THROUGH THINGS, BUT IT’S NOT ALWAYS A SMOOTH RIDE. NEVER BET AGAINST AMERICA.” - WARREN BUFFETT -
 
-@wallstengine [Mon Jul 06 22:39:23 +0000 2026]: Texas Stock Exchange has started its phased trading rollout in Dallas. Initial activity runs through test symbols from July 6-9, with live trading in select securities scheduled to begin July 10. Broader symbol rollout is expected through July. TXSE expects ETP listings in September, corporate listings in October, and IPOs in 2027 The exchange is backed by major firms including BlackRock, Citadel Securities, Charles Schwab, and JPMorgan, with more than $250M raised.
+@gurgavin [Tue Jul 07 17:57:39 +0000 2026]: THIS MIGHT BE THE CRAZIEST GAME I HAVE EVER WATCHED
 
-@StockMKTNewz [Mon Jul 06 23:07:00 +0000 2026]: Samsung's quarterly profit has increased by 19x The world’s largest memory maker reported preliminary operating income of $58 billion in the three months through June, dwarfing its performance for all of 2025 Samsung is expected to release a full financial statement around the end of the month - Bloomberg
+@StockMKTNewz [Tue Jul 07 20:06:13 +0000 2026]: The 🇺🇸 stock market just closed the day Red 🔴🔴🔴🔴 https://t.co/siYr5U7NBP
 
-@StockMKTNewz [Mon Jul 06 22:51:14 +0000 2026]: THE TEXAS STOCK EXCHANGE IS HERE The Texas Stock Exchange officially began operating today with some test trades Live stock trading is expected to begin Friday with a small group of securities https://t.co/G2sQwXG0V0
+@StockMKTNewz [Tue Jul 07 19:29:42 +0000 2026]: SK Hynix is expected to bring in $231 Billion of revenue this year up from $67B last year https://t.co/xCuDbe4fm9
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.

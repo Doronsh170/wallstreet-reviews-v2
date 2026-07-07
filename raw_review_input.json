@@ -1,89 +1,89 @@
 {
-  "mode": "daily_summary",
-  "generated_at": "2026-07-07T03:15:39.856280+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שני, 6.7.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-07-06",
-  "title_date_str": "2026-07-06",
-  "title_day_name": "שני",
-  "week_range": null,
+  "mode": "weekly_summary",
+  "generated_at": "2026-07-08T02:04:26.460930+03:00",
+  "expected_title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 29/06–03/07/2026",
+  "first_heading": "סיכום השבוע",
+  "review_date": "2026-07-03",
+  "title_date_str": "2026-07-08",
+  "title_day_name": "רביעי",
+  "week_range": "29/06–03/07/2026",
   "etf_pcts": {
-    "SPY": 0.8727,
-    "QQQ": 1.4342,
-    "DIA": 0.4187,
-    "IWM": 0.4436,
-    "XLE": -0.1691,
-    "XLK": 1.6501,
-    "XLF": 0.9349,
-    "XLY": 0.7599,
-    "XLV": -1.0871,
-    "XLI": 0.8972,
-    "XLP": -1.0472,
-    "XLU": -1.0052,
-    "USO": 0.3558,
-    "BNO": 0.6806,
-    "GLD": 1.0578,
-    "SLV": 1.9811,
-    "IBIT": 3.5847,
-    "TLT": -0.0702,
-    "UUP": -0.0706,
-    "VIXY": -2.732
+    "SPY": -0.4752,
+    "QQQ": -1.8525,
+    "DIA": -0.3094,
+    "IWM": -0.9067,
+    "XLE": 2.8421,
+    "XLK": -2.3915,
+    "XLF": -0.1603,
+    "XLY": -0.5254,
+    "XLV": 1.5312,
+    "XLI": -1.7137,
+    "XLP": 0.9037,
+    "XLU": 0.883,
+    "USO": 4.3795,
+    "BNO": 4.9825,
+    "GLD": -1.2142,
+    "SLV": -2.9407,
+    "IBIT": 0.0831,
+    "TLT": -1.0532,
+    "UUP": 0.2825,
+    "VIXY": 1.0654
   },
   "ticker_quotes": {
-    "RIVN": {
-      "price": 20.14,
-      "pct": 8.1052,
-      "prev_close": 18.63
-    },
-    "CRNX": {
-      "price": 42.03,
-      "pct": -0.4736,
-      "prev_close": 42.23
-    },
-    "VRTX": {
-      "price": 529.59,
-      "pct": 0.2935,
-      "prev_close": 528.04
-    },
-    "WMT": {
-      "price": 110.65,
-      "pct": -1.064,
-      "prev_close": 111.84
-    },
-    "MU": {
-      "price": 984.75,
-      "pct": 0.942,
-      "prev_close": 975.56
-    },
-    "DELL": {
-      "price": 411.8,
-      "pct": 4.4329,
-      "prev_close": 394.32
-    },
-    "TSLA": {
-      "price": 419.77,
-      "pct": 6.6895,
-      "prev_close": 393.45
-    },
-    "MSTR": {
-      "price": 100.77,
-      "pct": 0.0,
-      "prev_close": 100.77
-    },
-    "NVDA": {
-      "price": 195.55,
-      "pct": 0.3696,
-      "prev_close": 194.83
+    "USO": {
+      "price": 108.92,
+      "pct": 4.3795,
+      "prev_close": 104.35
     },
     "SPCX": {
-      "price": 160.42,
-      "pct": -0.9753,
-      "prev_close": 162.0
+      "price": 149.47,
+      "pct": -6.8258,
+      "prev_close": 160.42
     },
-    "LAES": {
-      "price": 3.0,
-      "pct": -0.9901,
-      "prev_close": 3.03
+    "QQQ": {
+      "price": 709.43,
+      "pct": -1.8525,
+      "prev_close": 722.82
+    },
+    "SPY": {
+      "price": 747.71,
+      "pct": -0.4752,
+      "prev_close": 751.28
+    },
+    "PENG": {
+      "price": 62.71,
+      "pct": -7.3844,
+      "prev_close": 67.71
+    },
+    "NVDA": {
+      "price": 196.93,
+      "pct": 0.7057,
+      "prev_close": 195.55
+    },
+    "GOOGL": {
+      "price": 367.03,
+      "pct": 0.1555,
+      "prev_close": 366.46
+    },
+    "TSLA": {
+      "price": 402.9,
+      "pct": -4.0189,
+      "prev_close": 419.77
+    },
+    "MU": {
+      "price": 938.38,
+      "pct": -4.7088,
+      "prev_close": 984.75
+    },
+    "MSFT": {
+      "price": 388.84,
+      "pct": 0.543,
+      "prev_close": 386.74
+    },
+    "FIGR": {
+      "price": 31.045,
+      "pct": -9.7791,
+      "prev_close": 34.41
     }
   }
 }
