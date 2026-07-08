@@ -91,6 +91,13 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 .actions button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 .actions .primary{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
 
+/* ── Quick summary panel ── */
+.summary{border:1px solid var(--line);background:var(--desk-soft);border-radius:12px;padding:14px 18px;margin-top:16px}
+.summary h4{margin:0 0 8px;font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:16px;color:var(--desk)}
+.summary ol{margin:0;padding-inline-start:22px;color:var(--ink-soft)}
+.summary li{margin:5px 0;line-height:1.55;unicode-bidi:plaintext}
+.summary li b{color:var(--ink);font-weight:700}
+
 /* ── How-to strip ── */
 .howto{margin:0 0 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);font-size:14px}
 .howto summary{cursor:pointer;padding:10px 14px;color:var(--ink-soft);font-weight:500;list-style-position:inside}
@@ -211,6 +218,16 @@ function bulletHtml(line){
   return esc(line);
 }
 
+/* Short summary of every point: the topic label when present, else the first words */
+function leadsOf(review){
+  return bulletsOf(review).map(line => {
+    const m = line.match(/^([^:：]{2,40})[:：]\s+/);
+    if(m) return m[1];
+    const words = line.split(/\s+/);
+    return words.slice(0,7).join(' ') + (words.length > 7 ? '…' : '');
+  });
+}
+
 function renderEmpty(key){
   return `<div class="empty">
     <div class="mark">◦</div>
@@ -229,11 +246,34 @@ function renderReview(review, key){
   html += bullets.length
     ? `<ul class="bullets">${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`
     : `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
+  const leads = leadsOf(review);
+  if(leads.length){
+    html += `<div class="summary" id="summaryBox" hidden>
+      <h4>תקציר הנקודות</h4>
+      <ol>${leads.map(l => `<li>${esc(l)}</li>`).join('')}</ol>
+    </div>`;
+  }
   html += `<div class="actions">
       <button class="primary" onclick="window.print()">שמירה ל-PDF</button>
+      ${leads.length ? `<button id="summaryBtn" onclick="toggleSummary(this)">תקציר הנקודות</button>` : ''}
       <button onclick="shareWhatsApp()">שליחה בווטסאפ</button>
     </div>`;
   return html;
+}
+
+function toggleSummary(btn){
+  const box = document.getElementById('summaryBox');
+  if(!box) return;
+  if(box.hasAttribute('hidden')){
+    box.removeAttribute('hidden');
+    btn.textContent = 'הסתרת התקציר';
+    btn.setAttribute('aria-expanded','true');
+    box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }else{
+    box.setAttribute('hidden','');
+    btn.textContent = 'תקציר הנקודות';
+    btn.setAttribute('aria-expanded','false');
+  }
 }
 
 function render(){

@@ -797,7 +797,9 @@ THE UPDATE SUMMARIZES THE SOURCES — it is NOT market analysis:
 - ONE bullet per topic. Several tweets about the same topic/company → merge into ONE bullet.
 - Include EVERY material topic from the window — there is NO fixed bullet count, no minimum and no cap.
 - Each bullet: 1-2 short, clear Hebrew sentences. Open with a short Hebrew topic label, then the summary.
-  Anchor a bullet to its time when known: "בשעה 22:40 שעון ישראל".
+  Anchor a bullet to its time when known using "בשעה 22:40" only. All times in this update are Israel time
+  (already stated once in the window line above), so do NOT append "שעון ישראל" to individual bullets — it is
+  redundant. At most one bullet may carry it if truly needed for clarity.
 - If the window does not contain enough material posts, return a single bullet saying simply:
   "* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה." — nothing else. Never pad.
 - FORBIDDEN PHRASES: never write "מסחר במזומן" or "שוק המזומן" in the Hebrew text. Refer to the regular
