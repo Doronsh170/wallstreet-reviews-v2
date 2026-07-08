@@ -1,6 +1,6 @@
 {
   "mode": "daily_prep",
-  "generated_at": "2026-07-08T10:46:34.278193+03:00",
+  "generated_at": "2026-07-08T13:22:35.020241+03:00",
   "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום רביעי, 8.7.2026",
   "first_heading": "נקודות מרכזיות",
   "review_date": "2026-07-08",
@@ -35,11 +35,6 @@
       "pct": -6.8258,
       "prev_close": 160.42
     },
-    "USO": {
-      "price": 108.92,
-      "pct": 4.3795,
-      "prev_close": 104.35
-    },
     "QQQ": {
       "price": 709.43,
       "pct": -1.8525,
@@ -50,15 +45,20 @@
       "pct": -0.4752,
       "prev_close": 751.28
     },
-    "PENG": {
-      "price": 62.71,
-      "pct": -7.3844,
-      "prev_close": 67.71
+    "USO": {
+      "price": 108.92,
+      "pct": 4.3795,
+      "prev_close": 104.35
     },
     "NVDA": {
       "price": 196.93,
       "pct": 0.7057,
       "prev_close": 195.55
+    },
+    "FIGR": {
+      "price": 31.045,
+      "pct": -9.7791,
+      "prev_close": 34.41
     },
     "IEMG": {
       "price": 79.79,
@@ -70,25 +70,25 @@
       "pct": -1.981,
       "prev_close": 60.07
     },
+    "OXY": {
+      "price": 51.68,
+      "pct": 5.8799,
+      "prev_close": 48.81
+    },
     "XOM": {
       "price": 141.69,
       "pct": 3.8478,
       "prev_close": 136.44
     },
-    "MU": {
-      "price": 938.38,
-      "pct": -4.7088,
-      "prev_close": 984.75
+    "RKLB": {
+      "price": 83.41,
+      "pct": -10.3985,
+      "prev_close": 93.09
     },
-    "FIGR": {
-      "price": 31.045,
-      "pct": -9.7791,
-      "prev_close": 34.41
-    },
-    "META": {
-      "price": 615.58,
-      "pct": 2.5471,
-      "prev_close": 600.29
+    "PRG": {
+      "price": 43.76,
+      "pct": 1.1792,
+      "prev_close": 43.25
     }
   }
 }

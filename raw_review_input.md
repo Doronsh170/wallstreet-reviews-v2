@@ -112,17 +112,17 @@ DAILY PERFORMANCE:
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $SPCX: $149.47 (daily: -6.83%), prev close: $160.42
-  $USO: $108.92 (daily: +4.38%), prev close: $104.35
   $QQQ: $709.43 (daily: -1.85%), prev close: $722.82
   $SPY: $747.71 (daily: -0.48%), prev close: $751.28
-  $PENG: $62.71 (daily: -7.38%), prev close: $67.71
+  $USO: $108.92 (daily: +4.38%), prev close: $104.35
   $NVDA: $196.93 (daily: +0.71%), prev close: $195.55
+  $FIGR: $31.05 (daily: -9.78%), prev close: $34.41
   $IEMG: $79.79 (daily: -2.70%), prev close: $82.00
   $VWO: $58.88 (daily: -1.98%), prev close: $60.07
+  $OXY: $51.68 (daily: +5.88%), prev close: $48.81
   $XOM: $141.69 (daily: +3.85%), prev close: $136.44
-  $MU: $938.38 (daily: -4.71%), prev close: $984.75
-  $FIGR: $31.05 (daily: -9.78%), prev close: $34.41
-  $META: $615.58 (daily: +2.55%), prev close: $600.29
+  $RKLB: $83.41 (daily: -10.40%), prev close: $93.09
+  $PRG: $43.76 (daily: +1.18%), prev close: $43.25
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): עולה (USO: +4.38%, BNO: +4.98%)
@@ -163,17 +163,17 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 
 @gurgavin [Tue Jul 07 23:28:39 +0000 2026]: ALL 1 YEAR SPACEX PRICE TARGETS ARE HERE AS THE QUIET PERIOD ENDED TODAY $SPCX RAYMOND JAMES $800 MORGAN STANLEY $300 DEUTSCHE BANK $255 OPPENHEIMER $250 CANTOR FITZGERALD $246 BERNSTEIN $239 BANK OF AMERICA $235 WELLS FARGO $230 RBC $225 JP MORGAN $225 UBS $210 GOLDMAN SACHS $205 NEEDHAM $200 CURRENT PRICE $150
 
-@wallstengine [Tue Jul 07 20:10:53 +0000 2026]: $PENG | Penguin Solutions Q3 FY26 Earnings Highlights 🔷 Revenue: $478.7M vs $421.4M Est. 🟢 🔷 Adj EPS: $0.84 vs $0.56 Est. 🟢 🔷 Record quarterly net sales, up 48% YoY. FY26 Outlook Raised: 🔷 Non-GAAP EPS: $2.60 ±$0.05 vs $2.28 Est. 🟢 🔷 Net sales growth now seen at 22% ±2%, up from 12% ±5% 🔷 Non-GAAP gross margin: 28.5% ±0.5% Segment Revenue: 🔷 Advanced Computing: $137.6M, up 4% YoY 🔷 Integrated Memory: $275.1M, up 111% YoY 🔷 Optimized LED: $66.1M, up 7% YoY Business Highlights: 🔷 Integrated Memory net sales more than doubled YoY 🔷 AI Infrastructure added 4 new customer logos in Q3 🔷 Became an NVIDIA AI Factory Specialized Partner 🔷 Expanded ClusterWareAI with an AI Factory Operations Agent
-
 @KobeissiLetter [Tue Jul 07 23:29:59 +0000 2026]: Emerging markets are seeing historic investment demand: Assets under management (AUM) in the MSCI emerging markets ETF, $IEMG, are up to a record $160 billion. And, the assets of the FTSE emerging markets ETF, $VWO, are up to a record $120 billion. Over the last 12 months, $IEMG assets have nearly doubled while $VWO assets have risen nearly +50%. This comes as $IEMG has rallied +39% over this period while $VWO has returned +23%. Furthermore, $IEMG attracted +$22 billion in inflows over the last 12 months, more than double the inflows into $VWO. The difference between the two funds comes down to South Korea, which is classified as "emerging" by MSCI and "developed" by FTSE Russell. South Korea's AI boom is reshaping emerging market investing.
 
 @gurgavin [Mon Jul 06 19:52:14 +0000 2026]: SPACEX WILL BE ADDED TO THE NASDAQ 100 INDEX TOMORROW THIS IS THE QUICKEST TIME EVER FOR A COMPANY TO BE ADDED TO THE NASDAQ 100 INDEX $SPCX
 
+@wallstengine [Wed Jul 08 09:11:20 +0000 2026]: Evercore ISI Upgrades $OXY to Outperform from Underperform, Raises PT to $65 from $58 Analyst comments: "We are upgrading Occidental Petroleum from Underperform to Outperform and raising our price target to $65 from $58. After a prolonged stretch of underperformance versus both crude and the large-cap E&P group, we think two developments now allow OXY to better reflect underlying commodity fundamentals: a materially de-levered balance sheet and a structural step-up in capital efficiency that together reshape the free-cash-flow profile and the path back to shareholder returns. We do not make this call on absolute growth. On a flat $75 WTI deck and flat volumes, we model an ~8% FCF/share CAGR through 2030, below the ~20% we see at CVX, COP, EOG, and FANG. Rather, the call is about rate of change and a closing valuation discount: OXY is inflecting off a depressed, deeply discounted base, and we think the market is under-crediting both the durability of the efficiency gains and the simplification of a capital structure that has long capped common equity leverage to oil. Lower well costs and a strategically shallower base decline reduce maintenance capital over time, which flattens and lifts free cash flow and supports a restart of buybacks around the back half of 2028E. A disciplined, self-help posture also fits the current backdrop, where we see ongoing geopolitical volatility in crude and more friction across hydrocarbon supply chains. Finally, OXY carries one of the deeper, longer-duration resource positions among large-cap peers, spanning domestic onshore, EOR, and the Gulf of America, alongside differentiated footholds in the Persian Gulf." Analyst: Stephen Richardson
+
 @StockMKTNewz [Tue Jul 07 23:05:51 +0000 2026]: Exxon Mobil $XOM said its Q2 revenue increased by almost $4 billion as the Iran conflict boosted oil prices - Bloomberg https://t.co/zVBzz4R6s5
 
-@gurgavin [Fri Jul 03 21:26:04 +0000 2026]: IMAGINE SHORTING MICRON WHEN TRUMP IS TRYNA PUMP IT EVERY SINGLE DAY $MU
-
 @AIStockSavvy [Tue Jul 07 19:06:43 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Perplexity Adopts $NVDA NVIDIA Vera CPUs for AI Infrastructure 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐏𝐞𝐫𝐩𝐥𝐞𝐱𝐢𝐭𝐲 will deploy NVIDIA's new 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔𝐬 for AI workloads. ➤ NVIDIA expects 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔 sales to reach 𝐨𝐯𝐞𝐫 $𝟐𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 this fiscal year. ➤ Vera expands NVIDIA into the 𝐂𝐏𝐔 market dominated by Intel and AMD. ➤ NVIDIA is broadening beyond AI GPUs into 𝐠𝐞𝐧𝐞𝐫𝐚𝐥-𝐩𝐮𝐫𝐩𝐨𝐬𝐞 computing processors. ➤ Perplexity said Vera delivers about 𝟏.𝟓𝐱 faster AI agent coding performance. ➤ Perplexity did not disclose the number of 𝐕𝐞𝐫𝐚 𝐂𝐏𝐔𝐬 it plans to purchase. ➤ OpenAI, Anthropic, and Oracle have also committed to using NVIDIA Vera CPUs. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ NVIDIA is challenging 𝐈𝐧𝐭𝐞𝐥 and 𝐀𝐌𝐃 in the multibillion-dollar CPU market. ➤ Rising AI agent workloads are driving demand for 𝐀𝐈-𝐨𝐩𝐭𝐢𝐦𝐢𝐳𝐞𝐝 CPUs. ➤ Additional customer wins strengthen NVIDIA's 𝐞𝐧𝐭𝐞𝐫𝐩𝐫𝐢𝐬𝐞 AI infrastructure strategy. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "NVIDIA's CPU performs AI agent coding tasks about 1.5 times faster than traditional CPUs." — 𝐍𝐚𝐭𝐞 𝐊𝐮𝐩𝐩, Vice President for Computer Enterprise and Infrastructure at Perplexity.
+
+@wallstengine [Wed Jul 08 09:35:26 +0000 2026]: Morgan Stanley reiterated Rocket Lab at Overweight with a $105 price target and raised its bull case to $293 from $185, citing the Iridium acquisition, launch and connectivity upside, and $RKLB’s move toward a more vertically integrated space platform. https://t.co/iaQT6f0wAG
 
 @gurgavin [Wed Jul 08 00:06:20 +0000 2026]: RAYMOND JAMES SAYS SPACEX SHOULD BE WORTH $800 1 YEAR FROM NOW THAT VALUES SPACEX AT $10 TRILLION DOLLARS WHAT ARE THEY ON ??? $SPCX
 
@@ -187,6 +187,12 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 
 @AIStockSavvy [Tue Jul 07 22:10:17 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $FIGR Figure Reports Record Q2 Marketplace Volume Above Guidance 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Figure said preliminary 𝐐𝟐 𝟐𝟎𝟐𝟔 results exceeded the top end of prior guidance. ➤ Consumer Loan Marketplace Volume reached 𝐚 𝐫𝐞𝐜𝐨𝐫𝐝 $𝟒.𝟐𝟓𝟗 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in Q2, up 𝟒𝟕% QoQ and 𝟏𝟑𝟐% YoY. ➤ June Consumer Loan Marketplace Volume rose to $𝟏.𝟓𝟏𝟗 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟖% MoM and 𝟏𝟓𝟓% YoY. ➤ $𝐘𝐋𝐃𝐒 in circulation totaled $𝟓𝟓𝟔 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 at June-end, roughly flat MoM. ➤ Democratized Prime 𝐌𝐚𝐭𝐜𝐡𝐞𝐝 𝐎𝐟𝐟𝐞𝐫𝐬 reached $𝟑𝟗𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟐% MoM and 𝟔% QoQ. ➤ 𝐁𝐨𝐫𝐫𝐨𝐰𝐞𝐫 𝐃𝐞𝐦𝐚𝐧𝐝 increased to $𝟒𝟏𝟒 𝐦𝐢𝐥𝐥𝐢𝐨𝐧, while 𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐋𝐞𝐧𝐝𝐞𝐫 𝐒𝐮𝐩𝐩𝐥𝐲 rose to $𝟓𝟐𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Figure will transition from 𝐦𝐨𝐧𝐭𝐡𝐥𝐲 disclosures to a weekly performance dashboard. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Marketplace volume growth signals 𝐬𝐭𝐫𝐨𝐧𝐠 consumer lending demand and platform adoption. ➤ Results above guidance may reinforce confidence in Figure's 𝟐𝟎𝟐𝟔 growth outlook. ➤ Weekly reporting could provide investors with more 𝐟𝐫𝐞𝐪𝐮𝐞𝐧𝐭 operating performance updates.
 
+@wallstengine [Wed Jul 08 10:09:08 +0000 2026]: Jefferies analyst John Hecht upgraded PROG Holdings $PRG from Hold to Buy with a price target of $60 from $33
+
+@wallstengine [Wed Jul 08 10:05:02 +0000 2026]: Apple announced a multiyear Broadcom $AVGO deal worth over $30B to design and produce custom silicon and wireless tech for Apple products. The agreement covers 15B+ U.S.-made chips, with Broadcom investing $1.5B to expand its Fort Collins, Colorado facility. https://t.co/6IAePQtVLu
+
+@wallstengine [Wed Jul 08 09:47:03 +0000 2026]: Needham Reiterates Buy Rating on $FIGR, PT $55; Top Idea Analyst comments: "Figure recently provided strong June key operating metrics, with consumer loan marketplace volume coming in at $1.519 billion, up 155% Y/Y and well above our $1.357 billion estimate. This brings total 2Q marketplace volume to $4.259 billion, beating the high end of the $3.4-$4.1 billion guidance range. We believe the upside is due to good underlying macro conditions for HELOCs, strong performance of the underlying assets, and an ongoing focus on execution and diversification in the capital markets. We are raising our estimates and believe there is further room for upside as additional asset classes, including auto, SMB, and RTL/DSCR loans, continue to become bigger pieces of the story. We are reiterating our Buy rating and $55 target. FIGR remains our Conviction List idea." Analyst: Kyle Peterson
+
 @StockMKTNewz [Wed Jul 08 00:34:05 +0000 2026]: Cathie Wood and Ark Invest bought 44,196 shares of SpaceX $SPCX today
 
 @StockMKTNewz [Tue Jul 07 18:36:08 +0000 2026]: Meta Platforms $META just announced that it's rolling out Muse Image, its first image-generation model from ​Meta Superintelligence Labs - Reuters https://t.co/wwrOFL35K0
@@ -194,10 +200,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 @KobeissiLetter [Tue Jul 07 21:32:59 +0000 2026]: BREAKING: The US Military announces it has begun launching a series of powerful strikes against Iran. The US says these strikes are in response to Iranian attacks on three vessels that were transiting the Strait of Hormuz.
 
 @KobeissiLetter [Tue Jul 07 15:17:43 +0000 2026]: BREAKING: US officials say Iran has struck a third commercial ship in the Strait of Hormuz, per Axios. This follows attacks on two commercial vessels yesterday and comes after a one-week agreement between the US and Iran on halting attacks in the Strait of Hormuz has expired.
-
-@KobeissiLetter [Tue Jul 07 14:04:46 +0000 2026]: BREAKING: The Nasdaq 100 extends losses to over -1% on the day as chip stocks pull back. https://t.co/1XPmJ5WBEs
-
-@wallstengine [Tue Jul 07 19:12:12 +0000 2026]: $USO +4.5% https://t.co/7yutwsKREf
 
 @AIStockSavvy [Tue Jul 07 22:04:56 +0000 2026]: Iran says US strike seriously violates Iran-US Islamabad memorandum - $QQQ $SPY $USO State broadcaster IRIB reported early on the 8th that Iran’s government said the US strike on Iran seriously violates the Iran‑US Islamabad memorandum of understanding.
 
@@ -207,9 +209,9 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 
 @AIStockSavvy [Tue Jul 07 20:57:26 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $SPCX SpaceXAI plans to release as early as Wednesday a new AI model developed in partnership with Cursor - The Information
 
-@wallstengine [Tue Jul 07 22:36:01 +0000 2026]: $SHMD received a repeat order worth over €37M from a Chinese customer for HDI-ML and mSAP production equipment. The equipment will support capacity expansion for AI server boards and optical module applications. Including this order, SCHMID’s 2026 order intake now stands at €81.7M, up from €44.3M before the deal.
+@wallstengine [Wed Jul 08 10:04:20 +0000 2026]: Salesforce $CRM: The U.S. Air Force’s 441st VSCOS is using Missionforce to manage a $13.5B fleet of 84,000+ vehicles across nearly 389 locations worldwide. The platform has processed 51,000+ asset movement requests and cut contingency inventory checks from days to minutes.
 
-@KobeissiLetter [Tue Jul 07 15:10:45 +0000 2026]: The market's rally is broadening: The equal-weighted S&P 500 index has recorded 31 all-time highs so far this year, the 2nd-highest total since 2021. This comes as the index has rallied +12.2% over the period, outperforming the S&P 500's +10.1% gain. By comparison, the S&P 500 has seen 24 all-time highs year-to-date. At this pace, the equal-weighted index is on track to record 60 new all-time highs in 2026, the 2nd-highest annual total on record. This would rank only behind the 68 all-time highs posted in 2013. Market leadership is expanding.
+@wallstengine [Wed Jul 08 09:23:04 +0000 2026]: Alibaba $BABA shares jumped the most in 10 months after reports of a pre-earnings update showing narrower instant-commerce losses and steady profitability in the June quarter. https://t.co/N8x9fSgMWM
 
 @KobeissiLetter [Wed Jul 08 01:51:24 +0000 2026]: BREAKING: Interest expense on US public debt as a % of GDP is up to ~3.2%, the highest since at least the 1970s. This figure has nearly TRIPLED over the last 5 years. Over the same period, national defense spending as a % of GDP has fallen to ~3.0%, the lowest since the early 2000s. As a result, interest expense has exceeded national defense spending for 3 consecutive years, the longest streak in at least 46 years. Meanwhile, nominal interest payments have risen +$711 billion since 2020, or +140%, to a record annualized rate of $1.22 trillion. Over the same period, defense spending has increased +$237 billion, or +35%, to a record annualized rate of $923 billion. America's debt burden is in uncharted territory.
 
@@ -219,26 +221,24 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-08. Never mention in t
 
 @AIStockSavvy [Tue Jul 07 20:05:48 +0000 2026]: $PENG | Penguin Solutions, Inc., Q3-2026 Earning Report https://t.co/GMZdwr5gxy
 
+@wallstengine [Wed Jul 08 10:02:22 +0000 2026]: $COTY will receive $400M to exit its Gucci beauty license one year early, clearing the way for L’Oréal to start selling Gucci beauty products in July 2027 under a 50-year deal. L’Oréal will cover about 70% of the early redemption cost. https://t.co/z23tvgs50X
+
+@wallstengine [Wed Jul 08 09:54:05 +0000 2026]: Citi added four names to its Catalyst Call List. Intuitive Surgical $ISRG, Charles River Laboratories $CRL and GE HealthCare $GEHC were added to its 90-day upside catalyst watch. Haemonetics $HAE was added to its 90-day downside catalyst watch.
+
+@gurgavin [Wed Jul 08 09:16:40 +0000 2026]: FUTURES UPDATE S&amp;P 500 DOWN 1.1% 📉 DOW JONES DOWN 1.4% 📉 NASDAQ 100 DOWN 1.6% 📉
+
 @StockMKTNewz [Tue Jul 07 20:31:21 +0000 2026]: Anthropic has now overtaken OpenAI in paid business adoption of AI https://t.co/f28z62qIk7
 
-@wallstengine [Wed Jul 08 00:17:56 +0000 2026]: RT @wallstengine: Wall Street is officially out with its first wave of price targets on SpaceX $SPCX. Based on the 18 analyst targets shown…
+@StockMKTNewz [Tue Jul 07 19:29:42 +0000 2026]: SK Hynix is expected to bring in $231 Billion of revenue this year up from $67B last year https://t.co/xCuDbe4fm9
 
 @KobeissiLetter [Tue Jul 07 20:19:03 +0000 2026]: China is now dominating the global auto market: China's vehicle exports jumped +68.7% YoY in May, to ~930,000. This is almost +1,100% above levels seen in May 2019. This comes as new EV exports surged +112.6% YoY, to 424,000, accounting for ~46% of the total. As a result, China exported a record 8.6 million vehicles in the 12 months ending May. By comparison, Japan exported just 4.2 million, or -51% fewer, during the same period. To put this into perspective, China exported just 1.0 million vehicles in 2019, while Japan exported 4.8 million, or +380% more. China is now the undisputed leader of the global car market.
 
-@gurgavin [Mon Jul 06 16:11:32 +0000 2026]: TRUMP SAYS “COUPLE OF GUYS WENT SHORT ( THE STOCK ) MARKET POOR BASTARDS ARE IN BIG TROUBLE THEY'RE GETTING WIPED OUT”
+@gurgavin [Wed Jul 08 08:19:57 +0000 2026]: *TRUMP SAYS IRAN CEASE FIRE IS OVER HERE WE GO AGAIN
 
-@wallstengine [Tue Jul 07 18:52:51 +0000 2026]: The U.S. is revoking a general license that allowed Iranian oil sales after calling Iran’s actions in the Strait of Hormuz “wholly unacceptable.” The move follows tanker attacks near the strait, which carries about a fifth of global oil consumption. https://t.co/TSYpZf59Sx
+@gurgavin [Mon Jul 06 16:11:32 +0000 2026]: TRUMP SAYS “COUPLE OF GUYS WENT SHORT ( THE STOCK ) MARKET POOR BASTARDS ARE IN BIG TROUBLE THEY'RE GETTING WIPED OUT”
 
 @StockMKTNewz [Tue Jul 07 23:48:40 +0000 2026]: Samsung has begun mass production of its most advanced data center storage drive, which is set for use inside Nvidia’s upcoming Vera Rubin platform - Bloomberg https://t.co/qFRPg4Nmpd
 
-@wallstengine [Tue Jul 07 20:55:38 +0000 2026]: SPACEXAI PLANS TO LAUNCH NEW MODEL WITH CURSOR AS SOON AS WEDNESDAY
-
-@gurgavin [Mon Jul 06 19:45:40 +0000 2026]: KIND OF CRAZY AMERICA WAS EXPECTED TO LOSE TODAY AFTER ITS BEST PLAYER GOT A RED CARD LAST GAME AND WASN’T ALLOWED TO PLAY TODAY BUT TRUMP CALLED FIFA AND MADE THEM OVERTURN THE DECISION NOW AMERICA IS EXPECTED TO WIN
-
-@gurgavin [Sat Jul 04 18:37:40 +0000 2026]: HAPPY INDEPENDENCE DAY TO MY AMERICAN FOLLOWERS 🇺🇸🇺🇸🇺🇸🇺🇸 “IT’S NEVER PAID TO BET AGAINST AMERICA. WE COME THROUGH THINGS, BUT IT’S NOT ALWAYS A SMOOTH RIDE. NEVER BET AGAINST AMERICA.” - WARREN BUFFETT -
-
-@StockMKTNewz [Tue Jul 07 23:12:36 +0000 2026]: A total of 42 Million Americans 🇺🇸 watched the men's USA vs Belgium, the most viewed soccer game in the US of all time - Bloomberg A record number of people saw us play so bad https://t.co/Dbo6PulR8l
-
-@StockMKTNewz [Tue Jul 07 19:29:42 +0000 2026]: SK Hynix is expected to bring in $231 Billion of revenue this year up from $67B last year https://t.co/xCuDbe4fm9
+@KobeissiLetter [Wed Jul 08 10:18:23 +0000 2026]: BREAKING: President Trump says the ceasefire with Iran is "over." "I don't want to deal with them anymore, they are scum," Trump says. https://t.co/laHQdRKZUV
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
