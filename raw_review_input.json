@@ -1,11 +1,11 @@
 {
-  "mode": "daily_summary",
-  "generated_at": "2026-07-08T02:21:16.222219+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שלישי, 7.7.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-07-07",
-  "title_date_str": "2026-07-07",
-  "title_day_name": "שלישי",
+  "mode": "daily_prep",
+  "generated_at": "2026-07-08T10:46:34.278193+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום רביעי, 8.7.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-07-08",
+  "title_date_str": "2026-07-08",
+  "title_day_name": "רביעי",
   "week_range": null,
   "etf_pcts": {
     "SPY": -0.4752,
@@ -30,15 +30,15 @@
     "VIXY": 1.0654
   },
   "ticker_quotes": {
-    "USO": {
-      "price": 108.92,
-      "pct": 4.3795,
-      "prev_close": 104.35
-    },
     "SPCX": {
       "price": 149.47,
       "pct": -6.8258,
       "prev_close": 160.42
+    },
+    "USO": {
+      "price": 108.92,
+      "pct": 4.3795,
+      "prev_close": 104.35
     },
     "QQQ": {
       "price": 709.43,
@@ -60,30 +60,35 @@
       "pct": 0.7057,
       "prev_close": 195.55
     },
-    "TSLA": {
-      "price": 402.9,
-      "pct": -4.0189,
-      "prev_close": 419.77
+    "IEMG": {
+      "price": 79.79,
+      "pct": -2.6951,
+      "prev_close": 82.0
     },
-    "MU": {
-      "price": 938.38,
-      "pct": -4.7088,
-      "prev_close": 984.75
-    },
-    "MSFT": {
-      "price": 388.84,
-      "pct": 0.543,
-      "prev_close": 386.74
+    "VWO": {
+      "price": 58.88,
+      "pct": -1.981,
+      "prev_close": 60.07
     },
     "XOM": {
       "price": 141.69,
       "pct": 3.8478,
       "prev_close": 136.44
     },
+    "MU": {
+      "price": 938.38,
+      "pct": -4.7088,
+      "prev_close": 984.75
+    },
     "FIGR": {
       "price": 31.045,
       "pct": -9.7791,
       "prev_close": 34.41
+    },
+    "META": {
+      "price": 615.58,
+      "pct": 2.5471,
+      "prev_close": 600.29
     }
   }
 }
