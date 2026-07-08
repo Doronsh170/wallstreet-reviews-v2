@@ -1,94 +1,12 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-07-08T13:22:35.020241+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום רביעי, 8.7.2026",
-  "first_heading": "נקודות מרכזיות",
+  "mode": "intraday_update",
+  "generated_at": "2026-07-08T13:23:47.973142+03:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום רביעי, 8.7.2026, 13:23",
+  "first_heading": "עדכון ביניים",
   "review_date": "2026-07-08",
   "title_date_str": "2026-07-08",
   "title_day_name": "רביעי",
   "week_range": null,
-  "etf_pcts": {
-    "SPY": -0.4752,
-    "QQQ": -1.8525,
-    "DIA": -0.3094,
-    "IWM": -0.9067,
-    "XLE": 2.8421,
-    "XLK": -2.3915,
-    "XLF": -0.1603,
-    "XLY": -0.5254,
-    "XLV": 1.5312,
-    "XLI": -1.7137,
-    "XLP": 0.9037,
-    "XLU": 0.883,
-    "USO": 4.3795,
-    "BNO": 4.9825,
-    "GLD": -1.2142,
-    "SLV": -2.9407,
-    "IBIT": 0.0831,
-    "TLT": -1.0532,
-    "UUP": 0.2825,
-    "VIXY": 1.0654
-  },
-  "ticker_quotes": {
-    "SPCX": {
-      "price": 149.47,
-      "pct": -6.8258,
-      "prev_close": 160.42
-    },
-    "QQQ": {
-      "price": 709.43,
-      "pct": -1.8525,
-      "prev_close": 722.82
-    },
-    "SPY": {
-      "price": 747.71,
-      "pct": -0.4752,
-      "prev_close": 751.28
-    },
-    "USO": {
-      "price": 108.92,
-      "pct": 4.3795,
-      "prev_close": 104.35
-    },
-    "NVDA": {
-      "price": 196.93,
-      "pct": 0.7057,
-      "prev_close": 195.55
-    },
-    "FIGR": {
-      "price": 31.045,
-      "pct": -9.7791,
-      "prev_close": 34.41
-    },
-    "IEMG": {
-      "price": 79.79,
-      "pct": -2.6951,
-      "prev_close": 82.0
-    },
-    "VWO": {
-      "price": 58.88,
-      "pct": -1.981,
-      "prev_close": 60.07
-    },
-    "OXY": {
-      "price": 51.68,
-      "pct": 5.8799,
-      "prev_close": 48.81
-    },
-    "XOM": {
-      "price": 141.69,
-      "pct": 3.8478,
-      "prev_close": 136.44
-    },
-    "RKLB": {
-      "price": 83.41,
-      "pct": -10.3985,
-      "prev_close": 93.09
-    },
-    "PRG": {
-      "price": 43.76,
-      "pct": 1.1792,
-      "prev_close": 43.25
-    }
-  }
+  "etf_pcts": {},
+  "ticker_quotes": {}
 }
