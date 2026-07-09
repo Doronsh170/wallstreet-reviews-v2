@@ -250,19 +250,20 @@ function renderReview(review, key){
       <h2>${esc(stripCtl(review.title || heading))}</h2>
       <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}</div>
     </div>`;
-  html += bullets.length
-    ? `<ul class="bullets">${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`
-    : `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
   const summaries = summariesOf(review);
+  // The condensed summary opens the review — it appears first, above the full points.
   if(summaries.length){
-    html += `<div class="summary" id="summaryBox" hidden>
+    html += `<div class="summary" id="summaryBox">
       <h4>תקציר הנקודות</h4>
       <ol>${summaries.map(s => `<li>${s.label ? `<b>${esc(s.label)}:</b> ` : ''}${esc(s.text)}</li>`).join('')}</ol>
     </div>`;
   }
+  html += bullets.length
+    ? `<ul class="bullets">${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`
+    : `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
   html += `<div class="actions">
       <button class="primary" onclick="window.print()">שמירה ל-PDF</button>
-      ${summaries.length ? `<button id="summaryBtn" onclick="toggleSummary(this)">תקציר הנקודות</button>` : ''}
+      ${summaries.length ? `<button id="summaryBtn" onclick="toggleSummary(this)" aria-expanded="true">הסתרת התקציר</button>` : ''}
       <button onclick="shareWhatsApp()">שליחה בווטסאפ</button>
     </div>`;
   return html;
@@ -293,7 +294,17 @@ function render(){
 function shareWhatsApp(){
   const review = data && data[active];
   if(!review) return;
-  const lines = [stripCtl(review.title || LABELS[active].he), ...bulletsOf(review).slice(0,6).map(b => '• ' + b), location.href];
+  // The WhatsApp message carries the CONDENSED summary (תקציר), not the full points,
+  // followed by a call-to-action link that opens the complete review on the site.
+  const summaries = summariesOf(review);
+  const lines = [
+    '*' + stripCtl(review.title || LABELS[active].he) + '*',
+    '',
+    '📋 תקציר הנקודות:',
+    ...summaries.map(s => '• ' + (s.label ? s.label + ': ' : '') + s.text),
+    '',
+    '👈 לצפייה בסקירה המלאה: ' + location.href,
+  ];
   const url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(lines.join('\n'));
   // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
   // where window.open('_blank') is often blocked or silently dropped.
