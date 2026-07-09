@@ -1,89 +1,89 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-07-09T13:23:26.775499+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 9.7.2026",
-  "first_heading": "נקודות מרכזיות",
+  "mode": "daily_summary",
+  "generated_at": "2026-07-10T02:11:31.631151+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי, 9.7.2026",
+  "first_heading": "סיכום המסחר",
   "review_date": "2026-07-09",
   "title_date_str": "2026-07-09",
   "title_day_name": "חמישי",
   "week_range": null,
   "etf_pcts": {
-    "SPY": -0.3089,
-    "QQQ": 0.2833,
-    "DIA": -1.0748,
-    "IWM": -0.915,
-    "XLE": 1.757,
-    "XLK": 1.239,
-    "XLF": -1.9269,
-    "XLY": -1.7804,
-    "XLV": -1.3014,
-    "XLI": -1.0747,
-    "XLP": -0.5539,
-    "XLU": -0.744,
-    "USO": 3.0206,
-    "BNO": 3.9113,
-    "GLD": -0.8053,
-    "SLV": -2.993,
-    "IBIT": -2.545,
-    "TLT": -0.2247,
-    "UUP": -0.1408,
-    "VIXY": 1.725
+    "SPY": 0.8465,
+    "QQQ": 1.6642,
+    "DIA": 0.2716,
+    "IWM": 1.2812,
+    "XLE": -1.4029,
+    "XLK": 2.1775,
+    "XLF": 1.0369,
+    "XLY": 1.3443,
+    "XLV": -0.0801,
+    "XLI": 0.3824,
+    "XLP": -1.4101,
+    "XLU": -0.5071,
+    "USO": -2.8518,
+    "BNO": -3.2132,
+    "GLD": 0.9961,
+    "SLV": 2.4797,
+    "IBIT": 1.6463,
+    "TLT": 0.1541,
+    "UUP": 0.0,
+    "VIXY": -1.9783
   },
   "ticker_quotes": {
     "META": {
-      "price": 603.12,
-      "pct": -2.0241,
-      "prev_close": 615.58
+      "price": 631.48,
+      "pct": 4.7022,
+      "prev_close": 603.12
     },
     "SPCX": {
-      "price": 148.3,
-      "pct": -0.7828,
-      "prev_close": 149.47
-    },
-    "QQQ": {
-      "price": 711.44,
-      "pct": 0.2833,
-      "prev_close": 709.43
-    },
-    "SPY": {
-      "price": 745.4,
-      "pct": -0.3089,
-      "prev_close": 747.71
-    },
-    "USO": {
-      "price": 112.21,
-      "pct": 3.0206,
-      "prev_close": 108.92
+      "price": 152.16,
+      "pct": 2.6028,
+      "prev_close": 148.3
     },
     "MU": {
-      "price": 948.8,
-      "pct": 1.1104,
-      "prev_close": 938.38
+      "price": 991.64,
+      "pct": 4.5152,
+      "prev_close": 948.8
+    },
+    "AMZN": {
+      "price": 247.04,
+      "pct": 1.4038,
+      "prev_close": 243.62
+    },
+    "GOOGL": {
+      "price": 358.89,
+      "pct": -0.8372,
+      "prev_close": 361.92
+    },
+    "NFLX": {
+      "price": 75.47,
+      "pct": -0.1588,
+      "prev_close": 75.59
     },
     "SNDK": {
-      "price": 1727.18,
-      "pct": 6.7676,
-      "prev_close": 1617.7
-    },
-    "FIX": {
-      "price": 1684.94,
-      "pct": 0.0891,
-      "prev_close": 1683.44
-    },
-    "AMD": {
-      "price": 517.405,
-      "pct": 0.2509,
-      "prev_close": 516.11
+      "price": 1858.27,
+      "pct": 7.5898,
+      "prev_close": 1727.18
     },
     "MSFT": {
-      "price": 383.34,
-      "pct": -1.4145,
-      "prev_close": 388.84
+      "price": 384.36,
+      "pct": 0.2661,
+      "prev_close": 383.34
     },
-    "FDX": {
-      "price": 309.76,
-      "pct": -0.9972,
-      "prev_close": 312.88
+    "CRM": {
+      "price": 162.5,
+      "pct": -2.4493,
+      "prev_close": 166.58
+    },
+    "NVDA": {
+      "price": 202.78,
+      "pct": -0.6565,
+      "prev_close": 204.12
+    },
+    "ORCL": {
+      "price": 144.22,
+      "pct": 2.655,
+      "prev_close": 140.49
     }
   }
 }
