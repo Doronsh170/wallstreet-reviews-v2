@@ -218,13 +218,20 @@ function bulletHtml(line){
   return esc(line);
 }
 
-/* Short summary of every point: the topic label when present, else the first words */
-function leadsOf(review){
+/* Condense a bullet body to a short one-line gist: first sentence, capped by word count */
+function condense(body){
+  const txt = String(body).trim();
+  const first = txt.split(/(?<=[.!?])\s+/)[0] || txt;
+  const words = first.split(/\s+/);
+  return words.length > 20 ? words.slice(0,20).join(' ') + '…' : first;
+}
+
+/* Summary of every point: the topic label (bold) plus a condensed gist of the point */
+function summariesOf(review){
   return bulletsOf(review).map(line => {
-    const m = line.match(/^([^:：]{2,40})[:：]\s+/);
-    if(m) return m[1];
-    const words = line.split(/\s+/);
-    return words.slice(0,7).join(' ') + (words.length > 7 ? '…' : '');
+    const m = line.match(/^([^:：]{2,40})[:：]\s+(.+)$/s);
+    if(m) return {label: m[1], text: condense(m[2])};
+    return {label: '', text: condense(line)};
   });
 }
 
@@ -246,16 +253,16 @@ function renderReview(review, key){
   html += bullets.length
     ? `<ul class="bullets">${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`
     : `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
-  const leads = leadsOf(review);
-  if(leads.length){
+  const summaries = summariesOf(review);
+  if(summaries.length){
     html += `<div class="summary" id="summaryBox" hidden>
       <h4>תקציר הנקודות</h4>
-      <ol>${leads.map(l => `<li>${esc(l)}</li>`).join('')}</ol>
+      <ol>${summaries.map(s => `<li>${s.label ? `<b>${esc(s.label)}:</b> ` : ''}${esc(s.text)}</li>`).join('')}</ol>
     </div>`;
   }
   html += `<div class="actions">
       <button class="primary" onclick="window.print()">שמירה ל-PDF</button>
-      ${leads.length ? `<button id="summaryBtn" onclick="toggleSummary(this)">תקציר הנקודות</button>` : ''}
+      ${summaries.length ? `<button id="summaryBtn" onclick="toggleSummary(this)">תקציר הנקודות</button>` : ''}
       <button onclick="shareWhatsApp()">שליחה בווטסאפ</button>
     </div>`;
   return html;
@@ -287,7 +294,14 @@ function shareWhatsApp(){
   const review = data && data[active];
   if(!review) return;
   const lines = [stripCtl(review.title || LABELS[active].he), ...bulletsOf(review).slice(0,6).map(b => '• ' + b), location.href];
-  window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+  const url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(lines.join('\n'));
+  // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
+  // where window.open('_blank') is often blocked or silently dropped.
+  const a = document.createElement('a');
+  a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 /* An intraday update whose only bullet is the "quiet window" message is real but
