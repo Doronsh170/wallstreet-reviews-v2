@@ -1,11 +1,11 @@
 {
-  "mode": "daily_summary",
-  "generated_at": "2026-07-09T11:01:05.541581+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 8.7.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-07-08",
-  "title_date_str": "2026-07-08",
-  "title_day_name": "רביעי",
+  "mode": "daily_prep",
+  "generated_at": "2026-07-09T13:23:26.775499+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 9.7.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-07-09",
+  "title_date_str": "2026-07-09",
+  "title_day_name": "חמישי",
   "week_range": null,
   "etf_pcts": {
     "SPY": -0.3089,
@@ -55,10 +55,20 @@
       "pct": 3.0206,
       "prev_close": 108.92
     },
-    "COST": {
-      "price": 953.13,
-      "pct": 0.5942,
-      "prev_close": 947.5
+    "MU": {
+      "price": 948.8,
+      "pct": 1.1104,
+      "prev_close": 938.38
+    },
+    "SNDK": {
+      "price": 1727.18,
+      "pct": 6.7676,
+      "prev_close": 1617.7
+    },
+    "FIX": {
+      "price": 1684.94,
+      "pct": 0.0891,
+      "prev_close": 1683.44
     },
     "AMD": {
       "price": 517.405,
@@ -74,11 +84,6 @@
       "price": 309.76,
       "pct": -0.9972,
       "prev_close": 312.88
-    },
-    "AMZN": {
-      "price": 243.62,
-      "pct": -0.9594,
-      "prev_close": 245.98
     }
   }
 }

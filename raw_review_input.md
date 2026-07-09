@@ -1,7 +1,8 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-07-08 (יום רביעי). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
+Script run date: 2026-07-09 (יום חמישי). Briefing target date: 2026-07-09 (יום חמישי).
+The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,23 +19,27 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
+This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
+no closing levels, and nothing that already appears in the prior-context block.
+6-9 points TOTAL, opening with the market picture and closing with the bottom line:
+* FIRST point — the opening picture (headline like "סנטימנט מעורב בפתיחה" / "אופטימיות זהירה לקראת הפתיחה"):
+  futures direction and the mood heading into the session, plus the single most important backdrop theme.
+  Futures percentages ONLY if a specific futures figure appears in the sources — never copy an ETF
+  percentage as a futures percentage.
+* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the morning from the menu below —
   do NOT force every category, and never pad to reach a count:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
+    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
+  - The central story investors will watch today, with the transmission mechanism explained simply
+    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
+  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
+    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
+  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
+  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
+  - Geopolitics / Washington politics with market impact.
+  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
+* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
+No ETF proxies, no Finnhub, no ISO dates.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -60,16 +65,16 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 8.7.2026",
-  "date": "2026-07-08",
+  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 9.7.2026",
+  "date": "2026-07-09",
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "נקודות מרכזיות",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -111,11 +116,12 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $QQQ: $711.44 (daily: +0.28%), prev close: $709.43
   $SPY: $745.40 (daily: -0.31%), prev close: $747.71
   $USO: $112.21 (daily: +3.02%), prev close: $108.92
-  $COST: $953.13 (daily: +0.59%), prev close: $947.50
+  $MU: $948.80 (daily: +1.11%), prev close: $938.38
+  $SNDK: $1727.18 (daily: +6.77%), prev close: $1617.70
+  $FIX: $1684.94 (daily: +0.09%), prev close: $1683.44
   $AMD: $517.40 (daily: +0.25%), prev close: $516.11
   $MSFT: $383.34 (daily: -1.41%), prev close: $388.84
   $FDX: $309.76 (daily: -1.00%), prev close: $312.88
-  $AMZN: $243.62 (daily: -0.96%), prev close: $245.98
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): עולה (USO: +3.02%, BNO: +3.91%)
@@ -132,25 +138,23 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on 2026-07-09: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+══ SCHEDULED DATA CHECK ══
+Use web search to find what US economic data is scheduled for release on 2026-07-09.
+Include the release time in Israel time and the market consensus/forecast.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
 
-[נקודות מרכזיות]
-* סנטימנט זהיר ומוטה סיכון בפתיחה: וול סטריט צפויה להיפתח תחת ענן גיאופוליטי כבד אחרי שהצבא האמריקאי פתח בלילה בגל מתקפות נגד יעדים באיראן, ואיראן הגיבה בהאשמה שהמהלך מפר את מזכר ההבנות בין המדינות. הזרם אל נכסי המקלט ואל סחורות האנרגיה מכתיב את מצב הרוח, והמשקיעים יעקבו אחר השאלה אם ההסלמה תתרחב לפני פרסום פרוטוקול ה-Fed בהמשך היום. בסביבה כזו הרוטציה מהצמיחה אל הסקטורים הדפנסיביים עלולה להימשך גם היום.
-* פרוטוקול ה-Fed במוקד היום: בשעה 21:00 שעון ישראל יפורסם פרוטוקול ישיבת הריבית האחרונה של הפדרל ריזרב, והוא צפוי להיות אירוע המאקרו המרכזי של המסחר בהיעדר נתון כלכלי כבד אחר בלוח. המשקיעים יחפשו בו רמזים לקצב הורדות הריבית ולמידת חילוקי הדעות בין חברי הוועדה. על רקע קפיצת מחירי הנפט והחשש מאינפלציית אנרגיה מתחדשת, כל נימה נצית בפרוטוקול עלולה להכביד על מניות הצמיחה שכבר נמצאות בלחץ.
-* ההסלמה מול איראן דוחפת את הנפט: מחירי הנפט ממשיכים לטפס בחדות על רקע המשבר במפרץ הפרסי, כשה-WTI מוסיף כ-4.4% והברנט מזנק כ-5% אל מעל 76 דולר לחבית, לאחר שארה"ב ביטלה את רישיון הייצוא של איראן והחלה בתקיפות. מיצר הורמוז מעביר כחמישית מצריכת הנפט העולמית, ולכן כל החרפה נוספת בשיט בו מתורגמת מיידית לפרמיית סיכון על האנרגיה ולבריחה מנכסי צמיחה. השאלה המרכזית להיום היא אם גל התקיפות האמריקאי יתרחב או יתפוגג, שכן זה הגורם שיכתיב את כיוון הנפט ואת תיאבון הסיכון.
-* שרשרת האספקה של ה-AI ממשיכה לרכז עניין: סביב מניות השבבים נמשכת זרימת חדשות חיובית שמנוגדת לחולשת המחירים בימים האחרונים. סמסונג החלה בייצור המוני של כונן האחסון המתקדם שלה שישולב בפלטפורמת Vera Rubin הקרובה של אנבידיה, אנבידיה מדווחת כי היא משלבת חומרה עם הסטארטאפ D-Matrix במערכת חדשה להרצת מודלים, ו-SK Hynix צפויה להכנסות של כ-231 מיליארד דולר השנה לעומת 67 מיליארד אשתקד. מניית אנבידיה (NVDA) עלתה במתינות של 0.71%, אך עוצמת הביקושים לתשתית ה-AI נותרת הסיפור המבני שמזין את המגזר.
-* מניית ספייס-אקס (SPCX): עם תום תקופת השקט שלאחר ההנפקה פרסמה וול סטריט את גל יעדי המחיר הראשון שלה למניה, וטווח ההערכות חושף פערים דרמטיים בין האנליסטים. ריימונד ג'יימס הציב יעד של 800 דולר, שגלום בו שווי של כ-10 טריליון דולר, בעוד יתר היעדים נעים סביב 200 עד 300 דולר, זאת מול מחיר נוכחי של כ-150 דולר. למרות ההתלהבות והדיווח שקאתי ווד וקרן ARK רכשו כ-44 אלף מניות, המניה עצמה ירדה 6.83% ונסחפה עם החולשה הרוחבית במניות הצמיחה.
-* מניית פינגווין סולושנס (PENG): החברה פרסמה דוחות רבעון שלישי חזקים במיוחד, עם הכנסות שיא של 478.7 מיליון דולר מול צפי של 421.4 מיליון, רווח מתואם למניה של 0.84 דולר מול צפי של 0.56 דולר, והעלאת תחזית הרווח השנתית ל-2.60 דולר למניה. הצמיחה הובלה על ידי זינוק של 111% בהכנסות הזיכרון המשולב על רקע ביקושי ה-AI. למרות התוצאות המרשימות המניה ירדה 7.38%, עדות לרף הציפיות הגבוה שהשוק מציב כעת בפני מניות ה-AI.
-* מניית מטא (META): החברה משיקה את Muse Image, מודל יצירת התמונות הראשון שלה ממעבדות Meta Superintelligence Labs, במהלך שממצב אותה בחזית מרוץ ה-AI הגנרטיבי מול OpenAI וגוגל. המניה בלטה לחיוב עם עלייה של 2.55% והייתה מהבודדות בקבוצת המגה-קאפ הטכנולוגית שהתנתקו מהסנטימנט השלילי שרבץ על המגזר. עבור המשקיעים זהו אות נוסף לכך שמטא ממירה את השקעות ה-AI הכבדות שלה למוצרים ממשיים.
-* שורה תחתונה: כיוון המסחר היום ייקבע בצומת של שני כוחות, ההתפתחויות במפרץ הפרסי שיכתיבו את מחיר הנפט ואת מפלס החשש, ופרוטוקול ה-Fed ב-21:00 שעון ישראל שיאותת על נתיב הריבית. כל עוד ההסלמה נמשכת והנפט מזנק, הלחץ על מניות הצמיחה והטכנולוגיה עלול להימשך, בעוד סקטור האנרגיה והנכסים הדפנסיביים ממשיכים ליהנות מהבריחה מסיכון.
+[סיכום המסחר]
+* מסחר מפוצל שהסתיים מעורב: וול סטריט חתמה יום תנודתי במיוחד עם תמונה מפוצלת בין המדדים, כשמדד ה-S&P 500 נסוג ב-0.31% ומדד הדאו ג'ונס איבד 1.07%, בעוד מדד הנאסד"ק 100 הצליח להתאושש ולסגור בעלייה קלה של 0.28%. המסחר נפתח בירידות חדות, כשחוזי המדדים איתתו על פתיחה שלילית של עד 1.6% בנאסד"ק על רקע ההסלמה מול איראן, אך התאוששות הדרגתית לאורך היום צמצמה את ההפסדים לאחר שנשמעו רמזים לרצון איראני בהסכם. סקטור הפיננסים בלט לרעה עם צניחה של 1.93% והכביד על המדדים הרחבים.
+* איראן מכתיבה את מצב הרוח: הסיפור המרכזי של היום היה ההסלמה הצבאית במפרץ הפרסי, לאחר שפיקוד המרכז האמריקאי (CENTCOM) הודיע על סבב תקיפות נוסף באיראן שנועד לצמצם את יכולתה לאיים על חופש השיט במיצר הורמוז. איראן הגיבה בשיגור טילים ומזל"טים לעבר מדינות המפרץ, מהלך שהזרים ביקוש אל נכסי המקלט ואל האנרגיה והכביד על מניות הצמיחה. לקראת סגירת המסחר נרשם היפוך כשהנשיא טראמפ מסר כי איראן פנתה אליו ומעוניינת מאוד בהסכם, אמירה ששלחה את חוזי הנאסד"ק בחזרה אל הטריטוריה החיובית.
+* הנפט ממשיך לטפס בחדות: מחירי הנפט זינקו על רקע פרמיית הסיכון סביב מיצר הורמוז, כשה-WTI הוסיף 3.02% והברנט קפץ ב-3.91% ורשם את אחת העליות החדות בשוק. סקטור האנרגיה היה המוביל הבולט של היום עם עלייה של 1.76%, וכמעט הסקטור היחיד שנצבע בירוק לצד הטכנולוגיה שהוסיפה 1.24%. מיצר הורמוז מעביר כחמישית מצריכת הנפט העולמית, ולכן כל חשש להפרעה בשיט בו מתומחר מיידית כפרמיית סיכון על מחירי האנרגיה.
+* פרוטוקול ה-Fed בנימה נצית: פרוטוקול ישיבת הריבית האחרונה של הפדרל ריזרב שפורסם היום חשף עמדה נצית מהצפוי, כשכל חברי הוועדה תמכו בהותרת הריבית ללא שינוי אך אחדים אף ראו הצדקה להעלאת ריבית. הצוות הכלכלי של ה-Fed העלה את תחזיות האינפלציה לשנים 2026–2027, הוריד את תחזיות צמיחת התוצר, וציין סיכונים כלפי מעלה ליציבות המחירים. על רקע קפיצת מחירי הנפט, השילוב של אינפלציה גבוהה יותר וצמיחה איטית יותר הכביד על ציפיות הריבית ועל מניות הצמיחה.
+* מניית מטא (META): החברה המשיכה להזרים חדשות עסקיות חיוביות סביב שאיפות ה-AI שלה, ובהן תוכנית להשקיע כ-10 מיליארד דולר בהקמת מרכז הנתונים הראשון שלה בקנדה במחוז אלברטה ודיווחים על פיתוח משקפי AI חכמים בעלי יכולת חישה מתמדת. אולם למרות זרם הבשורות המניה ירדה ב-2.02% ונסחפה עם הסנטימנט השלילי שרבץ על המגה-קאפ הטכנולוגית ביום מוטה סיכון. עבור המשקיעים זו תזכורת שאפילו חדשות חיוביות אינן חסינות מפני לחצי מאקרו רוחביים.
+* מניית ספייס-אקס (SPCX): עם תום תקופת השקט שלאחר ההנפקה פרסמו בתי ההשקעות את גל יעדי המחיר הראשון למניה, וטווח ההערכות חשף פערים דרמטיים בין האנליסטים. ריימונד ג'יימס בלטה עם יעד של 800 דולר הגלום בשווי של כ-10 טריליון דולר, בעוד מרבית הבנקים מתמקמים בטווח של כ-200 עד 300 דולר, זאת מול מחיר נוכחי של כ-150 דולר. קאתי ווד וקרן ARK ניצלו את התנודתיות ורכשו כ-182 אלף מניות, אך המניה עצמה נסוגה ב-0.78% ביום החלש למניות הצמיחה.
+* מניית קוסטקו (COST): הקמעונאית דיווחה על מכירות יוני חזקות שהגיעו ל-29.24 מיליארד דולר, זינוק של 10.6% בהשוואה לשנה שעברה, כשגם המכירות בארה"ב קפצו ב-10.6%. הנתון החזק, לצד גידול של יותר מ-20% במכירות המקוונות, ביסס את קוסטקו כאחת הנקודות היציבות ביום סוער, והמניה נסגרה בעלייה קלה של 0.59%. בסביבה מוטת סיכון המשקיעים חזרו אל הקמעונאות הדפנסיבית עם ביקושי צריכה יציבים.
+* שורה תחתונה למחר: תשומת הלב תופנה בראש ובראשונה להתפתחויות במפרץ הפרסי, והשאלה אם קו הפיוס שאותת טראמפ יחזיק או שההסלמה תתחדש, שכן זה יכתיב את כיוון הנפט ואת תיאבון הסיכון. במקביל, הנימה הנצית בפרוטוקול ה-Fed והחשש מאינפלציית אנרגיה מתחדשת עלולים להמשיך להעיב על מניות הצמיחה, בעוד התנודתיות במניות הטכנולוגיה טיפסה לרמות הגבוהות ביותר מזה שנים. משקיע נבון יעקוב אחר מחיר הנפט ואחר סקטור הפיננסים שהוביל את הירידות.
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in the review that these came from tweets/posts:
@@ -163,7 +167,7 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in t
 
 @gurgavin [Mon Jul 06 19:52:14 +0000 2026]: SPACEX WILL BE ADDED TO THE NASDAQ 100 INDEX TOMORROW THIS IS THE QUICKEST TIME EVER FOR A COMPANY TO BE ADDED TO THE NASDAQ 100 INDEX $SPCX
 
-@wallstengine [Wed Jul 08 19:35:09 +0000 2026]: $META will invest about $10B to build its first data center in Canada, a 1GW facility in Sturgeon County, Alberta, largely powered by natural gas. The project is expected to need 3,000 construction workers and create 300 full-time jobs. https://t.co/8jZ7JSeFuq
+@wallstengine [Thu Jul 09 09:20:46 +0000 2026]: Goldman Sachs Initiates Coverage on $FIX with Buy Rating, PT $2,159 Analyst comments: "Comfort Systems USA is a leading mechanical and electrical contractor with significant leverage to the AI infrastructure build-out, with data centers and semiconductors representing 56% of sales. We forecast a 23% organic growth CAGR from 2025–2028E, as leading indicators point to strong data center demand growth in the medium term, with FIX’s overweight exposure to Texas positioning it to outgrow the market. Our work suggests data center projects carry meaningfully higher margins, and we expect continued margin expansion, driven by rising data center mix. While we think data center capex will eventually moderate, the timing of any such moderation remains uncertain, and in the interim there is visibility into another year of double-digit hyperscaler capex growth in 2027. To date, FIX's stock has acted as a relatively pure-play beneficiary of rising hyperscaler data center capex. Our EBITDA estimates are 9% above FactSet consensus for 2026/2027, driven by our higher revenue estimates. While we see limited scope for further multiple expansion, we expect valuation to remain elevated near current levels so long as FIX's medium-term organic growth outlook remains robust and margins continue to expand." Analyst: Adam Bubes
 
 @gurgavin [Wed Jul 08 00:06:20 +0000 2026]: RAYMOND JAMES SAYS SPACEX SHOULD BE WORTH $800 1 YEAR FROM NOW THAT VALUES SPACEX AT $10 TRILLION DOLLARS WHAT ARE THEY ON ??? $SPCX
 
@@ -173,9 +177,11 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in t
 
 @StockMKTNewz [Wed Jul 08 19:34:30 +0000 2026]: Mark Zuckerberg and Meta Platforms $META just announced plans to invest $10 Billion to build its first data center in Canada 🇨🇦 https://t.co/wCDSVLnVHj
 
-@wallstengine [Wed Jul 08 22:33:19 +0000 2026]: SK HYNIX’S $SKHY U.S. LISTING IS NOW MORE THAN 7 TIMES OVERSUBSCRIBED, WITH PRICING SET FOR THURSDAY.
-
 @StockMKTNewz [Wed Jul 08 23:57:16 +0000 2026]: Jim Cramer just said today he thinks the selling in FedEx $FDX stock has created a buying opportunity https://t.co/bOwP8HZHvV
+
+@wallstengine [Thu Jul 09 09:53:29 +0000 2026]: Mizuho Upgrades $FIVE to Outperform from Neutral, PT $220 Analyst comments: "We now see a more favorable risk/reward profile for a business with sustained momentum and a merchandising team fully dialed in. Comparable sales will decelerate from here following a squishy-induced +22.7% gain in Q1; however, we do not view this as an impediment to owning the shares. Our positive view contemplates: (1) upside to second-half Street estimates as new customers are being retained extremely well; (2) paid Instagram and TikTok influencers are amplifying trends and expanding the company’s reach across core customer demographics; and (3) EBIT margin should expand further as average store volumes build closer to $3 million per unit versus the historical $2 million+ per store. At current levels, we believe the pendulum has swung too far on valuation. Our $220 price target implies upside potential of more than 20%." Analyst: David Bellinger
+
+@wallstengine [Thu Jul 09 09:18:37 +0000 2026]: B. Riley Raises $BAND PT to $85 from $55 - Buy Analyst comments: "We are also slightly increasing our FY27 estimates to reflect higher growth fueled by advances in AI voice technology that we believe will accelerate demand for Bandwidth. Since we first highlighted advances in AI voice technology by frontier model developers OpenAI and Google, we believe each of them has continued to advance their AI voice capabilities, and xAI has announced advances in its AI voice capabilities as well. Furthermore, developments at Microsoft suggest the company is also aggressively developing AI voice technologies for its AI models and for AI agents in Microsoft’s productivity applications. We believe the focus on AI voice technology by frontier model developers and large-scale enterprise software developers reaffirms our thesis that AI voice will become a primary mode of communication with AI software. Our previous note discussed advances that make AI voice sound more natural, whereas some of the more recent advances make voice agents work reliably in production. We believe that as AI voice expands the market for carrier-grade voice connectivity, Bandwidth's specialization in digital voice services positions the company as a primary infrastructure beneficiary." Analyst: Erik Suppiger
 
 @StockMKTNewz [Wed Jul 08 19:44:11 +0000 2026]: Amazon Web Services $AMZN just announced plans to invest $5 Billion in the Philippines 🇵🇭 over the next 15 years https://t.co/ZkorfkIplp
 
@@ -187,17 +193,21 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in t
 
 @gurgavin [Wed Jul 08 18:08:57 +0000 2026]: FOMC MEETING MINUTES ARE OUT *ALL FOMC PARTICIPANTS SUPPORTED KEEPING INTEREST RATES UNCHANGED, THOUGH A FEW SAW A CASE FOR A RATE HIKE *FED STAFF RAISED THEIR 2026–2027 INFLATION FORECASTS, LOWERED GDP GROWTH PROJECTIONS, AND SAW UPSIDE RISKS TO PRICE STABILITY
 
+@AIStockSavvy [Thu Jul 09 10:20:23 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $CBRS Cerebras Expands European AI Infrastructure, Targets 200 MW by 2027 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐂𝐞𝐫𝐞𝐛𝐫𝐚𝐬 will launch its first 𝐄𝐮𝐫𝐨𝐩𝐞𝐚𝐧 data center capacity by the end of 2026. ➤ Company plans rapid expansion across 𝐅𝐫𝐚𝐧𝐜𝐞, 𝐍𝐨𝐫𝐰𝐚𝐲, and 𝐅𝐢𝐧𝐥𝐚𝐧𝐝. ➤ Total AI infrastructure capacity is targeted to reach 𝟐𝟎𝟎 𝐌𝐖 by the end of 2027. ➤ A portion of the new capacity is expected to support 𝐎𝐩𝐞𝐧𝐀𝐈 workloads. ➤ Expansion aims to deliver 𝐟𝐚𝐬𝐭𝐞𝐫 𝐀𝐈 𝐢𝐧𝐟𝐞𝐫𝐞𝐧𝐜𝐞 and lower latency for European users. ➤ Infrastructure is designed to meet rising demand from 𝐞𝐧𝐭𝐞𝐫𝐩𝐫𝐢𝐬𝐞𝐬, researchers, and governments. ➤ Cerebras said its 𝐰𝐚𝐟𝐞𝐫-𝐬𝐜𝐚𝐥𝐞 architecture enables industry-leading AI inference and training. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ European expansion strengthens regional access to 𝐥𝐨𝐜𝐚𝐥 𝐀𝐈 𝐜𝐨𝐦𝐩𝐮𝐭𝐞. ➤ Additional capacity could support growing demand for 𝐥𝐨𝐰-𝐥𝐚𝐭𝐞𝐧𝐜𝐲 AI services. ➤ Expansion deepens Cerebras' presence in the competitive 𝐀𝐈 𝐢𝐧𝐟𝐫𝐚𝐬𝐭𝐫𝐮𝐜𝐭𝐮𝐫𝐞 market. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "We are contracting significant capacity for 2027, with data centers slated for Norway and Finland as we actively build across Europe. These deployments will enable us to move decisively on what our customers have been asking for: fast, high-performance AI compute located in Europe." — 𝐀𝐧𝐝𝐫𝐞𝐰 𝐅𝐞𝐥𝐝𝐦𝐚𝐧, CEO of Cerebras. ➤ "Our customers don't just want AI compute. They want it close to home, powered responsibly, and available fast. This expansion and capacity plan reflects our confidence in Europe as a long-term growth market for Cerebras." — 𝐀𝐧𝐝𝐫𝐞𝐰 𝐅𝐞𝐥𝐝𝐦𝐚𝐧, CEO of Cerebras.
+
+@AIStockSavvy [Thu Jul 09 10:18:33 +0000 2026]: 📊 𝐈𝐍𝐕𝐄𝐒𝐓𝐎𝐑 𝐍𝐎𝐓𝐄: UBS, Bernstein See Memory Prices Rising as AI Demand Accelerates - $MU $SNDK $WDC $STX $SKHY 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Global memory sales reached a record 𝐔𝐒$𝟕𝟒.𝟔 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟑𝟏.𝟕% MoM. ➤ 𝐃𝐑𝐀𝐌 sales hit a record 𝐔𝐒$𝟒𝟖.𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, rising 𝟐𝟕.𝟕% MoM. ➤ 𝐍𝐀𝐍𝐃 sales surged to a record 𝐔𝐒$𝟐𝟓.𝟖 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟒𝟎.𝟕% MoM. ➤ UBS forecasts 𝐃𝐃𝐑 contract prices to rise 𝟑𝟐% in Q3 and 𝟏𝟖% in Q4 2026. ➤ UBS expects 𝐍𝐀𝐍𝐃 contract prices to increase 𝟑𝟎% in Q3 and 𝟏𝟐% in Q4. ➤ UBS projects 𝐇𝐁𝐌 demand to grow 𝟗𝟎% in 2026 and 𝟕𝟕% in 2027. ➤ UBS sees the 𝐃𝐑𝐀𝐌 market remaining structurally undersupplied through at least Q2 2028. ➤ Bernstein expects memory price gains to 𝐬𝐥𝐨𝐰 in Q3 2026 despite near-term strength. ➤ Major beneficiaries include 𝐌𝐢𝐜𝐫𝐨𝐧, 𝐒𝐚𝐦𝐬𝐮𝐧𝐠, 𝐒𝐊 𝐇𝐲𝐧𝐢𝐱, and 𝐒𝐚𝐧𝐃𝐢𝐬𝐤. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Higher memory prices could boost 𝐫𝐞𝐯𝐞𝐧𝐮𝐞 and margins for leading chipmakers. ➤ Sustained 𝐀𝐈 infrastructure spending is driving the current memory upcycle. ➤ Upcoming 𝐋𝐓𝐀 negotiations may determine the strength and duration of price gains. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "Our July Memory Monthly suggests that the memory upcycle is strengthening further amid accelerating AI-driven demand and ongoing LTA negotiations." — 𝐔𝐁𝐒. ➤ "We still believe demand destruction in consumer segment will eventually happen and the pace of the price increase should narrow notably into 3QCY26." — 𝐁𝐞𝐫𝐧𝐬𝐭𝐞𝐢𝐧. ➤ "LTAs can reduce the impact of a correction, and we expect more clarity on these LTAs as more are signed." — 𝐁𝐞𝐫𝐧𝐬𝐭𝐞𝐢𝐧. ➤ "Customer affordability and sustainability of AI-related capital expenditure are still the key risks to this unprecedented upcycle." — 𝐔𝐁𝐒.
+
 @AIStockSavvy [Wed Jul 08 22:39:04 +0000 2026]: $ONDS | Stifel reiterates 𝐁𝐮𝐲 on 𝐎𝐧𝐝𝐚𝐬 𝐇𝐨𝐥𝐝𝐢𝐧𝐠𝐬, maintains 𝐏𝐓 𝐚𝐭 $𝟏𝟖 Analyst sees the DZYNE acquisition as a strategic expansion of ONDS's defense tech portfolio, validating their positive thesis despite integration risks. https://t.co/PS5ePw8Mcp
 
-@wallstengine [Wed Jul 08 20:16:09 +0000 2026]: $LEVI Q2’26 EARNINGS HIGHLIGHTS 🔹 Net Revenue: $1.562B (Est. $1.52B) 🟡; +8% 🔹 Adj. EPS: $0.28 (Est. $0.24) 🟢; +27% YoY 🔹 Gross Margin: 62.7%; +10 bps 🔹 Adj. EBIT Margin: 9.0%; +70 bps 🔹 DTC Revenue: +11% reported; 51% of total revenue FY Guide: 🔹 Adj. EPS: $1.46-$1.52 (Est. $1.51) 🟡 🔹 Reported Net Revenue Growth: Raised to 7.0%-7.5% 🔹 Organic Net Revenue Growth: Raised to 5.5%-6.0% Segment Revenue: 🔹 Americas: $815M; +9% reported, +7% organic 🔹 Europe: $420M; +4% reported, -1% organic 🔹 Asia: $284M; +10% reported, +12% organic 🔹 Beyond Yoga: $43M; +16% reported and organic Other Metrics: 🔹 E-commerce: +19% reported, +17% organic 🔹 DTC Comparable Sales Growth: +6% 🔹 Inventories: Down 7% YoY Capital Return: 🔹 Dividend: Increased to $0.16/share, +14% YoY
-
-@wallstengine [Wed Jul 08 20:09:14 +0000 2026]: Honeywell Technologies $HON revised 2026 adjusted EPS guidance to $7.90-$8.30 from $3.95-$4.15 after a 1-for-2 reverse stock split cut shares to 317M. Sales guidance stays at $19.9B-$20.2B and full-year free cash flow remains about $2B.
+@wallstengine [Thu Jul 09 10:10:17 +0000 2026]: PEPSICO $PEP Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $24.181B (Est. $23.96B) 🟢; +6.4% YoY 🔹 Adj. EPS: $2.20 (Est. $2.19) 🟢; +4% YoY 🔹 Operating Profit: $4.02B (Est. $4.06B) 🔴 🔹 Foods North America: $6.37B (Est. $6.48B) 🔴 🔹 EMEA Revenue: $4.98B (Est. $4.89B) 🟢 FY Guide: 🔹 Affirms fiscal 2026 guidance 🔹 Organic Revenue Growth: +2%-+4% 🔹 Core Constant Currency EPS Growth: +4%-+6% Other Metrics: 🔹 Organic Revenue Growth: +2.4% 🔹 International Beverages Franchise Revenue: $1.52B; +11% YoY Comments: 🔹 "Our North America business was softer than we anticipated in the second quarter, and we now expect a more gradual improvement in performance trends for the balance of this year"
 
 @StockMKTNewz [Thu Jul 09 00:19:39 +0000 2026]: Cathie Wood and Ark Invest bought 181,847 shares of SpaceX $SPCX today https://t.co/sw9jUX3adQ
 
 @StockMKTNewz [Wed Jul 08 20:17:52 +0000 2026]: Costco $COST just reported June sales of $29.24 Billion up 10.6% YoY https://t.co/19U4ng4QvY
 
 @KobeissiLetter [Thu Jul 09 02:16:09 +0000 2026]: BREAKING: President Trump says Iran called him and “they want to make a deal so badly.” US stock market futures turn green on the news. https://t.co/1MkYnxxkCK
+
+@KobeissiLetter [Thu Jul 09 01:19:34 +0000 2026]: BREAKING: The Index of US Financial Conditions is up to ~1.2 points, the easiest since February 2026. This is also near the highest level in at least 11 years. Since 2015, similar readings have only been recorded in early 2025 and during 2021, before the Fed started hiking rates. The Financial Conditions Index has risen over +1.0 points since the March low. Most of this surge has come from rising equity markets and falling corporate bond spreads. Financial conditions are easing despite the recent increase in inflation.
 
 @KobeissiLetter [Wed Jul 08 21:47:14 +0000 2026]: BREAKING: President Trump says “it will get much worse” if Iran attacks ships in the Strait of Hormuz again. https://t.co/kn8xRu6mA7
 
@@ -207,6 +217,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in t
 
 @gurgavin [Wed Jul 08 09:16:40 +0000 2026]: FUTURES UPDATE S&amp;P 500 DOWN 1.1% 📉 DOW JONES DOWN 1.4% 📉 NASDAQ 100 DOWN 1.6% 📉
 
+@AIStockSavvy [Thu Jul 09 10:16:09 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $NOK Nokia Defense and NestAI Advance AI Battlefield Technology Partnership 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐍𝐨𝐤𝐢𝐚 𝐃𝐞𝐟𝐞𝐧𝐬𝐞 and NestAI advanced their strategic defense technology partnership. ➤ Partnership follows Nokia's and Tesi's 𝐄𝐔𝐑 𝟏𝟎𝟎 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 joint investment announced in November 2025. ➤ Companies are developing 𝐭𝐡𝐫𝐞𝐞 integrated battlefield capabilities for European defense forces. ➤ Nokia's deployable 𝟓𝐆 networks will integrate with 𝐍𝐞𝐬𝐭𝐎𝐒 for command, control, and autonomous operations. ➤ NestOS will incorporate Nokia's 𝐫𝐚𝐝𝐢𝐨-𝐧𝐞𝐭𝐰𝐨𝐫𝐤 planning models for mission connectivity. ➤ Companies will combine 𝐞𝐚𝐫𝐥𝐲-𝐝𝐞𝐭𝐞𝐜𝐭𝐢𝐨𝐧 and multi-sensor tracking for threat awareness. ➤ Technologies are designed for 𝐝𝐞𝐧𝐢𝐞𝐝 𝐜𝐨𝐦𝐦𝐮𝐧𝐢𝐜𝐚𝐭𝐢𝐨𝐧𝐬, electronic attacks, and drone threats. ➤ Systems are built to 𝐍𝐀𝐓𝐎 operational requirements using European-developed technology. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Expands Europe's 𝐬𝐨𝐯𝐞𝐫𝐞𝐢𝐠𝐧 𝐝𝐞𝐟𝐞𝐧𝐬𝐞 𝐀𝐈 and secure communications capabilities. ➤ Combines AI, sensing, and 𝟓𝐆 to support next-generation battlefield operations. ➤ Strengthens Nokia's presence in the growing 𝐝𝐞𝐟𝐞𝐧𝐬𝐞 𝐭𝐞𝐜𝐡𝐧𝐨𝐥𝐨𝐠𝐲 market. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "Defense is moving quickly to adopt AI-enabled capabilities, from mission planning to unmanned operations. But AI only works in the field when it has secure, resilient connectivity behind it." — 𝐌𝐢𝐤𝐤𝐨 𝐇𝐚𝐮𝐭𝐚𝐥𝐚, Chief Geopolitical & Government Relations Officer and Chairman, Nokia Defense. ➤ "The partnership addresses the real conditions European forces face, from the network underneath to the threats at the edge, on technology that Europe develops and controls." — 𝐏𝐞𝐭𝐞𝐫 𝐒𝐚𝐫𝐥𝐢𝐧, Founder and Executive Chairman of NestAI.
+
 @AIStockSavvy [Thu Jul 09 01:54:52 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: After earlier US airstrikes, Iran again launched missiles and drones at Gulf states. - Fox News - $QQQ $SPY $USO
 
 @AIStockSavvy [Thu Jul 09 01:43:21 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $META Meta Reportedly Developing Always-On AI Smart Glasses - The Verge 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Meta is reportedly developing 𝐚𝐥𝐰𝐚𝐲𝐬-𝐨𝐧 "𝐬𝐮𝐩𝐞𝐫 𝐬𝐞𝐧𝐬𝐢𝐧𝐠" AI smart glasses. ➤ Prototype glasses could 𝐜𝐨𝐧𝐭𝐢𝐧𝐮𝐨𝐮𝐬𝐥𝐲 record audio and capture photos every few seconds. ➤ Meta AI would use captured data to answer 𝐜𝐨𝐧𝐭𝐞𝐱𝐭-𝐚𝐰𝐚𝐫𝐞 user queries. ➤ Report says 𝐫𝐚𝐰 𝐚𝐮𝐝𝐢𝐨 and images may not be stored or accessible. ➤ Instead, extracted 𝐦𝐞𝐭𝐚𝐝𝐚𝐭𝐚 could be uploaded for AI processing. ➤ Report says the recording 𝐋𝐄𝐃 𝐢𝐧𝐝𝐢𝐜𝐚𝐭𝐨𝐫 may remain off in "super sensing" mode. ➤ Meta is also discussing using captured data to 𝐭𝐫𝐚𝐢𝐧 𝐀𝐈 models. ➤ The feature could reportedly arrive on 𝐞𝐱𝐢𝐬𝐭𝐢𝐧𝐠 Ray-Ban Meta smart glasses. 👉 𝐖𝐡𝐲 𝐈𝐭 𝐌𝐚𝐭𝐭𝐞𝐫𝐬: ➤ Always-on sensing could significantly expand 𝐀𝐈 𝐰𝐞𝐚𝐫𝐚𝐛𝐥𝐞 capabilities. ➤ The reported design may intensify 𝐩𝐫𝐢𝐯𝐚𝐜𝐲 and surveillance concerns. ➤ The move could strengthen Meta's competition in the 𝐀𝐈 𝐰𝐞𝐚𝐫𝐚𝐛𝐥𝐞 market. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: ➤ "While we don't comment on internal prototypes, we're committed to getting our glasses right because they need to be loved by both people wearing them and those around them." — 𝐃𝐚𝐯𝐞 𝐀𝐫𝐧𝐨𝐥𝐝, Meta Spokesperson. ➤ "Our approach has been to develop new technologies that will help people throughout their day, with privacy built in from the ground up." — 𝐃𝐚𝐯𝐞 𝐀𝐫𝐧𝐨𝐥𝐝, Meta Spokesperson.
@@ -215,11 +227,9 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in t
 
 @AIStockSavvy [Wed Jul 08 22:35:25 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: SK Hynix's US IPO was more than seven times oversubscribed. - Bloomberg - $MU $SNDK
 
-@AIStockSavvy [Wed Jul 08 22:34:50 +0000 2026]: $NOW | 𝐆𝐨𝐥𝐝𝐦𝐚𝐧 𝐒𝐚𝐜𝐡𝐬 maintains 𝐁𝐮𝐲 on 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐍𝐨𝐰, 𝐜𝐮𝐭𝐬 𝐏𝐓 𝐭𝐨 $𝟏𝟒𝟓 https://t.co/V9aySjvEO9
+@wallstengine [Thu Jul 09 08:58:09 +0000 2026]: $ALNY shares are moving higher after the $IONS/$AZN CARDIO-TTRansform Phase 3 trial in ATTR-CM missed its primary endpoint. Wainua/eplontersen did not significantly reduce CV mortality and recurrent CV events vs placebo through Week 140. Ionis said most patients were on stabilizers, with 57% on them at baseline and another 24% starting during the trial The monotherapy subgroup showed a nominally significant benefit, but patients already on stabilizers saw no treatment effect
 
-@wallstengine [Wed Jul 08 20:20:56 +0000 2026]: $AZZ Q1’27 EARNINGS HIGHLIGHTS 🔹 Revenue: $448.5M (Est. $434.53M) 🟢 🔹 EPS: $1.85 (Est. $1.69) 🟢 FY Guide: 🔹 Revenue: $1.8B-$1.85B (Est. $1.75B) 🟢 🔹 EPS: $6.75-$7.15 (Est. $6.83) 🟡 https://t.co/WVs1Wq82GJ
-
-@KobeissiLetter [Thu Jul 09 01:19:34 +0000 2026]: BREAKING: The Index of US Financial Conditions is up to ~1.2 points, the easiest since February 2026. This is also near the highest level in at least 11 years. Since 2015, similar readings have only been recorded in early 2025 and during 2021, before the Fed started hiking rates. The Financial Conditions Index has risen over +1.0 points since the March low. Most of this surge has come from rising equity markets and falling corporate bond spreads. Financial conditions are easing despite the recent increase in inflation.
+@wallstengine [Thu Jul 09 08:47:07 +0000 2026]: $META is reportedly working on “super sensing” smart glasses that could continuously record audio and take photos every few seconds. Users could then ask Meta AI questions based on what the glasses captured. Meta is reportedly considering a setup where raw audio and images are not directly stored or shown to users, but metadata is uploaded for AI queries. The recording LED may stay off during “super sensing” mode, since Meta currently reserves the indicator for active photo or video capture.
 
 @KobeissiLetter [Wed Jul 08 23:29:48 +0000 2026]: Agentic AI continues to see rapid growth. Over the last 12 months, the focus has rapidly shifted toward the software layer that allows AI to connect with enterprise data and applications. Instead of simply answering questions, these systems can access company databases, analyze documents, execute multi-step tasks, and automate entire business processes with minimal human input. In other words, AI is evolving from a chatbot into a digital employee. As a result, the enterprise AI market is now expected to exceed $155 billion by 2030. This is why virtually every major technology company is racing to build AI agents. The next phase of the AI Revolution has arrived.
 
@@ -227,12 +237,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-09. Never mention in t
 
 @AIStockSavvy [Wed Jul 08 22:37:52 +0000 2026]: $SRPT | Wolfe Research 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐒𝐚𝐫𝐞𝐩𝐭𝐚 𝐭𝐨 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦, sets 𝐏𝐓 𝐚𝐭 $𝟐𝟕 Analyst sees a shift in stock performance driven by a new market regime, upcoming MAD data in H2, and increased investor focus on DM1/FSHD. https://t.co/5zz0CVRn5v
 
-@AIStockSavvy [Wed Jul 08 20:35:38 +0000 2026]: Iranian armed forces to launch 'massive' attack on U.S. army bases in the region shortly - Iran's Nournews - $QQQ $SPY $USO
-
-@AIStockSavvy [Wed Jul 08 20:30:22 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $COST Costco Reports 10.6% Jump in July Net Sales 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐂𝐨𝐬𝐭𝐜𝐨 reported 𝐉𝐮𝐥𝐲 net sales of 𝟐𝟗.𝟐𝟒 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, up 𝟏𝟎.𝟔% year over year. ➤ Fiscal year-to-date net sales reached 𝟐𝟓𝟎.𝟒𝟑 𝐛𝐢𝐥𝐥𝐢𝐨𝐧, increasing 𝟏𝟎.𝟏%. ➤ Five-week 𝐜𝐨𝐦𝐩𝐚𝐫𝐚𝐛𝐥𝐞 𝐬𝐚𝐥𝐞𝐬 rose 𝟖.𝟖% companywide. ➤ U.S. comparable sales increased 𝟏𝟎.𝟔%, while Canada rose 𝟑.𝟕%. ➤ Other international comparable sales advanced 𝟒.𝟕% during the five-week period. ➤ 𝐃𝐢𝐠𝐢𝐭𝐚𝐥𝐥𝐲-𝐞𝐧𝐚𝐛𝐥𝐞𝐝 sales surged 𝟐𝟎.𝟗% for the five-week period. ➤ Adjusted comparable sales rose 𝟕.𝟎%, excluding fuel price and foreign exchange impacts. ➤ Fiscal year-to-date digitally-enabled sales increased 𝟐𝟏.𝟓%.
-
-@wallstengine [Wed Jul 08 20:17:18 +0000 2026]: $COST JUNE TOTAL COMP SALES +8.8%, EST. +9.8% COSTCO JUNE US COMP SALES EX-GAS, FX +7.6%, EST. +7.8%
-
-@StockMKTNewz [Wed Jul 08 22:32:17 +0000 2026]: SK Hynix's IPO is reportedly more than 7x oversubscribed
+@wallstengine [Thu Jul 09 09:24:01 +0000 2026]: $META ADDED TO BOFA US 1 LIST
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
