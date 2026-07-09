@@ -1,12 +1,84 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-07-08T20:39:12.162516+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום רביעי, 8.7.2026, 20:39",
-  "first_heading": "עדכון ביניים",
+  "mode": "daily_summary",
+  "generated_at": "2026-07-09T11:01:05.541581+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 8.7.2026",
+  "first_heading": "סיכום המסחר",
   "review_date": "2026-07-08",
   "title_date_str": "2026-07-08",
   "title_day_name": "רביעי",
   "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "etf_pcts": {
+    "SPY": -0.3089,
+    "QQQ": 0.2833,
+    "DIA": -1.0748,
+    "IWM": -0.915,
+    "XLE": 1.757,
+    "XLK": 1.239,
+    "XLF": -1.9269,
+    "XLY": -1.7804,
+    "XLV": -1.3014,
+    "XLI": -1.0747,
+    "XLP": -0.5539,
+    "XLU": -0.744,
+    "USO": 3.0206,
+    "BNO": 3.9113,
+    "GLD": -0.8053,
+    "SLV": -2.993,
+    "IBIT": -2.545,
+    "TLT": -0.2247,
+    "UUP": -0.1408,
+    "VIXY": 1.725
+  },
+  "ticker_quotes": {
+    "META": {
+      "price": 603.12,
+      "pct": -2.0241,
+      "prev_close": 615.58
+    },
+    "SPCX": {
+      "price": 148.3,
+      "pct": -0.7828,
+      "prev_close": 149.47
+    },
+    "QQQ": {
+      "price": 711.44,
+      "pct": 0.2833,
+      "prev_close": 709.43
+    },
+    "SPY": {
+      "price": 745.4,
+      "pct": -0.3089,
+      "prev_close": 747.71
+    },
+    "USO": {
+      "price": 112.21,
+      "pct": 3.0206,
+      "prev_close": 108.92
+    },
+    "COST": {
+      "price": 953.13,
+      "pct": 0.5942,
+      "prev_close": 947.5
+    },
+    "AMD": {
+      "price": 517.405,
+      "pct": 0.2509,
+      "prev_close": 516.11
+    },
+    "MSFT": {
+      "price": 383.34,
+      "pct": -1.4145,
+      "prev_close": 388.84
+    },
+    "FDX": {
+      "price": 309.76,
+      "pct": -0.9972,
+      "prev_close": 312.88
+    },
+    "AMZN": {
+      "price": 243.62,
+      "pct": -0.9594,
+      "prev_close": 245.98
+    }
+  }
 }
