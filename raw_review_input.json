@@ -1,6 +1,6 @@
 {
   "mode": "daily_prep",
-  "generated_at": "2026-07-10T11:29:18.555917+03:00",
+  "generated_at": "2026-07-10T20:25:23.562611+03:00",
   "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שישי, 10.7.2026",
   "first_heading": "נקודות מרכזיות",
   "review_date": "2026-07-10",
@@ -8,82 +8,77 @@
   "title_day_name": "שישי",
   "week_range": null,
   "etf_pcts": {
-    "SPY": 0.8465,
-    "QQQ": 1.6642,
-    "DIA": 0.2716,
-    "IWM": 1.2812,
-    "XLE": -1.4029,
-    "XLK": 2.1775,
-    "XLF": 1.0369,
-    "XLY": 1.3443,
-    "XLV": -0.0801,
-    "XLI": 0.3824,
-    "XLP": -1.4101,
-    "XLU": -0.5071,
-    "USO": -2.8518,
-    "BNO": -3.2132,
-    "GLD": 0.9961,
-    "SLV": 2.4797,
-    "IBIT": 1.6463,
-    "TLT": 0.1541,
+    "SPY": 0.306,
+    "QQQ": 0.3042,
+    "DIA": 0.2823,
+    "IWM": -0.434,
+    "XLE": -0.2371,
+    "XLK": 0.2913,
+    "XLF": 0.162,
+    "XLY": 0.5819,
+    "XLV": -0.9003,
+    "XLI": 0.6681,
+    "XLP": 1.0337,
+    "XLU": 0.2216,
+    "USO": -0.7247,
+    "BNO": -0.3794,
+    "GLD": -0.3808,
+    "SLV": -0.1662,
+    "IBIT": 1.1729,
+    "TLT": -0.0592,
     "UUP": 0.0,
-    "VIXY": -1.9783
+    "VIXY": -1.778
   },
   "ticker_quotes": {
-    "MU": {
-      "price": 991.64,
-      "pct": 4.5152,
-      "prev_close": 948.8
+    "SPCX": {
+      "price": 148.77,
+      "pct": -2.2279,
+      "prev_close": 152.16
     },
     "META": {
-      "price": 631.48,
-      "pct": 4.7022,
-      "prev_close": 603.12
+      "price": 663.68,
+      "pct": 5.0991,
+      "prev_close": 631.48
     },
-    "SPCX": {
-      "price": 152.16,
-      "pct": 2.6028,
-      "prev_close": 148.3
+    "MU": {
+      "price": 993.45,
+      "pct": 0.1825,
+      "prev_close": 991.64
+    },
+    "CRCL": {
+      "price": 66.49,
+      "pct": 5.5229,
+      "prev_close": 63.01
     },
     "SNDK": {
-      "price": 1858.27,
-      "pct": 7.5898,
-      "prev_close": 1727.18
+      "price": 1937.92,
+      "pct": 4.2862,
+      "prev_close": 1858.27
     },
-    "SHOP": {
-      "price": 123.17,
-      "pct": 3.3132,
-      "prev_close": 119.22
+    "NFLX": {
+      "price": 72.74,
+      "pct": -3.6173,
+      "prev_close": 75.47
     },
     "AMZN": {
-      "price": 247.04,
-      "pct": 1.4038,
-      "prev_close": 243.62
+      "price": 245.09,
+      "pct": -0.7893,
+      "prev_close": 247.04
     },
     "CRM": {
-      "price": 162.5,
-      "pct": -2.4493,
-      "prev_close": 166.58
+      "price": 162.89,
+      "pct": 0.24,
+      "prev_close": 162.5
     },
     "GOOGL": {
-      "price": 358.89,
-      "pct": -0.8372,
-      "prev_close": 361.92
+      "price": 354.81,
+      "pct": -1.1368,
+      "prev_close": 358.89
     },
     "NVDA": {
-      "price": 202.78,
-      "pct": -0.6565,
-      "prev_close": 204.12
-    },
-    "ORCL": {
-      "price": 144.22,
-      "pct": 2.655,
-      "prev_close": 140.49
-    },
-    "SOXL": {
-      "price": 192.45,
-      "pct": 10.0847,
-      "prev_close": 174.82
+      "price": 209.95,
+      "pct": 3.5359,
+      "prev_close": 202.78
     }
   }
 }
