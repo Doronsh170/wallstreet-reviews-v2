@@ -249,6 +249,10 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
     title_date_str, title_day_name = date_str, day_name
     week_range: Optional[str] = None
     target_is_trading = is_trading_day(now, holidays)
+    # Bottom-line label for the summary reviews: "למחר" only when the next trading
+    # session is literally the next calendar day. A Friday summary (next session is
+    # only next week) must say "לשבוע הבא" instead.
+    bl_label = "שורה תחתונה למחר"
 
     if mode == "daily_prep":
         target = now if is_trading_day(now, holidays) else get_next_trading_day(now, holidays)
@@ -259,6 +263,8 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         target = get_last_trading_day(now, holidays)
         title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
         review_date = title_date_str
+        nxt = get_next_trading_day(target, holidays)
+        bl_label = "שורה תחתונה למחר" if (nxt.date() - target.date()).days == 1 else "שורה תחתונה לשבוע הבא"
     elif mode == "intraday_update":
         review_date = date_str
     elif mode == "israel_prep":
@@ -271,6 +277,8 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
         target_is_trading = is_israel_trading_day(target)
         review_date = title_date_str
+        nxt = get_next_israel_trading_day(target)
+        bl_label = "שורה תחתונה למחר" if (nxt.date() - target.date()).days == 1 else "שורה תחתונה לשבוע הבא"
     else:
         week_range = get_prev_week_range_str(now)
         weekday = now.weekday()
@@ -282,6 +290,7 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         "title_date_str": title_date_str, "title_day_name": title_day_name,
         "week_range": week_range, "target_is_trading": target_is_trading,
         "review_date": review_date,
+        "bl_label": bl_label,
         "time_str": now.strftime("%H:%M"),
         "window_from": (now - timedelta(hours=INTRADAY_WINDOW_HOURS)).strftime("%H:%M"),
         "market_state": get_market_state(now, holidays),
@@ -966,7 +975,7 @@ This is a professional MARKET REVIEW — NOT a data dump. Explain the day — do
   - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
   - Commodities, dollar and yields — direction and meaning, not a list of prices.
   - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
+* LAST point — "{d['bl_label']}: ..." — what investors should watch in the next session and why.
 Every direction word MUST match the DIRECTIONAL FACTS block."""
     if mode == "israel_prep":
         if d["target_is_trading"]:
@@ -1011,7 +1020,7 @@ THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that e
 - 6-9 STRONG points TOTAL. FIRST point tells the day's story in one narrative (headline like
   "יום ירוק בהובלת הבנקים") from what the sources reported about the session. MIDDLE points — ONE point per
   real story (companies, sectors, reports, Bank of Israel, notable moves) as the sources framed them.
-  LAST point — "שורה תחתונה למחר: ..." — what the Tel Aviv investor should watch next session and why.
+  LAST point — "{d['bl_label']}: ..." — what the Tel Aviv investor should watch next session and why.
 - If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
     return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
