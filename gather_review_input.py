@@ -13,7 +13,8 @@ Output:
                            validate and publish the review into data.json.
 
 Modes (REVIEW_MODE env var or first CLI argument):
-  daily_prep | daily_summary | weekly_summary | intraday_update
+  daily_prep | daily_summary | weekly_summary | intraday_update    (Wall Street)
+  israel_prep | israel_summary                                     (Tel Aviv, tweet-only)
 
 Usage:
   python gather_review_input.py daily_summary
@@ -38,7 +39,11 @@ import requests
 ISR_TZ = ZoneInfo("Asia/Jerusalem")
 NY_TZ = ZoneInfo("America/New_York")
 
-VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "intraday_update")
+VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "intraday_update",
+               "israel_prep", "israel_summary")
+# Israeli-market modes are tweet-only (no Finnhub layer), summarizing the curated
+# Hebrew X sources into the signature prep/summary format for the Tel Aviv exchange.
+ISRAEL_MODES = ("israel_prep", "israel_summary")
 REVIEW_MODE = (
     (sys.argv[1] if len(sys.argv) > 1 else "")
     or os.environ.get("REVIEW_MODE", "")
@@ -58,6 +63,9 @@ OUT_MD = Path("raw_review_input.md")
 OUT_JSON = Path("raw_review_input.json")
 SOURCES_FILE = Path("sources/wallstreet.txt")
 DEFAULT_ACCOUNTS = ["StockMKTNewz", "AIStockSavvy", "wallstengine", "KobeissiLetter", "gurgavin"]
+TASE_SOURCES_FILE = Path("sources/tase.txt")
+TASE_DEFAULT_ACCOUNTS = ["fundercoil", "SponserNews", "globesnews", "calcalist", "TheMarker",
+                         "ynetmoney", "ModiShafrir", "matanshitrit", "CalcalistTech"]
 
 MAX_TWEETS_PER_ACCOUNT = int(os.environ.get("MAX_TWEETS_PER_ACCOUNT", "10"))
 MAX_TWEETS_FOR_REVIEW = int(os.environ.get("MAX_TWEETS_FOR_REVIEW", "40"))
@@ -69,6 +77,8 @@ EXPECTED_FIRST_HEADING = {
     "daily_summary": "סיכום המסחר",
     "weekly_summary": "סיכום השבוע",
     "intraday_update": "עדכון ביניים",
+    "israel_prep": "לקראת יום המסחר",
+    "israel_summary": "סיכום המסחר",
 }
 
 INTRADAY_WINDOW_HOURS = 2
@@ -133,6 +143,10 @@ def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Op
         return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
     if mode == "intraday_update":
         return f"עדכון ביניים מוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}, {time_str}"
+    if mode == "israel_prep":
+        return f"נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
+    if mode == "israel_summary":
+        return f"סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
     return f"סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – {week_range}"
 
 
@@ -171,6 +185,35 @@ def get_last_trading_day(now: datetime, holidays: List[str]) -> datetime:
     d = now - timedelta(days=1)
     for _ in range(10):
         if is_trading_day(d, holidays):
+            return d
+        d -= timedelta(days=1)
+    return now - timedelta(days=1)
+
+
+# The Tel Aviv Stock Exchange trades Sunday–Thursday (closed Friday/Saturday).
+# We do not maintain an Israeli holiday calendar here — the reviews are on-demand,
+# so a run on a holiday is simply not triggered.
+def is_israel_trading_day(dt: datetime) -> bool:
+    return dt.weekday() in (6, 0, 1, 2, 3)
+
+
+def get_next_israel_trading_day(now: datetime) -> datetime:
+    d = now + timedelta(days=1)
+    for _ in range(10):
+        if is_israel_trading_day(d):
+            return d
+        d += timedelta(days=1)
+    return now + timedelta(days=1)
+
+
+def get_last_israel_trading_day(now: datetime) -> datetime:
+    # After ~17:30 Israel time a trading day has closed, so today itself is the
+    # last completed session; otherwise walk back to the previous trading day.
+    if is_israel_trading_day(now) and now.hour >= 18:
+        return now
+    d = now - timedelta(days=1)
+    for _ in range(10):
+        if is_israel_trading_day(d):
             return d
         d -= timedelta(days=1)
     return now - timedelta(days=1)
@@ -218,6 +261,16 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         review_date = title_date_str
     elif mode == "intraday_update":
         review_date = date_str
+    elif mode == "israel_prep":
+        target = now if is_israel_trading_day(now) else get_next_israel_trading_day(now)
+        title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
+        target_is_trading = is_israel_trading_day(target)
+        review_date = title_date_str
+    elif mode == "israel_summary":
+        target = get_last_israel_trading_day(now)
+        title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
+        target_is_trading = is_israel_trading_day(target)
+        review_date = title_date_str
     else:
         week_range = get_prev_week_range_str(now)
         weekday = now.weekday()
@@ -255,16 +308,20 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset."""
 # TWEETS (optional — skipped gracefully if no TWITTER_API_KEY)
 # ══════════════════════════════════════════════════════════════
 
-def read_accounts() -> List[str]:
-    if SOURCES_FILE.exists():
+def read_accounts(mode: str = "") -> List[str]:
+    src_file, defaults = (
+        (TASE_SOURCES_FILE, TASE_DEFAULT_ACCOUNTS) if mode in ISRAEL_MODES
+        else (SOURCES_FILE, DEFAULT_ACCOUNTS)
+    )
+    if src_file.exists():
         accounts = [
             line.strip().lstrip("@")
-            for line in SOURCES_FILE.read_text(encoding="utf-8").splitlines()
+            for line in src_file.read_text(encoding="utf-8").splitlines()
             if line.strip() and not line.strip().startswith("#")
         ]
         if accounts:
             return accounts
-    return DEFAULT_ACCOUNTS
+    return defaults
 
 
 def parse_tweet_time(s: str) -> Optional[datetime]:
@@ -332,6 +389,14 @@ def tweet_score(t: Dict[str, Any]) -> float:
         "oil", "gold", "yield", "treasury", "dollar", "tariff", "futures", "nasdaq", "s&p",
     ]
     score += 7 * sum(1 for k in keywords if k in text)
+    # Israeli sources post in Hebrew, so the English keyword list above barely fires
+    # for them — these Hebrew market terms let genuine TASE headlines rank.
+    heb_keywords = [
+        "בורסה", "מדד", "ת\"א", "תל אביב", "מניה", "מניית", "דוח", "דוחות", "רווח", "הכנסות",
+        "תחזית", "ריבית", "בנק ישראל", "אינפלציה", "מדד המחירים", "אג\"ח", "הנפקה", "שקל",
+        "דולר", "עלייה", "ירידה", "זינק", "צנח", "רכישה", "מיזוג", "ביטקוין", "נפט", "זהב",
+    ]
+    score += 7 * sum(1 for k in heb_keywords if k in t["text"])
     if t["viewCount"] >= 100000:
         score += 15
     elif t["viewCount"] >= 25000:
@@ -345,16 +410,17 @@ def tweet_score(t: Dict[str, Any]) -> float:
     return score
 
 
-def fetch_and_select_tweets(since: Optional[datetime] = None) -> Tuple[str, List[str]]:
+def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "") -> Tuple[str, List[str]]:
     """Returns (formatted tweet blocks, top cashtags mentioned).
-    since — keep only tweets created at/after this moment (intraday window)."""
+    since — keep only tweets created at/after this moment (intraday window).
+    mode — selects the source account list (Israeli modes read sources/tase.txt)."""
     if not TWITTER_API_KEY:
         print("  No TWITTER_API_KEY — skipping tweets (the review will rely on the chat model's web search)")
         return "", []
     # With a time window most tweets get dropped, so take more per account.
     per_account = MAX_TWEETS_PER_ACCOUNT * 2 if since is not None else MAX_TWEETS_PER_ACCOUNT
     all_tweets: List[Dict[str, Any]] = []
-    for acc in read_accounts():
+    for acc in read_accounts(mode):
         try:
             r = http_get(
                 f"{TWITTER_BASE}/twitter/user/last_tweets",
@@ -666,6 +732,12 @@ Web search is for VERIFICATION ONLY — confirming a name, time or figure that a
 tweets, for the window {window} Israel time on {date_str}. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════"""
+    if mode in ISRAEL_MODES:
+        return """══ WEB SEARCH POLICY ══
+Web search is for VERIFICATION ONLY — confirming a name or figure that already appears in the source posts.
+Do NOT use it to find additional news, index levels, prices or macro data. Content that is not present in the
+sources does not enter the review.
+══════════════════════════════════"""
     if mode == "daily_summary":
         return f"""══ MANDATORY MACRO DATA CHECK ══
 Use web search to check if ANY of these were released on {date_str}: CPI (headline AND core),
@@ -707,6 +779,16 @@ def get_prior_review_context(mode: str, data: Dict[str, Any]) -> str:
         header = ("══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══\n"
                   "Already published on the site. Your update covers ONLY the last two hours. Mention an item "
                   "below ONLY if there is a genuinely NEW development about it inside the two-hour window.")
+    elif mode == "israel_prep":
+        prior = data.get("israelSummary")
+        header = ("══ CONTEXT: THE PREVIOUS TEL AVIV DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══\n"
+                  "Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a "
+                  "genuinely NEW development about it.")
+    elif mode == "israel_summary":
+        prior = data.get("israelPrep")
+        header = ("══ CONTEXT: THIS SESSION'S TEL AVIV PRE-MARKET BRIEFING ══\n"
+                  "Published before the session. Use it to resolve what was expected into what happened, do NOT "
+                  "quote it verbatim.")
     else:
         return ""
     if not (prior and prior.get("sections")):
@@ -757,6 +839,22 @@ POINT_STYLE = """SIGNATURE POINT FORMAT (the author's own style — follow it ex
   filler points, no padding.
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them."""
+
+# The signature point format for the Israeli (Tel Aviv) prep/summary reviews.
+# Same depth and structure as the Wall Street style, but the voice, examples and
+# market references belong to the Tel Aviv exchange.
+ISRAEL_POINT_STYLE = """SIGNATURE POINT FORMAT (follow it exactly):
+- Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
+- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "הבנקים ממשיכים להוביל",
+  "אבן דרך בסקטור הנדל\"ן", "סנטימנט זהיר לקראת הפתיחה" — never a generic label like "חדשות" / "מאקרו".
+  Up to 40 characters, and NO ":" inside the headline itself. A single-stock story opens with
+  "מניית <שם החברה> (טיקר אם הופיע בציוץ)".
+- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences. EVERY point delivers real
+  depth: (1) what happened, with the few figures that carry the story (ONLY figures that appear in a source),
+  (2) the background and context (על רקע..., בעקבות...), and (3) why it matters for the investor.
+- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article.
+- Voice: a senior investment advisor explaining the Tel Aviv market to clients — analytical, confident,
+  readable. Weave the numbers into the story, don't stack them."""
 
 # intraday_update summarizes the sources only — no Finnhub blocks exist in its prompt,
 # so it gets a reduced rule set with no references to verified market data.
@@ -870,6 +968,52 @@ This is a professional MARKET REVIEW — NOT a data dump. Explain the day — do
   - After-hours earnings, or geopolitics that moved markets today — when truly material.
 * LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
 Every direction word MUST match the DIRECTIONAL FACTS block."""
+    if mode == "israel_prep":
+        if d["target_is_trading"]:
+            if d["date_str"] == d["title_date_str"]:
+                status = ("The briefing is for TODAY's Tel Aviv session. The exchange has NOT opened yet — never "
+                          "describe it as open or trading. Use 'הבורסה צפויה להיפתח', 'המשקיעים יעקבו אחר'.")
+            else:
+                status = (f"This runs on {d['date_str']} but the briefing is for the NEXT Tel Aviv trading day: "
+                          f"{d['title_date_str']} (יום {d['title_day_name']}). Do NOT use 'היום'/'הבוקר' — use "
+                          f"'ביום {d['title_day_name']}'.")
+        else:
+            status = f"The target date {d['title_date_str']} is NOT a Tel Aviv trading day. State this in the first bullet."
+        return f"""You are a senior investment advisor writing a signature PRE-MARKET briefing in Hebrew for the
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב). Script run date: {d['date_str']} (יום {d['day_name']}).
+Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}). {status}
+
+{ISRAEL_POINT_STYLE}
+
+THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
+- Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
+  levels, percentages, movers or macro data that do not appear in a source. A figure enters ONLY if a source
+  states it explicitly. Web search is for VERIFICATION of a name/figure already in a source, never to add news.
+- Cover what the Tel Aviv investor should watch heading into the session: the leading themes and stories from
+  the sources (companies, sectors, reports, macro from Bank of Israel, global backdrop as the sources frame it).
+- 6-9 STRONG points TOTAL. FIRST point sets the picture heading into the session (headline like
+  "סנטימנט זהיר לקראת הפתיחה"). MIDDLE points — ONE point per real story from the sources. LAST point —
+  "שורה תחתונה: ..." — what will decide the direction of the Tel Aviv session, in 1-2 sentences.
+- If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
+No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
+    if mode == "israel_summary":
+        return f"""You are a senior investment advisor writing a signature END-OF-DAY review in Hebrew for the
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
+
+{ISRAEL_POINT_STYLE}
+
+THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that ended:
+- Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
+  levels, percentages, movers or macro data that do not appear in a source. A figure (index move, a stock's
+  change, a report number) enters ONLY if a source states it explicitly. Web search verifies a name/figure
+  already in a source, never adds news of its own.
+- Do NOT independently determine who rose or fell. Direction and magnitude for any story come from the source.
+- 6-9 STRONG points TOTAL. FIRST point tells the day's story in one narrative (headline like
+  "יום ירוק בהובלת הבנקים") from what the sources reported about the session. MIDDLE points — ONE point per
+  real story (companies, sectors, reports, Bank of Israel, notable moves) as the sources framed them.
+  LAST point — "שורה תחתונה למחר: ..." — what the Tel Aviv investor should watch next session and why.
+- If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
+No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
     return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
 trading week {d['week_range']}. The review does BOTH: sums up the week that ended AND prepares the reader for
 the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
@@ -911,7 +1055,9 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         "",
         mode_instructions(mode, d, bool(tweets)),
         "",
-        INTRADAY_RULES if mode == "intraday_update" else SHARED_RULES,
+        # Tweet-only modes (intraday + Israeli reviews) get the reduced rule set with
+        # no references to a verified Finnhub layer, which they do not have.
+        INTRADAY_RULES if mode in ("intraday_update",) + ISRAEL_MODES else SHARED_RULES,
         "",
         f"""CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
@@ -934,19 +1080,30 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
   Each item is "<אותה כותרת קצרה של הנקודה>: <משפט תמציתי אחד>". The sentence must DISTILL the essence of the point —
   what happened and why it matters — in your own words, up to ~20 words. Do NOT copy the first sentence of the
   bullet verbatim. All the same verification and direction rules apply to the summary as to the bullets.""",
-        "",
-        get_time_conversion_block(now_il),
     ]
+    # The US time-conversion block is irrelevant to Tel Aviv reviews.
+    if mode not in ISRAEL_MODES:
+        parts += ["", get_time_conversion_block(now_il)]
     for block in (market_block, econ_block, checklist, prior_context):
         if block:
             parts += ["", block]
     if tweets:
-        parts += ["", f"Source tweets/posts from X (Twitter) — gathered {d['date_str']}. Never mention in the review that these came from tweets/posts:", "", tweets]
+        source_note = (
+            "מקורות מרשת X (בעברית) — Never mention in the review that these came from posts/X:"
+            if mode in ISRAEL_MODES else
+            f"Source tweets/posts from X (Twitter) — gathered {d['date_str']}. Never mention in the review that these came from tweets/posts:"
+        )
+        parts += ["", source_note, "", tweets]
     elif mode == "intraday_update":
         parts += ["", (f"NOTE: no source tweets from the window {d['window_from']}–{d['time_str']} Israel time were "
                        f"gathered for this run. Per the rules above, return the single bullet "
                        f"\"* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה.\" — do NOT use web search to fill "
                        f"the update with news, and do NOT recycle older headlines or unrelated macro.")]
+    elif mode in ISRAEL_MODES:
+        parts += ["", ("NOTE: no source posts were gathered for this run. These reviews are sourced ONLY from the "
+                       "curated Hebrew X accounts, so do NOT fabricate a review from web search or memory. Return a "
+                       "single bullet stating there is not enough source material right now: "
+                       "\"* אין מספיק חומר מהמקורות להפקת סקירה כרגע.\"")]
     else:
         parts += ["", "NOTE: no tweets were gathered for this run. Base the review on the verified data above plus your own web search of today's major market news from reliable sources (Reuters, Bloomberg, CNBC)."]
     parts += ["", "החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."]
@@ -973,20 +1130,23 @@ def main() -> None:
 
     print("\n── Tweets ──")
     since = now - timedelta(hours=INTRADAY_WINDOW_HOURS) if REVIEW_MODE == "intraday_update" else None
-    tweets, top_cashtags = fetch_and_select_tweets(since)
+    tweets, top_cashtags = fetch_and_select_tweets(since, REVIEW_MODE)
+
+    # Tweet-only modes (intraday + Israeli reviews) carry no Finnhub layer.
+    tweet_only = REVIEW_MODE in ("intraday_update",) + ISRAEL_MODES
 
     print("\n── Finnhub market data ──")
-    if REVIEW_MODE == "intraday_update":
-        # The intraday update only summarizes the sources — no price data, no
-        # movers, no percentages. Nothing from Finnhub enters its prompt.
-        print("  intraday_update summarizes the sources only — skipping market data")
+    if tweet_only:
+        # These modes only summarize the sources — no price data, no movers, no
+        # percentages. Nothing from Finnhub enters their prompt.
+        print(f"  {REVIEW_MODE} summarizes the sources only — skipping market data")
         market_block, pcts, ticker_quotes = "", {}, {}
     else:
         market_block, pcts, ticker_quotes = fetch_market_data(REVIEW_MODE == "weekly_summary", top_cashtags)
 
     print("\n── Economic calendar ──")
-    if REVIEW_MODE == "intraday_update":
-        print("  intraday_update summarizes the sources only — skipping economic calendar")
+    if tweet_only:
+        print(f"  {REVIEW_MODE} summarizes the sources only — skipping economic calendar")
         econ_block = ""
     else:
         econ_days = {

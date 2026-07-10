@@ -13,6 +13,8 @@ on:
           - daily_summary
           - weekly_summary
           - intraday_update
+          - israel_prep
+          - israel_summary
 
 permissions:
   contents: write

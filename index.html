@@ -57,6 +57,32 @@ body{
 .tab[aria-selected="true"] small{color:#BFD8DC}
 .tab:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 
+/* ── Market chooser (level 1) ── */
+.markets{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 8px}
+.market-card{
+  appearance:none;cursor:pointer;font:inherit;text-align:center;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 10px 26px rgba(18,32,47,.05);padding:34px 18px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transition:border-color .15s, box-shadow .15s, transform .12s;
+}
+.market-card:hover{border-color:var(--desk);box-shadow:0 14px 32px rgba(18,32,47,.10);transform:translateY(-2px)}
+.market-card:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.market-card .flag{font-size:52px;line-height:1}
+.market-card .mname{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:22px;color:var(--ink)}
+.market-card small{color:var(--muted);font-size:12.5px;letter-spacing:.15em;text-transform:uppercase}
+
+/* ── Back bar (level 2 header) ── */
+.backbar{display:flex;align-items:center;gap:12px;margin:20px 0 6px}
+.back{
+  appearance:none;cursor:pointer;font:inherit;font-weight:500;font-size:14.5px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:10px;padding:8px 14px;display:inline-flex;align-items:center;gap:6px;
+}
+.back:hover{border-color:var(--desk);color:var(--desk)}
+.back:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.backbar .mlabel{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:18px;color:var(--ink)}
+
 /* ── Review card ── */
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 26px rgba(18,32,47,.05);padding:26px 26px 20px}
 .review-head{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:6px}
@@ -128,6 +154,9 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 
 @media (max-width:640px){
   body{font-size:16.5px}
+  .markets{grid-template-columns:1fr;gap:12px}
+  .market-card{padding:26px 16px}
+  .market-card .flag{font-size:44px}
   .tabs{display:grid;grid-template-columns:1fr;gap:7px}
   .tab{flex-direction:row;justify-content:space-between;padding:12px 14px}
   .card{padding:18px 16px 14px;border-radius:13px}
@@ -152,35 +181,52 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 <header>
   <div class="masthead wrap">
     <div class="kicker">MARKET DESK</div>
-    <h1>סקירות וול סטריט</h1>
-    <p class="tagline">הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי עם מבט לשבוע הבא — בעברית, על בסיס נתונים מאומתים</p>
+    <h1>מרכז הסקירות</h1>
+    <p class="tagline">סקירות שוק ההון בעברית: וול סטריט והבורסה בתל אביב, הכנה ליום מסחר וסיכומים</p>
   </div>
   <div class="rule"></div>
   <div class="updated"><span id="updatedLine"></span><b id="activeLabel"></b></div>
 </header>
 
 <main class="wrap">
-  <nav class="tabs" role="tablist" aria-label="סוג סקירה">
-    <button class="tab" role="tab" data-key="dailyPrep" aria-selected="false">הכנה ליום מסחר<small>daily prep</small></button>
-    <button class="tab" role="tab" data-key="intradayUpdate" aria-selected="false">עדכון ביניים<small>intraday update</small></button>
-    <button class="tab" role="tab" data-key="dailySummary" aria-selected="false">סיכום יום מסחר<small>daily summary</small></button>
-    <button class="tab" role="tab" data-key="weeklySummary" aria-selected="false">סיכום שבועי והכנה<small>weekly summary</small></button>
-  </nav>
+  <!-- Level 1 — market chooser -->
+  <section id="marketScreen">
+    <div class="markets">
+      <button class="market-card" type="button" data-market="us">
+        <span class="flag">🇺🇸</span>
+        <span class="mname">וול סטריט</span>
+        <small>Wall Street</small>
+      </button>
+      <button class="market-card" type="button" data-market="il">
+        <span class="flag">🇮🇱</span>
+        <span class="mname">הבורסה בתל אביב</span>
+        <small>Tel Aviv</small>
+      </button>
+    </div>
 
-  <details class="howto">
-    <summary>איך מפרסמים סקירה חדשה? (5 שלבים)</summary>
-    <ol>
-      <li><b>בוחרים סוג סקירה ומריצים איסוף</b> — <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/gather_review.yml" target="_blank" rel="noopener">Actions ‏← "1 - Gather Review Input"</a> ← Run workflow ← בוחרים מצב (daily_prep / intraday_update / daily_summary / weekly_summary).</li>
-      <li><b>מעתיקים את חומר הגלם לצ'אט</b> — פותחים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/raw/main/raw_review_input.md" target="_blank" rel="noopener">raw_review_input.md</a> ומדביקים את <u>כל</u> התוכן ב-Claude או ChatGPT (עם חיפוש אינטרנט). הצ'אט מחזיר JSON.</li>
-      <li><b>מדביקים את ה-JSON</b> — עורכים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/edit/main/review_output.json" target="_blank" rel="noopener">review_output.json</a>, מחליפים את התוכן בתשובת הצ'אט (מותר כולל ```json) ועושים Commit.</li>
-      <li><b>הפרסום רץ אוטומטית</b> — ה-Commit מפעיל את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/publish_review.yml" target="_blank" rel="noopener">"2 - Publish Review"</a> שמאמת ומעדכן את data.json. אם הוא אדום — פותחים את הלוג, מתקנים בצ'אט ומדביקים שוב.</li>
-      <li><b>מרעננים את העמוד הזה</b> — הסקירה החדשה מופיעה בטאב שלה.</li>
-    </ol>
-    <p class="note">כל התהליך עובד גם מהטלפון, דרך אתר GitHub בלבד.</p>
-  </details>
+    <details class="howto">
+      <summary>איך מפרסמים סקירה חדשה? (5 שלבים)</summary>
+      <ol>
+        <li><b>בוחרים סוג סקירה ומריצים איסוף</b> — <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/gather_review.yml" target="_blank" rel="noopener">Actions ‏← "1 - Gather Review Input"</a> ← Run workflow ← בוחרים מצב (וול סטריט: daily_prep / intraday_update / daily_summary / weekly_summary, תל אביב: israel_prep / israel_summary).</li>
+        <li><b>מעתיקים את חומר הגלם לצ'אט</b> — פותחים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/raw/main/raw_review_input.md" target="_blank" rel="noopener">raw_review_input.md</a> ומדביקים את <u>כל</u> התוכן ב-Claude או ChatGPT (עם חיפוש אינטרנט). הצ'אט מחזיר JSON.</li>
+        <li><b>מדביקים את ה-JSON</b> — עורכים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/edit/main/review_output.json" target="_blank" rel="noopener">review_output.json</a>, מחליפים את התוכן בתשובת הצ'אט (מותר כולל ```json) ועושים Commit.</li>
+        <li><b>הפרסום רץ אוטומטית</b> — ה-Commit מפעיל את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/publish_review.yml" target="_blank" rel="noopener">"2 - Publish Review"</a> שמאמת ומעדכן את data.json. אם הוא אדום — פותחים את הלוג, מתקנים בצ'אט ומדביקים שוב.</li>
+        <li><b>מרעננים את העמוד הזה</b> — הסקירה החדשה מופיעה תחת השוק והטאב שלה.</li>
+      </ol>
+      <p class="note">כל התהליך עובד גם מהטלפון, דרך אתר GitHub בלבד.</p>
+    </details>
+  </section>
 
-  <div class="status" id="status">טוען נתונים…</div>
-  <article class="card" id="screen" aria-live="polite"></article>
+  <!-- Level 2 — review types for the chosen market -->
+  <section id="reviewScreen" hidden>
+    <div class="backbar">
+      <button class="back" id="backBtn" type="button">↩︎ חזרה לבחירת שוק</button>
+      <span class="mlabel" id="marketLabel"></span>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="סוג סקירה"></nav>
+    <div class="status" id="status"></div>
+    <article class="card" id="screen" aria-live="polite"></article>
+  </section>
 
   <footer class="footer">
     <div class="disclaimer">⚠️ גילוי נאות: תוכן זה נוצר באמצעות AI לצרכים אינפורמטיביים בלבד. אין באמור ייעוץ השקעות או המלצה לפעולה בניירות ערך.</div>
@@ -191,13 +237,20 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 <script>
 const DATA_PATH = 'data.json';
 const LABELS = {
-  dailyPrep:   {he:'הכנה ליום מסחר',  empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
-  intradayUpdate:{he:'עדכון ביניים',  empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
-  dailySummary:{he:'סיכום יום מסחר',  empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
-  weeklySummary:{he:'סיכום שבועי והכנה', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'}
+  dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
+  intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
+  dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
+  weeklySummary:{he:'סיכום שבועי והכנה', en:'weekly summary', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'},
+  israelPrep:  {he:'הכנה ליום מסחר', en:'israel prep',      empty:'הרץ את Gather Review Input במצב israel_prep כדי ליצור אותה.'},
+  israelSummary:{he:'סיכום יום מסחר', en:'israel summary',  empty:'הרץ את Gather Review Input במצב israel_summary כדי ליצור אותו.'}
+};
+const MARKETS = {
+  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary']},
+  il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary']}
 };
 let data = null;
-let active = 'dailyPrep';
+let activeMarket = null;
+let active = null;
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const stripCtl = s => String(s ?? '').replace(/[\u200E\u200F\u202A-\u202E\u2066-\u2069\u200B-\u200D\uFEFF\u00AD]/g,'');
@@ -313,9 +366,44 @@ function toggleFullReview(btn){
 
 function render(){
   document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.key === active)));
-  document.getElementById('activeLabel').textContent = LABELS[active].he;
-  const review = data ? data[active] : null;
+  document.getElementById('activeLabel').textContent = active ? LABELS[active].he : '';
+  const review = (data && active) ? data[active] : null;
   document.getElementById('screen').innerHTML = review ? renderReview(review, active) : renderEmpty(active);
+}
+
+/* Build the review-type tabs for the chosen market and wire their clicks. */
+function buildTabs(market){
+  const nav = document.getElementById('tabs');
+  nav.innerHTML = MARKETS[market].tabs.map(key =>
+    `<button class="tab" role="tab" data-key="${key}" aria-selected="false">${esc(LABELS[key].he)}<small>${esc(LABELS[key].en)}</small></button>`
+  ).join('');
+  nav.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { active = t.dataset.key; render(); }));
+}
+
+/* Pick the most recently dated review WITHIN a market; fall back to its first tab. */
+function pickDefaultTab(market){
+  const dated = MARKETS[market].tabs
+    .filter(k => data && data[k] && data[k].date)
+    .filter(k => !(k === 'intradayUpdate' && isEmptyIntraday(data[k])))
+    .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
+  return dated[0] || MARKETS[market].tabs[0];
+}
+
+function selectMarket(market){
+  activeMarket = market;
+  buildTabs(market);
+  active = pickDefaultTab(market);
+  document.getElementById('marketLabel').textContent = MARKETS[market].flag + ' ' + MARKETS[market].he;
+  document.getElementById('marketScreen').hidden = true;
+  document.getElementById('reviewScreen').hidden = false;
+  render();
+}
+
+function showMarkets(){
+  activeMarket = null; active = null;
+  document.getElementById('reviewScreen').hidden = true;
+  document.getElementById('marketScreen').hidden = false;
+  document.getElementById('activeLabel').textContent = '';
 }
 
 function shareWhatsApp(){
@@ -353,31 +441,20 @@ function isEmptyIntraday(review){
   return b.length === 1 && b[0].includes('אין מספיק עדכונים משמעותיים');
 }
 
-function pickDefaultTab(){
-  const dated = ['intradayUpdate','dailySummary','dailyPrep','weeklySummary']
-    .filter(k => data[k] && data[k].date)
-    .filter(k => !(k === 'intradayUpdate' && isEmptyIntraday(data[k])))
-    .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
-  return dated[0] || 'dailyPrep';
-}
-
-document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { active = t.dataset.key; render(); }));
+document.querySelectorAll('.market-card').forEach(c => c.addEventListener('click', () => selectMarket(c.dataset.market)));
+document.getElementById('backBtn').addEventListener('click', showMarkets);
 
 (async function load(){
-  const status = document.getElementById('status');
   try{
     const r = await fetch(DATA_PATH + '?v=' + Date.now(), {cache:'no-store'});
     if(!r.ok) throw new Error('data.json לא נמצא (' + r.status + ')');
     data = await r.json();
-    active = pickDefaultTab();
     document.getElementById('updatedLine').textContent = data.lastUpdated ? 'עודכן לאחרונה: ' + fmtDateTime(data.lastUpdated) : 'טרם פורסמה סקירה ראשונה';
-    status.textContent = '';
-    render();
   }catch(e){
-    status.textContent = 'שגיאה בטעינת data.json — ' + (e.message || e);
-    status.className = 'status error';
-    document.getElementById('screen').innerHTML = renderEmpty(active);
+    document.getElementById('updatedLine').textContent = 'שגיאה בטעינת data.json — ' + (e.message || e);
   }
+  // The landing view is always the market chooser (level 1).
+  showMarkets();
 })();
 </script>
 </body>

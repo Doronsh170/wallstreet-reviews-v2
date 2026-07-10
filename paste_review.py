@@ -39,13 +39,17 @@ DATA_JSON_KEY = {
     "daily_summary": "dailySummary",
     "weekly_summary": "weeklySummary",
     "intraday_update": "intradayUpdate",
+    "israel_prep": "israelPrep",
+    "israel_summary": "israelSummary",
 }
 
 # The intraday update summarizes the sources: bullet count is driven by the
 # material topics in the window, and a quiet window is a single bullet
 # ("אין מספיק עדכונים משמעותיים..."). The signature-style reviews target
 # 6-9 strong points — below 5 the chat skipped material and needs another round.
-MIN_BULLETS = {"intraday_update": 1}
+# The Israeli reviews are tweet-only, so a thin source day may legitimately yield
+# a short review (or the single "not enough material" bullet) — floor of 1.
+MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
