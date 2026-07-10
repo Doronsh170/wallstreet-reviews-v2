@@ -332,7 +332,11 @@ function shareWhatsApp(){
     '',
     '👈 לצפייה בסקירה המלאה: ' + location.href,
   ];
-  const url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(lines.join('\n'));
+  // wa.me is WhatsApp's canonical click-to-chat share link and works with no phone
+  // number: it opens WhatsApp with the text prefilled and a contact/group picker.
+  // The older api.whatsapp.com/send?text= form is unreliable without a phone —
+  // on desktop it lands on an interstitial and on mobile it often fails to deep-link.
+  const url = 'https://wa.me/?text=' + encodeURIComponent(lines.join('\n'));
   // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
   // where window.open('_blank') is often blocked or silently dropped.
   const a = document.createElement('a');
