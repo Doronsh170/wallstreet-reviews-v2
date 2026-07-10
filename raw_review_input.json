@@ -1,84 +1,12 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-07-10T20:25:23.562611+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שישי, 10.7.2026",
-  "first_heading": "נקודות מרכזיות",
+  "mode": "intraday_update",
+  "generated_at": "2026-07-10T20:27:01.881408+03:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 10.7.2026, 20:27",
+  "first_heading": "עדכון ביניים",
   "review_date": "2026-07-10",
   "title_date_str": "2026-07-10",
   "title_day_name": "שישי",
   "week_range": null,
-  "etf_pcts": {
-    "SPY": 0.306,
-    "QQQ": 0.3042,
-    "DIA": 0.2823,
-    "IWM": -0.434,
-    "XLE": -0.2371,
-    "XLK": 0.2913,
-    "XLF": 0.162,
-    "XLY": 0.5819,
-    "XLV": -0.9003,
-    "XLI": 0.6681,
-    "XLP": 1.0337,
-    "XLU": 0.2216,
-    "USO": -0.7247,
-    "BNO": -0.3794,
-    "GLD": -0.3808,
-    "SLV": -0.1662,
-    "IBIT": 1.1729,
-    "TLT": -0.0592,
-    "UUP": 0.0,
-    "VIXY": -1.778
-  },
-  "ticker_quotes": {
-    "SPCX": {
-      "price": 148.77,
-      "pct": -2.2279,
-      "prev_close": 152.16
-    },
-    "META": {
-      "price": 663.68,
-      "pct": 5.0991,
-      "prev_close": 631.48
-    },
-    "MU": {
-      "price": 993.45,
-      "pct": 0.1825,
-      "prev_close": 991.64
-    },
-    "CRCL": {
-      "price": 66.49,
-      "pct": 5.5229,
-      "prev_close": 63.01
-    },
-    "SNDK": {
-      "price": 1937.92,
-      "pct": 4.2862,
-      "prev_close": 1858.27
-    },
-    "NFLX": {
-      "price": 72.74,
-      "pct": -3.6173,
-      "prev_close": 75.47
-    },
-    "AMZN": {
-      "price": 245.09,
-      "pct": -0.7893,
-      "prev_close": 247.04
-    },
-    "CRM": {
-      "price": 162.89,
-      "pct": 0.24,
-      "prev_close": 162.5
-    },
-    "GOOGL": {
-      "price": 354.81,
-      "pct": -1.1368,
-      "prev_close": 358.89
-    },
-    "NVDA": {
-      "price": 209.95,
-      "pct": 3.5359,
-      "prev_close": 202.78
-    }
-  }
+  "etf_pcts": {},
+  "ticker_quotes": {}
 }
