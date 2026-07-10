@@ -1,7 +1,8 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-07-09 (יום חמישי). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
+Script run date: 2026-07-10 (יום שישי). Briefing target date: 2026-07-10 (יום שישי).
+The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,23 +19,27 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
+This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
+no closing levels, and nothing that already appears in the prior-context block.
+6-9 points TOTAL, opening with the market picture and closing with the bottom line:
+* FIRST point — the opening picture (headline like "סנטימנט מעורב בפתיחה" / "אופטימיות זהירה לקראת הפתיחה"):
+  futures direction and the mood heading into the session, plus the single most important backdrop theme.
+  Futures percentages ONLY if a specific futures figure appears in the sources — never copy an ETF
+  percentage as a futures percentage.
+* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the morning from the menu below —
   do NOT force every category, and never pad to reach a count:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
+    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
+  - The central story investors will watch today, with the transmission mechanism explained simply
+    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
+  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
+    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
+  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
+  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
+  - Geopolitics / Washington politics with market impact.
+  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
+* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
+No ETF proxies, no Finnhub, no ISO dates.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -52,6 +57,7 @@ Rules:
 - No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
+- NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
 - Never write "נתון בפועל עדיין לא קיים". If a figure has not been released yet, give only the forecast (צפי) and the previous reading (נתון קודם).
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
 - Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
@@ -60,16 +66,16 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום חמישי, 9.7.2026",
-  "date": "2026-07-09",
+  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שישי, 10.7.2026",
+  "date": "2026-07-10",
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "נקודות מרכזיות",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -106,17 +112,17 @@ DAILY PERFORMANCE:
   VIX Volatility (VIXY ETF): $20.81 (daily: -1.98%), prev close: $21.23
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
+  $MU: $991.64 (daily: +4.52%), prev close: $948.80
   $META: $631.48 (daily: +4.70%), prev close: $603.12
   $SPCX: $152.16 (daily: +2.60%), prev close: $148.30
-  $MU: $991.64 (daily: +4.52%), prev close: $948.80
-  $AMZN: $247.04 (daily: +1.40%), prev close: $243.62
-  $GOOGL: $358.89 (daily: -0.84%), prev close: $361.92
-  $NFLX: $75.47 (daily: -0.16%), prev close: $75.59
   $SNDK: $1858.27 (daily: +7.59%), prev close: $1727.18
-  $MSFT: $384.36 (daily: +0.27%), prev close: $383.34
+  $SHOP: $123.17 (daily: +3.31%), prev close: $119.22
+  $AMZN: $247.04 (daily: +1.40%), prev close: $243.62
   $CRM: $162.50 (daily: -2.45%), prev close: $166.58
+  $GOOGL: $358.89 (daily: -0.84%), prev close: $361.92
   $NVDA: $202.78 (daily: -0.66%), prev close: $204.12
   $ORCL: $144.22 (daily: +2.65%), prev close: $140.49
+  $SOXL: $192.45 (daily: +10.08%), prev close: $174.82
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): יורד (USO: -2.85%, BNO: -3.21%)
@@ -133,24 +139,23 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on 2026-07-10: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+══ SCHEDULED DATA CHECK ══
+Use web search to find what US economic data is scheduled for release on 2026-07-10.
+Include the release time in Israel time and the market consensus/forecast.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
 
-[נקודות מרכזיות]
-* אופטימיות זהירה לקראת הפתיחה: וול סטריט צפויה להיפתח בנימה חיובית-זהירה לאחר לילה שבו חוזי המדדים התאוששו על רקע סימני הרגעה בזירה מול איראן, כשהנשיא טראמפ מסר שאיראן פנתה אליו ומעוניינת מאוד בהסכם. מנגד, דיווחים על גל נוסף של טילים ומזל"טים איראניים לעבר מדינות המפרץ ממתנים את ההקלה ומשאירים את פרמיית הסיכון על כנה. במקביל, מדד התנאים הפיננסיים בארה"ב טיפס לרמה הנוחה ביותר מאז פברואר 2026, רקע תומך שממשיך להזרים אוויר לשווקים.
-* איראן והנפט במוקד: הסיפור המרכזי שיכתיב את מצב הרוח היום הוא משיכת החבל בין הסלמה להרגעה במפרץ הפרסי, לאחר סבב התקיפות האמריקאי במיצר הורמוז והתגובה האיראנית. מחירי הנפט, שזינקו בחדות אתמול עם עלייה של מעל 3% ב-WTI ומעל 3.9% בברנט על רקע החשש להפרעה בשיט, נותרים גבוהים ותנודתיים לפני הפתיחה. כל אות להרגעה עשוי לשחרר לחץ ממחירי האנרגיה ומהחשש האינפלציוני, בעוד החרפה מחודשת תחזיר את הבריחה מסיכון.
-* לוח מאקרו דל עם תביעות אבטלה: יומן הנתונים היום דליל יחסית, כשנתוני תביעות האבטלה השבועיות ב-15:30 שעון ישראל הם אירוע המאקרו המרכזי שהמשקיעים יעקבו אחריו לאיתות על עוצמת שוק העבודה. הרקע המוניטרי נותר נצי, מה שמחדד את רגישות השוק לכל הפתעה בנתון. בהיעדר פרסום כבד אחר, תגובת תשואות האג"ח לתביעות האבטלה עשויה להכתיב את הטון למניות הצמיחה.
-* מגזר זיכרון השבבים בזרקור: גל של חדשות חיוביות ממשיך להזין את מניות זיכרון השבבים לפני הפתיחה, כשמכירות הזיכרון העולמיות שברו שיא של 74.6 מיליארד דולר נעים בתנודתיות של 31.7% מהחודש הקודם, בהובלת קפיצה של 40.7% במכירות ה-NAND. בתי ההשקעות UBS וברנשטיין צופים המשך עליית מחירים, כש-UBS מעריך זינוק של 32% במחירי ה-DRAM ברבעון השלישי ורואה שוק במחסור מבני עד 2028. מיקרון (MU) וסאנדיסק (SNDK) נמצאות במוקד, גם על רקע הביקוש החזק בהנפקת SK Hynix שזכתה לביקושי יתר של פי שבעה.
-* מניית קומפורט סיסטמס (FIX): גולדמן זאקס פתחה סיקור על המניה בהמלצת קנייה ויעד מחיר של 2,159 דולר, ומיצבה אותה כמוטב טהור מהזנקת ההשקעות במרכזי נתונים. לפי הבנק, מרכזי נתונים ושבבים מהווים 56% ממכירות החברה, והוא צופה צמיחה אורגנית שנתית של כ-23% עד 2028 בזכות חשיפתה הגבוהה לטקסס. הסיקור מדגיש כיצד מגמת ה-AI מקרינה מעבר ליצרניות השבבים אל שרשרת התשתית הפיזית שמאחוריהן.
-* מניית אלנילם (ALNY): מניית חברת התרופות מטפסת לפני הפתיחה דווקא בזכות כישלון של מתחרה, לאחר שניסוי שלב 3 של איוניס (IONS) ואסטרהזניקה (AZN) בטיפול במחלת לב מסוג ATTR-CM החטיא את נקודת הסיום העיקרית ולא הפחית תמותה ואירועים קרדיווסקולריים. הכישלון מסיר איום תחרותי מהותי מעל תחום הליבה של אלנילם ומחזק את מעמדה בשוק. עבור המשקיעים זו תזכורת עד כמה מפת התחרות בביוטק יכולה להתהפך מתוצאה קלינית בודדת.
-* שורה תחתונה: כיוון המסחר היום ייקבע בעיקר בזירת איראן, והשאלה אם קו ההרגעה שאותת טראמפ יחזיק ויוריד את מחירי הנפט או שההסלמה תתחדש ותחזיר את הלחץ למניות הצמיחה. במקביל, המשקיעים יעקבו אחר נתוני תביעות האבטלה ב-15:30 שעון ישראל ואחר השאלה אם העוצמה במניות השבבים והתשתית תצליח למשוך את השוק כלפי מעלה חרף הרקע המאקרו הנצי.
+[סיכום המסחר]
+* יום ירוק בהובלת הטכנולוגיה: וול סטריט ננעלה בעליות רוחביות כשמדד נאסד"ק 100 הוביל עם זינוק של כ-1.66%, ה-S&P 500 הוסיף כ-0.85% והדאו ג'ונס פיגר עם עלייה מתונה של 0.27% בלבד. את הטון נתנו מניות השבבים והטכנולוגיה על רקע נסיגה חדה במחירי הנפט שהרגיעה את חששות האינפלציה, בעוד מדד ראסל 2000 של המניות הקטנות טיפס כ-1.28% באות לתיאבון סיכון מחודש. הפער בין המדדים ממחיש יום שבו הכסף זרם דווקא אל הצמיחה ולא אל ההגנתיות.
+* מניות זיכרון השבבים ממשיכות לתדלק את השוק: מיקרון (MU) זינקה כ-4.52% לאחר שהודיעה על השקעה של עד 3 מיליארד דולר בחיזוק שרשרת האספקה האמריקאית והעלתה את יעד ההשקעה שלה בארה"ב לכ-250 מיליארד דולר עד 2035, מהלך שצפוי ליצור מעל 90 אלף משרות. סאנדיסק (SNDK) הוסיפה כ-7.59% והובילה את המגזר, על רקע דיווחים ששר המסחר לוטניק דוחק בסמסונג וב-SK Hynix להרחיב ייצור זיכרון בארה"ב וביקושי ענק של קרוב ל-200 מיליארד דולר בהנפקת ה-ADR של SK Hynix. ההתלהבות התבטאה גם בזרימות שיא לקרנות השבבים, בסימן שהמשקיעים ממשיכים לקנות את הסיפור האגרסיבי של מחזור הזיכרון.
+* מניית מטא (META): המניה זינקה כ-4.70% ובלטה בין ענקיות הטכנולוגיה, לאחר שסקירת עומק הציגה את מרוץ ה-Superintelligence של החברה כמי שעשוי להפוך אותה לשחקנית AI ברמה עולמית בכל החזיתות: דאטה, כישרון וכוח מחשוב. במקביל אמר מנכ"ל החברה מארק צוקרברג כי היצע כוח המחשוב מייצר הצעות כה גבוהות עד שבמקרים מסוימים ייתכן שיהיה הגיוני להשכיר אותו, ורמז על בחינת כניסה לעסקי ענן ה-AI. המהלכים האלה, לצד תוכניות להקמת מרכז נתונים ראשון בקנדה בהשקעה של 10 מיליארד דולר, חיזקו את התפיסה שמטא ממנפת את התשתית שלה למנוע צמיחה נוסף.
+* הנפט צנח והרגיע את חששות האינפלציה: מחירי הנפט ירדו בחדות ביום המסחר, כש-WTI איבד כ-2.85% וברנט צנח כ-3.21%, בנסיגה מהזינוק החד של אתמול על רקע סימני הרגעה בזירה מול איראן. הירידה גררה את מגזר האנרגיה כלפי מטה עם ירידה של כ-1.40%, אך עבור השוק הרחב היא דווקא בשורה חיובית, שכן נפט זול יותר מקל על הלחץ האינפלציוני ומחזק את ההימור על ריכוך המדיניות. ההקלה במחירי האנרגיה תרמה ישירות לתיאבון הסיכון שאפיין את המסחר.
+* אשראי צרכני מתכווץ וציפיות האינפלציה יורדות: נתון האשראי הצרכני בארה"ב הפתיע לרעה כשירד ב-182 מיליון דולר במאי, הירידה החודשית הראשונה מאז נובמבר 2024 ורחוקה מאוד מהצפי לעלייה של כ-17.5 מיליארד דולר, כשרכיב האשראי המתגלגל (כרטיסי אשראי) צלל ב-5.3 מיליארד דולר. במקביל, ההסתברות המשתמעת מהשווקים לאינפלציה מעל 4.5% ב-2026 צנחה לשפל של 19% בלבד, לעומת 85% רק לפני שבעה שבועות. הצירוף של צרכן זהיר יותר וציפיות אינפלציה מתמתנות מספק רקע תומך לשוק, גם אם הוא מסמן היחלשות אפשרית בביקושים.
+* ריכוזיות שיא וגל גיוסי חוב סביב ה-AI: עשר המניות הגדולות מהוות כעת כ-43% משווי השוק של ה-S&P 500, סמוך לשיא של כל הזמנים, נתון שממחיש עד כמה חופן מצומצם של שמות מניע את המדד כולו. במקביל, מרוץ ההשקעות ב-AI מזין גל חסר תקדים של גיוסי חוב, כשאמזון, אלפאבית, אנבידיה, מטא, אורקל ו-SpaceX גייסו יחד כ-182 מיליארד דולר באג"ח בדירוג השקעה מתחילת השנה, זינוק של מעל 1,300% מול התקופה המקבילה אשתקד. עבור המשקיעים זו תזכורת כפולה, לעוצמת מגמת ה-AI מצד אחד ולתלות הגוברת של השוק בקבוצה קטנה של ענקיות מצד שני.
+* תיאבון סיכון על פני הגנה: מפת המגזרים שיקפה יום ריסק-און מובהק, כשהטכנולוגיה זינקה כ-2.18% והפיננסים הוסיפו כ-1.04%, בעוד המגזרים ההגנתיים פיגרו עם ירידה של כ-1.41% בצריכה הבסיסית וכ-0.51% במגזר התשתיות (יוטיליטיס). מדד הפחד VIX ירד כ-1.98% והביטקוין עלה כ-1.65%, אך במקביל גם הזהב טיפס כ-1.00% והכסף זינק כ-2.48%, עדות לביקוש מתמשך למתכות היקרות חרף האווירה החיובית. השילוב מצייר שוק שרודף צמיחה אך עדיין שומר על עוגני חוסן.
+* שורה תחתונה למחר: המשקיעים ייכנסו ליום המסחר הבא כשהשאלה המרכזית היא אם מומנטום השבבים והטכנולוגיה יחזיק, ובראשו התגובה להמשך גל ההשקעות בזיכרון וב-AI. במקביל יעקבו אחר התפתחות הזירה מול איראן והשפעתה על הנפט, ואחר סימנים נוספים להיחלשות הצרכן לאחר נתון האשראי החלש. בשוק כה ריכוזי, כל תפנית באחת מהענקיות המובילות עלולה להכתיב את כיוון המדדים כולם.
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-10. Never mention in the review that these came from tweets/posts:
@@ -167,29 +172,29 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-10. Never mention in t
 
 @gurgavin [Thu Jul 09 16:52:48 +0000 2026]: SOMEONE JUST FILED FOR A S&amp;P 500 &amp; NASDAQ 100 ETF THAT EXCLUDES ONLY ELON MUSK’S COMPANIES THE FUNDS ARE CALLED EX-ELON ENTERPRISES ETF THE FUND EXCLUDES ANY COMPANY “FOUNDED, CONTROLLED, OR LED” BY MUSK CITING GOVERNANCE CONCERNS &amp; POLITICAL RISK $SPNE $QQNE
 
-@wallstengine [Thu Jul 09 19:55:42 +0000 2026]: SemiAnalysis is out with a deep dive on $META Superintelligence, and they’re clearly impressed with Meta’s pace of improvement. They think Meta may be the only major AI player on track to be world-class across data, talent, and compute. Meta has reportedly turned its internal workforce into an RL data engine, with around 3,000 engineers working on RL tasks/environments, while also building five 1GW+ “titan” compute clusters. SemiAnalysis says Meta’s compute ramp could give it more AI compute than OpenAI and Anthropic by year-end, while its scale-across networking could connect campuses up to 2,000 km apart. Muse Spark 1.1 still is not at OpenAI or Anthropic level, but the note says Meta could catch or pass Google within 6 months if the current ramp holds.
+@StockMKTNewz [Thu Jul 09 23:31:38 +0000 2026]: NOTE FOR SK HYNIX TOMORROW SK Hynix will begin trading tomorrow under the ticker SKHYV On Monday SK Hynix will switch over to its actual ticker $SKHY I'm also hearing the leveraged single stock SK Hynix ETFs will begin trading on Tuesday I believe that also means the options chain for SK Hynix will be launching on Wednesday of next week the earliest
 
 @gurgavin [Wed Jul 08 00:06:20 +0000 2026]: RAYMOND JAMES SAYS SPACEX SHOULD BE WORTH $800 1 YEAR FROM NOW THAT VALUES SPACEX AT $10 TRILLION DOLLARS WHAT ARE THEY ON ??? $SPCX
 
-@StockMKTNewz [Thu Jul 09 19:20:47 +0000 2026]: Meta Platforms $META CEO Mark Zuckerberg just said today: "The offers that you get for using the compute are so high that it may make sense, in some cases, to rent out or consider those kind of deals instead of your own internal uses"
-
-@StockMKTNewz [Thu Jul 09 19:12:52 +0000 2026]: All these stocks hit new 52 WEEK HIGHS at some point today Cloudflare $NET UnitedHealth $UNH Arista Networks $ANET BridgeBio Pharma $BBIO Crinetics $CRNX Mizuho $MFG CSX Corp $CSX Bank of New York Mellon $BNY Dianthus Therapeutics $DNTH Xenon Pharmaceuticals $XENE Royalty Pharma $RPRX Aramark Holdings $ARMK Valero Energy $VLO PBF Energy $PBF State Street $STT Nomura Holdings $NMR Marathon Petroleum $MPC Nuvalent $NUVL Expeditors International $EXPD Chart Industries $GTLS Rush Street Interactive $RSI Life Time Group Holdings $LTH Revolution Medicines $RVMD Laureate Education $LAUR VOYA Financial $VOYA TG Therapeutics $TGTX Brinker International $EAT Manulife Financial $MFC Canadian National Railway $CNI Sumitomo Mitsui $SMFG Neurocrine Biosciences $NBIX Millicom International Cellular $TIGO Incyte $INCY Elevance Health $ELV Corcept Therapeutics $CORT Immunovant $IMVT Virtu Financial $VIRT PTC Therapeutics $PTCT Hinge Health $HNGE First Industrial Realty Trust $FR Scholar Rock Holding $SRRK Northern Trust $NTRS Glaukos $GKOS Ascendis Pharma ADR $ASND SEI Investments $SEIC F5 $FFIV Mirum Pharmaceuticals $MIRM Protagonist Therapeutics $PTGX Jazz Pharmaceuticals $JAZZ
-
-@wallstengine [Thu Jul 09 21:12:08 +0000 2026]: Netflix is reportedly exploring live TV-style channels and streaming bundles as subscriber engagement shows signs of decline, per WSJ. $NFLX is also looking at more event-based sports, including possible bids for the 2030 and 2034 World Cup. Executives have discussed adding continuous live channels for certain genres or programs, and potentially selling other streamers like Peacock inside the Netflix app. Key numbers: Netflix’s TV viewership share fell to 7.8% in April, its lowest since May 2025. Its ad business generated about $1.5B last year, with Netflix expecting ad revenue to double this year.
+@KobeissiLetter [Fri Jul 10 01:05:23 +0000 2026]: Corporate insiders are buying tech stocks at a record pace: 28 executives at companies within the US technology sector ETF, $XLK, have purchased their own stock on the open market over the last 6 months, the highest count on record, according to SentimenTrader. This figure has DOUBLED since the start of 2026. This also surpasses the previous record of 25 insiders set in 2011. By comparison, in early 2025, just 5 executives were buyers. US executives are rushing to buy tech stocks.
 
 @KobeissiLetter [Thu Jul 09 16:46:25 +0000 2026]: BREAKING: Anthropic has appointed former Fed Chair Ben Bernanke to its governance board. https://t.co/eRoRcoWSWY
 
 @gurgavin [Wed Jul 08 18:08:57 +0000 2026]: FOMC MEETING MINUTES ARE OUT *ALL FOMC PARTICIPANTS SUPPORTED KEEPING INTEREST RATES UNCHANGED, THOUGH A FEW SAW A CASE FOR A RATE HIKE *FED STAFF RAISED THEIR 2026–2027 INFLATION FORECASTS, LOWERED GDP GROWTH PROJECTIONS, AND SAW UPSIDE RISKS TO PRICE STABILITY
 
-@AIStockSavvy [Thu Jul 09 18:11:50 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Amazon offering lower shipping rates than UPS and FedEx - Report - $UPS $FDX $AMZN
+@wallstengine [Fri Jul 10 08:16:45 +0000 2026]: Stifel Upgrades $TWLO to Buy from Hold, Raises PT to $260 from $175 Analyst comments: "Admittedly, we've been late to the party, but we believe the company has the right tools in place to capitalize on the AI cycle through its Conversations portfolio, Communications, and Data offerings, and drive durable growth on the back of its recently accelerating trajectory. Through a combination of significant restructuring efforts and refocusing the platform and research and development investment around its core competencies and AI innovation, Twilio finds itself in the right place at exactly the right time. We expect the seeds of agentic AI investments being made by the company's customer base to begin bearing meaningful fruit as voice agents proliferate and help solidify Twilio's positioning as the key infrastructure provider for agentic customer engagement." Analyst: J. Parker Lane
+
+@wallstengine [Fri Jul 10 07:57:49 +0000 2026]: Today's Key Events (All EST) — 07/10/2026 04:00: IEA Monthly Oil Report 13:00: US Baker Hughes Total Rig Count Before Open 👇 06:30: Delta Air Lines $DAL
 
 @wallstengine [Thu Jul 09 23:02:35 +0000 2026]: Stifel Upgrades $SHOP to Buy, Raises PT to $150 from $110; realistic path to 30%+ revenue growth Analyst comments: "We believe the company will continue to execute its share-gaining playbook in the e-commerce space through legacy replatforming, enterprise, B2B, international, and payments, while extending its leadership through agentic commerce and compounding GMV at a multiple of the broader e-commerce market. Based on our survey work and industry conversations, we see a realistic path to 30%+ revenue growth in 2026 and sustained mid-20% growth beyond. With shares down ~23% YTD versus IGV down 11%, and agentic commerce still in its infancy, we see an attractive entry point for a high-quality compounder with a widening moat and multiple growth levers, combined with a highly disciplined operating model and capital-allocation strategy that give the company flexibility in a rapidly evolving landscape." Analyst: J. Parker Lane
+
+@StockMKTNewz [Fri Jul 10 00:08:55 +0000 2026]: Cathie Wood and Ark Invest bought 34,080 shares of Meta Platforms $META today https://t.co/df1vHqqXY1
+
+@KobeissiLetter [Thu Jul 09 22:22:49 +0000 2026]: BREAKING: Total US oil product exports surged to a record 8.7 million barrels per day last week. The increase was led by propane, followed by diesel, gasoline, and jet fuel cargoes. Most US diesel exports are headed to Brazil and the rest of South America, while ~14% is bound for Europe. Since March, US oil product exports have risen +2.0 million barrels per day, or +30%. By comparison, in early 2022, refined product shipments briefly fell below 4.0 million barrels per day. This comes despite weekly crude oil exports declining -3.1 million barrels per day from their April peak, to 3.3 million barrels per day, close to the average levels seen over the last 2 years. Global demand for American fuel is skyrocketing.
 
 @KobeissiLetter [Thu Jul 09 20:34:59 +0000 2026]: BREAKING: US consumer credit fell -$182 million in May, the first monthly decline since November 2024. This was significantly below expectations of a +$17.5 billion increase and followed a +$20.8 billion increase in April. The decline was driven by revolving credit, which includes credit cards, plunging -$5.3 billion, the 2nd-largest monthly drop since November 2020. This comes after a +$11.5 billion and +$10.7 billion increase in April and March. At the same time, non-revolving credit, which includes auto and student loans, jumped +$5.1 billion, the smallest monthly increase since February. Meanwhile, the average interest rate on credit cards rose to 22.15%, near the highest on record. Is consumer borrowing reaching a tipping point?
 
 @KobeissiLetter [Thu Jul 09 17:40:12 +0000 2026]: BREAKING: The odds of inflation rising above 4.5% in 2026 fall to a new low of just 19%. Just 7 weeks ago, there was an 85% chance of inflation rising above 4.5% this year. Inflation expectations are coming down again. https://t.co/DUtGNKWCEl
-
-@KobeissiLetter [Thu Jul 09 14:01:30 +0000 2026]: BREAKING: The top 10 US stocks now account for 43% of the S&P 500’s market cap, near the highest on record. This percentage has been at or above 40% for the last 12 months. Over the last 10 years, the top 10's weighting in the S&P 500 has more than DOUBLED. At the same time, the proportion of the 250 smallest companies has halved, to ~7%, the lowest since at least 2014. To put this differently, the top 10 now account for more than 6 times the market cap of the smallest 250 firms in the S&P 500 index. A handful of stocks continue to effectively drive the entire market.
 
 @KobeissiLetter [Thu Jul 09 02:16:09 +0000 2026]: BREAKING: President Trump says Iran called him and “they want to make a deal so badly.” US stock market futures turn green on the news. https://t.co/1MkYnxxkCK
 
@@ -197,27 +202,25 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-10. Never mention in t
 
 @gurgavin [Wed Jul 08 09:16:40 +0000 2026]: FUTURES UPDATE S&amp;P 500 DOWN 1.1% 📉 DOW JONES DOWN 1.4% 📉 NASDAQ 100 DOWN 1.6% 📉
 
+@StockMKTNewz [Fri Jul 10 01:45:35 +0000 2026]: RT @StockMKTNewz: Micron $MU said it now expects to invest $250 Billion in the United States 🇺🇸 through 2035 https://t.co/ayEDOKTN93
+
+@AIStockSavvy [Fri Jul 10 02:57:00 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Tencent Is in Talks to Become the Largest Shareholder of Manus as Investors Race to Unwind $META Meta’s $2Bn Acquisition - FT
+
+@AIStockSavvy [Fri Jul 10 01:20:44 +0000 2026]: SK Hynix: Plans to Raise ₩40 Trillion in ADR Listing, Down From Previous ₩43 Trillion - $SKHY $MU $SNDK SK Hynix announced that it plans to raise 400 trillion Korean won (about $26.5 billion) in its ADR listing, previously set at 430 trillion Korean won.
+
+@AIStockSavvy [Fri Jul 10 00:35:05 +0000 2026]: $AVAV | Canaccord maintains 𝐁𝐮𝐲 on 𝐀𝐞𝐫𝐨𝐕𝐢𝐫𝐨𝐧𝐦𝐞𝐧𝐭, 𝐜𝐮𝐭𝐬 𝐏𝐓 𝐭𝐨 $𝟐𝟒𝟎 Analyst sees AVAV's multi-year outlook as highly dependent on the appropriation of significant defense reconciliation and supplemental war funding. https://t.co/oFAJFcUmkt
+
 @AIStockSavvy [Thu Jul 09 21:13:15 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: Lutnick urges Samsung, SK Hynix to boost US memory-chip capacity - $SKHY $MU $SNDK US Commerce Secretary Lutnick urged Samsung and SK Hynix to expand memory-chip production in the United States to help ease global shortages of AI-critical components. He confirmed he is in talks with the two Korean manufacturers but did not disclose details. Lutnick acknowledged Micron CEO Mehrotra may object to rivals expanding in the US, but said strengthening the US chip supply chain requires bringing Samsung and SK Hynix to build fabs onshore; he noted Micron currently leads and competitors will likely follow.
-
-@AIStockSavvy [Thu Jul 09 18:47:45 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Goldman Bans Staff From Prediction-market Bets On Finance, War - Bloomberg - $DKNG $FLUT
-
-@AIStockSavvy [Thu Jul 09 18:22:05 +0000 2026]: $META | Meta doesn't have an excess of computing capacity, but exploring an AI cloud business still make sense - Mark tells Bloomberg - $NBIS $IREN $CRWV
-
-@AIStockSavvy [Thu Jul 09 18:10:41 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $META Meta's Zuckerberg Says Exploring AI Cloud Business Makes Sense - Bloomberg interview.
-
-@AIStockSavvy [Thu Jul 09 18:10:02 +0000 2026]: Anthropic is leader in AI - Elon Musk - $SPCX $AMZN $GOOGL $META $MSFT
-
-@AIStockSavvy [Thu Jul 09 17:06:04 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: OpenAI launched ChatGPT Work, powered by GPT-5.6, its latest frontier model series. The new ChatGPT desktop app integrates chat, work functions and CODEX. - $MSFT $GOOGL $META
 
 @wallstengine [Thu Jul 09 22:46:54 +0000 2026]: $WDFC Q3' 26 EARNINGS HIGHLIGHTS 🔹 Revenue: $195.1M (Est. $172.8M) 🟢; +24% YoY 🔹 Adj. EPS: $2.33 (Est. $1.56) 🟢; +51% YoY 🔹 Gross Margin: 56.6%; +40 bps YoY 🔹 Operating Income: $40.3M; +47% YoY FY26 Guide: 🔹 Revenue: $675M-$690M (Est. $642.5M) 🟢 🔹 EPS: $6.05-$6.35 (Est. $5.95) 🟢 🔹 Gross Margin: 54.5%-55.5% 🔹 Non-GAAP Operating Income: $107M-$113M Segment Net Revenue: 🔹 Americas: $101.2M; +29% YoY 🔹 EIMEA: $66.6M; +17% YoY 🔹 Asia-Pacific: $27.3M; +24% YoY Comments: 🔸 “We delivered an exceptional third quarter, with net sales increasing 24% and operating income increasing 47%, demonstrating the operating leverage inherent in our business model.” 🔸 “Our strong performance was driven by double-digit growth across all three trade blocs and continued progress in our Must-Win Battles, delivering solid double-digit year-to-date growth in geographic expansion, WD-40 Specialist, premiumized products, and e-commerce.”
 
-@wallstengine [Thu Jul 09 22:21:44 +0000 2026]: Reuters:$CCC Intelligent Solutions is exploring a sale and has hired Morgan Stanley to advise, sources said. The Chicago-based software and AI workflow tools provider has reached out to potential buyers, including private equity firms. https://t.co/xewhjJCCdA
-
-@wallstengine [Thu Jul 09 20:01:33 +0000 2026]: Activist Toms is reportedly growing impatient with the pace of Devon Energy $DVN management’s actions and wants the company to shed assets. The investor is said to be considering all options to push Devon for faster changes.
-
-@StockMKTNewz [Thu Jul 09 18:12:34 +0000 2026]: The battle of the AIs https://t.co/ZSkSI2JFo6
-
 @gurgavin [Wed Jul 08 08:19:57 +0000 2026]: *TRUMP SAYS IRAN CEASE FIRE IS OVER HERE WE GO AGAIN
+
+@AIStockSavvy [Fri Jul 10 00:35:53 +0000 2026]: $META
+
+@AIStockSavvy [Fri Jul 10 00:14:23 +0000 2026]: Jim Cramer on $LMND Lemonade : “I wish they could make some money ... That would make it into a better stock and a better company.”
+
+@AIStockSavvy [Thu Jul 09 23:44:44 +0000 2026]: $SHOP | Stifel 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐒𝐡𝐨𝐩𝐢𝐟𝐲 to 𝐁𝐮𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟏𝟓𝟎 𝐟𝐫𝐨𝐦 $𝟏𝟏𝟎 Analyst sees an attractive entry point for a high-quality compounder, citing a path to 30%+ revenue growth in 2026 and a widening moat. https://t.co/uZKscjvrjq
 
 @AIStockSavvy [Thu Jul 09 21:48:49 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: citing people familiar with the matter, reports Israel has provided the U.S. with new intelligence that Iran may be considering a new plot to assassinate Trump. - WSJ - $QQQ $SPY $USO
 
@@ -229,10 +232,12 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-10. Never mention in t
 
 @wallstengine [Thu Jul 09 22:58:54 +0000 2026]: Fermi $FRMI fell 14% after-hours after launching a $350M private offering of convertible senior notes due 2031. Promo: Seeking Alpha is running a sale right now. If you read financial news, market research, or stock analysis regularly, it’s worth checking out: Affiliate link: https://t.co/7y9sYjpa9i
 
-@KobeissiLetter [Thu Jul 09 22:22:49 +0000 2026]: BREAKING: Total US oil product exports surged to a record 8.7 million barrels per day last week. The increase was led by propane, followed by diesel, gasoline, and jet fuel cargoes. Most US diesel exports are headed to Brazil and the rest of South America, while ~14% is bound for Europe. Since March, US oil product exports have risen +2.0 million barrels per day, or +30%. By comparison, in early 2022, refined product shipments briefly fell below 4.0 million barrels per day. This comes despite weekly crude oil exports declining -3.1 million barrels per day from their April peak, to 3.3 million barrels per day, close to the average levels seen over the last 2 years. Global demand for American fuel is skyrocketing.
-
 @gurgavin [Thu Jul 09 16:37:14 +0000 2026]: *ANTHROPIC ADDS 2008 CRISIS-ERA FED CHAIR BERNANKE TO GOVERNANCE BOARD
 
 @StockMKTNewz [Thu Jul 09 19:53:40 +0000 2026]: 🇺🇸 Fed Chair Kevin Warsh has picked all of his task forces
+
+@StockMKTNewz [Thu Jul 09 20:50:31 +0000 2026]: Someone just filed for a Nasdaq 100 and S&amp;P 500 that owns everyone EXCEPT Elon Musk owned companies
+
+@gurgavin [Wed Jul 08 17:23:48 +0000 2026]: THE IRAN WAR IS NEVER GONNA END ISNT IT
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
