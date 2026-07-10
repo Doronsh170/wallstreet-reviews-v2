@@ -98,6 +98,18 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 .summary li{margin:5px 0;line-height:1.55;unicode-bidi:plaintext}
 .summary li b{color:var(--ink);font-weight:700}
 
+/* ── Reveal full review ── */
+.reveal{
+  display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+  appearance:none;border:1px solid var(--desk);background:var(--desk);color:#fff;
+  border-radius:10px;padding:11px 18px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;
+  transition:background .15s;
+}
+.reveal:hover{background:#0b2f39}
+.reveal:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.reveal::after{content:"▾";font-size:12px;line-height:1}
+.reveal[aria-expanded="true"]::after{content:"▴"}
+
 /* ── How-to strip ── */
 .howto{margin:0 0 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);font-size:14px}
 .howto summary{cursor:pointer;padding:10px 14px;color:var(--ink-soft);font-weight:500;list-style-position:inside}
@@ -127,7 +139,9 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 @media print{
-  .tabs,.actions,.status,.updated{display:none!important}
+  .tabs,.actions,.status,.updated,.reveal{display:none!important}
+  /* The full review is collapsed on screen but must always print in full. */
+  #fullReview{display:block!important}
   body{background:#fff;font-size:14.5px}
   .card{box-shadow:none;border:none;padding:0}
   .masthead{padding-top:0}
@@ -226,8 +240,18 @@ function condense(body){
   return words.length > 20 ? words.slice(0,20).join(' ') + '…' : first;
 }
 
-/* Summary of every point: the topic label (bold) plus a condensed gist of the point */
+/* Summary of every point. Prefer the AUTHORED summary written with the review
+   (a real one-line distillation per point). Fall back to deriving a gist from
+   the full bullets for older reviews that have no authored summary. */
 function summariesOf(review){
+  if(Array.isArray(review.summary) && review.summary.length){
+    return review.summary.map(item => {
+      const line = stripCtl(item).trim().replace(/^\*\s+/,'').replace(/^[•■\-–—]\s+/,'');
+      const m = line.match(/^([^:：]{2,40})[:：]\s+(.+)$/s);
+      if(m) return {label: m[1], text: m[2].trim()};
+      return {label: '', text: line};
+    }).filter(s => s.text);
+  }
   return bulletsOf(review).map(line => {
     const m = line.match(/^([^:：]{2,40})[:：]\s+(.+)$/s);
     if(m) return {label: m[1], text: condense(m[2])};
@@ -251,35 +275,38 @@ function renderReview(review, key){
       <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}</div>
     </div>`;
   const summaries = summariesOf(review);
-  // The condensed summary opens the review — it appears first, above the full points.
+  // The summary opens the review. The full points sit below it, collapsed behind
+  // a button, so the reader gets the gist first and expands for the full text.
   if(summaries.length){
     html += `<div class="summary" id="summaryBox">
       <h4>תקציר הנקודות</h4>
       <ol>${summaries.map(s => `<li>${s.label ? `<b>${esc(s.label)}:</b> ` : ''}${esc(s.text)}</li>`).join('')}</ol>
     </div>`;
   }
-  html += bullets.length
-    ? `<ul class="bullets">${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`
-    : `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
+  if(bullets.length){
+    html += `<button class="reveal" id="fullReviewBtn" onclick="toggleFullReview(this)" aria-expanded="false" aria-controls="fullReview">הצג את הסקירה המלאה</button>`;
+    html += `<ul class="bullets" id="fullReview" hidden>${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`;
+  }else{
+    html += `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
+  }
   html += `<div class="actions">
       <button class="primary" onclick="window.print()">שמירה ל-PDF</button>
-      ${summaries.length ? `<button id="summaryBtn" onclick="toggleSummary(this)" aria-expanded="true">הסתרת התקציר</button>` : ''}
       <button onclick="shareWhatsApp()">שליחה בווטסאפ</button>
     </div>`;
   return html;
 }
 
-function toggleSummary(btn){
-  const box = document.getElementById('summaryBox');
+function toggleFullReview(btn){
+  const box = document.getElementById('fullReview');
   if(!box) return;
   if(box.hasAttribute('hidden')){
     box.removeAttribute('hidden');
-    btn.textContent = 'הסתרת התקציר';
+    btn.textContent = 'הסתר את הסקירה המלאה';
     btn.setAttribute('aria-expanded','true');
     box.scrollIntoView({behavior:'smooth',block:'nearest'});
   }else{
     box.setAttribute('hidden','');
-    btn.textContent = 'תקציר הנקודות';
+    btn.textContent = 'הצג את הסקירה המלאה';
     btn.setAttribute('aria-expanded','false');
   }
 }

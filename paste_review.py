@@ -183,6 +183,10 @@ def extract_first_json_object(text: str) -> Dict[str, Any]:
 def apply_to_result_texts(result: Dict[str, Any], fn) -> Dict[str, Any]:
     if isinstance(result.get("title"), str):
         result["title"] = fn(result["title"])
+    # The authored summary (one short point per story) goes through every text
+    # fix and guard exactly like the bullets do.
+    if isinstance(result.get("summary"), list):
+        result["summary"] = [fn(x) if isinstance(x, str) else x for x in result["summary"]]
     for section in result.get("sections", []) or []:
         if isinstance(section.get("heading"), str):
             section["heading"] = fn(section["heading"])
@@ -196,6 +200,8 @@ def apply_to_result_texts(result: Dict[str, Any], fn) -> Dict[str, Any]:
 
 def review_text_blob(result: Dict[str, Any]) -> str:
     texts = [str(result.get("title") or "")]
+    if isinstance(result.get("summary"), list):
+        texts.extend(str(x) for x in result["summary"])
     for section in result.get("sections", []):
         c = section.get("content", "")
         texts.append("\n".join(str(x) for x in c) if isinstance(c, list) else str(c))
@@ -257,6 +263,31 @@ def enforce_structure(result: Dict[str, Any], first_heading: str, expected_title
     if len(sections) != 1 or converted:
         print(f"  ✅ Sections normalized: {len(sections)} → 1; bottom-line sections folded into a closing bullet: {converted}")
     result["sections"] = [{"heading": first_heading, "content": normalize_bullets("\n".join(merged_parts))}]
+    return result
+
+
+def normalize_summary(result: Dict[str, Any]) -> Dict[str, Any]:
+    """The optional authored summary is a list of short one-line points (one per
+    story) shown on the site above the full review. Keep it only if it is a clean
+    list of non-empty strings, stripping any leading bullet marks — otherwise drop
+    it so the site falls back to deriving a gist from the full bullets."""
+    summ = result.get("summary")
+    if not isinstance(summ, list):
+        if summ is not None:
+            result.pop("summary", None)
+        return result
+    cleaned = []
+    for item in summ:
+        if not isinstance(item, str):
+            continue
+        line = re.sub(rf'^\s*(?:\*|{BULLET_CHARS}|-)\s+', '', item.strip())
+        if line:
+            cleaned.append(line)
+    if cleaned:
+        result["summary"] = cleaned
+        print(f"  ✅ Authored summary kept ({len(cleaned)} points)")
+    else:
+        result.pop("summary", None)
     return result
 
 
@@ -396,6 +427,8 @@ def apply_market_direction_guard(result: Dict[str, Any], pcts: Dict[str, float])
     for section in result.get("sections", []):
         if isinstance(section.get("content"), str):
             section["content"] = fix_text(section["content"])
+    if isinstance(result.get("summary"), list):
+        result["summary"] = [fix_text(x) if isinstance(x, str) else x for x in result["summary"]]
     return result
 
 
@@ -562,6 +595,7 @@ def main() -> None:
 
     print("\n── Structure enforcement ──")
     result = enforce_structure(result, first_heading, expected_title)
+    result = normalize_summary(result)
 
     print("── Text fixes ──")
     result = strip_meta_and_markdown(result)

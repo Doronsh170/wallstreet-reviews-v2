@@ -918,6 +918,7 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
 {{
   "title": "{expected_title}",
   "date": "{d['review_date']}",
+  "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {{
       "heading": "{first_heading}",
@@ -928,7 +929,11 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
 - EXACTLY 1 section. Heading EXACTLY "{first_heading}". Title EXACTLY as given above.
 - content = one string, bullets separated by \\n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
-- No **, no ##, no HTML, no URLs inside content.""",
+- No **, no ##, no HTML, no URLs inside content.
+- "summary" = an array with ONE item per bullet in content, in the SAME order (include the bottom-line point too).
+  Each item is "<אותה כותרת קצרה של הנקודה>: <משפט תמציתי אחד>". The sentence must DISTILL the essence of the point —
+  what happened and why it matters — in your own words, up to ~20 words. Do NOT copy the first sentence of the
+  bullet verbatim. All the same verification and direction rules apply to the summary as to the bullets.""",
         "",
         get_time_conversion_block(now_il),
     ]
