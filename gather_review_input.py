@@ -190,11 +190,11 @@ def get_last_trading_day(now: datetime, holidays: List[str]) -> datetime:
     return now - timedelta(days=1)
 
 
-# The Tel Aviv Stock Exchange trades Sunday–Thursday (closed Friday/Saturday).
+# Israeli trading week for these reviews: Monday–Friday (closed Saturday/Sunday).
 # We do not maintain an Israeli holiday calendar here — the reviews are on-demand,
 # so a run on a holiday is simply not triggered.
 def is_israel_trading_day(dt: datetime) -> bool:
-    return dt.weekday() in (6, 0, 1, 2, 3)
+    return dt.weekday() < 5
 
 
 def get_next_israel_trading_day(now: datetime) -> datetime:
