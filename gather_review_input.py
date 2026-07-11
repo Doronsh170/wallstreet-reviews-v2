@@ -526,7 +526,9 @@ def finnhub_quote(symbol: str) -> Optional[Dict[str, float]]:
         price, pct, prev = float(d.get("c") or 0), float(d.get("dp") or 0), float(d.get("pc") or 0)
         if price <= 0 or prev <= 0:
             return None
-        return {"price": price, "pct": pct, "prev_close": prev}
+        # 't' is the UNIX time of the last trade — used to check the quote actually
+        # settled on the target Friday before it can anchor a weekly change.
+        return {"price": price, "pct": pct, "prev_close": prev, "ts": int(d.get("t") or 0)}
     except Exception as e:
         print(f"  Finnhub error for {symbol}: {e}")
         return None
@@ -565,6 +567,13 @@ def record_market_history(history: Dict[str, Dict[str, float]], snapshot_date: s
     print(f"  market_history.json updated ({snapshot_date}, {len(closes)} symbols)")
 
 
+def quote_close_date(ts: int) -> Optional[str]:
+    """NY-market calendar date (YYYY-MM-DD) of a Finnhub quote's last trade, or None."""
+    if not ts or ts <= 0:
+        return None
+    return datetime.fromtimestamp(ts, NY_TZ).date().isoformat()
+
+
 def weekly_pct_from_history(history: Dict[str, Dict[str, float]], symbol: str,
                             monday_str: str, week_close: float) -> Optional[Tuple[float, float, str]]:
     """weekly % = (week_close − last settled close BEFORE the week's Monday) / that close.
@@ -581,8 +590,13 @@ def weekly_pct_from_history(history: Dict[str, Dict[str, float]], symbol: str,
 
 
 def compute_weekly_lines(history: Dict[str, Dict[str, float]], labeled_symbols: List[Tuple[str, str]],
-                         monday_str: str, current_prices: Dict[str, float]) -> Tuple[List[str], List[str]]:
+                         monday_str: str, current_prices: Dict[str, float],
+                         close_dates: Dict[str, Optional[str]], week_close_date: str) -> Tuple[List[str], List[str]]:
     """Build the WEEKLY PERFORMANCE lines from the stored close history.
+    A weekly % is emitted for a symbol ONLY when BOTH anchors are trustworthy:
+      1. current price whose last trade SETTLED on the week's Friday (week_close_date),
+         so an intraday / stale quote never masquerades as an end-of-week close, and
+      2. a prior close in market_history.json dated before the week and still fresh.
     Returns (lines, missing_labels) — missing = symbols with no reliable weekly figure."""
     lines: List[str] = []
     missing: List[str] = []
@@ -591,14 +605,19 @@ def compute_weekly_lines(history: Dict[str, Dict[str, float]], labeled_symbols: 
         if not cur or cur <= 0:
             missing.append(label)
             continue
-        res = weekly_pct_from_history(history, symbol, monday_str, cur)
+        if close_dates.get(symbol) != week_close_date:  # anchor 1: settled end-of-week close
+            missing.append(label)
+            print(f"  {symbol} WEEKLY: quote is not a settled close for {week_close_date} "
+                  f"(last trade {close_dates.get(symbol)}) — skipping")
+            continue
+        res = weekly_pct_from_history(history, symbol, monday_str, cur)  # anchor 2: prior close
         if res is None:
             missing.append(label)
             print(f"  {symbol} WEEKLY: no reliable prior-week close in history yet — skipping")
             continue
         pct, prior_close, prior_date = res
         lines.append(f"  {label}: weekly {pct:+.2f}% (from ${prior_close:.2f} to ${cur:.2f})")
-        print(f"  {symbol} WEEKLY: {pct:+.2f}% (vs close on {prior_date})")
+        print(f"  {symbol} WEEKLY: {pct:+.2f}% (prior close {prior_date} → current {week_close_date})")
     return lines, missing
 
 
@@ -614,11 +633,13 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str], d: Dict[str, Any],
     lines: List[str] = []
     pcts: Dict[str, float] = {}
     current_prices: Dict[str, float] = {}
+    close_dates: Dict[str, Optional[str]] = {}
     for symbol, label in FINNHUB_SYMBOLS.items():
         q = finnhub_quote(symbol)
         if q:
             pcts[symbol] = q["pct"]
             current_prices[symbol] = q["price"]
+            close_dates[symbol] = quote_close_date(q.get("ts", 0))
             lines.append(f"  {label}: ${q['price']:.2f} (daily: {q['pct']:+.2f}%), prev close: ${q['prev_close']:.2f}")
             print(f"  Finnhub {symbol}: ${q['price']:.2f} ({q['pct']:+.2f}%)")
     if not lines:
@@ -632,13 +653,19 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str], d: Dict[str, Any],
         if q:
             ticker_quotes[t] = q
             current_prices[t] = q["price"]
+            close_dates[t] = quote_close_date(q.get("ts", 0))
             print(f"  Ticker snapshot {t}: ${q['price']:.2f} ({q['pct']:+.2f}%)")
 
-    # Persist today's SETTLED closes (post-session modes only), so future weekly
-    # runs have the prior-week anchor to compute true weekly changes from.
+    # Persist today's closes so future weekly runs have the prior-week anchor. Only
+    # store symbols whose quote actually SETTLED on the review date — never an
+    # intraday price — so the history holds genuine end-of-day closes.
     history = load_market_history()
     if record_close and d.get("review_date"):
-        record_market_history(history, d["review_date"], current_prices)
+        settled = {s: p for s, p in current_prices.items() if close_dates.get(s) == d["review_date"]}
+        if settled:
+            record_market_history(history, d["review_date"], settled)
+        else:
+            print(f"  no symbols settled on {d['review_date']} — nothing recorded to history")
 
     block = [
         "══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══",
@@ -654,7 +681,8 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str], d: Dict[str, Any],
         monday_str = (date.fromisoformat(d["review_date"]) - timedelta(days=4)).isoformat()
         labeled = [(s, FINNHUB_SYMBOLS[s]) for s in WEEKLY_SYMBOLS if s in current_prices]
         labeled += [(t, f"${t}") for t in ticker_quotes]  # individual stocks get a weekly figure too
-        weekly_lines, weekly_missing = compute_weekly_lines(history, labeled, monday_str, current_prices)
+        weekly_lines, weekly_missing = compute_weekly_lines(
+            history, labeled, monday_str, current_prices, close_dates, d["review_date"])
         if weekly_lines:
             weekly_available = True
             block += ["", "WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):",
