@@ -1,12 +1,79 @@
 {
-  "mode": "israel_summary",
-  "generated_at": "2026-07-11T01:49:42.342400+03:00",
-  "expected_title": "סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום שישי, 10.7.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-07-10",
-  "title_date_str": "2026-07-10",
-  "title_day_name": "שישי",
+  "mode": "daily_prep",
+  "generated_at": "2026-07-11T12:30:29.939029+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 13.7.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-07-13",
+  "title_date_str": "2026-07-13",
+  "title_day_name": "שני",
   "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "etf_pcts": {
+    "SPY": 0.431,
+    "QQQ": 0.3083,
+    "DIA": 0.3033,
+    "IWM": -0.4205,
+    "XLE": 0.4743,
+    "XLK": 0.232,
+    "XLF": 0.3061,
+    "XLY": 0.3338,
+    "XLV": -0.8201,
+    "XLI": 0.4472,
+    "XLP": 1.1058,
+    "XLU": 0.6204,
+    "USO": -0.2844,
+    "BNO": -0.0474,
+    "GLD": -0.3094,
+    "SLV": -0.3509,
+    "IBIT": 1.1729,
+    "TLT": -0.0237,
+    "UUP": 0.1058,
+    "VIXY": -2.2585
+  },
+  "ticker_quotes": {
+    "AAPL": {
+      "price": 315.32,
+      "pct": -0.2846,
+      "prev_close": 316.22
+    },
+    "MU": {
+      "price": 979.3,
+      "pct": -1.2444,
+      "prev_close": 991.64
+    },
+    "SNDK": {
+      "price": 1915.92,
+      "pct": 3.1023,
+      "prev_close": 1858.27
+    },
+    "META": {
+      "price": 669.21,
+      "pct": 5.9749,
+      "prev_close": 631.48
+    },
+    "QQQ": {
+      "price": 725.51,
+      "pct": 0.3083,
+      "prev_close": 723.28
+    },
+    "SPY": {
+      "price": 754.95,
+      "pct": 0.431,
+      "prev_close": 751.71
+    },
+    "USO": {
+      "price": 108.7,
+      "pct": -0.2844,
+      "prev_close": 109.01
+    },
+    "NVDA": {
+      "price": 210.96,
+      "pct": 4.0339,
+      "prev_close": 202.78
+    },
+    "CRCL": {
+      "price": 66.14,
+      "pct": 4.9675,
+      "prev_close": 63.01
+    }
+  }
 }
