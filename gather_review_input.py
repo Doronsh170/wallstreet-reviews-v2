@@ -25,7 +25,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from zoneinfo import ZoneInfo
@@ -61,6 +61,13 @@ FINNHUB_BASE = "https://finnhub.io/api/v1"
 DATA_JSON = Path("data.json")
 OUT_MD = Path("raw_review_input.md")
 OUT_JSON = Path("raw_review_input.json")
+# Rolling record of settled daily closes, keyed by symbol → date → close. Built up
+# by the post-session runs (daily_summary / weekly_summary) and committed to the
+# repo, so the weekly review can compute TRUE weekly changes without the premium
+# Finnhub candle endpoint. See compute_weekly_lines().
+MARKET_HISTORY_FILE = Path("market_history.json")
+MARKET_HISTORY_MAX_POINTS = 370  # ~1 trading year per symbol
+WEEKLY_PRIOR_MAX_AGE_DAYS = 10   # a prior-week close older than this is too stale to trust
 SOURCES_FILE = Path("sources/wallstreet.txt")
 DEFAULT_ACCOUNTS = ["StockMKTNewz", "AIStockSavvy", "wallstengine", "KobeissiLetter", "gurgavin"]
 TASE_SOURCES_FILE = Path("sources/tase.txt")
@@ -533,58 +540,89 @@ def direction_word(pct: float, threshold: float = 0.15) -> str:
     return "יציב/כמעט ללא שינוי"
 
 
-def fetch_weekly_lines() -> List[str]:
-    lines: List[str] = []
-    now_ts = int(time.time())
-    from_ts = now_ts - 14 * 86400
-    for symbol in WEEKLY_SYMBOLS:
-        label = FINNHUB_SYMBOLS.get(symbol, symbol)
+def load_market_history() -> Dict[str, Dict[str, float]]:
+    if MARKET_HISTORY_FILE.exists():
         try:
-            r = http_get(
-                f"{FINNHUB_BASE}/stock/candle",
-                params={"symbol": symbol, "resolution": "D", "from": from_ts, "to": now_ts, "token": FINNHUB_API_KEY},
-                timeout=10, label=f"Finnhub weekly {symbol}",
-            )
-            if not r.ok:
-                continue
-            d = r.json()
-            closes, stamps = d.get("c") or [], d.get("t") or []
-            if len(closes) < 5:
-                continue
-            dated = [(datetime.fromtimestamp(ts, tz=timezone.utc), c) for ts, c in zip(stamps, closes)]
-            today = datetime.now(timezone.utc)
-            this_week = [(dt, c) for dt, c in dated if dt.isocalendar()[:2] == today.isocalendar()[:2]]
-            if not this_week:
-                last_wk = dated[-1][0].isocalendar()[:2]
-                this_week = [(dt, c) for dt, c in dated if dt.isocalendar()[:2] == last_wk]
-            before = [c for dt, c in dated if dt < this_week[0][0]]
-            if not before:
-                continue
-            prev_close, week_close = before[-1], this_week[-1][1]
-            pct = (week_close - prev_close) / prev_close * 100
-            lines.append(f"  {label}: weekly {pct:+.2f}% (from ${prev_close:.2f} to ${week_close:.2f})")
-            print(f"  Finnhub {symbol} WEEKLY: {pct:+.2f}%")
+            return json.loads(MARKET_HISTORY_FILE.read_text(encoding="utf-8"))
         except Exception as e:
-            print(f"  Finnhub weekly error for {symbol}: {e}")
-    return lines
+            print(f"  market_history.json unreadable ({e}) — starting a fresh history")
+    return {}
 
 
-def fetch_market_data(weekly: bool, top_cashtags: List[str]) -> Tuple[str, Dict[str, float], Dict[str, Dict[str, float]]]:
-    """Returns (prompt_block, etf_pcts, ticker_quotes_snapshot).
-    The snapshot lets paste_review.py verify ticker directions later without a live API."""
+def record_market_history(history: Dict[str, Dict[str, float]], snapshot_date: str,
+                          closes: Dict[str, float]) -> None:
+    """Store each symbol's SETTLED close under snapshot_date (YYYY-MM-DD) and persist.
+    Called only from post-session modes, where the current price is a real close."""
+    for sym, price in closes.items():
+        if price and price > 0:
+            history.setdefault(sym, {})[snapshot_date] = round(float(price), 4)
+    for sym, points in history.items():  # keep the file bounded
+        if len(points) > MARKET_HISTORY_MAX_POINTS:
+            for old in sorted(points)[:-MARKET_HISTORY_MAX_POINTS]:
+                points.pop(old, None)
+    MARKET_HISTORY_FILE.write_text(
+        json.dumps(history, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+    print(f"  market_history.json updated ({snapshot_date}, {len(closes)} symbols)")
+
+
+def weekly_pct_from_history(history: Dict[str, Dict[str, float]], symbol: str,
+                            monday_str: str, week_close: float) -> Optional[Tuple[float, float, str]]:
+    """weekly % = (week_close − last settled close BEFORE the week's Monday) / that close.
+    Returns None when there is no such prior close, or it is too stale to be the
+    genuine prior-week close (guards against multi-week gaps in the history)."""
+    priors = [(dt, px) for dt, px in history.get(symbol, {}).items()
+              if dt < monday_str and px and px > 0]
+    if not priors:
+        return None
+    prior_date, prior_close = max(priors)
+    if (date.fromisoformat(monday_str) - date.fromisoformat(prior_date)).days > WEEKLY_PRIOR_MAX_AGE_DAYS:
+        return None
+    return (week_close - prior_close) / prior_close * 100, prior_close, prior_date
+
+
+def compute_weekly_lines(history: Dict[str, Dict[str, float]], labeled_symbols: List[Tuple[str, str]],
+                         monday_str: str, current_prices: Dict[str, float]) -> Tuple[List[str], List[str]]:
+    """Build the WEEKLY PERFORMANCE lines from the stored close history.
+    Returns (lines, missing_labels) — missing = symbols with no reliable weekly figure."""
+    lines: List[str] = []
+    missing: List[str] = []
+    for symbol, label in labeled_symbols:
+        cur = current_prices.get(symbol)
+        if not cur or cur <= 0:
+            missing.append(label)
+            continue
+        res = weekly_pct_from_history(history, symbol, monday_str, cur)
+        if res is None:
+            missing.append(label)
+            print(f"  {symbol} WEEKLY: no reliable prior-week close in history yet — skipping")
+            continue
+        pct, prior_close, prior_date = res
+        lines.append(f"  {label}: weekly {pct:+.2f}% (from ${prior_close:.2f} to ${cur:.2f})")
+        print(f"  {symbol} WEEKLY: {pct:+.2f}% (vs close on {prior_date})")
+    return lines, missing
+
+
+def fetch_market_data(weekly: bool, top_cashtags: List[str], d: Dict[str, Any],
+                      record_close: bool) -> Tuple[str, Dict[str, float], Dict[str, Dict[str, float]], bool]:
+    """Returns (prompt_block, etf_pcts, ticker_quotes_snapshot, weekly_available).
+    The snapshot lets paste_review.py verify ticker directions later without a live API.
+    weekly_available is False when the weekly summary could not get a single real
+    weekly figure, so the prompt can switch to its qualitative-only guardrail."""
     if not FINNHUB_API_KEY:
         print("  No FINNHUB_API_KEY — skipping market data")
-        return "", {}, {}
+        return "", {}, {}, False
     lines: List[str] = []
     pcts: Dict[str, float] = {}
+    current_prices: Dict[str, float] = {}
     for symbol, label in FINNHUB_SYMBOLS.items():
         q = finnhub_quote(symbol)
         if q:
             pcts[symbol] = q["pct"]
+            current_prices[symbol] = q["price"]
             lines.append(f"  {label}: ${q['price']:.2f} (daily: {q['pct']:+.2f}%), prev close: ${q['prev_close']:.2f}")
             print(f"  Finnhub {symbol}: ${q['price']:.2f} ({q['pct']:+.2f}%)")
     if not lines:
-        return "", {}, {}
+        return "", {}, {}, False
 
     # Snapshot quotes for the tickers the tweets talk about — the review will
     # most likely mention these, and the publish step verifies directions.
@@ -593,7 +631,14 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str]) -> Tuple[str, Dict[
         q = finnhub_quote(t)
         if q:
             ticker_quotes[t] = q
+            current_prices[t] = q["price"]
             print(f"  Ticker snapshot {t}: ${q['price']:.2f} ({q['pct']:+.2f}%)")
+
+    # Persist today's SETTLED closes (post-session modes only), so future weekly
+    # runs have the prior-week anchor to compute true weekly changes from.
+    history = load_market_history()
+    if record_close and d.get("review_date"):
+        record_market_history(history, d["review_date"], current_prices)
 
     block = [
         "══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══",
@@ -604,10 +649,26 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str]) -> Tuple[str, Dict[
         block += ["", "INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):"]
         for t, q in ticker_quotes.items():
             block.append(f"  ${t}: ${q['price']:.2f} (daily: {q['pct']:+.2f}%), prev close: ${q['prev_close']:.2f}")
+    weekly_available = False
     if weekly:
-        weekly_lines = fetch_weekly_lines()
+        monday_str = (date.fromisoformat(d["review_date"]) - timedelta(days=4)).isoformat()
+        labeled = [(s, FINNHUB_SYMBOLS[s]) for s in WEEKLY_SYMBOLS if s in current_prices]
+        labeled += [(t, f"${t}") for t in ticker_quotes]  # individual stocks get a weekly figure too
+        weekly_lines, weekly_missing = compute_weekly_lines(history, labeled, monday_str, current_prices)
         if weekly_lines:
-            block += ["", "WEEKLY PERFORMANCE (use these for the weekly summary, NOT the daily numbers):", *weekly_lines]
+            weekly_available = True
+            block += ["", "WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):",
+                      *weekly_lines]
+            if weekly_missing:
+                block += ["", ("NOTE — no weekly figure is available for: " + ", ".join(weekly_missing) +
+                               ". For these do NOT state a weekly percentage. Describe the direction qualitatively, "
+                               "or use the daily move only and label it clearly as the last trading day's change.")]
+        else:
+            block += ["", ("⚠️ WEEKLY PERFORMANCE DATA UNAVAILABLE this run (the close history is still being built up). "
+                           "Do NOT state ANY weekly percentage and do NOT present a daily change as a weekly change. "
+                           "Tell the week's arc qualitatively (direction and drivers). If you cite a specific percentage, "
+                           "make explicit that it is the last trading day's move, not the weekly change.")]
+            print("  WEEKLY PERFORMANCE unavailable — prompt switched to qualitative-only guardrail")
 
     block += ["", "DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:"]
     for symbols, label in DIRECTION_ASSETS_LABELS:
@@ -627,7 +688,7 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str]) -> Tuple[str, Dict[
         "If ANY percentage you write contradicts the data above, you are WRONG. Fix it.",
         "══════════════════════════════════════════════════════════════════════════════",
     ]
-    return "\n".join(block), pcts, ticker_quotes
+    return "\n".join(block), pcts, ticker_quotes, weekly_available
 
 
 def parse_econ_time(s: str) -> Optional[datetime]:
@@ -1023,17 +1084,29 @@ THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that e
   LAST point — "{d['bl_label']}: ..." — what the Tel Aviv investor should watch next session and why.
 - If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
+    if d.get("has_weekly"):
+        weekly_num_rule = (
+            "Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never "
+            "confuse Friday's daily change with the weekly change. Where only a daily number is given for a "
+            "symbol, do NOT present it as a weekly change.")
+        weekly_arc_rule = "with the weekly index numbers woven into the narrative"
+    else:
+        weekly_num_rule = (
+            "No WEEKLY PERFORMANCE numbers are available this run. Do NOT state ANY weekly percentage and never "
+            "present a daily change as the weekly change. If you cite a specific percentage, make explicit that it "
+            "is the last trading day's move only.")
+        weekly_arc_rule = ("describing the week's direction and drivers qualitatively (no invented weekly "
+                           "percentages)")
     return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
 trading week {d['week_range']}. The review does BOTH: sums up the week that ended AND prepares the reader for
 the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
-summary points. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and
-never confuse Friday's daily change with the weekly change.
+summary points. {weekly_num_rule}
 
 {POINT_STYLE}
 
 6-9 points TOTAL in three blocks, in this order:
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
-  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
+  what flipped the sentiment, how it closed, {weekly_arc_rule}.
 * SUMMARY points (3-5) — ONE thematic point per major story of the week, each with its own specific headline.
   Pick the STRONGEST stories — do NOT force every category:
   - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
@@ -1149,9 +1222,14 @@ def main() -> None:
         # These modes only summarize the sources — no price data, no movers, no
         # percentages. Nothing from Finnhub enters their prompt.
         print(f"  {REVIEW_MODE} summarizes the sources only — skipping market data")
-        market_block, pcts, ticker_quotes = "", {}, {}
+        market_block, pcts, ticker_quotes, weekly_available = "", {}, {}, False
     else:
-        market_block, pcts, ticker_quotes = fetch_market_data(REVIEW_MODE == "weekly_summary", top_cashtags)
+        # Post-session modes carry a settled close; record it so weekly runs can
+        # compute true weekly changes from the accumulated history.
+        record_close = REVIEW_MODE in ("weekly_summary", "daily_summary")
+        market_block, pcts, ticker_quotes, weekly_available = fetch_market_data(
+            REVIEW_MODE == "weekly_summary", top_cashtags, d, record_close)
+    d["has_weekly"] = weekly_available
 
     print("\n── Economic calendar ──")
     if tweet_only:
