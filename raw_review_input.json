@@ -1,12 +1,12 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-07-11T12:30:29.939029+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 13.7.2026",
-  "first_heading": "נקודות מרכזיות",
-  "review_date": "2026-07-13",
-  "title_date_str": "2026-07-13",
-  "title_day_name": "שני",
-  "week_range": null,
+  "mode": "weekly_summary",
+  "generated_at": "2026-07-11T12:31:20.031501+03:00",
+  "expected_title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 06/07–10/07/2026",
+  "first_heading": "סיכום השבוע",
+  "review_date": "2026-07-10",
+  "title_date_str": "2026-07-11",
+  "title_day_name": "שבת",
+  "week_range": "06/07–10/07/2026",
   "etf_pcts": {
     "SPY": 0.431,
     "QQQ": 0.3083,
@@ -59,11 +59,6 @@
       "price": 754.95,
       "pct": 0.431,
       "prev_close": 751.71
-    },
-    "USO": {
-      "price": 108.7,
-      "pct": -0.2844,
-      "prev_close": 109.01
     },
     "NVDA": {
       "price": 210.96,
