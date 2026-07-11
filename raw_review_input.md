@@ -3,8 +3,7 @@
 You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
 trading week 06/07–10/07/2026. The review does BOTH: sums up the week that ended AND prepares the reader for
 the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
-summary points. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and
-never confuse Friday's daily change with the weekly change.
+summary points. No WEEKLY PERFORMANCE numbers are available this run. Do NOT state ANY weekly percentage and never present a daily change as the weekly change. If you cite a specific percentage, make explicit that it is the last trading day's move only.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -23,7 +22,7 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 
 6-9 points TOTAL in three blocks, in this order:
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
-  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
+  what flipped the sentiment, how it closed, describing the week's direction and drivers qualitatively (no invented weekly percentages).
 * SUMMARY points (3-5) — ONE thematic point per major story of the week, each with its own specific headline.
   Pick the STRONGEST stories — do NOT force every category:
   - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
@@ -121,8 +120,11 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $META: $669.21 (daily: +5.97%), prev close: $631.48
   $QQQ: $725.51 (daily: +0.31%), prev close: $723.28
   $SPY: $754.95 (daily: +0.43%), prev close: $751.71
+  $USO: $108.70 (daily: -0.28%), prev close: $109.01
   $NVDA: $210.96 (daily: +4.03%), prev close: $202.78
   $CRCL: $66.14 (daily: +4.97%), prev close: $63.01
+
+⚠️ WEEKLY PERFORMANCE DATA UNAVAILABLE this run (the close history is still being built up). Do NOT state ANY weekly percentage and do NOT present a daily change as a weekly change. Tell the week's arc qualitatively (direction and drivers). If you cite a specific percentage, make explicit that it is the last trading day's move, not the weekly change.
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: -0.28%, BNO: -0.05%)
@@ -171,9 +173,9 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-11. Never mention in t
 
 @KobeissiLetter [Fri Jul 10 01:05:23 +0000 2026]: Corporate insiders are buying tech stocks at a record pace: 28 executives at companies within the US technology sector ETF, $XLK, have purchased their own stock on the open market over the last 6 months, the highest count on record, according to SentimenTrader. This figure has DOUBLED since the start of 2026. This also surpasses the previous record of 25 insiders set in 2011. By comparison, in early 2025, just 5 executives were buyers. US executives are rushing to buy tech stocks.
 
-@wallstengine [Fri Jul 10 15:36:44 +0000 2026]: SK HYNIX OPENS UP 14% AT $170, IPO AT $149 $SKHYV $SKHY
+@wallstengine [Sat Jul 11 09:39:27 +0000 2026]: $AAPL sued OpenAI in federal court, alleging trade secret theft tied to OpenAI’s consumer hardware push. Apple named OpenAI hardware chief Tang Tan and former Apple engineer Chang Liu in the suit, alleging confidential hardware files and unreleased product materials were taken. The lawsuit says more than 400 former Apple employees now work at OpenAI. Apple is seeking a jury trial and wants OpenAI to destroy any proprietary materials and redesign upcoming products that may include Apple technology. OpenAI denied wrongdoing, saying it has “no interest in other companies’ trade secrets.”
 
-@wallstengine [Fri Jul 10 15:18:12 +0000 2026]: Important SK hynix listing note for today: The ADR debut will trade under $SKHYV today, not $SKHY, because today is when-issued trading. Regular-way trading in $SKHY starts Monday. Leverage Shares’ $SKHX and $SKHZ also begin Monday, so they won’t be available to trade today. https://t.co/6qYzBjZCCB
+@wallstengine [Fri Jul 10 15:36:44 +0000 2026]: SK HYNIX OPENS UP 14% AT $170, IPO AT $149 $SKHYV $SKHY
 
 @gurgavin [Fri Jul 10 17:36:14 +0000 2026]: *SK HYNIX CEO SAYS MEMORY CHIP SHORTAGE MAY PERSIST PAST 2030 $SKHYV
 

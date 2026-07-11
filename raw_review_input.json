@@ -1,6 +1,6 @@
 {
   "mode": "weekly_summary",
-  "generated_at": "2026-07-11T12:31:20.031501+03:00",
+  "generated_at": "2026-07-11T13:39:05.647101+03:00",
   "expected_title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 06/07–10/07/2026",
   "first_heading": "סיכום השבוע",
   "review_date": "2026-07-10",
@@ -33,42 +33,56 @@
     "AAPL": {
       "price": 315.32,
       "pct": -0.2846,
-      "prev_close": 316.22
+      "prev_close": 316.22,
+      "ts": 1783713600
     },
     "MU": {
       "price": 979.3,
       "pct": -1.2444,
-      "prev_close": 991.64
+      "prev_close": 991.64,
+      "ts": 1783713600
     },
     "SNDK": {
       "price": 1915.92,
       "pct": 3.1023,
-      "prev_close": 1858.27
+      "prev_close": 1858.27,
+      "ts": 1783713600
     },
     "META": {
       "price": 669.21,
       "pct": 5.9749,
-      "prev_close": 631.48
+      "prev_close": 631.48,
+      "ts": 1783713600
     },
     "QQQ": {
       "price": 725.51,
       "pct": 0.3083,
-      "prev_close": 723.28
+      "prev_close": 723.28,
+      "ts": 1783713600
     },
     "SPY": {
       "price": 754.95,
       "pct": 0.431,
-      "prev_close": 751.71
+      "prev_close": 751.71,
+      "ts": 1783713600
+    },
+    "USO": {
+      "price": 108.7,
+      "pct": -0.2844,
+      "prev_close": 109.01,
+      "ts": 1783713600
     },
     "NVDA": {
       "price": 210.96,
       "pct": 4.0339,
-      "prev_close": 202.78
+      "prev_close": 202.78,
+      "ts": 1783713600
     },
     "CRCL": {
       "price": 66.14,
       "pct": 4.9675,
-      "prev_close": 63.01
+      "prev_close": 63.01,
+      "ts": 1783713600
     }
   }
 }
