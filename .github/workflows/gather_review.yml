@@ -17,6 +17,12 @@ on:
           - israel_summary
           - israel_weekly_summary
 
+# Same group as "2 - Publish Review": a gather and a publish must never push at
+# the same time, or one of them loses the race and fails after burning API calls.
+concurrency:
+  group: manual-review
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -52,5 +58,8 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update raw review input"
+            # Rebase onto anything that landed while the gather was running,
+            # so the push never fails on a non-fast-forward.
+            git pull --rebase origin "${{ github.ref_name }}"
             git push
           fi
