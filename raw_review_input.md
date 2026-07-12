@@ -1,8 +1,9 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior investment advisor writing a signature PRE-MARKET briefing in Hebrew for the
-TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב). Script run date: 2026-07-12 (יום ראשון).
-Briefing target date: 2026-07-13 (יום שני). This runs on 2026-07-12 but the briefing is for the NEXT Tel Aviv trading day: 2026-07-13 (יום שני). Do NOT use 'היום'/'הבוקר' — use 'ביום שני'.
+You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week 06/07–10/07/2026. The review does
+BOTH: it sums up the Tel Aviv week that ended AND prepares the reader for the coming Tel Aviv trading week.
+PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the summary points.
 
 SIGNATURE POINT FORMAT (follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -17,44 +18,56 @@ SIGNATURE POINT FORMAT (follow it exactly):
 - Voice: a senior investment advisor explaining the Tel Aviv market to clients — analytical, confident,
   readable. Weave the numbers into the story, don't stack them.
 
-THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
-- Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
-  levels, percentages, movers or macro data that do not appear in a source. A figure enters ONLY if a source
-  states it explicitly. Web search is for VERIFICATION of a name/figure already in a source, never to add news.
-- Cover what the Tel Aviv investor should watch heading into the session: the leading themes and stories from
-  the sources (companies, sectors, reports, macro from Bank of Israel, global backdrop as the sources frame it).
-- 6-9 STRONG points TOTAL. FIRST point sets the picture heading into the session (headline like
-  "סנטימנט זהיר לקראת הפתיחה"). MIDDLE points — ONE point per real story from the sources. LAST point —
-  "שורה תחתונה: ..." — what will decide the direction of the Tel Aviv session, in 1-2 sentences.
-- If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
+THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then looks ahead:
+- The SUMMARY stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
+  movers or macro data that do not appear in a source. A figure enters the summary ONLY if a source states it.
+- Do NOT independently determine who rose or fell over the week. Direction and magnitude come from the sources.
+- For the PREPARATION points you MAY use web search to confirm the COMING week's SCHEDULED calendar only
+  (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) with dates and Israel times.
+6-9 STRONG points TOTAL in three blocks, in this order:
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the Tel Aviv week as one story, as the
+  sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
+  qualitatively, with only figures that appear in a source.
+* SUMMARY points (3-5) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
+  defense, notable companies, Bank of Israel, the global backdrop as the sources frame it), each with its own
+  specific headline. Pick the STRONGEST stories from the sources — do NOT force categories or pad.
+* PREPARATION points (1-2) — the COMING Tel Aviv week:
+  - "השבוע הקרוב במאקרו: ..." — the scheduled Bank of Israel decisions and Israeli macro releases with dates and
+    Israel times (from the sources, or verified via web search of the scheduled calendar).
+  - "דוחות בשבוע הקרוב: ..." — the notable Tel Aviv earnings reports due and what the market will watch in them
+    (merge into the macro point when the slate is thin).
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor
+  and the frame for the coming week.
+If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 No US market data, no Wall Street framing unless a source raises it, no ISO dates.
 
 Rules:
-- Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
-- EVERY number in the update must appear in a source tweet. NEVER invent, estimate, or recall numbers from memory. A topic whose tweet has no figures is summarized WITHOUT figures.
+- Write ONLY in Hebrew. English only for tickers, index names, and well-known financial terms in parentheses on first use.
+- SUMMARY of the week that ended: EVERY number must appear in a source post. NEVER invent, estimate, or recall numbers from memory. A story whose source carries no figures is summarized WITHOUT figures.
+- PREPARATION for the coming week: you MAY state SCHEDULED-calendar dates and Israel times (Bank of Israel decisions, Israeli macro releases, Tel Aviv earnings) verified via web search. Nothing else may be added from web search.
 - No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
-- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when the tweet itself cites them.
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
-- Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- Never OPEN a bullet with a raw ticker. Open with the Hebrew company name.
 - Never mention in the review that the items came from tweets/posts/X accounts.
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום שני, 13.7.2026",
-  "date": "2026-07-13",
+  "title": "סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – 06/07–10/07/2026",
+  "date": "2026-07-10",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "לקראת יום המסחר",
+      "heading": "סיכום השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "לקראת יום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -63,25 +76,15 @@ CRITICAL — OUTPUT FORMAT (MANDATORY):
   what happened and why it matters — in your own words, up to ~20 words. Do NOT copy the first sentence of the
   bullet verbatim. All the same verification and direction rules apply to the summary as to the bullets.
 
-══ WEB SEARCH POLICY ══
-Web search is for VERIFICATION ONLY — confirming a name or figure that already appears in the source posts.
-Do NOT use it to find additional news, index levels, prices or macro data. Content that is not present in the
-sources does not enter the review.
+══ WEB SEARCH POLICY (WEEKLY — TWO PARTS) ══
+SUMMARY of the week that ended (06/07–10/07/2026): the stories come EXCLUSIVELY from the source posts
+below. Web search is for VERIFICATION ONLY there — confirming a name or figure that already appears in a source
+post. Do NOT use it to add news, index levels, prices or macro data to the summary part.
+PREPARATION for the COMING Tel Aviv trading week: here you MAY use web search to confirm the SCHEDULED calendar
+only — Bank of Israel (בנק ישראל) rate decisions, Israeli macro releases (מדד המחירים לצרכן, אבטלה, צמיחה) and
+the notable Tel Aviv earnings reports due, with their dates and Israel times. Scheduled-calendar items only,
+never speculative news or invented figures.
 ══════════════════════════════════
-
-══ CONTEXT: THE PREVIOUS TEL AVIV DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
-Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW development about it.
-
-[סיכום המסחר]
-* סנטימנט זהיר, הפיננסים מובילים: הבורסה בתל אביב סיכמה את יום המסחר האחרון של השבוע במגמה מעורבת וזהירה, כשהמשקיעים בחרו לשבת על הגדר. מניות הסקטור הפיננסי בלטו לחיוב והובילו את המגמה, בעוד השקל נותר חזק והדולר נסחר סביב 3.006 שקלים. הזהירות שיקפה המתנה של המשקיעים לכיוון ברור יותר לאחר שבוע עמוס בהחלטות ובגיוסים.
-* אג"ח קוהאן צוללות בתל אביב: איגרות החוב של חברת הנדל"ן האמריקאית קוהאן פרופרטיס צנחו בחדות, כ-19% ואף העמיקו לכ-21% במהלך היום, לאחר שרשות ניירות ערך חשפה אי-סדרים חמורים ועסקאות בעלי עניין בחברה. קוהאן גייסה לאחרונה כ-412 מיליון שקל מהמשקיעים המוסדיים בישראל, כך שהחשיפה המקומית משמעותית. המקרה מצטרף לשרשרת של חברות נדל"ן אמריקאיות שסיבכו את המוסדיים בבורסה המקומית ומחדד את סיכון האשראי החוץ-בנקאי.
-* הנפקת רפא יוצאת בשווי מופחת: קרן פימי דוחפת את חברת התרופות רפא להנפקה בבורסה, אך במקביל הפחיתה את שוויה של החברה בכ-30% לעומת הערכות קודמות, כך שהשווי שנחשף היה נמוך מהמתוכנן. ההפחתה משקפת סביבת תמחור זהירה יותר להנפקות בענף הפארמה המקומי. עבור המשקיעים זהו איתות שהשוק הראשוני דורש הנחת ביטחון גדולה יותר גם מחברות עם גב של קרן חזקה.
-* רימון מגייסת 400 מיליון שקל: חברת רימון גייסה הון בהיקף של כ-400 מיליון שקל בהקצאת מניות פרטית לכלל ביטוח. לפי החברה, כספי הגיוס יחזקו משמעותית את בסיס ההון ויתמכו בהמשך הצמיחה, בין היתר באמצעות רכישות ומיזוגים. הגיוס הגדול ממחיש את הביקוש המוסדי לחברות צמיחה מקומיות גם בתקופה של סלקטיביות גוברת.
-* פריים אנרג'י זוכה ברישיון חשמל: פריים אנרג'י קיבלה רישיון אספקת חשמל שיאפשר לה למנף תשתיות וחיבורי חשמל לאספקה לצרכנים, והודיעה כי תשקיע כ-4.7 מיליארד שקל בקידום הפרויקטים שלה בישראל. הרישיון פותח לחברה גישה ישירה אל שוק אספקת החשמל התחרותי, לרבות נכסי קבוצת להב. הצעד מציב את פריים אנרג'י כשחקנית משמעותית בשוק האנרגיה המקומי המשתחרר מהמונופול.
-* פריורטק מתקדמת להנפקת אקסס: חברת פריורטק מתקדמת לקראת הנפקת חברת הבת אקסס, ולפי הערכתה, בכפוף לקבלת האישורים הנדרשים, ההנפקה צפויה להסתיים עד סוף ספטמבר 2026. המהלך מצטרף לגל ההנפקות והגיוסים שאפיין את הבורסה בשבוע החולף. עבור המשקיעים, הנפקת אקסס עשויה לחשוף ערך גלום בפעילות שעד כה נסחרה כחלק מפריורטק.
-* מטריקס נכנסת לתחום הביטחוני: חברת מטריקס נכנסה לתחום הביטחוני-אנרגטי עם רכישת 80% ממניות לאור אנרגיה בכ-73 מיליון שקל. לאור, המספקת מערכות חשמל וקרונות שליטה לצה"ל ולתעשיות הביטחוניות, רשמה ב-2025 זינוק ברווח התפעולי וירידה בהתחייבויות. הרכישה מרחיבה את מטריקס אל שוק הביטחון הצומח ומגוונת את מקורות ההכנסה שלה מעבר לליבת ה-IT.
-* שורה תחתונה לשבוע הבא: תשומת הלב תופנה להמשך ההתפתחויות סביב איגרות החוב של חברות הנדל"ן האמריקאיות בבורסה המקומית, ובראשן פרשת קוהאן, שעלולה להכביד על סנטימנט המוסדיים. במקביל, גל ההנפקות והגיוסים, מרפא ועד פריורטק, ימשיך להעמיד למבחן את התיאבון של השוק הראשוני. ברקע ימשיך לרחף נתיב הריבית של בנק ישראל, שירדה לאחרונה ל-3.50% ולפי חטיבת המחקר צפויה להתכנס לכ-3.0% בשנה הקרובה.
-══════════════════════════════════════════════════════════════
 
 מקורות מרשת X (בעברית) — Never mention in the review that these came from posts/X:
 
@@ -98,6 +101,8 @@ Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY 
 @ModiShafrir [Wed Jun 10 12:47:53 +0000 2026]: על רקע הזינוק במחירי האנרגיה, האינפלציה (CPI) ב- 🇺🇸עלתה במאי ב- 0.47% (צפי ל- 0.50%) ועלייה מתונה מהציפיות נרשמה בליבת מדד ה- CPI – עלתה ב- 0.21% (צפי ל- 0.30%) – אינדיקציה לכך שאינפלציית מחירי האנרגיה לא מתפשטת בינתיים לשאר הכלכלה. 1/ https://t.co/Qh4Ms5vqaf
 
 @SponserNews [Fri Jul 10 07:39:37 +0000 2026]: רימון מגייסת הון בהיקף של כ-400 מיליון שקל בהקצאת מניות פרטית לכלל ביטוח: כספי ההנפקה יחזקו משמעותית את בסיס ההון של החברה ויתמכו בהמשך צמיחה ותנופת פעילות, בין היתר באמצעות רכישות ומיזוגים משמעותיים https://t.co/hbMElP8kZS
+
+@ModiShafrir [Sun Jul 12 08:08:23 +0000 2026]: תמצית הסקירה השבועית 12.07.26: 1. שווקים ונפט 🌎- מחירי הנפט ירדו לקראת הסופ"ש, אך עדיין סגרו את השבוע בעלייה של כ- 5.4%+, על רקע חששות השווקים מחזרה למלחמה במזרח התיכון. ארה"ב הכריזה כי הפסקת האש עם איראן 'הסתיימה' (over), והציבה לאיראן מועד אחרון (ליום שבת) להכרה פומבית בכך שמיצרי הורמוז יוותרו פתוחים לשיט. ✅חרף הסלמת המתיחות במזה"ת, מדד הנאסד"ק עלה השבוע ב- 1.7%, על רקע ידיעות חיוביות ממגזר הטכנולוגיה.
 
 @matanshitrit [Mon Jul 06 13:15:08 +0000 2026]: שימו לב לקצב הגידול המהיר בשכר הממוצע במשק (מתוך מצגת החלטת הריבית 06/07) בהחלטת הריבית במרץ 2026, שבנק ישראל הותיר את הריבית ללש, הדגישו את ההאצה המחודשת בשכר. היום, השכר מאיץ בקצב הרבה יותר מהיר ממה שהיה בהחלטה במרץ, אבל ממתי שכר משנה לאינפלציה? שנה קדימה 3.0% ריבית. ואגב, שימו לב לשכר הריאלי.... בהצלחה 😅
 
@@ -158,8 +163,6 @@ Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY 
 @TheMarker [Sun Jul 12 04:00:16 +0000 2026]: "אין היום מגזר אחד בבורסת תל אביב בתמחור מעניין. הכל יקר מאוד" https://t.co/KGugbmUW0b
 
 @TheMarker [Sat Jul 11 23:00:11 +0000 2026]: "אין מצב ש-AI ינהל לי את ההשקעות. אני אסמוך קודם על סוכן שיכור" https://t.co/f6H5Cv9PpW
-
-@ModiShafrir [Mon May 25 13:36:06 +0000 2026]: ב- 🇮🇱 - ב"י הוריד את הריבית ב- 25bp לרמה של 3.75% (בהתאם להערכתנו, ולהערכת מרבית החזאים). עם זאת, הודעת הריבית לא הייתה 'יונית' (לדוג' - ב"י כלל לא להתייחס להשפעה הצפויה של הייסוף החד על הייצוא המקומי). להלן עיקרי הדברים (ונמתין עתה לראיונות לתקשורת של הנגיד ושל בכירי ב"י): 1/ https://t.co/gKQB6dMWgA
 
 @matanshitrit [Wed Jul 08 08:40:19 +0000 2026]: הטיעון המרכזי שאיתו פתחו את החלטת הריבית שלשום - מזכר ההבנות...🫣 https://t.co/GdTa9Wa0LW
 

@@ -1,12 +1,12 @@
 {
-  "mode": "israel_prep",
-  "generated_at": "2026-07-12T11:05:01.570872+03:00",
-  "expected_title": "נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום שני, 13.7.2026",
-  "first_heading": "לקראת יום המסחר",
-  "review_date": "2026-07-13",
-  "title_date_str": "2026-07-13",
-  "title_day_name": "שני",
-  "week_range": null,
+  "mode": "israel_weekly_summary",
+  "generated_at": "2026-07-12T11:21:27.551036+03:00",
+  "expected_title": "סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – 06/07–10/07/2026",
+  "first_heading": "סיכום השבוע",
+  "review_date": "2026-07-10",
+  "title_date_str": "2026-07-12",
+  "title_day_name": "ראשון",
+  "week_range": "06/07–10/07/2026",
   "etf_pcts": {},
   "ticker_quotes": {}
 }
