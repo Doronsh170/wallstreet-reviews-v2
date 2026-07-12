@@ -14,7 +14,7 @@ Output:
 
 Modes (REVIEW_MODE env var or first CLI argument):
   daily_prep | daily_summary | weekly_summary | intraday_update    (Wall Street)
-  israel_prep | israel_summary                                     (Tel Aviv, tweet-only)
+  israel_prep | israel_summary | israel_weekly_summary             (Tel Aviv, tweet-only)
 
 Usage:
   python gather_review_input.py daily_summary
@@ -40,10 +40,12 @@ ISR_TZ = ZoneInfo("Asia/Jerusalem")
 NY_TZ = ZoneInfo("America/New_York")
 
 VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "intraday_update",
-               "israel_prep", "israel_summary")
+               "israel_prep", "israel_summary", "israel_weekly_summary")
 # Israeli-market modes are tweet-only (no Finnhub layer), summarizing the curated
 # Hebrew X sources into the signature prep/summary format for the Tel Aviv exchange.
-ISRAEL_MODES = ("israel_prep", "israel_summary")
+# israel_weekly_summary is the combined weekly review: it sums up the week that ended
+# AND prepares the reader for the coming Tel Aviv trading week (macro, reports, events).
+ISRAEL_MODES = ("israel_prep", "israel_summary", "israel_weekly_summary")
 REVIEW_MODE = (
     (sys.argv[1] if len(sys.argv) > 1 else "")
     or os.environ.get("REVIEW_MODE", "")
@@ -86,6 +88,7 @@ EXPECTED_FIRST_HEADING = {
     "intraday_update": "עדכון ביניים",
     "israel_prep": "לקראת יום המסחר",
     "israel_summary": "סיכום המסחר",
+    "israel_weekly_summary": "סיכום השבוע",
 }
 
 INTRADAY_WINDOW_HOURS = 2
@@ -154,6 +157,8 @@ def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Op
         return f"נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
     if mode == "israel_summary":
         return f"סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
+    if mode == "israel_weekly_summary":
+        return f"סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – {week_range}"
     return f"סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – {week_range}"
 
 
@@ -830,6 +835,16 @@ Web search is for VERIFICATION ONLY — confirming a name, time or figure that a
 tweets, for the window {window} Israel time on {date_str}. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════"""
+    if mode == "israel_weekly_summary":
+        return f"""══ WEB SEARCH POLICY (WEEKLY — TWO PARTS) ══
+SUMMARY of the week that ended ({week_range or date_str}): the stories come EXCLUSIVELY from the source posts
+below. Web search is for VERIFICATION ONLY there — confirming a name or figure that already appears in a source
+post. Do NOT use it to add news, index levels, prices or macro data to the summary part.
+PREPARATION for the COMING Tel Aviv trading week: here you MAY use web search to confirm the SCHEDULED calendar
+only — Bank of Israel (בנק ישראל) rate decisions, Israeli macro releases (מדד המחירים לצרכן, אבטלה, צמיחה) and
+the notable Tel Aviv earnings reports due, with their dates and Israel times. Scheduled-calendar items only,
+never speculative news or invented figures.
+══════════════════════════════════"""
     if mode in ISRAEL_MODES:
         return """══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming a name or figure that already appears in the source posts.
@@ -966,6 +981,23 @@ INTRADAY_RULES = """Rules:
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- Never mention in the review that the items came from tweets/posts/X accounts."""
+
+# The Israeli WEEKLY review is tweet-only like the other Israel modes, but its
+# preparation block looks ahead to the coming week, so it may cite SCHEDULED-calendar
+# figures (release dates/times) verified via web search — the one carve-out from the
+# strict "every number from a source" rule that governs the summary block.
+ISRAEL_WEEKLY_RULES = """Rules:
+- Write ONLY in Hebrew. English only for tickers, index names, and well-known financial terms in parentheses on first use.
+- SUMMARY of the week that ended: EVERY number must appear in a source post. NEVER invent, estimate, or recall numbers from memory. A story whose source carries no figures is summarized WITHOUT figures.
+- PREPARATION for the coming week: you MAY state SCHEDULED-calendar dates and Israel times (Bank of Israel decisions, Israeli macro releases, Tel Aviv earnings) verified via web search. Nothing else may be added from web search.
+- No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
+- Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
+- Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
+- NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
+- NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
+- Never OPEN a bullet with a raw ticker. Open with the Hebrew company name.
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
 
@@ -1112,6 +1144,36 @@ THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that e
   LAST point — "{d['bl_label']}: ..." — what the Tel Aviv investor should watch next session and why.
 - If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
+    if mode == "israel_weekly_summary":
+        return f"""You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. The review does
+BOTH: it sums up the Tel Aviv week that ended AND prepares the reader for the coming Tel Aviv trading week.
+PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the summary points.
+
+{ISRAEL_POINT_STYLE}
+
+THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then looks ahead:
+- The SUMMARY stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
+  movers or macro data that do not appear in a source. A figure enters the summary ONLY if a source states it.
+- Do NOT independently determine who rose or fell over the week. Direction and magnitude come from the sources.
+- For the PREPARATION points you MAY use web search to confirm the COMING week's SCHEDULED calendar only
+  (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) with dates and Israel times.
+6-9 STRONG points TOTAL in three blocks, in this order:
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the Tel Aviv week as one story, as the
+  sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
+  qualitatively, with only figures that appear in a source.
+* SUMMARY points (3-5) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
+  defense, notable companies, Bank of Israel, the global backdrop as the sources frame it), each with its own
+  specific headline. Pick the STRONGEST stories from the sources — do NOT force categories or pad.
+* PREPARATION points (1-2) — the COMING Tel Aviv week:
+  - "השבוע הקרוב במאקרו: ..." — the scheduled Bank of Israel decisions and Israeli macro releases with dates and
+    Israel times (from the sources, or verified via web search of the scheduled calendar).
+  - "דוחות בשבוע הקרוב: ..." — the notable Tel Aviv earnings reports due and what the market will watch in them
+    (merge into the macro point when the slate is thin).
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor
+  and the frame for the coming week.
+If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
+No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
     if d.get("has_weekly"):
         weekly_num_rule = (
             "Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never "
@@ -1166,8 +1228,11 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         mode_instructions(mode, d, bool(tweets)),
         "",
         # Tweet-only modes (intraday + Israeli reviews) get the reduced rule set with
-        # no references to a verified Finnhub layer, which they do not have.
-        INTRADAY_RULES if mode in ("intraday_update",) + ISRAEL_MODES else SHARED_RULES,
+        # no references to a verified Finnhub layer, which they do not have. The Israeli
+        # weekly gets a variant that permits scheduled-calendar figures for its prep block.
+        ISRAEL_WEEKLY_RULES if mode == "israel_weekly_summary"
+        else INTRADAY_RULES if mode in ("intraday_update",) + ISRAEL_MODES
+        else SHARED_RULES,
         "",
         f"""CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:

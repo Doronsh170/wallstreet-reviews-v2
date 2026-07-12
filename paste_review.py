@@ -41,6 +41,7 @@ DATA_JSON_KEY = {
     "intraday_update": "intradayUpdate",
     "israel_prep": "israelPrep",
     "israel_summary": "israelSummary",
+    "israel_weekly_summary": "israelWeeklySummary",
 }
 
 # The intraday update summarizes the sources: bullet count is driven by the
@@ -49,7 +50,8 @@ DATA_JSON_KEY = {
 # 6-9 strong points — below 5 the chat skipped material and needs another round.
 # The Israeli reviews are tweet-only, so a thin source day may legitimately yield
 # a short review (or the single "not enough material" bullet) — floor of 1.
-MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1}
+MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
+               "israel_weekly_summary": 1}
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
@@ -609,9 +611,10 @@ def main() -> None:
         result = apply_intraday_fixes(result)
 
     print("── Market direction guard (vs gather-time Finnhub snapshot) ──")
-    if mode == "weekly_summary":
+    if mode in ("weekly_summary", "israel_weekly_summary"):
         # The weekly text describes WEEKLY moves and the snapshot holds DAILY
         # percentages — auto-"fixing" against them would corrupt correct sentences.
+        # (The Israeli weekly is tweet-only, so its snapshot is empty anyway.)
         print("  weekly review — skipping the daily-based auto-fix guard")
     else:
         result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
