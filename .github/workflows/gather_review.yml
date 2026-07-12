@@ -15,6 +15,7 @@ on:
           - intraday_update
           - israel_prep
           - israel_summary
+          - israel_weekly_summary
 
 permissions:
   contents: write
