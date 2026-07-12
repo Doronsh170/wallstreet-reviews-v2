@@ -18,8 +18,9 @@
 
 | קובץ / תיקייה | תפקיד |
 |---|---|
-| `index.html` | האתר — שלושה טאבים, קורא רק את `data.json` |
+| `index.html` | האתר — שלושה טאבים, קורא רק את `data.json` (+ טאב ארכיון שקורא מ-`archive/`) |
 | `data.json` | מסד הנתונים של האתר: `dailyPrep` / `intradayUpdate` / `dailySummary` / `weeklySummary` + חגים |
+| `archive/` | ארכיון הסקירות: קובץ לכל חודש (`2026-07.json`) + `index.json`. מתעדכן אוטומטית בכל פרסום |
 | `gather_review_input.py` | **שלב 1** — איסוף חומר גלם (ציוצים + Finnhub). בלי מודל שפה |
 | `raw_review_input.md` | נוצר בשלב 1 — הבלוק שמעתיקים לצ'אט (כולל את כל ההנחיות) |
 | `raw_review_input.json` | נוצר בשלב 1 — snapshot נתונים מאומתים לאימות בשלב 3 |
@@ -28,6 +29,8 @@
 | `sources/wallstreet.txt` | רשימת חשבונות X/Twitter — מקור יחיד |
 | `.github/workflows/gather_review.yml` | הרצת שלב 1 מגיטהאב (בחירת מצב ידנית) |
 | `.github/workflows/publish_review.yml` | הרצת שלב 3 אוטומטית אחרי עדכון `review_output.json` |
+| `tests/` | בדיקות pytest לשכבת האימות (`paste_review.py`) — הקובץ הקריטי במערכת |
+| `.github/workflows/tests.yml` | הרצת הבדיקות אוטומטית על כל שינוי קוד Python |
 | `requirements.txt` | `requests` בלבד |
 
 ---
@@ -83,7 +86,7 @@ export FINNHUB_API_KEY=...
 python gather_review_input.py daily_summary
 # → מעתיקים את raw_review_input.md לצ'אט, מדביקים את התשובה ל-review_output.json
 python paste_review.py
-git add data.json && git commit -m "review" && git push
+git add data.json archive && git commit -m "review" && git push
 ```
 
 ---

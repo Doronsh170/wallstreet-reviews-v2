@@ -136,6 +136,30 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 .reveal::after{content:"▾";font-size:12px;line-height:1}
 .reveal[aria-expanded="true"]::after{content:"▴"}
 
+/* ── Archive ── */
+.months{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+.month-chip{
+  appearance:none;cursor:pointer;font:inherit;font-size:14px;font-weight:500;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:999px;padding:6px 14px;transition:border-color .15s, background .15s;
+}
+.month-chip:hover{border-color:var(--desk)}
+.month-chip[aria-pressed="true"]{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
+.month-chip:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.archive-list{list-style:none;margin:10px 0 4px;padding:0}
+.archive-list li{border-bottom:1px solid #F0EEE6}
+.archive-list li:last-child{border-bottom:none}
+.archive-item{
+  appearance:none;cursor:pointer;font:inherit;background:none;border:none;width:100%;
+  text-align:right;padding:13px 2px;display:flex;flex-direction:column;gap:3px;
+}
+.archive-item:hover .atitle{color:var(--desk)}
+.archive-item:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.archive-item .atype{font-size:12px;letter-spacing:.08em;color:var(--brass);font-weight:700}
+.archive-item .atitle{font-weight:500;color:var(--ink);line-height:1.5;unicode-bidi:plaintext}
+.archive-item .adate{font-size:13px;color:var(--muted)}
+.archive-back{margin-bottom:14px}
+
 /* ── How-to strip ── */
 .howto{margin:0 0 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);font-size:14px}
 .howto summary{cursor:pointer;padding:10px 14px;color:var(--ink-soft);font-weight:500;list-style-position:inside}
@@ -243,15 +267,28 @@ const LABELS = {
   weeklySummary:{he:'סיכום שבועי והכנה', en:'weekly summary', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'},
   israelPrep:  {he:'הכנה ליום מסחר', en:'israel prep',      empty:'הרץ את Gather Review Input במצב israel_prep כדי ליצור אותה.'},
   israelSummary:{he:'סיכום יום מסחר', en:'israel summary',  empty:'הרץ את Gather Review Input במצב israel_summary כדי ליצור אותו.'},
-  israelWeeklySummary:{he:'סיכום שבועי והכנה', en:'israel weekly summary', empty:'הרץ את Gather Review Input במצב israel_weekly_summary כדי ליצור אותו.'}
+  israelWeeklySummary:{he:'סיכום שבועי והכנה', en:'israel weekly summary', empty:'הרץ את Gather Review Input במצב israel_weekly_summary כדי ליצור אותו.'},
+  archive:     {he:'ארכיון', en:'archive', empty:'עדיין לא פורסמו סקירות לארכיון.'}
 };
 const MARKETS = {
   us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary']},
   il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary','israelWeeklySummary']}
 };
+/* Archive entries store the pipeline mode (snake_case) — map it to the site key. */
+const MODE_KEYS = {
+  daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_summary:'dailySummary',
+  weekly_summary:'weeklySummary', israel_prep:'israelPrep', israel_summary:'israelSummary',
+  israel_weekly_summary:'israelWeeklySummary'
+};
 let data = null;
 let activeMarket = null;
 let active = null;
+let currentReview = null;   // the review shown right now (live tab OR archive entry)
+let archiveIndex = null;    // ["2026-07", ...] newest first, from archive/index.json
+const archiveMonths = {};   // month → entries[] cache
+let archiveMonth = null;
+let archiveEntry = null;
+let archiveLoadSeq = 0;     // guards against stale async renders after tab switches
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const stripCtl = s => String(s ?? '').replace(/[\u200E\u200F\u202A-\u202E\u2066-\u2069\u200B-\u200D\uFEFF\u00AD]/g,'');
@@ -368,17 +405,121 @@ function toggleFullReview(btn){
 function render(){
   document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.key === active)));
   document.getElementById('activeLabel').textContent = active ? LABELS[active].he : '';
+  if(active === 'archive'){ renderArchive(); return; }
   const review = (data && active) ? data[active] : null;
+  currentReview = review || null;
   document.getElementById('screen').innerHTML = review ? renderReview(review, active) : renderEmpty(active);
+}
+
+/* ── Archive tab ── */
+async function fetchArchiveJson(path){
+  const r = await fetch(path + '?v=' + Date.now(), {cache:'no-store'});
+  if(!r.ok) throw new Error(path + ' (' + r.status + ')');
+  return r.json();
+}
+
+function monthLabel(m){
+  const [y, mm] = String(m).split('-');
+  return (mm || '') + '/' + (y || '');
+}
+
+/* Only entries whose mode belongs to the active market's tabs. */
+function entriesForMarket(entries){
+  return (entries || []).filter(e => {
+    const key = MODE_KEYS[e.mode];
+    return key && e.review && MARKETS[activeMarket].tabs.includes(key);
+  });
+}
+
+function renderArchiveEmpty(msg){
+  return `<div class="empty">
+    <div class="mark">◦</div>
+    <h3>${esc(msg)}</h3>
+    <p>כל סקירה שתפורסם מעכשיו תישמר כאן אוטומטית.</p>
+  </div>`;
+}
+
+async function renderArchive(){
+  const screen = document.getElementById('screen');
+  const seq = ++archiveLoadSeq;
+  currentReview = null;
+
+  // Level 2 of the archive: a single opened entry, rendered like a live review.
+  if(archiveEntry){
+    const key = MODE_KEYS[archiveEntry.mode] || MARKETS[activeMarket].tabs[0];
+    currentReview = archiveEntry.review;
+    screen.innerHTML =
+      `<button class="back archive-back" type="button" onclick="closeArchiveEntry()">↩︎ חזרה לרשימת הארכיון</button>`
+      + renderReview(archiveEntry.review, key);
+    return;
+  }
+
+  screen.innerHTML = `<div class="empty"><p>טוען ארכיון…</p></div>`;
+  try{
+    if(!archiveIndex){
+      archiveIndex = (await fetchArchiveJson('archive/index.json')).months || [];
+    }
+  }catch(e){
+    if(seq !== archiveLoadSeq) return;
+    screen.innerHTML = renderArchiveEmpty('הארכיון עדיין ריק');
+    return;
+  }
+  if(seq !== archiveLoadSeq || active !== 'archive') return;
+  if(!archiveIndex.length){
+    screen.innerHTML = renderArchiveEmpty('הארכיון עדיין ריק');
+    return;
+  }
+
+  if(!archiveMonth || !archiveIndex.includes(archiveMonth)) archiveMonth = archiveIndex[0];
+  let entries = archiveMonths[archiveMonth];
+  if(!entries){
+    try{
+      entries = (await fetchArchiveJson('archive/' + archiveMonth + '.json')).entries || [];
+    }catch(e){ entries = []; }
+    archiveMonths[archiveMonth] = entries;
+    if(seq !== archiveLoadSeq || active !== 'archive') return;
+  }
+
+  const mine = entriesForMarket(entries);
+  let html = `<div class="review-head">
+      <h2>ארכיון הסקירות</h2>
+      <div class="date">כל סקירה שפורסמה נשמרת כאן, לפי חודש</div>
+    </div>`;
+  html += `<div class="months">` + archiveIndex.map(m =>
+      `<button class="month-chip" type="button" data-month="${esc(m)}" aria-pressed="${String(m === archiveMonth)}">${esc(monthLabel(m))}</button>`
+    ).join('') + `</div>`;
+  if(mine.length){
+    html += `<ul class="archive-list">` + mine.map((e, i) =>
+      `<li><button class="archive-item" type="button" data-i="${i}">
+        <span class="atype">${esc((LABELS[MODE_KEYS[e.mode]] || {}).he || e.mode)}</span>
+        <span class="atitle">${esc(stripCtl(e.review.title || ''))}</span>
+        <span class="adate">${e.publishedAt ? 'פורסם: ' + esc(fmtDateTime(e.publishedAt)) : ''}</span>
+      </button></li>`).join('') + `</ul>`;
+  }else{
+    html += renderArchiveEmpty('אין סקירות לשוק הזה בחודש שנבחר');
+  }
+  screen.innerHTML = html;
+  screen.querySelectorAll('.month-chip').forEach(b => b.addEventListener('click', () => {
+    archiveMonth = b.dataset.month; archiveEntry = null; renderArchive();
+  }));
+  screen.querySelectorAll('.archive-item').forEach(b => b.addEventListener('click', () => {
+    archiveEntry = mine[Number(b.dataset.i)]; renderArchive();
+  }));
+}
+
+function closeArchiveEntry(){
+  archiveEntry = null;
+  renderArchive();
 }
 
 /* Build the review-type tabs for the chosen market and wire their clicks. */
 function buildTabs(market){
   const nav = document.getElementById('tabs');
-  nav.innerHTML = MARKETS[market].tabs.map(key =>
+  const keys = MARKETS[market].tabs.concat('archive');
+  nav.innerHTML = keys.map(key =>
     `<button class="tab" role="tab" data-key="${key}" aria-selected="false">${esc(LABELS[key].he)}<small>${esc(LABELS[key].en)}</small></button>`
   ).join('');
-  nav.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { active = t.dataset.key; render(); }));
+  nav.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { active = t.dataset.key; archiveEntry = null; render(); }));
 }
 
 /* Pick the most recently dated review WITHIN a market; fall back to its first tab. */
@@ -392,6 +533,8 @@ function pickDefaultTab(market){
 
 function selectMarket(market){
   activeMarket = market;
+  archiveEntry = null;
+  archiveMonth = null;
   buildTabs(market);
   active = pickDefaultTab(market);
   document.getElementById('marketLabel').textContent = MARKETS[market].flag + ' ' + MARKETS[market].he;
@@ -408,7 +551,8 @@ function showMarkets(){
 }
 
 function shareWhatsApp(){
-  const review = data && data[active];
+  // currentReview covers both a live tab and an opened archive entry.
+  const review = currentReview;
   if(!review) return;
   // The WhatsApp message carries the CONDENSED summary (תקציר), not the full points,
   // followed by a call-to-action link that opens the complete review on the site.

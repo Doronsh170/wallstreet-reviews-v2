@@ -33,6 +33,9 @@ NY_TZ = ZoneInfo("America/New_York")
 DATA_JSON = Path("data.json")
 SNAPSHOT_FILE = Path("raw_review_input.json")
 DEFAULT_INPUT = Path("review_output.json")
+# Every published review is also appended to a monthly archive file
+# (archive/YYYY-MM.json) so the site can show past reviews, not just the latest.
+ARCHIVE_DIR = Path("archive")
 
 DATA_JSON_KEY = {
     "daily_prep": "dailyPrep",
@@ -578,6 +581,40 @@ def hard_content_validation(result: Dict[str, Any], min_bullets: int = 5) -> Non
 
 
 # ══════════════════════════════════════════════════════════════
+# Archive
+# ══════════════════════════════════════════════════════════════
+
+def archive_review(mode: str, result: Dict[str, Any], published_at: str) -> Path:
+    """Adds the published review to archive/<YYYY-MM>.json and refreshes
+    archive/index.json (the month list the site's archive tab reads).
+    A re-publish of the same review (same mode + same title, e.g. a fix round
+    after a failed guard) replaces the earlier entry instead of duplicating it.
+    Intraday updates carry the run time in the title, so each run of the day
+    is archived as its own entry. Runs only after all guards passed — a failed
+    publish never reaches the archive."""
+    month = str(result.get("date", ""))[:7]
+    if not re.fullmatch(r"20\d{2}-\d{2}", month):
+        month = str(published_at)[:7]
+    path = ARCHIVE_DIR / f"{month}.json"
+    try:
+        archive = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        archive = {}
+    entries = [e for e in archive.get("entries", [])
+               if not (e.get("mode") == mode
+                       and (e.get("review") or {}).get("title") == result.get("title"))]
+    entries.append({"mode": mode, "publishedAt": published_at, "review": result})
+    entries.sort(key=lambda e: str(e.get("publishedAt", "")), reverse=True)
+    ARCHIVE_DIR.mkdir(exist_ok=True)
+    path.write_text(json.dumps({"month": month, "entries": entries}, ensure_ascii=False, indent=2),
+                    encoding="utf-8")
+    months = sorted((p.stem for p in ARCHIVE_DIR.glob("20??-??.json")), reverse=True)
+    (ARCHIVE_DIR / "index.json").write_text(
+        json.dumps({"months": months}, ensure_ascii=False, indent=2), encoding="utf-8")
+    return path
+
+
+# ══════════════════════════════════════════════════════════════
 # MAIN
 # ══════════════════════════════════════════════════════════════
 
@@ -647,10 +684,12 @@ def main() -> None:
     data["lastUpdated"] = datetime.now(ISR_TZ).isoformat()
     data[DATA_JSON_KEY[mode]] = result
     DATA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    archive_path = archive_review(mode, result, data["lastUpdated"])
 
     bullets = result["sections"][0]["content"].count("\n* ") + 1
     print(f"\n✅ data.json עודכן → {DATA_JSON_KEY[mode]} ({bullets} בולטים)")
-    print("   כעת: git add data.json && git commit && git push (או שה-workflow עושה זאת אוטומטית)")
+    print(f"   הארכיון עודכן → {archive_path}")
+    print("   כעת: git add data.json archive && git commit && git push (או שה-workflow עושה זאת אוטומטית)")
 
 
 if __name__ == "__main__":
