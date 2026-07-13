@@ -118,13 +118,14 @@ DAILY PERFORMANCE:
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $META: $669.21 (daily: +5.97%), prev close: $631.48
-  $MSFT: $385.10 (daily: +0.19%), prev close: $384.36
-  $OKLO: $48.85 (daily: -0.85%), prev close: $49.27
   $AAPL: $315.32 (daily: -0.28%), prev close: $316.22
+  $GOOGL: $357.18 (daily: -0.48%), prev close: $358.89
+  $DECK: $105.99 (daily: +1.66%), prev close: $104.26
+  $SHOP: $122.54 (daily: -0.51%), prev close: $123.17
   $AMAT: $602.50 (daily: +2.35%), prev close: $588.66
   $AMZN: $245.34 (daily: -0.69%), prev close: $247.04
   $AVGO: $399.97 (daily: -0.28%), prev close: $401.11
-  $GOOGL: $357.18 (daily: -0.48%), prev close: $358.89
+  $MSFT: $385.10 (daily: +0.19%), prev close: $384.36
   $MU: $979.30 (daily: -1.24%), prev close: $991.64
   $NVDA: $210.96 (daily: +4.03%), prev close: $202.78
   $ORCL: $140.64 (daily: -2.48%), prev close: $144.22
@@ -185,15 +186,19 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 
 @gurgavin [Fri Jul 10 17:36:14 +0000 2026]: *SK HYNIX CEO SAYS MEMORY CHIP SHORTAGE MAY PERSIST PAST 2030 $SKHYV
 
-@AIStockSavvy [Mon Jul 13 10:33:31 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $META Meta Expands Louisiana AI Data Center to 5 Gigawatts 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐌𝐞𝐭𝐚 will expand its Louisiana data center to 𝐟𝐢𝐯𝐞 𝐠𝐢𝐠𝐚𝐰𝐚𝐭𝐭𝐬 of compute capacity. ➤ Expansion supports the company's growing 𝐚𝐫𝐭𝐢𝐟𝐢𝐜𝐢𝐚𝐥 𝐢𝐧𝐭𝐞𝐥𝐥𝐢𝐠𝐞𝐧𝐜𝐞 initiatives. ➤ Meta plans to invest 𝐦𝐨𝐫𝐞 𝐭𝐡𝐚𝐧 $𝟓𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in the Richland Parish region. ➤ Louisiana businesses have received over 𝐒𝟏.𝟔 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in contracts since December 2024. ➤ Meta will invest more than 𝐒𝟏 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in local infrastructure improvements. ➤ Investments include 𝐫𝐨𝐚𝐝𝐬, 𝐰𝐚𝐭𝐞𝐫, and 𝐰𝐚𝐬𝐭𝐞𝐰𝐚𝐭𝐞𝐫 systems. ➤ AI infrastructure demand continues to 𝐨𝐮𝐭𝐩𝐚𝐜𝐞 compute supply. ➤ Meta has committed 𝐒𝟔𝟎𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 for U.S. infrastructure and jobs over three years. ➤ Investment supports 𝐌𝐚𝐫𝐤 𝐙𝐮𝐜𝐤𝐞𝐫𝐛𝐞𝐫𝐠'𝐬 AI agent technology initiatives.
+@StockMKTNewz [Mon Jul 13 10:52:41 +0000 2026]: Citi today raised its price target on Apple $AAPL up to $365 from $315 while maintaining its Buy rating
+
+@AIStockSavvy [Mon Jul 13 10:55:29 +0000 2026]: $GOOGL | Citizens reiterates 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐀𝐥𝐩𝐡𝐚𝐛𝐞𝐭, maintains 𝐏𝐓 𝐚𝐭 $𝟓𝟏𝟓 Analyst sees the early-stage enterprise AI infrastructure upgrade cycle as a positive long-term driver for hyperscalers like Google. https://t.co/bKQzby5Jwy
 
 @wallstengine [Mon Jul 13 08:58:15 +0000 2026]: Jefferies Upgrades $SHOP to Buy from Hold, Raises PT to $160 from $140 Analyst comments: “As we wrote in March, we see SHOP as uniquely positioned to become the infrastructure layer for agentic commerce and the ‘agent enablement’ toolkit for merchants. In our view, this positions SHOP to capture incremental GMV, drive higher merchant stickiness, and expand its role upstream in discovery over time as agents intermediate more of the buyer journey. We see agentic commerce as a modest GMV tailwind over the next several years. SHOP announced changes to partner commissions starting in August 2026. In effect, SHOP is tying earnouts directly to the value created on the platform. Our takeaways include: (1) partners have a greater incentive to sign larger merchants; (2) partners will likely invest more in post-launch merchant success; (3) additional offerings like B2B, POS, and Shopify Components are more in focus; (4) the changes encourage partners to stay focused on new logo acquisition and cross-selling rather than relying on an annuity-like revenue stream; and (5) the long-term unit economics from partner-driven deals will improve as the commission stream is capped. While any change brings risk, we view this as a long-term positive for both growth and margins.” Analyst: Samad Samana
+
+@wallstengine [Mon Jul 13 09:54:27 +0000 2026]: $META is expanding its Richland Parish, Louisiana data center to 5GW of compute capacity, lifting the announced investment to over $50B from the original $10B plan. Bloomberg reports the total site cost could top $250B when including chips, though Meta has only publicly disclosed $50B. Meta also plans $1B+ in local infrastructure improvements and says the site will support 1,000+ roles once operational.
 
 @KobeissiLetter [Mon Jul 13 01:42:07 +0000 2026]: BREAKING: US oil prices extend gains to nearly +5% on the day as Iran declares the Strait of Hormuz closed again. https://t.co/5APWlLYsQg
 
 @KobeissiLetter [Sun Jul 12 13:18:10 +0000 2026]: BREAKING: Iran’s Persian Gulf Strait Authority says it is currently "not possible" to transit through the Strait of Hormuz because of "recent illegal movements of US Military forces in the region." Stock market futures open in less than 9 hours.
 
-@AIStockSavvy [Mon Jul 13 10:40:55 +0000 2026]: $NEE | BofA Securities maintains 𝐍𝐞𝐮𝐭𝐫𝐚𝐥 on 𝐍𝐞𝐱𝐭𝐄𝐫𝐚 𝐄𝐧𝐞𝐫𝐠𝐲, 𝐜𝐮𝐭𝐬 𝐏𝐓 𝐭𝐨 $𝟗𝟑 Analyst lowers NEE's price target to $93, citing updated peer multiples, and expects Q2 EPS to be impacted by costs despite rate base growth. https://t.co/WvQZ8zty3d
+@wallstengine [Mon Jul 13 11:00:39 +0000 2026]: BofA downgraded Papa John’s $PZZA to Underperform, citing increased near-term uncertainty from management turnover. BofA says Papa John\'s multiple is already near the low end of its historical range, but restaurant multiples have compressed, and Yum’s Pizza Hut sale suggests limited upside to valuation. The firm says Papa John’s domestic business is healthier than Pizza Hut’s, but its international business is smaller and less established.
 
 @StockMKTNewz [Mon Jul 13 01:00:09 +0000 2026]: PARAMOUNT MAY BE ABOUT TO MOSTLY LEAVE CALIFORNIA Paramount $PSKY is considering moving its headquarters and reallocate much of its $30 billion in planned spending outside of California Paramount CEO David Ellison will reportedly make the move if California state Attorney General Rob Bonta were to sue to block Paramount's merger of Warner Bros. Discovery - Semafor
 
@@ -201,21 +206,23 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 
 @StockMKTNewz [Mon Jul 13 09:55:45 +0000 2026]: Meta Platforms $META just announced plans to increase its Data Center investment in the Richland Parish region of Louisiana up to $50 Billion Meta is expanding the Louisiana data center campus up to 5GW of compute capacity Meta said with this expansion it will be investing over $1 billion in local infrastructure improvements, including roads, water and wastewater systems.
 
-@wallstengine [Mon Jul 13 09:54:27 +0000 2026]: $META is expanding its Richland Parish, Louisiana data center to 5GW of compute capacity, lifting the announced investment to over $50B from the original $10B plan. Bloomberg reports the total site cost could top $250B when including chips, though Meta has only publicly disclosed $50B. Meta also plans $1B+ in local infrastructure improvements and says the site will support 1,000+ roles once operational.
-
 @KobeissiLetter [Sun Jul 12 14:59:00 +0000 2026]: Japan's bond market is seeing historic volatility. The 10Y Japanese government bond yield dropped -16 basis points on Friday, to 2.71%, the largest daily decline since April 2025. This follows a rise to 2.90% on Thursday, the first time the 10Y JGB yield reached that level in 30 years. At the same time, the 30Y JGB yield fell -13 basis points, to 3.87%, the largest daily drop since January 21st. This came after Japan's Finance Minister said the government wants to encourage pension funds, including the $1.8 trillion Government Pension Investment Fund, to increase investment in domestic assets. If this materializes, Japan's largest pension fund could eventually shift allocation away from overseas securities and toward JGBs, easing pressure on the domestic debt market. The move could also support the Yen by reducing capital outflows from Japan. Japan’s bond and currency markets are set to remain highly volatile.
 
-@AIStockSavvy [Mon Jul 13 10:49:00 +0000 2026]: $MSFT | Citizens 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐌𝐢𝐜𝐫𝐨𝐬𝐨𝐟𝐭, 𝐦𝐚𝐢𝐧𝐭𝐚𝐢𝐧𝐬 𝐏𝐓 𝐚𝐭 $𝟓𝟓𝟎 Analyst highlights Microsoft's restructuring and new AI-focused business as aligned with its strategy to empower enterprises with data and model control.
+@AIStockSavvy [Mon Jul 13 11:03:47 +0000 2026]: $SMCI | Citi maintains 𝐍𝐞𝐮𝐭𝐫𝐚𝐥 on 𝐒𝐮𝐩𝐞𝐫 𝐌𝐢𝐜𝐫𝐨 𝐂𝐨𝐦𝐩𝐮𝐭𝐞𝐫, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟑𝟑 𝐟𝐫𝐨𝐦 $𝟑𝟏 https://t.co/lJagOLwp2s
 
-@AIStockSavvy [Mon Jul 13 10:47:56 +0000 2026]: $NIO | Goldman Sachs 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐍𝐈𝐎 to 𝐁𝐮𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟕.𝟎𝟎 Analyst sees Nio delivering one of the fastest volume growths, a premium margin profile, and a strong profit/FCF turnaround in 2026E. https://t.co/7YwQ09it5Q
+@AIStockSavvy [Mon Jul 13 11:02:56 +0000 2026]: $LLY | Guggenheim maintains 𝐁𝐮𝐲 on 𝐄𝐥𝐢 𝐋𝐢𝐥𝐥𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟏𝟐𝟕𝟑 Analyst raises PT due to increased confidence in retatrutide, expecting &gt;$25B in 2035 sales, which offsets lower estimates for Foundayo. https://t.co/o9W0ddGOlH
 
-@AIStockSavvy [Mon Jul 13 10:45:36 +0000 2026]: $TSLA | Jefferies 𝐦𝐚𝐢𝐧𝐭𝐚𝐢𝐧𝐬 𝐇𝐨𝐥𝐝 on 𝐓𝐞𝐬𝐥𝐚, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟒𝟎𝟎 Analyst raises estimates on a strong Q2 volume beat, but notes the low implied Cybercab output suggests delays in ramping up Robotaxis. https://t.co/tNBV2ZWTef
+@AIStockSavvy [Mon Jul 13 11:02:03 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $PLUG Plug Power Announces Asset Deals to Boost Liquidity by Over $80 Million 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐏𝐥𝐮𝐠 𝐏𝐨𝐰𝐞𝐫 to sell 𝐆𝐫𝐚𝐡𝐚𝐦, 𝐓𝐞𝐱𝐚𝐬 project for up to 𝐒𝟕𝟔.𝟓 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Initial 𝐒𝟓𝟎 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 payment expected at closing around 𝐉𝐮𝐥𝐲 𝟑𝟏, 𝟐𝟎𝟐𝟔. ➤ Up to 𝐒𝟐𝟔.𝟓 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 depends on final Texas interconnection capacity. ➤ Texas transaction expected to release approximately 𝐒𝟏𝟒 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 in cash collateral. ➤ New York Gateway purchase price remains fixed at 𝐒𝟏𝟒𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Stream will release 𝐒𝟔.𝟓 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 escrow and deposit a new 𝐒𝟏𝟎 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 escrow. ➤ Plug expects more than 𝐒𝟖𝟎 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 in near-term incremental liquidity. ➤ Company targets more than 𝐒𝟐𝟕𝟓 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 in total liquidity improvement. ➤ Plug held approximately 𝐒𝟏𝟔𝟐 𝐦𝐢𝐥𝐥𝐢𝐨𝐧 in unrestricted cash as of June 30, 2026. ➤ Plug and Stream are exploring 𝐝𝐚𝐭𝐚 𝐜𝐞𝐧𝐭𝐞𝐫 collaboration opportunities. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: 𝐉𝐨𝐬𝐞 𝐋𝐮𝐢𝐬 𝐂𝐫𝐞𝐬𝐩𝐨, Chief Executive Officer and President of Plug Power: "Monetizing these assets was a key part of our strategy this year. We look forward to sharing our results for the second quarter shortly and believe that we are on track with our financial goals for 2026."
 
-@AIStockSavvy [Mon Jul 13 10:44:16 +0000 2026]: $NET | TD Cowen reiterates 𝐁𝐮𝐲 on 𝐂𝐥𝐨𝐮𝐝𝐟𝐥𝐚𝐫𝐞, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟑𝟎𝟎 𝐟𝐫𝐨𝐦 $𝟐𝟔𝟓 Analyst sees strong +30% revenue growth ahead of 2Q26 results, driven by a growing developer base, Workers AI, and larger deals. https://t.co/fDgdHrpUTp
+@AIStockSavvy [Mon Jul 13 11:00:15 +0000 2026]: $CRCL | Mizuho 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐍𝐞𝐮𝐭𝐫𝐚𝐥 on 𝐂𝐢𝐫𝐜𝐥𝐞, maintains 𝐏𝐓 𝐚𝐭 $𝟖𝟓 Analyst sees market optimism on OCC approval as overdone, citing unresolved fundamental issues like declining USDC market cap and competitive threats. https://t.co/mwwARqZbv8
 
-@AIStockSavvy [Mon Jul 13 10:36:00 +0000 2026]: $SNDK | 𝐄𝐯𝐞𝐫𝐜𝐨𝐫𝐞 𝐈𝐒𝐈 𝐦𝐚𝐢𝐧𝐭𝐚𝐢𝐧𝐬 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐒𝐚𝐧𝐃𝐢𝐬𝐤, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟑,𝟏𝟎𝟎, with upside potential to $4,000. Analyst sees new long-term agreements providing a structural shift in SNDK's earnings visibility and de-risking the forward EPS profile.
+@AIStockSavvy [Mon Jul 13 10:58:22 +0000 2026]: $COST | RBC Capital 𝐢𝐧𝐢𝐭𝐢𝐚𝐭𝐞𝐬 𝐜𝐨𝐯𝐞𝐫𝐚𝐠𝐞 on 𝐂𝐨𝐬𝐭𝐜𝐨 with 𝐒𝐞𝐜𝐭𝐨𝐫 𝐏𝐞𝐫𝐟𝐨𝐫𝐦, sets 𝐏𝐓 𝐚𝐭 $𝟏,𝟎𝟎𝟎 Analyst initiates on Costco as one of the 'best stories in retail,' but believes the current valuation appropriately reflects the positives, limiting upside.
 
-@AIStockSavvy [Sun Jul 12 13:47:53 +0000 2026]: Trump: Strait of Hormuz Is Open -Nbc Interview - $QQQ $SPY $USO
+@AIStockSavvy [Mon Jul 13 10:56:39 +0000 2026]: $DECK | Jefferies 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐃𝐞𝐜𝐤𝐞𝐫𝐬 𝐎𝐮𝐭𝐝𝐨𝐨𝐫 to 𝐁𝐮𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟏𝟑𝟎 Analyst sees management's new multi-year guidance as a significant positive, providing visibility into durable growth and stable margins. https://t.co/rn16HWubhM
+
+@AIStockSavvy [Mon Jul 13 10:54:09 +0000 2026]: $RDDT | Citizens 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐑𝐞𝐝𝐝𝐢𝐭, 𝐦𝐚𝐢𝐧𝐭𝐚𝐢𝐧𝐬 𝐏𝐓 𝐚𝐭 $𝟐𝟒𝟎 Analyst sees Reddit's new AI ad generator as a major self-service opportunity, lowering the barrier for SMB advertisers to create tailored campaigns. https://t.co/nnlEek9GPh
+
+@AIStockSavvy [Mon Jul 13 10:52:02 +0000 2026]: $META | Citizens 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐌𝐞𝐭𝐚, maintains 𝐏𝐓 𝐚𝐭 $𝟖𝟎𝟎 Analyst sees continued Instagram engagement momentum driven by AI-relevancy gains, despite some deceleration in the U.S. market. https://t.co/TeN476WWZw
 
 @wallstengine [Mon Jul 13 09:25:09 +0000 2026]: Texas Capital Securities Reiterates Buy Rating on $OKLO, PT $93 Analyst comments: “On July 8, we hosted Oklo’s Sam Doane (Senior Director of Investor Relations) and Neel Sikka (Director of Investor Relations) for a day of investor meetings. Following the event, we are increasingly constructive on Oklo’s differentiated technology offerings and the company’s ability to deliver on the promise of advanced nuclear power. In our view, Oklo offers investors a unique combination of strong capitalization, a regulatory approach designed for scaled deployment, a comprehensive fuel strategy, a supply chain capable of growing with the company, and a track record of executing against key milestones. In the near term, we expect a positive stock response when the company’s Groves reactor reaches criticality this month following a true greenfield construction process. We reiterate Oklo as our top pick in our nuclear coverage.” Analyst: Nate Pendleton
 
@@ -229,9 +236,7 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 
 @gurgavin [Sat Jul 11 23:30:27 +0000 2026]: *IRAN STRIKES VESSEL, CLOSES STRAIT OF HORMUZ INDEFINITELY HERE WE GO AGIN
 
-@AIStockSavvy [Mon Jul 13 10:42:56 +0000 2026]: $OKLO | 𝐓𝐞𝐱𝐚𝐬 𝐂𝐚𝐩𝐢𝐭𝐚𝐥 𝐒𝐞𝐜𝐮𝐫𝐢𝐭𝐢𝐞𝐬 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐁𝐮𝐲 on 𝐎𝐤𝐥𝐨, 𝐦𝐚𝐢𝐧𝐭𝐚𝐢𝐧𝐬 𝐏𝐓 𝐚𝐭 $𝟗𝟑 Analyst sees Oklo as a top pick, citing its differentiated technology, strong capitalization, and a clear path to scaled deployment. https://t.co/g5USnzgnEy
-
-@AIStockSavvy [Mon Jul 13 10:42:04 +0000 2026]: $COIN | BTIG reiterates 𝐁𝐮𝐲 on 𝐂𝐨𝐢𝐧𝐛𝐚𝐬𝐞, 𝐜𝐮𝐭𝐬 𝐏𝐓 𝐭𝐨 $𝟐𝟔𝟎 𝐟𝐫𝐨𝐦 $𝟐𝟖𝟎 Analyst sees Coinbase's business rapidly diversifying away from spot crypto transaction revenue, making 2Q results potentially better than feared. https://t.co/I2R7OICIaQ
+@AIStockSavvy [Mon Jul 13 10:59:28 +0000 2026]: $SHOP | Jefferies 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐒𝐡𝐨𝐩𝐢𝐟𝐲 to 𝐁𝐮𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟏𝟔𝟎 𝐟𝐫𝐨𝐦 $𝟏𝟒𝟎 Analyst sees Shopify as uniquely positioned to become the infrastructure layer for agentic commerce, a move that will drive incremental GMV and stickiness. https://t.co/YmHanXShpj
 
 @wallstengine [Mon Jul 13 09:41:50 +0000 2026]: BofA on AppLovin $APP: valuation looks reasonable at 17x CY27 EBITDA, with gaming alone capable of 20%+ YoY growth. But June eCommerce pixel adds slowed to ~750 from ~950 in May, and early data since the June 22 open launch has not shown a clear adoption uptick.
 
@@ -240,9 +245,5 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 @gurgavin [Thu Jul 09 16:37:14 +0000 2026]: *ANTHROPIC ADDS 2008 CRISIS-ERA FED CHAIR BERNANKE TO GOVERNANCE BOARD
 
 @KobeissiLetter [Sun Jul 12 19:44:43 +0000 2026]: US households are sitting on a massive cash pile despite record equity exposure: Household equity holdings are up to a record ~$72 trillion. This is $18 trillion, or +33%, above its long-term trend from 2009 to 2019. Household stock ownership has more than doubled since 2020. Meanwhile, cash and cash equivalent holdings are up to $20 trillion, an all-time high. This exceeds the long-term trend by $5 trillion, or +33%. By comparison, households also own a record $11 trillion in debt securities such as bonds, $2.2 trillion, or +25%, above trend. American households have never had a bigger cash buffer.
-
-@gurgavin [Sun Jul 12 18:51:40 +0000 2026]: NEW ALL TIME HIGHS COMING
-
-@StockMKTNewz [Sun Jul 12 19:05:55 +0000 2026]: Stock futures will be back open in ~3 hours
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
