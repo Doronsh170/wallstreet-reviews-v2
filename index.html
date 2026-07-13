@@ -199,9 +199,117 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   .card{box-shadow:none;border:none;padding:0}
   .masthead{padding-top:0}
 }
+
+/* ── Mandatory disclaimer gate ── */
+body.disclaimer-locked{overflow:hidden}
+.disclaimer-overlay{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;background:rgba(18,32,47,.58);
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+}
+.disclaimer-overlay[hidden]{display:none}
+.disclaimer-modal{
+  width:min(660px,100%);max-height:min(88vh,760px);
+  display:flex;flex-direction:column;
+  background:var(--card);border:1px solid rgba(255,255,255,.7);
+  border-radius:22px;box-shadow:0 24px 70px rgba(18,32,47,.28);
+  overflow:hidden;text-align:right;
+}
+.disclaimer-head{text-align:center;padding:22px 26px 14px}
+.disclaimer-icon{font-size:42px;line-height:1;margin-bottom:8px}
+.disclaimer-head h2{
+  margin:0;font-family:'Frank Ruhl Libre',serif;font-size:30px;
+  font-weight:900;color:var(--ink);
+}
+.disclaimer-head p{margin:5px 0 0;color:var(--muted);font-size:15px}
+.disclaimer-content{
+  margin:0 26px;padding:20px 22px;
+  border:1px solid var(--line);border-radius:16px;
+  background:#F8FAFC;color:var(--ink-soft);
+  overflow:auto;overscroll-behavior:contain;
+}
+.disclaimer-content p{margin:0 0 14px;line-height:1.75}
+.disclaimer-content p:last-child{margin-bottom:0}
+.disclaimer-content strong{color:var(--ink)}
+.disclaimer-actions{padding:18px 26px 24px}
+.disclaimer-accept{
+  width:100%;appearance:none;border:0;border-radius:14px;
+  background:#3278C5;color:#fff;padding:15px 18px;
+  font:inherit;font-weight:700;font-size:18px;cursor:pointer;
+}
+.disclaimer-accept:hover{background:#2869AE}
+.disclaimer-accept:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+@media (max-width:640px){
+  .disclaimer-overlay{padding:12px}
+  .disclaimer-modal{max-height:92vh;border-radius:18px}
+  .disclaimer-head{padding:18px 18px 12px}
+  .disclaimer-head h2{font-size:27px}
+  .disclaimer-content{margin:0 16px;padding:17px 16px;font-size:15px}
+  .disclaimer-actions{padding:14px 16px 18px}
+}
+@media print{
+  .disclaimer-overlay{display:none!important}
+}
+
 </style>
 </head>
-<body>
+<body class="disclaimer-locked">
+
+<div class="disclaimer-overlay" id="disclaimerOverlay" role="presentation">
+  <section class="disclaimer-modal" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle" aria-describedby="disclaimerText">
+    <div class="disclaimer-head">
+      <div class="disclaimer-icon" aria-hidden="true"⚠️</div>
+      <h2 id="disclaimerTitle">גילוי נאות</h2>
+      <p>יש לקרוא ולאשר לפני הכניסה לסקירות</p>
+    </div>
+
+    <div class="disclaimer-content" id="disclaimerText" tabindex="0">
+      <p><strong>מקור התוכן:</strong> הסקירות באתר מופקות באופן אוטומטי ובסיוע כלי בינה מלאכותית, על בסיס מידע ממקורות פומביים. התוכן עשוי שלא להיכתב או להיבדק בזמן אמת בידי אדם.</p>
+
+      <p><strong>אין ייעוץ השקעות:</strong> התוכן מוצג למטרות מידע, לימוד והעשרה בלבד. אין לראות בו ייעוץ השקעות, שיווק השקעות, המלצה לקנייה או למכירה של ניירות ערך, או תחליף לייעוץ מקצועי המותאם לצרכיו ולנתוניו האישיים של כל אדם.</p>
+
+      <p><strong>דיוק ואמינות:</strong> ייתכנו אי־דיוקים, השמטות, שגיאות בנתונים או בפרשנות, וכן פערי זמן בעדכון המידע. אין התחייבות לדיוק, לשלמות או לעדכניות המידע, ואין להסתמך עליו כמקור יחיד לקבלת החלטות.</p>
+
+      <p><strong>סיכון ואחריות:</strong> השקעה בניירות ערך ובמכשירים פיננסיים כרוכה בסיכון, לרבות אפשרות להפסד חלקי או מלא של ההשקעה. כל פעולה המתבצעת על בסיס המידע באתר היא באחריות המשתמש בלבד.</p>
+
+      <p><strong>ניגוד עניינים:</strong> לכותב האתר עשויות להיות, מעת לעת, החזקות בניירות ערך או במכשירים פיננסיים המוזכרים בסקירות.</p>
+    </div>
+
+    <div class="disclaimer-actions">
+      <button class="disclaimer-accept" id="disclaimerAccept" type="button">קראתי ואני מאשר ✓</button>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const key = 'wallstreetDisclaimerV1';
+  const overlay = document.getElementById('disclaimerOverlay');
+  const accept = document.getElementById('disclaimerAccept');
+
+  let approved = false;
+  try{
+    approved = localStorage.getItem(key) === 'accepted';
+  }catch(e){}
+
+  if(approved){
+    overlay.hidden = true;
+    document.body.classList.remove('disclaimer-locked');
+  }else{
+    requestAnimationFrame(() => accept.focus());
+  }
+
+  accept.addEventListener('click', function(){
+    try{
+      localStorage.setItem(key, 'accepted');
+    }catch(e){}
+    overlay.hidden = true;
+    document.body.classList.remove('disclaimer-locked');
+  });
+})();
+</script>
+
 <header>
   <div class="masthead wrap">
     <div class="kicker">MARKET DESK</div>
