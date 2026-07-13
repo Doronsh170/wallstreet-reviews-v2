@@ -119,12 +119,12 @@ DAILY PERFORMANCE:
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $META: $669.21 (daily: +5.97%), prev close: $631.48
   $AAPL: $315.32 (daily: -0.28%), prev close: $316.22
-  $GOOGL: $357.18 (daily: -0.48%), prev close: $358.89
   $DECK: $105.99 (daily: +1.66%), prev close: $104.26
   $SHOP: $122.54 (daily: -0.51%), prev close: $123.17
   $AMAT: $602.50 (daily: +2.35%), prev close: $588.66
   $AMZN: $245.34 (daily: -0.69%), prev close: $247.04
   $AVGO: $399.97 (daily: -0.28%), prev close: $401.11
+  $GOOGL: $357.18 (daily: -0.48%), prev close: $358.89
   $MSFT: $385.10 (daily: +0.19%), prev close: $384.36
   $MU: $979.30 (daily: -1.24%), prev close: $991.64
   $NVDA: $210.96 (daily: +4.03%), prev close: $202.78
@@ -188,9 +188,9 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 
 @StockMKTNewz [Mon Jul 13 10:52:41 +0000 2026]: Citi today raised its price target on Apple $AAPL up to $365 from $315 while maintaining its Buy rating
 
-@AIStockSavvy [Mon Jul 13 10:55:29 +0000 2026]: $GOOGL | Citizens reiterates 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐀𝐥𝐩𝐡𝐚𝐛𝐞𝐭, maintains 𝐏𝐓 𝐚𝐭 $𝟓𝟏𝟓 Analyst sees the early-stage enterprise AI infrastructure upgrade cycle as a positive long-term driver for hyperscalers like Google. https://t.co/bKQzby5Jwy
-
 @wallstengine [Mon Jul 13 08:58:15 +0000 2026]: Jefferies Upgrades $SHOP to Buy from Hold, Raises PT to $160 from $140 Analyst comments: “As we wrote in March, we see SHOP as uniquely positioned to become the infrastructure layer for agentic commerce and the ‘agent enablement’ toolkit for merchants. In our view, this positions SHOP to capture incremental GMV, drive higher merchant stickiness, and expand its role upstream in discovery over time as agents intermediate more of the buyer journey. We see agentic commerce as a modest GMV tailwind over the next several years. SHOP announced changes to partner commissions starting in August 2026. In effect, SHOP is tying earnouts directly to the value created on the platform. Our takeaways include: (1) partners have a greater incentive to sign larger merchants; (2) partners will likely invest more in post-launch merchant success; (3) additional offerings like B2B, POS, and Shopify Components are more in focus; (4) the changes encourage partners to stay focused on new logo acquisition and cross-selling rather than relying on an annuity-like revenue stream; and (5) the long-term unit economics from partner-driven deals will improve as the commission stream is capped. While any change brings risk, we view this as a long-term positive for both growth and margins.” Analyst: Samad Samana
+
+@StockMKTNewz [Mon Jul 13 09:55:45 +0000 2026]: Meta Platforms $META just announced plans to increase its Data Center investment in the Richland Parish region of Louisiana up to $50 Billion Meta is expanding the Louisiana data center campus up to 5GW of compute capacity Meta said with this expansion it will be investing over $1 billion in local infrastructure improvements, including roads, water and wastewater systems.
 
 @wallstengine [Mon Jul 13 09:54:27 +0000 2026]: $META is expanding its Richland Parish, Louisiana data center to 5GW of compute capacity, lifting the announced investment to over $50B from the original $10B plan. Bloomberg reports the total site cost could top $250B when including chips, though Meta has only publicly disclosed $50B. Meta also plans $1B+ in local infrastructure improvements and says the site will support 1,000+ roles once operational.
 
@@ -204,9 +204,13 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 
 @StockMKTNewz [Sun Jul 12 19:32:26 +0000 2026]: SK Hynix $SKHY brought in $35B of revenue in Q1 up from $12B in Q1 2025 https://t.co/HSome1jZcO
 
-@StockMKTNewz [Mon Jul 13 09:55:45 +0000 2026]: Meta Platforms $META just announced plans to increase its Data Center investment in the Richland Parish region of Louisiana up to $50 Billion Meta is expanding the Louisiana data center campus up to 5GW of compute capacity Meta said with this expansion it will be investing over $1 billion in local infrastructure improvements, including roads, water and wastewater systems.
-
 @KobeissiLetter [Sun Jul 12 14:59:00 +0000 2026]: Japan's bond market is seeing historic volatility. The 10Y Japanese government bond yield dropped -16 basis points on Friday, to 2.71%, the largest daily decline since April 2025. This follows a rise to 2.90% on Thursday, the first time the 10Y JGB yield reached that level in 30 years. At the same time, the 30Y JGB yield fell -13 basis points, to 3.87%, the largest daily drop since January 21st. This came after Japan's Finance Minister said the government wants to encourage pension funds, including the $1.8 trillion Government Pension Investment Fund, to increase investment in domestic assets. If this materializes, Japan's largest pension fund could eventually shift allocation away from overseas securities and toward JGBs, easing pressure on the domestic debt market. The move could also support the Yen by reducing capital outflows from Japan. Japan’s bond and currency markets are set to remain highly volatile.
+
+@AIStockSavvy [Mon Jul 13 11:11:35 +0000 2026]: $GLW | Citi maintains 𝐁𝐮𝐲 on 𝐂𝐨𝐫𝐧𝐢𝐧𝐠, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟐𝟒𝟎 𝐟𝐫𝐨𝐦 $𝟐𝟐𝟓 https://t.co/3Cg9PR1der
+
+@AIStockSavvy [Mon Jul 13 11:08:41 +0000 2026]: $UNH | Wells Fargo 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 on 𝐔𝐧𝐢𝐭𝐞𝐝𝐇𝐞𝐚𝐥𝐭𝐡 𝐆𝐫𝐨𝐮𝐩 to $𝟒𝟖𝟓 from $𝟑𝟗𝟕, maintains 𝐎𝐯𝐞𝐫𝐰𝐞𝐢𝐠𝐡𝐭 https://t.co/90DRtw5pjb
+
+@AIStockSavvy [Mon Jul 13 11:07:11 +0000 2026]: $OPEN | Keefe, Bruyette &amp; Woods 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 on 𝐎𝐩𝐞𝐧𝐝𝐨𝐨𝐫 𝐓𝐞𝐜𝐡𝐧𝐨𝐥𝐨𝐠𝐢𝐞𝐬 to $𝟐.𝟔𝟓 from $𝟐.𝟐𝟓, maintains 𝐔𝐧𝐝𝐞𝐫𝐩𝐞𝐫𝐟𝐨𝐫𝐦 https://t.co/XFMxXdC4Fz
 
 @AIStockSavvy [Mon Jul 13 11:03:47 +0000 2026]: $SMCI | Citi maintains 𝐍𝐞𝐮𝐭𝐫𝐚𝐥 on 𝐒𝐮𝐩𝐞𝐫 𝐌𝐢𝐜𝐫𝐨 𝐂𝐨𝐦𝐩𝐮𝐭𝐞𝐫, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟑𝟑 𝐟𝐫𝐨𝐦 $𝟑𝟏 https://t.co/lJagOLwp2s
 
@@ -219,10 +223,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in t
 @AIStockSavvy [Mon Jul 13 10:58:22 +0000 2026]: $COST | RBC Capital 𝐢𝐧𝐢𝐭𝐢𝐚𝐭𝐞𝐬 𝐜𝐨𝐯𝐞𝐫𝐚𝐠𝐞 on 𝐂𝐨𝐬𝐭𝐜𝐨 with 𝐒𝐞𝐜𝐭𝐨𝐫 𝐏𝐞𝐫𝐟𝐨𝐫𝐦, sets 𝐏𝐓 𝐚𝐭 $𝟏,𝟎𝟎𝟎 Analyst initiates on Costco as one of the 'best stories in retail,' but believes the current valuation appropriately reflects the positives, limiting upside.
 
 @AIStockSavvy [Mon Jul 13 10:56:39 +0000 2026]: $DECK | Jefferies 𝐮𝐩𝐠𝐫𝐚𝐝𝐞𝐬 𝐃𝐞𝐜𝐤𝐞𝐫𝐬 𝐎𝐮𝐭𝐝𝐨𝐨𝐫 to 𝐁𝐮𝐲, 𝐫𝐚𝐢𝐬𝐞𝐬 𝐏𝐓 𝐭𝐨 $𝟏𝟑𝟎 Analyst sees management's new multi-year guidance as a significant positive, providing visibility into durable growth and stable margins. https://t.co/rn16HWubhM
-
-@AIStockSavvy [Mon Jul 13 10:54:09 +0000 2026]: $RDDT | Citizens 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐑𝐞𝐝𝐝𝐢𝐭, 𝐦𝐚𝐢𝐧𝐭𝐚𝐢𝐧𝐬 𝐏𝐓 𝐚𝐭 $𝟐𝟒𝟎 Analyst sees Reddit's new AI ad generator as a major self-service opportunity, lowering the barrier for SMB advertisers to create tailored campaigns. https://t.co/nnlEek9GPh
-
-@AIStockSavvy [Mon Jul 13 10:52:02 +0000 2026]: $META | Citizens 𝐫𝐞𝐢𝐭𝐞𝐫𝐚𝐭𝐞𝐬 𝐌𝐚𝐫𝐤𝐞𝐭 𝐎𝐮𝐭𝐩𝐞𝐫𝐟𝐨𝐫𝐦 on 𝐌𝐞𝐭𝐚, maintains 𝐏𝐓 𝐚𝐭 $𝟖𝟎𝟎 Analyst sees continued Instagram engagement momentum driven by AI-relevancy gains, despite some deceleration in the U.S. market. https://t.co/TeN476WWZw
 
 @wallstengine [Mon Jul 13 09:25:09 +0000 2026]: Texas Capital Securities Reiterates Buy Rating on $OKLO, PT $93 Analyst comments: “On July 8, we hosted Oklo’s Sam Doane (Senior Director of Investor Relations) and Neel Sikka (Director of Investor Relations) for a day of investor meetings. Following the event, we are increasingly constructive on Oklo’s differentiated technology offerings and the company’s ability to deliver on the promise of advanced nuclear power. In our view, Oklo offers investors a unique combination of strong capitalization, a regulatory approach designed for scaled deployment, a comprehensive fuel strategy, a supply chain capable of growing with the company, and a track record of executing against key milestones. In the near term, we expect a positive stock response when the company’s Groves reactor reaches criticality this month following a true greenfield construction process. We reiterate Oklo as our top pick in our nuclear coverage.” Analyst: Nate Pendleton
 
