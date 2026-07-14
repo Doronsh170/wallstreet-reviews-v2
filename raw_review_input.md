@@ -1,77 +1,59 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-07-13 (יום שני). PAST TENSE.
+You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
+plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
+17:21–19:21 שעון ישראל, on 2026-07-14 (יום שלישי) — and nothing else.
+Market state right now: השוק פתוח — שעות המסחר הרגילות בניו יורק. Never describe the market as trading or reacting when the regular
+session is not open.
 
-SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
-- Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
-- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "מניות השבבים ממשיכות לרכז עניין",
-  "הנפט ממשיך לטפס", "אבן דרך במגזר הבריאות", "סנטימנט מעורב בפתיחה" — never a generic label like
-  "חדשות" / "מאקרו" / "מניות". Up to 40 characters, and NO ":" inside the headline itself.
-  A single-stock story opens with "מניית <שם בעברית> (TICKER)".
-- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences (a 4th only when the story
-  truly demands it). EVERY point must deliver real depth: (1) what happened, with the few figures that carry
-  the story, (2) the background and context (על רקע..., בעקבות...), and (3) why it matters — the mechanism or
-  the implication for investors. Never leave a point as a bare headline-fact.
-- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article — no
-  filler points, no padding.
-- Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
-  analytical, confident, readable. Weave the numbers into the story, don't stack them.
-
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
-  do NOT force every category, and never pad to reach a count:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+THE UPDATE SUMMARIZES THE SOURCES — it is NOT market analysis:
+- Content comes EXCLUSIVELY from the source tweets at the bottom of this prompt. Nothing else enters the
+  update: no price data, no daily-change percentages, no movers lists, no macro backdrop, no external
+  headlines, no recap of earlier sessions, and no independent market interpretation of your own.
+- The update does NOT determine who rose or fell in trading. Do NOT attach a price, percentage or direction
+  to any story — unless the tweet itself states that figure/move explicitly, in which case report it as the
+  source reported it.
+- FILTER: keep only market-material posts. Ignore promotional posts, engagement bait, and posts with no
+  market substance. A bare list of tickers with no story is NOT material.
+- ONE bullet per topic. Several tweets about the same topic/company → merge into ONE bullet.
+- Include EVERY material topic from the window — there is NO fixed bullet count, no minimum and no cap.
+- Each bullet: 1-2 short, clear Hebrew sentences. Open with a short Hebrew topic label, then the summary.
+  Anchor a bullet to its time when known using "בשעה 22:40" only. All times in this update are Israel time
+  (already stated once in the window line above), so do NOT append "שעון ישראל" to individual bullets — it is
+  redundant. At most one bullet may carry it if truly needed for clarity.
+- If the window does not contain enough material posts, return a single bullet saying simply:
+  "* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה." — nothing else. Never pad.
+- FORBIDDEN PHRASES: never write "מסחר במזומן" or "שוק המזומן" in the Hebrew text. Refer to the regular
+  session as "המסחר הרגיל".
+- Web search may be used ONLY to verify a name, time or figure that already appears in a tweet — NEVER to
+  discover or add stories, prices or data.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
-- Be specific: every claim must include a number, percentage, or ticker. No vague statements.
-- Do NOT repeat information across bullets. One company = one bullet (merge multiple news items).
-- No buy/sell recommendations, no price targets of your own, no "כדאי לקנות/למכור".
-- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) your web search. NEVER invent, estimate, or recall numbers from memory. When in doubt, omit.
-- If a tweet contradicts the Finnhub data, the Finnhub data is correct.
-- Directional words (צונח/יורד/מזנק/עולה) are factual claims — they MUST match the DIRECTIONAL FACTS block.
-- Sector percentages (XLE/XLK/...) — ONLY from the Finnhub data. Missing sector → omit.
-- Never claim an all-time high (שיא כל הזמנים) without web-search verification.
-- CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
-- IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
+- EVERY number in the update must appear in a source tweet. NEVER invent, estimate, or recall numbers from memory. A topic whose tweet has no figures is summarized WITHOUT figures.
+- No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
-- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when the tweet itself cites them.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
-- Never write "נתון בפועל עדיין לא קיים". If a figure has not been released yet, give only the forecast (צפי) and the previous reading (נתון קודם).
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
-- Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
-- SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה".
+- Never mention in the review that the items came from tweets/posts/X accounts.
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שני, 13.7.2026",
-  "date": "2026-07-13",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שלישי, 14.7.2026, 19:21",
+  "date": "2026-07-14",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום המסחר",
-      "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
+      "heading": "עדכון ביניים",
+      "content": "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\n* נושא שני: ...\n* נושא שלישי: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "עדכון ביניים". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -88,155 +70,88 @@ Key times in Israel time today:
 - US market open: 16:30 שעון ישראל | US market close: 23:00 שעון ישראל
 USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
-══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
-DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $749.17 (daily: -0.77%), prev close: $754.95
-  Nasdaq 100 (QQQ ETF): $711.74 (daily: -1.90%), prev close: $725.51
-  Dow Jones (DIA ETF): $524.47 (daily: -0.25%), prev close: $525.78
-  Russell 2000 (IWM ETF): $293.48 (daily: -0.85%), prev close: $295.99
-  Energy Sector (XLE ETF): $56.74 (daily: +3.01%), prev close: $55.08
-  Technology Sector (XLK ETF): $181.28 (daily: -2.42%), prev close: $185.78
-  Financials Sector (XLF ETF): $56.07 (daily: +0.65%), prev close: $55.71
-  Consumer Discretionary Sector (XLY ETF): $116.04 (daily: -1.02%), prev close: $117.24
-  Healthcare Sector (XLV ETF): $161.41 (daily: +0.35%), prev close: $160.84
-  Industrials Sector (XLI ETF): $180.37 (daily: -0.85%), prev close: $181.92
-  Consumer Staples Sector (XLP ETF): $84.59 (daily: +0.56%), prev close: $84.12
-  Utilities Sector (XLU ETF): $45.72 (daily: +0.68%), prev close: $45.41
-  WTI Crude Oil (USO ETF): $117.79 (daily: +8.36%), prev close: $108.70
-  Brent Crude Oil (BNO ETF): $46.00 (daily: +9.13%), prev close: $42.15
-  Gold (GLD ETF): $367.13 (daily: -2.62%), prev close: $377.01
-  Silver (SLV ETF): $52.16 (daily: -3.32%), prev close: $53.95
-  Bitcoin (IBIT ETF): $35.22 (daily: -2.79%), prev close: $36.23
-  US 20Y+ Bonds (TLT ETF): $83.97 (daily: -0.59%), prev close: $84.47
-  US Dollar (UUP ETF): $28.50 (daily: +0.39%), prev close: $28.39
-  VIX Volatility (VIXY ETF): $21.02 (daily: +3.34%), prev close: $20.34
-
-INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $QQQ: $711.74 (daily: -1.90%), prev close: $725.51
-  $SPY: $749.17 (daily: -0.77%), prev close: $754.95
-  $USO: $117.79 (daily: +8.36%), prev close: $108.70
-  $AAPL: $317.31 (daily: +0.63%), prev close: $315.32
-  $SPCX: $139.14 (daily: -4.24%), prev close: $145.30
-  $HOOD: $109.86 (daily: -1.88%), prev close: $111.97
-  $CRWV: $83.31 (daily: -6.27%), prev close: $88.88
-  $GOOGL: $352.51 (daily: -1.31%), prev close: $357.18
-
-DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +8.36%, BNO: +9.13%)
-  זהב: יורד (GLD: -2.62%)
-  ביטקוין: יורד (IBIT: -2.79%)
-  דולר: עולה (UUP: +0.39%)
-  תנודתיות / VIX: עולה (VIXY: +3.34%)
-  אג"ח ארוכות / TLT: יורד (TLT: -0.59%)
-
-The % changes above are ACCURATE — use them for direction and magnitude.
-The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
-For exact index LEVELS (points), gold/oil absolute prices, VIX level, Bitcoin price, 10Y yield: verify via web search. Do NOT estimate them from ETF prices.
-For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — never invent sector percentages.
-If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
-══════════════════════════════════════════════════════════════════════════════
-
-══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on 2026-07-13: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+══ WEB SEARCH POLICY ══
+Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
+tweets, for the window 17:21–19:21 Israel time on 2026-07-14. Do NOT use it to find additional news, headlines,
+prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══
+Already published on the site. Your update covers ONLY the last two hours. Mention an item below ONLY if there is a genuinely NEW development about it inside the two-hour window.
 
-[נקודות מרכזיות]
-* זהירות לקראת פתיחת המסחר: החוזים על S&P 500 יורדים בכ־0.3%, החוזים על Nasdaq 100 נחלשים בכ־1.0% והחוזים על הדאו נעים סביב 0.0%. השוק צפוי להיפתח תחת לחץ ממוקד בטכנולוגיה, כאשר ברנט נסחר סביב 78.86 דולר ו־WTI סביב 74.36 דולר בעקבות ההסלמה במפרץ.
-* מצר הורמוז מחזיר את הנפט למוקד: איראן טוענת כי המצר נסגר, אך פיקוד המרכז האמריקאי דיווח שכ־20 כלי שיט עברו בו במהלך 24 השעות האחרונות. ברנט סביב 78.86 דולר ו־WTI סביב 74.36 דולר משקפים תמחור של סיכון לאספקה, אך עדיין לא הפסקה מלאה של התנועה. הישארות ברנט מעל 78 דולר עלולה להזין מחדש את שרשרת הנפט, האינפלציה, הריבית ולחץ המכפילים במניות הצמיחה.
-* לוח מאקרו דל אך לא שקט: נגיד הפדרל ריזרב כריסטופר וולר ינאם ב־19:30 שעון ישראל, והמשקיעים יעקבו אחר עמדתו לגבי רמת הריבית המרסנת. ב־21:00 יתפרסם מאזן התקציב הפדרלי ליוני, כאשר משרד התקציב של הקונגרס צופה גירעון של 126 מיליארד דולר, לעומת גירעון של 293 מיליארד דולר במאי.
-* השבבים באסיה תחת לחץ: מדד KOSPI בדרום קוריאה יורד בכ־7.6% ומניית SK Hynix מאבדת כ־9.3%, כאשר החשש מתמחור גבוה ומהיקף השקעות ה-AI פוגע במגזר. הלחץ באסיה עובר לחוזי Nasdaq 100, שיורדים ביותר מ־1.0%, ומאותת כי מניות השבבים האמריקאיות עשויות לרכז תנודתיות גבוהה כבר בפתיחה.
-* פער התזרים של מהפכת ה-AI: אנבידיה (NVDA), מיקרון (MU), ברודקום (AVGO) ואפלייד מטיריאלס (AMAT) צפויות לייצר יחד שיא של כ־430 מיליארד דולר בתזרים מזומנים חופשי (FCF) ב־12 החודשים הקרובים, יותר מפי 3 לעומת לפני שנתיים. מנגד, התזרים המצטבר של אמזון (AMZN), אלפבית (GOOGL), מטא (META), מיקרוסופט (MSFT) ואורקל (ORCL) צפוי להפוך לשלילי, לאחר שיא של 260 מיליארד דולר ב־2024, על רקע השקעות הון של כ־1.8 טריליון דולר בשנים 2026 ו־2027. הפער ממחיש כי בשלב הנוכחי של מחזור הבינה המלאכותית (AI), חלק גדול מהערך הכספי עובר מספקיות הענן אל יצרניות השבבים והציוד.
-* מניית מטא (META) מגדילה הימור: החברה מרחיבה את מרכז הנתונים בלואיזיאנה לקיבולת של 5 גיגה-וואט ומעלה את ההשקעה המוצהרת למעל 50 מיליארד דולר, לעומת תוכנית מקורית של 10 מיליארד דולר. מטא תקצה גם יותר ממיליארד דולר לכבישים, מים ותשתיות מקומיות, מה שממחיש כי השקעות AI הופכות מפרויקט מחשוב להשקעת תשתית בקנה מידה אזורי. עבור משקיעי META, המהלך מגדיל את פוטנציאל הקיבולת העתידית, אך גם מעמיק את הלחץ על התזרים וההחזר הנדרש מהשקעה של 50 מיליארד דולר.
-* האג״ח וה-VIX משדרים פער: תשואת אג״ח ארה״ב ל־10 שנים נמצאת סביב 4.57%, רמה שממשיכה להציב רף היוון גבוה למניות צמיחה. במקביל, מדד VIX עומד על 15.03 ונותר מתחת לרמת 20, כך ששוק האופציות עדיין אינו מתמחר פאניקה רחבה למרות ירידה של כ־1.0% בחוזי Nasdaq 100. השילוב בין תשואה של 4.57% ל־VIX של 15.03 מצביע על לחץ מאקרו וריבית, אך לא על מעבר מלא למצב של בריחה מסיכון.
-* שורה תחתונה: כיוון המסחר ייקבע לפי היכולת של ברנט להתייצב סביב 78 דולר ולפי השאלה אם חוזי Nasdaq 100 יצמצמו את הירידה של כ־1.0% עד הפתיחה ב־16:30. בהמשך, דברי וולר ב־19:30 יקבעו אם זעזוע האנרגיה יתורגם גם להקשחת ציפיות הריבית.
+[סיכום המסחר]
+* יום אדום בהובלת הטכנולוגיה: וול סטריט פתחה את השבוע בירידות, כשזעזוע אנרגיה מהמפרץ הפרסי הכתיב את הטון והוביל למכירות ממוקדות בטכנולוגיה. מדד הנאסד"ק 100 בלט לשלילה וצנח כ-1.9%, מדד S&P 500 ירד כ-0.77%, בעוד מדד הדאו ג'ונס נשאר עמיד יחסית ואיבד כ-0.25% בלבד בזכות משקלן הנמוך של מניות הצמיחה. מדד המניות הקטנות ראסל 2000 ירד כ-0.85%, כך שהחולשה הייתה רוחבית אך התרכזה בעיקר בשמות הטכנולוגיים היקרים.
+* מצר הורמוז מצית את הנפט: הסיפור המרכזי של היום היה גיאופוליטי, לאחר שהנשיא טראמפ הכריז כי ארה"ב מחזירה את החסימה על מצר הורמוז וגובה אגרת מעבר בשיעור 20% משווי המטען. מחירי הנפט הגיבו בזינוק חד, כשה-WTI עלה כ-8.4% והברנט קפץ כ-9.1% ונסחר מעל 79 דולר לחבית. מהלך כזה מחזיר את סיכון האינפלציה אל קדמת הבמה, שכן התייקרות אנרגיה מתגלגלת דרך שרשרת ההובלה והייצור אל המחירים לצרכן ומצרה את מרחב התמרון של הפדרל ריזרב.
+* השבבים מובילים את הירידה: הלחץ על הטכנולוגיה יובא הבוקר מאסיה, שם מפולת במניות השבבים גלשה אל המסחר בניו יורק וסקטור הטכנולוגיה איבד כ-2.4% והיה החלש ביותר במסחר. מניית קורוויב (CRWV) בלטה לשלילה וצנחה כ-6.3%, בזמן שאלפבית (GOOGL) ירדה כ-1.3% חרף הדיווח על הרחבת מכירת שבבי ה-TPU שלה ללקוחות ענן חדשים. הירידות מגיעות דווקא לאחר שבוע שבו קרנות הגידור הגדילו אחזקות בשבבים לרמה הגבוהה ביותר מזה כ-3.5 שנים, מה שהופך את הסקטור לרגיש במיוחד לשינויי סנטימנט.
+* וולר מזהיר מפני העלאות ריבית: נגיד הפדרל ריזרב כריסטופר וולר הוסיף שמן למדורה כשאמר כי אם נתון אינפלציית הליבה שיתפרסם השבוע יפתיע כלפי מעלה, ייתכן שהבנק המרכזי ייאלץ לשקול העלאות ריבית בטווח הקרוב. האמירה הניצית, על רקע קפיצת הנפט, דחפה את תשואות אג"ח ארה"ב ל-10 שנים כלפי מעלה והכבידה על מכפילי מניות הצמיחה. עבור המשקיעים זהו שילוב מדאיג של הלם היצע באנרגיה יחד עם בנק מרכזי שמאותת כי סבלנותו כלפי אינפלציה מתקרבת לקצה.
+* רוטציה הגנתית מתחת לפני השטח: תמונת הסקטורים חשפה מעבר ברור לעמדה הגנתית, כשמגזר האנרגיה זינק כ-3% ורכב על גל הנפט והוביל בפער ניכר את המסחר. במקביל, המגזרים ההגנתיים נצבעו בירוק, כשהחשמל והמים הוסיפו כ-0.68%, מוצרי הצריכה הבסיסיים עלו כ-0.56% והפיננסים התחזקו כ-0.65% לקראת פתיחת עונת הדוחות. בצד הנגדי בלטו לשלילה הטכנולוגיה שאיבדה כ-2.4% והצריכה המחזורית שירדה כ-1%, תמהיל שמעיד על משקיעים שברחו מסיכון לעבר עוגני הכנסה יציבים.
+* מניית אפל (AAPL) בולטת לחיוב: בים האדום של הטכנולוגיה, אפל דווקא בלטה לחיוב ועלתה כ-0.63%, אחת המעטות מבין ענקיות הטכנולוגיה שנסחרה בירוק. ברקע, החברה הגישה תביעה פדרלית נגד OpenAI בטענה לגניבת סודות מסחריים, ובמקביל דווח כי הסכימה לרכוש נכסים ולקלוט עובדים מחברת סיגסקאלר. השילוב בין מהלך משפטי אגרסיבי להגנה על הקניין הרוחני לבין רכישת כישרונות טכנולוגיים חיזק את התחושה שאפל נערכת להאיץ את מאמצי הבינה המלאכותית הפנימיים שלה.
+* הזהב נסוג למרות המתיחות: באופן שנראה מנוגד לאינטואיציה, דווקא ביום של הסלמה גיאופוליטית הזהב עלה כ-2.6% והכסף הוסיף כ-3.3%, כשמקום הבריחה למקלט נלקח הפעם על ידי הדולר והנפט. הדולר האמריקאי נחלש כ-0.39% והתשואות העולות ייקרו את עלות ההחזקה במתכת שאינה נושאת ריבית, מה שמסביר את הנסיגה. מדד הפחד VIX עלה כ-3.3%, עלייה שמשקפת חשש מוגבר אך עדיין רחוקה מרמות של פאניקה רחבה בשוק.
+* שורה תחתונה למחר: הזרקור עובר מחר אל מדד המחירים לצרכן (CPI) בארה"ב שיתפרסם ב-15:30 שעון ישראל, הן המדד הכללי והן מדד הליבה, אירוע המאקרו המהותי ביותר של השבוע. וולר כבר התריע כי הפתעה כלפי מעלה באינפלציית הליבה עלולה לחייב העלאות ריבית, ולכן על רקע זינוק הנפט כל קריאה גבוהה מהצפי עלולה להצית מחדש את חששות הריבית וללחוץ על מכפילי מניות הצמיחה. במקביל נפתחת מחר עונת הדוחות עם ג'יי.פי מורגן (JPM) וענקיות הבנקאות, שיספקו קריאת כיוון ראשונה על בריאות הצרכן והאשראי, כך שהשילוב בין נתון האינפלציה לטון הבנקים יכתיב את מגמת המסחר.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-07-13. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-07-14. Never mention in the review that these came from tweets/posts:
 
-@gurgavin [Fri Jul 10 20:34:28 +0000 2026]: JUST IN : APPLE HAS JUST SUED OPENAI IN FEDERAL COURT FOR ALLEGED TRADE SECRET THEFT $AAPL
+@KobeissiLetter [Tue Jul 14 14:57:32 +0000 2026]: BREAKING: US officials say shipments of Nvidia, $NVDA, H200 chips to China have begun. Nvidia shares extend gains to a new high of day on the news.
 
-@gurgavin [Fri Jul 10 20:12:35 +0000 2026]: ARITZIA REPORTED EARNINGS YESTERDAY REVENUE UP 43% 📈 COMP SALES UP 35%📈 DIGITAL REVENUE UP 56%📈 US REVENUE UP 55%📈 PROFIT PER SHARE UP 96%📈 ONE OF THE BEST GROWTH STORIES IN CANADA CURRENTLY 🇨🇦🇨🇦🇨🇦🇨🇦 $ATZ https://t.co/pqgJGuNjTK
+@AIStockSavvy [Tue Jul 14 14:53:58 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $NVDA Nvidia H200 chip shipments to China remain limited A senior U.S. government official told lawmakers Tuesday that Nvidia Corp has shipped minimal quantities of its H200 chips to China and Hong Kong. Jeffrey Kessler, under secretary of commerce for industry and security, informed a U.S. House committee that shipments of the H200 chip have started but remain at "very few" units.
 
-@gurgavin [Thu Jul 09 16:52:48 +0000 2026]: SOMEONE JUST FILED FOR A S&amp;P 500 &amp; NASDAQ 100 ETF THAT EXCLUDES ONLY ELON MUSK’S COMPANIES THE FUNDS ARE CALLED EX-ELON ENTERPRISES ETF THE FUND EXCLUDES ANY COMPANY “FOUNDED, CONTROLLED, OR LED” BY MUSK CITING GOVERNANCE CONCERNS &amp; POLITICAL RISK $SPNE $QQNE
+@KobeissiLetter [Tue Jul 14 15:36:00 +0000 2026]: BREAKING: DeepSeek is preparing for an IPO and may file as soon as this year, per Bloomberg. Details include: 1. The company is reportedly in talks with accounting and banking advisors and the IPO is expected to be listed in China 2. DeepSeek has begun talks for a fresh funding round valuing the company at $71 billion 3. Amid rumors of an IPO, DeepSeek is now looking to expand into the agentic AI market The AI arms race is accelerating.
 
-@gurgavin [Fri Jul 10 17:36:14 +0000 2026]: *SK HYNIX CEO SAYS MEMORY CHIP SHORTAGE MAY PERSIST PAST 2030 $SKHYV
+@AIStockSavvy [Tue Jul 14 16:03:16 +0000 2026]: Stifel: 'Kratos $400M DoW award a positive read-through to Rocket Lab'. - $KTOS $RKLB "Kratos $400M DoW award a positive read-through to Rocket Lab. Earlier today, Kratos Defense & Security Solutions, Inc. (KTOS, $50.09, Buy - covered by our colleague Jon Siegmann) announced that it has recently received ~$400M in funding from the Department of War (DoW) related to certain hypersonic system and other National Security related programs. While details of the award were relatively sparse and there are no direct links to subcontractor awards, we nonetheless see this as a positive read-through to Rocket Lab given their direct supplier relationship with Kratos as we believe more vehicle development from Kratos could translate to incremental launch service procurement from Rocket Lab. While the $400M has been positioned by the Kratos team as funding to “accelerate organic growth, increasing operating cash receipts and reduce receivables/inventory/assets” we still see this as a potential catalyst and raises the probability for Rocket Lab to see an additional TO for its HASTE hypersonic test vehicle as incremental funding is allocated to hypersonic testing. We also see this new funding as a positive development in the context of the broader hypersonic testing environment (and confirmation of the MACH-TB 2.0 supplier chain) as is potentially de-risks the conversion of Rocket Lab’s 20 launch backlog into revenue and keeps the program on schedule."
 
-@StockMKTNewz [Mon Jul 13 16:19:45 +0000 2026]: Apple $AAPL has agreed to acquire certain assets and hire employees from SigScalr - MacRumors
+@AIStockSavvy [Tue Jul 14 15:03:38 +0000 2026]: Kalshi: Announces Compute Forward Curves Which Are Now Live for $NVDA Nvidia B200, H200, and a100 Chips
 
-@AIStockSavvy [Mon Jul 13 17:18:20 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: $GOOGL Google Expands TPU Push Into AI Cloud Market Dominated by Nvidia - Seeking Alpha - $NBIS $CRWV $NVDA 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐆𝐨𝐨𝐠𝐥𝐞 is marketing 𝐓𝐏𝐔𝐬 to emerging AI neocloud providers. ➤ 𝐍𝐯𝐢𝐝𝐢𝐚 continues to dominate the neocloud GPU market. ➤ Google reportedly approached 𝐍𝐬𝐜𝐚𝐥𝐞 to adopt TPU infrastructure. ➤ Nscale said current deployments remain focused on 𝐍𝐯𝐢𝐝𝐢𝐚 𝐆𝐏𝐔 capacity. ➤ Smaller neoclouds could become potential 𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐏𝐔 customers. ➤ Google already supplies TPUs to 𝐀𝐧𝐭𝐡𝐫𝐨𝐩𝐢𝐜, 𝐌𝐞𝐭𝐚, and 𝐀𝐩𝐩𝐥𝐞. ➤ Google and 𝐁𝐥𝐚𝐜𝐤𝐬𝐭𝐨𝐧𝐞 are building a TPU-powered neocloud. ➤ Venture plans to rent TPUs to AI labs and enterprise customers next year. ➤ Google is also partnering with AI cloud provider 𝐅𝐥𝐮𝐢𝐝𝐬𝐭𝐚𝐜𝐤. 👉 𝐄𝐱𝐩𝐞𝐫𝐭 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: 𝐓𝐡𝐨𝐦𝐚𝐬 𝐊𝐮𝐫𝐢𝐚𝐧, Google Cloud CEO: "This joint venture with Blackstone helps meet growing demand for TPUs, which are optimized specifically for efficiency and performance in the AI era. Together, we're accelerating AI transformation and providing more options for organizations to access accelerated compute capability."
+@AIStockSavvy [Tue Jul 14 14:29:01 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $NVDA NVIDIA, Mitsubishi heavy eye cooperation on AI data center cooling and power - Nikkei
 
-@wallstengine [Mon Jul 13 17:33:25 +0000 2026]: Sunrun $RUN is piloting a program to turn rooftop solar and battery systems into distributed AI compute capacity, per Bloomberg. Customers could host a small filing-cabinet-sized computer and earn “a couple hundred dollars to more than that” per month, CEO Mary Powell said. Sunrun says the “mini data-center capabilities” would be aggregated and sold to tech companies looking for AI compute. No buyers or full economics disclosed yet. Separately, Sunrun, Tesla and Renew Home plan to aggregate 16GW+ of flexible home energy capacity for hyperscalers and utilities.
+@wallstengine [Tue Jul 14 14:34:19 +0000 2026]: CrowdStrike $CRWD shares are up nearly 9% after IBM pointed to clients facing “rapidly evolving, industry-wide cybersecurity concerns.” https://t.co/L3sfR1PWiI
 
-@gurgavin [Mon Jul 13 14:17:52 +0000 2026]: NEW DAY NEW ALL TIME LOWS FOR SPACEX SHARES $SPCX https://t.co/iKT9uNDcqM
+@KobeissiLetter [Tue Jul 14 15:10:33 +0000 2026]: BREAKING: President Trump announces a "full blockade" on the Strait of Hormuz. Trump also says he has decided to "replace the 20% US reimbursement fee with trade and investment deals" from Gulf countries. https://t.co/pJDSPa6IA2
 
-@KobeissiLetter [Mon Jul 13 17:57:35 +0000 2026]: BREAKING: US oil prices surge +9% after President Trump announces the US is reimposing its blockade of the Strait of Hormuz, with ships now required to pay a fee equal to 20% of their cargo’s value to transit the waterway. https://t.co/34sNm9ID2Z
+@StockMKTNewz [Tue Jul 14 15:00:56 +0000 2026]: JPMorgan $JPM sold $4.6 Billion shares of Visa $V stock during Q2 JPMorgan has been holding the shares since Visa's 2008 IPO https://t.co/YuCGjPXfH7
 
-@KobeissiLetter [Mon Jul 13 12:18:20 +0000 2026]: BREAKING: President Trump says the United States is "taking over" the Strait of Hormuz. Brent crude oil prices extend gains to rise above $79/barrel.
+@StockMKTNewz [Tue Jul 14 14:42:33 +0000 2026]: Frontier Airlines $FRO plans to install SpaceX’s $SPCX Starlink Internet Service on its planes by early 2027 - Bloomberg https://t.co/T5fZWxvwx2
 
-@StockMKTNewz [Mon Jul 13 20:11:20 +0000 2026]: Cipotle $CMG just said that its first Chipotle restaurant in Mexico 🇲🇽 will open on Thursday in San Pedro Garza García, Nuevo León https://t.co/8jEz514BEy
+@AIStockSavvy [Tue Jul 14 15:08:38 +0000 2026]: Trump: Oil Is Flowing Like Never Before, To Replace 20% Hormuz Cargo Fee With Trade Deals - $QQQ $SPY $USO
 
-@AIStockSavvy [Mon Jul 13 16:40:33 +0000 2026]: Federal Reserve Governor Waller said he expects consumer spending to remain strong and AI-related investment to stay robust. - $QQQ $SPY $SPX
+@StockMKTNewz [Tue Jul 14 15:04:30 +0000 2026]: The 2x Long SK Hynix ETF $SKHX from my partners over at Leverage Shares has now had more than 1 Million shares traded so far today https://t.co/zzGbqkY9ns
 
-@AIStockSavvy [Mon Jul 13 16:31:05 +0000 2026]: Waller said if core inflation prints high again this week, the Fed will need to consider near-term rate hikes. - $QQQ $SPY $SPX
+@StockMKTNewz [Tue Jul 14 14:50:27 +0000 2026]: $IBM stock is now down by more than 25% so far today and is on pace for its worst day since at least 1968 🔴🔴🔴🔴🔴 https://t.co/KWJy2Y4a4B
 
-@AIStockSavvy [Mon Jul 13 14:55:24 +0000 2026]: $ISRG | TD Cowen maintains 𝐁𝐮𝐲 on 𝐈𝐧𝐭𝐮𝐢𝐭𝐢𝐯𝐞 𝐒𝐮𝐫𝐠𝐢𝐜𝐚𝐥, 𝐜𝐮𝐭𝐬 𝐏𝐓 𝐭𝐨 $𝟓𝟐𝟎 from $585 Analyst sees a potential floor for underperforming shares in Q2, suggesting guidance may have an upward bias despite ongoing concerns. https://t.co/1UaSaUT4Qc
+@StockMKTNewz [Tue Jul 14 14:37:19 +0000 2026]: $UBER is in advanced talks to acquire German food-delivery company Delivery Hero Delivery Hero is currently worth just under $13B https://t.co/mbOG24pLCv
 
-@StockMKTNewz [Mon Jul 13 19:19:59 +0000 2026]: Oracle $ORCL stock hit new 52 WEEK LOWS today https://t.co/bTA60ha7oF
+@wallstengine [Tue Jul 14 15:11:03 +0000 2026]: JEFFREY KESSLER CONFIRMED DURING A HEARING THAT $NVDA H200 SHIPMENTS TO CHINA HAVE TAKEN PLACE, BUT DESCRIBED THE VOLUME SHIPPED AS “TRIVIAL.”
 
-@KobeissiLetter [Mon Jul 13 18:55:57 +0000 2026]: BREAKING: Iran’s Foreign Minister Araghchi responds to President Trump announcing a 20% fee to transit the Strait of Hormuz: “POTUS is absolutely right. Whoever provides secure and safe passage of commercial vessels through the Strait of Hormuz should be compensated for this service. Iran has always been the guardian of the Strait and will remain so forever. 20% is of course too much. We will be fair,” he says.
+@wallstengine [Tue Jul 14 15:05:41 +0000 2026]: SK Hynix $SKHY just hit a new all-time high, with options and leveraged products now live. $SKHX has already traded over 1 million shares. https://t.co/JLTzn2RuvD
 
-@KobeissiLetter [Mon Jul 13 17:19:09 +0000 2026]: BREAKING: Total US federal debt is now up to a record $39.4 trillion, rising +$3.2 trillion over the last 12 months. Since 2020, US federal debt is now up a massive +$16.3 trillion. This marks a +$2.5 trillion average annual increase, or +$209 billion per month. At this pace, total US debt will surge to $50.0 trillion before 2030. The US debt crisis has no end in sight.
+@StockMKTNewz [Tue Jul 14 14:35:43 +0000 2026]: The AI model wars are now on
 
-@KobeissiLetter [Mon Jul 13 15:31:16 +0000 2026]: Hedge funds are piling into US semiconductor stocks: Last week, hedge funds purchased the most US semiconductor stocks in at least 3.5 years. This follows the 2 largest consecutive weekly sales since June 2024. As a result, semiconductor stocks now account for 10% of total hedge fund exposure. This percentage is twice as high as during the same period last year. However, this remains below the peak of 14% recorded in May. Hedge funds are betting the semiconductor selloff is already over.
+@AIStockSavvy [Tue Jul 14 14:28:37 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: DeepSeek Begins IPO Preparations, Eyes 2027 Public Debut 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐃𝐞𝐞𝐩𝐒𝐞𝐞𝐤 has begun preparations for an 𝐈𝐏𝐎, according to Bloomberg. ➤ Company is targeting a 𝐦𝐚𝐢𝐧𝐥𝐚𝐧𝐝 𝐂𝐡𝐢𝐧𝐚 IPO filing in 2026. ➤ Public market debut is planned for 𝐭𝐰𝐞𝐧𝐭𝐲-𝐭𝐰𝐞𝐧𝐭𝐲-𝐬𝐞𝐯𝐞𝐧. ➤ DeepSeek is working with 𝐚𝐜𝐜𝐨𝐮𝐧𝐭𝐢𝐧𝐠 and banking advisors. ➤ Company is seeking at least 𝐂𝐍𝐘 𝟏𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 in new private funding. ➤ New funding targets a 𝐩𝐫𝐞-𝐦𝐨𝐧𝐞𝐲 𝐯𝐚𝐥𝐮𝐚𝐭𝐢𝐨𝐧 of at least 𝐂𝐍𝐘 𝟒𝟖𝟎 𝐛𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Target valuation equals approximately 𝐒𝟕𝟏 𝐛𝐢𝐥𝐥𝐢𝐨𝐧. ➤ DeepSeek closed a record 𝐒𝟕 𝐛𝐢𝐥𝐥𝐢𝐨𝐧 financing round weeks earlier. ➤ IPO timing and fundraising plans remain 𝐬𝐮𝐛𝐣𝐞𝐜𝐭 𝐭𝐨 𝐜𝐡𝐚𝐧𝐠𝐞 based on conditions.
 
-@KobeissiLetter [Mon Jul 13 14:22:45 +0000 2026]: BREAKING: President Trump says the US is reinstating its blockade of the Strait of Hormuz for Iranian ships and customers. Trump says the US will now be known as "The Guardian of the Strait of Hormuz" and will be "reimbursed" at a rate of 20% on all cargo shipped. It appears the US is now imposing a blockade and fees to transit the Strait of Hormuz.
+@wallstengine [Tue Jul 14 15:45:07 +0000 2026]: FED WARSH: DOLLAR LIQUIDITY SWAP LINES ARE PART OF MONETARY POLICY
 
-@KobeissiLetter [Mon Jul 13 13:47:53 +0000 2026]: BREAKING: The UAE is planning to build a new port and container terminal on the country's east cost to bypass the Strait of Hormuz, per FT. Details include: 1. Dubai's DP World is in talks to develop a new multipurpose port in the coastal area of Fujairah 2. The new project would allow containers to enter and leave the country without having to pass through the Strait of Hormuz 3. Shipments would then be moved on trucks overland to Dubai, Abu Dhabi, and neighboring Gulf countries The Iran War continues to reshape global trade.
+@wallstengine [Tue Jul 14 15:44:18 +0000 2026]: FED WARSH: MISSION ACCOMPLISHED' IS NOT MY VIEW AFTER TODAY'S DATA DO NOT THINK AFTER TODAY'S CPI REPORT THAT EVERYTHING IS WELL
 
-@StockMKTNewz [Mon Jul 13 20:06:44 +0000 2026]: Palantir $PLTR just confirmed it will be reporting earnings after the markets close on Monday, August 3rd
+@wallstengine [Tue Jul 14 14:53:54 +0000 2026]: FED WARSH: WE DO NOT WANT TO BE IN THE BAILOUT BUSINESS WANT TO BE IN A POSITION WE AREN'T BAILING OUT ANYONE INCLUDING CRYPTO
 
-@StockMKTNewz [Mon Jul 13 19:32:59 +0000 2026]: Robinhood $HOOD is reportedly gauging investor interest in a bond backed by bills for its branded consumer credit cards, in what would be the firm’s first offering of its kind The company is looking to sell at least $400 million of asset backed securities in four parts, Initial price talk on the deal’s highest-rated portion is a premium of about 0.8% over the benchmark This is a rumor from Bloomberg, we're still waiting for confirmation from the company
+@wallstengine [Tue Jul 14 14:38:38 +0000 2026]: FED WARSH: ANY CHANGE IN BALNACE SHEET POLICY WOULD BE PREVIEWED, EXPLAINED,
 
-@AIStockSavvy [Mon Jul 13 15:02:49 +0000 2026]: Iran Security Official: $QQQ $SPY $USO ➤ Says control of the Strait of Hormuz is determined by Iran's will, not by Trump's posts ➤ Says Trump's claim that the United States has protected the Strait of Hormuz for 50 years is purely an illusion ➤ Says Trump had forgotten the Strait of Hormuz had belonged to Iran for thousands of years, long before the United States existed
+@wallstengine [Tue Jul 14 14:38:17 +0000 2026]: Fed Chair Warsh said the task forces are still in discovery mode and are starting with a blank sheet of paper. Their initial views will be shared with all 19 policymakers before a broader public discussion.
 
-@AIStockSavvy [Mon Jul 13 14:18:18 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: U.S. President Trump says he will restore a blockade against Iran. - $QQQ $SPY $USO
+@wallstengine [Tue Jul 14 15:06:38 +0000 2026]: Trump: I have decided to replace the 20% United States Reimbursement Fee with Trade and Investment Deals that the various Gulf States will be making into the United States. Those Investments will be MASSIVE but, at the same time, extraordinarily good for them, and their future. https://t.co/Q6YXE51r29
 
-@AIStockSavvy [Mon Jul 13 13:57:46 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Dubai plans new port to bypass Strait of Hormuz - FT - $USO
+@StockMKTNewz [Tue Jul 14 15:40:55 +0000 2026]: A Tyrannosaurus Rex named Gus just sold for $50.1M, the highest price ever paid for a dinosaur at auction - Bloomberg https://t.co/8nM4eUU0hY
 
-@wallstengine [Mon Jul 13 18:44:01 +0000 2026]: Bank earnings kick off Q2 earnings season tomorrow. Here’s a preview using @PPLXfinance: JPMorgan: Revenue: $51.1B; +12% YoY Adj. EPS: $5.59; +29% YoY Implied move: ~3.6% $JPM should have a solid quarter. 🧵 (1/8) https://t.co/pitlMHxYUY
+@AIStockSavvy [Tue Jul 14 15:22:09 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Switch Targets $80 Billion Valuation, Switch IPO Could Happen as Early as Fourth Quarter
 
-@KobeissiLetter [Mon Jul 13 19:49:23 +0000 2026]: BREAKING: President Trump’s Thursday speech is reportedly to address “newly declassified intelligence reports related to foreign interference in the 2020 election,” per MS NOW.
+@wallstengine [Tue Jul 14 15:53:02 +0000 2026]: FED WARSH: I AM DOUBLING DOWN ON 2% INFLATION TARGET THIS FED WILL DELIVER 2% INFLATION BROADER PRICE STABILITY OBJECTIVE IS STILL IN THE BACK OF MY MIND, WE'LL SEE IF THERE ARE FURTHER REFORMS TO BE HAD PREPARED TO DO EVERYTHING I CAN DO ENSURE INDEPENDENT CONDUCT OF MONETARY POLICY
 
-@KobeissiLetter [Mon Jul 13 19:41:41 +0000 2026]: BREAKING: President Trump says he will be addressing the nation on Thursday at 9 PM ET. https://t.co/WmN61ODtYj
+@wallstengine [Tue Jul 14 15:51:17 +0000 2026]: CEO Jane Fraser said the Middle East conflict has “weighed a bit on global growth” and given inflation “a second wind,” while consent-order timing is “fully at the discretion of our regulators.” The bank did not raise its 2026 ROTCE target. https://t.co/TPoGzH0KzQ
 
-@gurgavin [Sun Jul 12 22:08:29 +0000 2026]: STOCK MARKET FUTURES JUST OPENED S&amp;P 500 DOWN 0.3% 📉 DOW JONES DOWN 0.3% 📉 NASDAQ 100 DOWN 0.5% 📉 https://t.co/XJT17hqZLv
+@StockMKTNewz [Tue Jul 14 15:31:00 +0000 2026]: 🇺🇸 President Trump just posted this: "I have decided to replace the 20% United States Reimbursement Fee with Trade and Investment Deals that the various Gulf States will be making into the United States." https://t.co/VSUDbrg6Wk
 
-@gurgavin [Sun Jul 12 19:04:45 +0000 2026]: TRUMP IS PROBABLY GONNA ANNOUNCE CEASEFIRE NUNBER 528239 RIGH BEFORE FUTURES OPEN FOR THE 3RD WEEK IN A ROW
+@wallstengine [Tue Jul 14 14:36:39 +0000 2026]: More Price cuts coming?
 
-@gurgavin [Sat Jul 11 23:30:27 +0000 2026]: *IRAN STRIKES VESSEL, CLOSES STRAIT OF HORMUZ INDEFINITELY HERE WE GO AGIN
-
-@StockMKTNewz [Mon Jul 13 19:47:30 +0000 2026]: Berkshire Hathaway $BRK.B is back to having a larger market cap than Micron $MU https://t.co/5jbe5859Ui
-
-@AIStockSavvy [Mon Jul 13 19:15:25 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $HOOD Robinhood Plans First Asset-Backed Bond Tied to Credit Card Receivables 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐑𝐨𝐛𝐢𝐧𝐡𝐨𝐨𝐝 is gauging demand for its first 𝐚𝐬𝐬𝐞𝐭-𝐛𝐚𝐜𝐤𝐞𝐝 𝐛𝐨𝐧𝐝. ➤ Offering is backed by 𝐜𝐨𝐧𝐬𝐮𝐦𝐞𝐫 𝐜𝐫𝐞𝐝𝐢𝐭 𝐜𝐚𝐫𝐝 receivables. ➤ Initial deal size targets at least 𝐒𝟒𝟎𝟎 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Total issuance could increase to 𝐒𝟓𝟎𝟎 𝐦𝐢𝐥𝐥𝐢𝐨𝐧. ➤ Securities will be split into 𝐟𝐨𝐮𝐫 𝐭𝐫𝐚𝐧𝐜𝐡𝐞𝐬. ➤ Top-rated tranche is priced at about 𝐨.𝟖 𝐩𝐞𝐫𝐜𝐞𝐧𝐭𝐚𝐠𝐞 𝐩𝐨𝐢𝐧𝐭 over benchmark. ➤ Deal supports Robinhood's expansion into the 𝐜𝐫𝐞𝐝𝐢𝐭 𝐜𝐚𝐫𝐝 market. ➤ Robinhood introduced a 𝐒𝟔𝟗𝟓 𝐩𝐥𝐚𝐭𝐢𝐧𝐮𝐦 credit card in March. ➤ 𝐖𝐞𝐥𝐥𝐬 𝐅𝐚𝐫𝐠𝐨 and 𝐁𝐚𝐫𝐜𝐥𝐚𝐲𝐬 are managing the offering. ➤ 𝐂𝐨𝐚𝐬𝐭𝐚𝐥 𝐂𝐨𝐦𝐦𝐮𝐧𝐢𝐭𝐲 𝐁𝐚𝐧𝐤 owns Robinhood's branded credit card accounts.
-
-@AIStockSavvy [Mon Jul 13 14:54:01 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: States Set To Sue Monday To Block Paramount-warner Bros. Deal - Bloomberg - $PARA $PSKY $WBD
-
-@gurgavin [Sun Jul 12 18:51:40 +0000 2026]: NEW ALL TIME HIGHS COMING
-
-@KobeissiLetter [Mon Jul 13 20:13:40 +0000 2026]: Crypto funds are showing their first signs of a recovery: Crypto ETFs attracted +$281.8 million in inflows last week, the first weekly inflow since the 2nd week of May. Bitcoin funds posted +$197.4 million in inflows, while Ethereum funds attracted +$84.4 million. This also marks the end of an 8-week streak of outflows, totaling more than -$7 billion. As a result, trailing 12-month inflows are down to +$1 billion, from +$10 billion in late April. By comparison, inflows peaked at +$12 billion in October 2025. Buyers are beginning to return to the crypto market.
-
-@StockMKTNewz [Mon Jul 13 17:06:27 +0000 2026]: LIVE STREAM GOING ON RIGHT NOW @ChrisCamillo and @amitisinvesting are live on the WOLF Channel talking about using AI for the stock market
-
-@wallstengine [Mon Jul 13 19:10:40 +0000 2026]: RT @wallstengine: Bernstein: We see China as the lead competitor for $SPCX Analyst comments: “On July 10, China 🇨🇳 successfully landed the…
-
-@StockMKTNewz [Mon Jul 13 19:46:13 +0000 2026]: 🇺🇸 President Trump said he will be making an address to the nation at 9PM ET on Thursday
-
-@AIStockSavvy [Mon Jul 13 15:18:38 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: U.S. Federal Communications Commission (FCC) will accelerate approval of satellite applications.
+@wallstengine [Tue Jul 14 14:23:05 +0000 2026]: 👀
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.

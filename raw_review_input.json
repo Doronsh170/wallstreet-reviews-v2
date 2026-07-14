@@ -1,82 +1,12 @@
 {
-  "mode": "daily_summary",
-  "generated_at": "2026-07-13T23:25:36.812879+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שני, 13.7.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-07-13",
-  "title_date_str": "2026-07-13",
-  "title_day_name": "שני",
+  "mode": "intraday_update",
+  "generated_at": "2026-07-14T19:21:11.902243+03:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שלישי, 14.7.2026, 19:21",
+  "first_heading": "עדכון ביניים",
+  "review_date": "2026-07-14",
+  "title_date_str": "2026-07-14",
+  "title_day_name": "שלישי",
   "week_range": null,
-  "etf_pcts": {
-    "SPY": -0.7656,
-    "QQQ": -1.898,
-    "DIA": -0.2492,
-    "IWM": -0.848,
-    "XLE": 3.0138,
-    "XLK": -2.4222,
-    "XLF": 0.6462,
-    "XLY": -1.0235,
-    "XLV": 0.3544,
-    "XLI": -0.852,
-    "XLP": 0.5587,
-    "XLU": 0.6827,
-    "USO": 8.3625,
-    "BNO": 9.134,
-    "GLD": -2.6206,
-    "SLV": -3.3179,
-    "IBIT": -2.7877,
-    "TLT": -0.5919,
-    "UUP": 0.3875,
-    "VIXY": 3.3432
-  },
-  "ticker_quotes": {
-    "QQQ": {
-      "price": 711.74,
-      "pct": -1.898,
-      "prev_close": 725.51,
-      "ts": 1783972800
-    },
-    "SPY": {
-      "price": 749.17,
-      "pct": -0.7656,
-      "prev_close": 754.95,
-      "ts": 1783972800
-    },
-    "USO": {
-      "price": 117.79,
-      "pct": 8.3625,
-      "prev_close": 108.7,
-      "ts": 1783972800
-    },
-    "AAPL": {
-      "price": 317.31,
-      "pct": 0.6311,
-      "prev_close": 315.32,
-      "ts": 1783972800
-    },
-    "SPCX": {
-      "price": 139.14,
-      "pct": -4.2395,
-      "prev_close": 145.3,
-      "ts": 1783972800
-    },
-    "HOOD": {
-      "price": 109.86,
-      "pct": -1.8844,
-      "prev_close": 111.97,
-      "ts": 1783972800
-    },
-    "CRWV": {
-      "price": 83.31,
-      "pct": -6.2669,
-      "prev_close": 88.88,
-      "ts": 1783972800
-    },
-    "GOOGL": {
-      "price": 352.51,
-      "pct": -1.3075,
-      "prev_close": 357.18,
-      "ts": 1783972800
-    }
-  }
+  "etf_pcts": {},
+  "ticker_quotes": {}
 }
