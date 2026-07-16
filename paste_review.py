@@ -6,8 +6,12 @@ NO language-model API is used. Everything here is deterministic:
     and surrounding text),
   - forces the exact title, date, one section, exact heading, "* " bullets,
   - runs the anti-hallucination guards against the Finnhub snapshot taken at
-    gather time: asset direction guard (auto-fix), and a per-ticker sign-flip
-    guard — a material sign-flip FAILS the publish and data.json is not touched,
+    gather time: an asset direction check and a per-ticker sign-flip check —
+    a material contradiction FAILS the publish and data.json is not touched
+    (no silent auto-rewrites: a wrong direction means the whole bullet needs
+    a rewrite, not a patched verb),
+  - enforces the signature length: daily reviews are EXACTLY 6 bullets with a
+    per-bullet word cap, the weekly is 8-10,
   - fixes known recurring errors (tense before market open, political titles,
     IPO/ETF confusion), strips URLs, removes duplicate bullets,
   - writes the result into data.json under the right key for the website.
@@ -49,12 +53,21 @@ DATA_JSON_KEY = {
 
 # The intraday update summarizes the sources: bullet count is driven by the
 # material topics in the window, and a quiet window is a single bullet
-# ("אין מספיק עדכונים משמעותיים..."). The signature-style reviews target
-# 6-9 strong points — below 5 the chat skipped material and needs another round.
+# ("אין מספיק עדכונים משמעותיים..."). Below 5 in a signature review means the
+# chat skipped material and needs another round.
 # The Israeli reviews are tweet-only, so a thin source day may legitimately yield
 # a short review (or the single "not enough material" bullet) — floor of 1.
 MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
                "israel_weekly_summary": 1}
+
+# Signature length (CLAUDE.md): the US daily reviews are EXACTLY 6 bullets
+# including the bottom line, each 4-5 lines; the weekly is 8-10 bullets.
+# Enforced here so an overgrown review never reaches the site.
+EXACT_BULLETS = {"daily_prep": 6, "daily_summary": 6}
+BULLET_RANGE = {"weekly_summary": (8, 10)}
+MAX_BULLET_WORDS = 100     # hard cap per daily bullet, headline included
+TARGET_BULLET_WORDS = 85   # above this → warning (the 4-5 line target is ~60-80)
+MAX_SUMMARY_ITEM_WORDS = 28  # a תקציר item should be ~20 words — warning only
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
 
@@ -110,40 +123,34 @@ FORBIDDEN_META_PHRASES = ["לפי הציוץ", "ציוץ נוסף", "הציוץ"
 
 UP_WORDS = [
     "עולה", "עולים", "עלו", "עלה", "עלייה", "בעלייה", "מטפס", "מטפסים", "טיפס", "טיפסו",
-    "מזנק", "מזנקים", "זינק", "זינקו", "קופץ", "קופצים", "התחזק", "התחזקו", "מתחזק", "מתחזקים",
+    "מזנק", "מזנקים", "זינק", "זינקו", "קופץ", "קופצים", "קפץ", "קפצו", "התחזק", "התחזקו",
+    "מתחזק", "מתחזקים", "מוסיף", "מוסיפים", "הוסיף", "הוסיפו",
 ]
 DOWN_WORDS = [
     "יורד", "יורדים", "ירד", "ירדו", "ירידה", "בירידה", "נופל", "נופלים", "נפל", "נפלו",
-    "צונח", "צונחים", "צנח", "צנחו", "נחלש", "נחלשו", "נחלשת", "נחלשים", "מאבד", "מאבדים", "איבד", "איבדו",
+    "צונח", "צונחים", "צנח", "צנחו", "נחלש", "נחלשו", "נחלשת", "נחלשים", "מאבד", "מאבדים",
+    "איבד", "איבדו", "נסוג", "נסוגו", "נסיגה",
 ]
-DIRECTION_REPLACEMENTS_UP = {
-    "צונחים": "עולים", "צונח": "עולה", "צנחו": "עלו", "צנח": "עלה",
-    "יורדים": "עולים", "יורד": "עולה", "ירדו": "עלו", "ירד": "עלה", "ירידה": "עלייה", "בירידה": "בעלייה",
-    "נופלים": "עולים", "נופל": "עולה", "נפלו": "עלו", "נפל": "עלה",
-    "נחלשים": "מתחזקים", "נחלש": "התחזק", "נחלשו": "התחזקו", "נחלשת": "מתחזקת",
-    "מאבדים": "מוסיפים", "מאבד": "מוסיף", "איבדו": "הוסיפו", "איבד": "הוסיף",
-}
-DIRECTION_REPLACEMENTS_DOWN = {
-    "מזנקים": "יורדים", "מזנק": "יורד", "זינקו": "ירדו", "זינק": "ירד",
-    "עולים": "יורדים", "עולה": "יורד", "עלו": "ירדו", "עלה": "ירד", "עלייה": "ירידה", "בעלייה": "בירידה",
-    "מטפסים": "יורדים", "מטפס": "יורד", "טיפסו": "ירדו", "טיפס": "ירד",
-    "קופצים": "יורדים", "קופץ": "יורד", "התחזקו": "נחלשו", "התחזק": "נחלש", "מתחזקים": "נחלשים", "מתחזק": "נחלש",
-}
-# Word boundaries (?<!\w)...(?!\w) are MANDATORY: without them the neutralizer
-# matches substrings inside innocent words (e.g. "נפל" inside "אינפלציה",
-# "זינק" inside "זינקה", "יורד" inside "יורדות") and corrupts the text.
-ANY_DIRECTION_RE = re.compile(
-    r'(?<!\w)(?:מזנקים|מזנק|זינקו|זינק|מטפסים|מטפס|טיפסו|טיפס|עולים|עולה|עלו|עלה|בעלייה|'
-    r'יורדים|יורד|ירדו|ירד|בירידה|צונחים|צונח|צנחו|צנח|נופלים|נופל|נפלו|נפל|'
-    r'נחלשים|נחלש|נחלשו|נחלשת)(?!\w)'
-)
+# Word boundaries (?<!\w)...(?!\w) are MANDATORY when matching direction words:
+# without them "נפל" matches inside "אינפלציה", "זינק" inside "זינקה",
+# "יורד" inside "יורדות", "עולה" inside "פעולה" — and an innocent sentence
+# gets flagged as a contradiction.
+#
+# DIRECTION_ASSETS notes:
+# - "dollar" matches only "הדולר"/DXY/UUP — a bare "דולר" appears in every
+#   price ("79 דולר לחבית", "מיליארד דולר") and must not trigger the check.
+# - "yields" moves INVERSELY to its measurement symbol (TLT): bond prices up
+#   means yields down. A sentence about "תשואות" is checked against the
+#   inverted TLT direction, and suppresses the bond-price check ("long_bonds")
+#   for that sentence, because "תשואות האג"ח" is a yields story.
 DIRECTION_ASSETS = {
     "oil": {"symbols": ["USO", "BNO"], "label": "נפט", "terms": ["נפט", "WTI", "Brent", "ברנט", "crude", "oil"]},
     "gold": {"symbols": ["GLD"], "label": "זהב", "terms": ["זהב", "gold"]},
     "bitcoin": {"symbols": ["IBIT"], "label": "ביטקוין", "terms": ["ביטקוין", "bitcoin", "BTC", "IBIT"]},
-    "dollar": {"symbols": ["UUP"], "label": "דולר", "terms": ["דולר", "DXY", "UUP"]},
+    "dollar": {"symbols": ["UUP"], "label": "דולר", "terms": ["הדולר", "DXY", "UUP"]},
     "vix": {"symbols": ["VIXY"], "label": "תנודתיות / VIX", "terms": ["VIX", "תנודתיות", "VIXY"]},
-    "long_bonds": {"symbols": ["TLT"], "label": "אג\"ח ארוכות", "terms": ["TLT", "אג\"ח", "אגח", "Treasury", "תשואות"]},
+    "long_bonds": {"symbols": ["TLT"], "label": "אג\"ח ארוכות", "terms": ["TLT", "אג\"ח", "אגח"]},
+    "yields": {"symbols": ["TLT"], "label": "תשואות", "terms": ["תשואות", "התשואה", "Treasury"], "invert": True},
 }
 
 TICKER_UP_TOKENS = UP_WORDS + ["עלתה", "מטפסת", "מזנקת", "זינקה", "קופצת", "קפץ", "קפצה", "קפצו",
@@ -389,7 +396,20 @@ def direction_from_pct(pct: Any, threshold: float = 0.15) -> Optional[str]:
     return "flat"
 
 
-def apply_market_direction_guard(result: Dict[str, Any], pcts: Dict[str, float]) -> Dict[str, Any]:
+def _has_direction_word(text: str, words: List[str]) -> bool:
+    return any(re.search(rf'(?<!\w){re.escape(w)}(?!\w)', text) for w in words)
+
+
+def market_direction_check(result: Dict[str, Any], pcts: Dict[str, float]) -> None:
+    """Asset-level direction check (oil/gold/bitcoin/dollar/VIX/bonds/yields)
+    against the gather-time Finnhub snapshot, on the bullets AND the summary.
+
+    A verified contradiction FAILS the publish. This guard used to auto-replace
+    the direction verb in place — that patched one word but left the bullet's
+    headline, logic and summary contradicting it (a published bullet ended up
+    with "הזהב נסוג" in the headline, "הזהב עלה" in the body and "הזהב ירד" in
+    the summary), so the whole bullet must be rewritten instead.
+    A direction claim against a ~flat/mixed reading is a warning only."""
     directions: Dict[str, Dict[str, Any]] = {}
     for key, meta in DIRECTION_ASSETS.items():
         dirs = [d for d in (direction_from_pct(pcts.get(s)) for s in meta["symbols"] if s in pcts) if d]
@@ -402,43 +422,73 @@ def apply_market_direction_guard(result: Dict[str, Any], pcts: Dict[str, float])
             direction = nonflat[0]
         else:
             direction = "mixed"
+        if meta.get("invert") and direction in ("up", "down"):
+            direction = "up" if direction == "down" else "down"
         directions[key] = {"direction": direction, "meta": meta}
     if not directions:
-        return result
+        return
 
-    def fix_sentence(sent: str) -> str:
-        for info in directions.values():
-            direction = info["direction"]
-            if not any(t.lower() in sent.lower() for t in info["meta"]["terms"]):
-                continue
-            has_up = any(w in sent for w in UP_WORDS)
-            has_down = any(w in sent for w in DOWN_WORDS)
-            if direction == "up" and has_down and not has_up:
-                for src, dst in sorted(DIRECTION_REPLACEMENTS_UP.items(), key=lambda x: -len(x[0])):
-                    sent = re.sub(rf'(?<!\w){re.escape(src)}(?!\w)', dst, sent)
-                print(f"  ✅ Direction guard fixed contradiction: {info['meta']['label']} should be UP")
-            elif direction == "down" and has_up and not has_down:
-                for src, dst in sorted(DIRECTION_REPLACEMENTS_DOWN.items(), key=lambda x: -len(x[0])):
-                    sent = re.sub(rf'(?<!\w){re.escape(src)}(?!\w)', dst, sent)
-                print(f"  ✅ Direction guard fixed contradiction: {info['meta']['label']} should be DOWN")
-            elif direction in ("flat", "mixed") and (has_up or has_down):
-                sent = ANY_DIRECTION_RE.sub("נעים בתנודתיות", sent)
-                print(f"  ✅ Direction guard neutralized mixed/flat direction: {info['meta']['label']}")
-        return sent
+    heb = {"up": "עלייה", "down": "ירידה"}
+    hard: List[str] = []
+    soft: List[str] = []
 
-    def fix_text(text: str) -> str:
-        out_lines = []
-        for line in text.split("\n"):
-            parts = re.split(r'(?<=[\.\!\?])\s+', line)
-            out_lines.append(" ".join(fix_sentence(p) for p in parts))
-        return "\n".join(out_lines)
+    def term_in(text: str, terms: List[str]) -> bool:
+        return any(t.lower() in text.lower() for t in terms)
+
+    def check_fragment(frag: str, info: Dict[str, Any]) -> None:
+        has_up = _has_direction_word(frag, UP_WORDS)
+        has_down = _has_direction_word(frag, DOWN_WORDS)
+        if has_up == has_down:  # neither, or both even inside one clause — ambiguous, skip
+            return
+        claimed = "up" if has_up else "down"
+        direction = info["direction"]
+        label = info["meta"]["label"]
+        if direction in ("flat", "mixed"):
+            soft.append(f"{label}: הטקסט טוען {heb[claimed]} אבל הנתון המאומת היה כמעט ללא שינוי/מעורב."
+                        f"\n     הטקסט: {frag.strip()[:200]}")
+        elif claimed != direction:
+            hard.append(f"{label}: הטקסט טוען {heb[claimed]} אבל הנתון המאומת בזמן האיסוף הראה {heb[direction]}."
+                        f"\n     הטקסט: {frag.strip()[:200]}")
+
+    def scan_text(text: str) -> None:
+        for line in str(text).split("\n"):
+            for sent in re.split(r'(?<=[\.\!\?])\s+', line):
+                if not sent.strip():
+                    continue
+                for key, info in directions.items():
+                    terms = info["meta"]["terms"]
+                    if not term_in(sent, terms):
+                        continue
+                    # "תשואות האג"ח עלו" is a yields story — don't judge it as a bond-price story.
+                    if key == "long_bonds" and "yields" in directions and term_in(sent, directions["yields"]["meta"]["terms"]):
+                        continue
+                    # A sentence mixing up- and down-words ("הזהב ירד, בעוד ה-VIX עלה",
+                    # or a headline contradicting its own body across the ":") is split
+                    # into clauses so each claim is judged on its own. The colon split
+                    # skips times like "22:40".
+                    frags = [sent]
+                    if _has_direction_word(sent, UP_WORDS) and _has_direction_word(sent, DOWN_WORDS):
+                        frags = [f for f in re.split(r'[,;]|(?<!\d):(?!\d)|\sבעוד\s', sent) if term_in(f, terms)]
+                    for frag in frags:
+                        check_fragment(frag, info)
 
     for section in result.get("sections", []):
         if isinstance(section.get("content"), str):
-            section["content"] = fix_text(section["content"])
-    if isinstance(result.get("summary"), list):
-        result["summary"] = [fix_text(x) if isinstance(x, str) else x for x in result["summary"]]
-    return result
+            scan_text(section["content"])
+    for item in result.get("summary", []) or []:
+        if isinstance(item, str):
+            scan_text(item)
+
+    for w in soft:
+        print(f"  ⚠️  אזהרה (נכס כמעט ללא שינוי בנתון המאומת): {w}")
+    if hard:
+        details = "\n  ".join(hard)
+        raise ValueError(
+            f"הפרסום נכשל: {len(hard)} סתירות כיוון בנכסים (נפט/זהב/דולר/תשואות/VIX):\n  {details}\n"
+            f"מה לעשות: שכתב את הבולט כולו (כותרת, גוף ותקציר) כך שהכיוון, ההסבר והלוגיקה "
+            f"יתאימו לנתון המאומת — אל תחליף רק את מילת הכיוון."
+        )
+    print("  ✅ אין סתירות כיוון בנכסים שנבדקו")
 
 
 def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict[str, float]],
@@ -618,6 +668,39 @@ def hard_content_validation(result: Dict[str, Any], min_bullets: int = 5) -> Non
         raise ValueError(f"רק {len(bullets)} בולטים בסקירה — נדרשים לפחות {min_bullets}. בקש מהצ'אט סקירה מלאה יותר.")
 
 
+def bullet_length_check(result: Dict[str, Any], mode: str) -> None:
+    """Enforces the signature length so a bloated review never publishes:
+    daily reviews are EXACTLY 6 bullets with a hard per-bullet word cap,
+    the weekly is 8-10 bullets. Other modes are length-free by design."""
+    content = result["sections"][0].get("content", "")
+    bullets = [l for l in str(content).split("\n") if l.strip().startswith("* ")]
+    exact = EXACT_BULLETS.get(mode)
+    if exact is not None and len(bullets) != exact:
+        raise ValueError(
+            f"בסקירה {len(bullets)} בולטים — הסקירה היומית היא בדיוק {exact} נקודות כולל השורה התחתונה. "
+            f"מזג או מחק את הנקודות החלשות (או פצל אם חסרות), ועדכן גם את התקציר באותו סדר."
+        )
+    rng = BULLET_RANGE.get(mode)
+    if rng and not (rng[0] <= len(bullets) <= rng[1]):
+        raise ValueError(
+            f"בסקירה {len(bullets)} בולטים — הסקירה השבועית היא {rng[0]}-{rng[1]} נקודות. התאם את מספר הנקודות."
+        )
+    if exact is not None:
+        for b in bullets:
+            n = len(b.split())
+            if n > MAX_BULLET_WORDS:
+                raise ValueError(
+                    f"בולט ארוך מדי ({n} מילים, המקסימום {MAX_BULLET_WORDS}): \"{b.strip()[:60]}...\" "
+                    f"קצר אותו ל-4-5 שורות: השאר רק את העובדות שנושאות את הסיפור ואת הפואנטה למשקיע."
+                )
+            if n > TARGET_BULLET_WORDS:
+                print(f"  ⚠️  בולט ארוך ({n} מילים, היעד עד ~{TARGET_BULLET_WORDS}): {b.strip()[:60]}...")
+    for item in result.get("summary", []) or []:
+        n = len(str(item).split())
+        if n > MAX_SUMMARY_ITEM_WORDS:
+            print(f"  ⚠️  פריט תקציר ארוך ({n} מילים, היעד ~20): {str(item)[:60]}...")
+
+
 # ══════════════════════════════════════════════════════════════
 # Archive
 # ══════════════════════════════════════════════════════════════
@@ -685,14 +768,14 @@ def main() -> None:
     if mode == "intraday_update":
         result = apply_intraday_fixes(result)
 
-    print("── Market direction guard (vs gather-time Finnhub snapshot) ──")
+    print("── Market direction check (vs gather-time Finnhub snapshot) ──")
     if mode in ("weekly_summary", "israel_weekly_summary"):
         # The weekly text describes WEEKLY moves and the snapshot holds DAILY
-        # percentages — auto-"fixing" against them would corrupt correct sentences.
+        # percentages — checking against them would flag correct sentences.
         # (The Israeli weekly is tweet-only, so its snapshot is empty anyway.)
-        print("  weekly review — skipping the daily-based auto-fix guard")
+        print("  weekly review — skipping the daily-based direction check")
     else:
-        result = apply_market_direction_guard(result, snapshot.get("etf_pcts", {}))
+        market_direction_check(result, snapshot.get("etf_pcts", {}))
 
     print("── Per-ticker direction check (vs snapshot) ──")
     # Raises on a material sign-flip → publish fails, data.json untouched.
@@ -710,6 +793,7 @@ def main() -> None:
 
     print("── Final validation ──")
     hard_content_validation(result, MIN_BULLETS.get(mode, 5))
+    bullet_length_check(result, mode)
     print("  ✅ Validation passed")
 
     original_date = result.get("date", "")
