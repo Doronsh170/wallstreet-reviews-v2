@@ -494,6 +494,44 @@ def ticker_direction_check(result: Dict[str, Any], ticker_quotes: Dict[str, Dict
 
 
 # ══════════════════════════════════════════════════════════════
+# Macro schedule check — "scheduled today" claims must be verified
+# ══════════════════════════════════════════════════════════════
+
+# A review once presented the CPI as "due today" two days after it was
+# released. The script cannot know the real calendar, so it never auto-fixes —
+# it flags EVERY bullet that presents a macro event as scheduled today, so the
+# writer must consciously confirm each one against a web-searched calendar
+# (see CLAUDE.md, "אימות אירועי מאקרו") before pushing.
+MACRO_EVENT_TERMS = [
+    "CPI", "PPI", "NFP", "FOMC", "ISM", "GDP",
+    "מדד המחירים לצרכן", "מדד המחירים ליצרן", "דוח התעסוקה",
+    "החלטת ריבית", "החלטת הריבית", "פרוטוקול", "תביעות אבטלה", "תביעות האבטלה",
+    "מכירות קמעונאיות", "המכירות הקמעונאיות", "אמון הצרכנים", "הספר הבז'",
+]
+SCHEDULED_TODAY_RE = re.compile(
+    r'(?:ש?[יית]תפרסמו?|ש?יפורסמו?|צפויי?ה?ם?|במוקד)\s+היום|היום\s+ב-\d{1,2}:\d{2}'
+)
+
+
+def macro_schedule_check(result: Dict[str, Any]) -> None:
+    flagged: List[str] = []
+    content = result["sections"][0].get("content", "")
+    for bullet in (l for l in str(content).split("\n") if l.strip()):
+        if not SCHEDULED_TODAY_RE.search(bullet):
+            continue
+        events = [t for t in MACRO_EVENT_TERMS if t in bullet]
+        if events:
+            flagged.append(f"[{', '.join(events)}] {bullet.strip()[:150]}")
+    if not flagged:
+        print("  ✅ אין טענות 'מתפרסם היום' על אירועי מאקרו")
+        return
+    print(f"  ⚠️  MACRO-CHECK: {len(flagged)} בולטים מציגים אירוע מאקרו כמתוכנן להיום — "
+          f"חובה לוודא כל אחד מול לוח אירועים שאומת בחיפוש אינטרנט (ראה CLAUDE.md):")
+    for f in flagged:
+        print(f"     - {f}")
+
+
+# ══════════════════════════════════════════════════════════════
 # Tense guard, links, dedupe, validation
 # ══════════════════════════════════════════════════════════════
 
@@ -661,6 +699,9 @@ def main() -> None:
     # Weekly reviews describe weekly moves, so the daily snapshot is warnings-only there.
     ticker_direction_check(result, snapshot.get("ticker_quotes", {}),
                            hard_fail=(mode != "weekly_summary"))
+
+    print("── Macro schedule check ──")
+    macro_schedule_check(result)
 
     print("── Tense guard / links / dedupe ──")
     result = apply_pre_market_tense_guard(result, mode)
