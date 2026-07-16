@@ -1,17 +1,19 @@
 name: Tests
 
-# מריץ את חבילת הבדיקות של שכבת האימות (paste_review.py) על כל שינוי קוד.
-# לא רץ על פרסומי סקירות (review_output.json / data.json) — רק על שינויי Python.
+# מריץ את חבילת הבדיקות של שכבת האימות (paste_review.py) ושל האתר (index.html)
+# על כל שינוי קוד. לא רץ על פרסומי סקירות (review_output.json / data.json).
 on:
   pull_request:
     paths:
       - "**.py"
+      - "index.html"
       - "requirements.txt"
       - ".github/workflows/tests.yml"
   push:
     branches: [main]
     paths:
       - "**.py"
+      - "index.html"
       - "requirements.txt"
       - ".github/workflows/tests.yml"
 
