@@ -368,6 +368,10 @@ body.disclaimer-locked{overflow:hidden}
 
 <script>
 const DATA_PATH = 'data.json';
+/* Canonical public address of the site. Share links must always use this —
+   never location.href, which may be a temporary preview/proxy URL that is
+   blocked for anyone who receives the shared message. */
+const SITE_URL = 'https://doronsh170.github.io/wallstreet-reviews-v2/';
 const LABELS = {
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
@@ -671,7 +675,7 @@ function shareWhatsApp(){
     '📋 תקציר הנקודות:',
     ...summaries.map(s => '• ' + (s.label ? s.label + ': ' : '') + s.text),
     '',
-    '👈 לצפייה בסקירה המלאה: ' + location.href,
+    '👈 לצפייה בסקירה המלאה: ' + SITE_URL,
   ];
   // wa.me is WhatsApp's canonical click-to-chat share link and works with no phone
   // number: it opens WhatsApp with the text prefilled and a contact/group picker.
