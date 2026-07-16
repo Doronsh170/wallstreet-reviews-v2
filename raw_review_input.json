@@ -1,11 +1,11 @@
 {
-  "mode": "daily_summary",
-  "generated_at": "2026-07-16T10:17:27.999860+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 15.7.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-07-15",
-  "title_date_str": "2026-07-15",
-  "title_day_name": "רביעי",
+  "mode": "daily_prep",
+  "generated_at": "2026-07-16T14:50:20.165708+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 16.7.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-07-16",
+  "title_date_str": "2026-07-16",
+  "title_day_name": "חמישי",
   "week_range": null,
   "etf_pcts": {
     "SPY": 0.3964,
@@ -42,16 +42,28 @@
       "prev_close": 983.12,
       "ts": 1784145600
     },
-    "EOSE": {
-      "price": 4.37,
-      "pct": 1.8648,
-      "prev_close": 4.29,
+    "UNH": {
+      "price": 418.52,
+      "pct": -1.5687,
+      "prev_close": 425.19,
       "ts": 1784145600
     },
-    "AMZN": {
-      "price": 254.96,
-      "pct": 3.0183,
-      "prev_close": 247.49,
+    "TSM": {
+      "price": 419.48,
+      "pct": -0.2165,
+      "prev_close": 420.39,
+      "ts": 1784145600
+    },
+    "INTC": {
+      "price": 102.99,
+      "pct": -4.4265,
+      "prev_close": 107.76,
+      "ts": 1784145600
+    },
+    "SNDK": {
+      "price": 1615.0,
+      "pct": -8.1248,
+      "prev_close": 1757.82,
       "ts": 1784145600
     },
     "GOOGL": {
@@ -60,16 +72,22 @@
       "prev_close": 359.51,
       "ts": 1784145600
     },
-    "META": {
-      "price": 681.31,
-      "pct": 3.0664,
-      "prev_close": 661.04,
-      "ts": 1784145600
-    },
     "SPCX": {
       "price": 135.27,
       "pct": -0.5952,
       "prev_close": 136.08,
+      "ts": 1784145600
+    },
+    "IBM": {
+      "price": 211.2,
+      "pct": -2.7042,
+      "prev_close": 217.07,
+      "ts": 1784145600
+    },
+    "ABT": {
+      "price": 89.27,
+      "pct": 0.3485,
+      "prev_close": 88.96,
       "ts": 1784145600
     },
     "LLY": {
@@ -78,28 +96,10 @@
       "prev_close": 1152.54,
       "ts": 1784145600
     },
-    "ASTS": {
-      "price": 66.31,
-      "pct": -3.6472,
-      "prev_close": 68.82,
-      "ts": 1784145600
-    },
     "AAPL": {
       "price": 327.5,
       "pct": 4.0145,
       "prev_close": 314.86,
-      "ts": 1784145600
-    },
-    "AMD": {
-      "price": 529.14,
-      "pct": -3.4645,
-      "prev_close": 548.13,
-      "ts": 1784145600
-    },
-    "AVGO": {
-      "price": 394.28,
-      "pct": 1.3287,
-      "prev_close": 389.11,
       "ts": 1784145600
     }
   }
