@@ -1,8 +1,8 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-07-16T19:44:16.470032+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום חמישי, 16.7.2026, 19:44",
-  "first_heading": "עדכון ביניים",
+  "mode": "israel_summary",
+  "generated_at": "2026-07-16T20:01:01.337445+03:00",
+  "expected_title": "סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום חמישי, 16.7.2026",
+  "first_heading": "סיכום המסחר",
   "review_date": "2026-07-16",
   "title_date_str": "2026-07-16",
   "title_day_name": "חמישי",

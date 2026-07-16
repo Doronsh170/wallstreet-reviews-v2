@@ -1,32 +1,33 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
-plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
-17:44–19:44 שעון ישראל, on 2026-07-16 (יום חמישי) — and nothing else.
-Market state right now: השוק פתוח — שעות המסחר הרגילות בניו יורק. Never describe the market as trading or reacting when the regular
-session is not open.
+You are a senior investment advisor writing a signature END-OF-DAY review in Hebrew for the
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for 2026-07-16 (יום חמישי). PAST TENSE.
 
-THE UPDATE SUMMARIZES THE SOURCES — it is NOT market analysis:
-- Content comes EXCLUSIVELY from the source tweets at the bottom of this prompt. Nothing else enters the
-  update: no price data, no daily-change percentages, no movers lists, no macro backdrop, no external
-  headlines, no recap of earlier sessions, and no independent market interpretation of your own.
-- The update does NOT determine who rose or fell in trading. Do NOT attach a price, percentage or direction
-  to any story — unless the tweet itself states that figure/move explicitly, in which case report it as the
-  source reported it.
-- FILTER: keep only market-material posts. Ignore promotional posts, engagement bait, and posts with no
-  market substance. A bare list of tickers with no story is NOT material.
-- ONE bullet per topic. Several tweets about the same topic/company → merge into ONE bullet.
-- Include EVERY material topic from the window — there is NO fixed bullet count, no minimum and no cap.
-- Each bullet: 1-2 short, clear Hebrew sentences. Open with a short Hebrew topic label, then the summary.
-  Anchor a bullet to its time when known using "בשעה 22:40" only. All times in this update are Israel time
-  (already stated once in the window line above), so do NOT append "שעון ישראל" to individual bullets — it is
-  redundant. At most one bullet may carry it if truly needed for clarity.
-- If the window does not contain enough material posts, return a single bullet saying simply:
-  "* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה." — nothing else. Never pad.
-- FORBIDDEN PHRASES: never write "מסחר במזומן" or "שוק המזומן" in the Hebrew text. Refer to the regular
-  session as "המסחר הרגיל".
-- Web search may be used ONLY to verify a name, time or figure that already appears in a tweet — NEVER to
-  discover or add stories, prices or data.
+SIGNATURE POINT FORMAT (follow it exactly):
+- Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
+- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "הבנקים ממשיכים להוביל",
+  "אבן דרך בסקטור הנדל"ן", "סנטימנט זהיר לקראת הפתיחה" — never a generic label like "חדשות" / "מאקרו".
+  Up to 40 characters, and NO ":" inside the headline itself. A single-stock story opens with
+  "מניית <שם החברה> (טיקר אם הופיע בציוץ)".
+- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences. EVERY point delivers real
+  depth: (1) what happened, with the few figures that carry the story (ONLY figures that appear in a source),
+  (2) the background and context (על רקע..., בעקבות...), and (3) why it matters for the investor.
+- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article.
+- Voice: a senior investment advisor explaining the Tel Aviv market to clients — analytical, confident,
+  readable. Weave the numbers into the story, don't stack them.
+
+THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that ended:
+- Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
+  levels, percentages, movers or macro data that do not appear in a source. A figure (index move, a stock's
+  change, a report number) enters ONLY if a source states it explicitly. Web search verifies a name/figure
+  already in a source, never adds news of its own.
+- Do NOT independently determine who rose or fell. Direction and magnitude for any story come from the source.
+- 6-9 STRONG points TOTAL. FIRST point tells the day's story in one narrative (headline like
+  "יום ירוק בהובלת הבנקים") from what the sources reported about the session. MIDDLE points — ONE point per
+  real story (companies, sectors, reports, Bank of Israel, notable moves) as the sources framed them.
+  LAST point — "שורה תחתונה למחר: ..." — what the Tel Aviv investor should watch next session and why.
+- If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
+No US market data, no Wall Street framing unless a source raises it, no ISO dates.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -43,17 +44,17 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום חמישי, 16.7.2026, 19:44",
+  "title": "סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום חמישי, 16.7.2026",
   "date": "2026-07-16",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "עדכון ביניים",
-      "content": "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\n* נושא שני: ...\n* נושא שלישי: ..."
+      "heading": "סיכום המסחר",
+      "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "עדכון ביניים". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -62,56 +63,106 @@ CRITICAL — OUTPUT FORMAT (MANDATORY):
   what happened and why it matters — in your own words, up to ~20 words. Do NOT copy the first sentence of the
   bullet verbatim. All the same verification and direction rules apply to the summary as to the bullets.
 
-US-ISRAEL TIME OFFSET TODAY: +7 hours (add 7 hours to US Eastern Time)
-Key times in Israel time today:
-- US economic data releases (CPI, NFP, PPI, GDP, Jobless Claims): 15:30 שעון ישראל
-- ISM PMI, JOLTS, Consumer Confidence: 17:00 שעון ישראל
-- FOMC rate decision / minutes: 21:00 שעון ישראל | Fed Chair press conference: 21:30 שעון ישראל
-- US market open: 16:30 שעון ישראל | US market close: 23:00 שעון ישראל
-USE ONLY THESE TIMES. Do NOT calculate your own offset.
-
 ══ WEB SEARCH POLICY ══
-Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
-tweets, for the window 17:44–19:44 Israel time on 2026-07-16. Do NOT use it to find additional news, headlines,
-prices or macro data. Content that is not present in the tweets does not enter the update.
+Web search is for VERIFICATION ONLY — confirming a name or figure that already appears in the source posts.
+Do NOT use it to find additional news, index levels, prices or macro data. Content that is not present in the
+sources does not enter the review.
 ══════════════════════════════════
 
-══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══
-Already published on the site. Your update covers ONLY the last two hours. Mention an item below ONLY if there is a genuinely NEW development about it inside the two-hour window.
+══ CONTEXT: THIS SESSION'S TEL AVIV PRE-MARKET BRIEFING ══
+Published before the session. Use it to resolve what was expected into what happened, do NOT quote it verbatim.
 
-[נקודות מרכזיות]
-* החוזים נבלמים אחרי יומיים של ראלי: החוזים על S&P 500 יורדים כ-0.2% ואלו של הנאסד"ק כ-0.6%, בעוד חוזי הדאו עולים כ-0.2%, כשמניות השבבים שוב מושכות את הטכנולוגיה מטה. העצירה מגיעה אחרי יומיים של עליות ולקראת יום עמוס: שלישיית נתוני מאקרו ב-15:30 שעון ישראל ובראשם המכירות הקמעונאיות ליוני, המשך דוחות הבנקים, ונטפליקס (NFLX) שתדווח אחרי הנעילה. ברקע, מחירי הנפט שהוסיפו כ-1% ונסחרים מעל 80 דולר לחבית ממשיכים להעיב על נרטיב הדיסאינפלציה.
-* מכירות קמעונאיות ותביעות אבטלה במוקד: היום ב-15:30 שעון ישראל יתפרסמו המכירות הקמעונאיות ליוני, עם צפי לעלייה של 0.2% לעומת 0.9% בקריאה הקודמת ולירידה של 0.1% בנטרול רכבים, לצד תביעות האבטלה השבועיות לאחר נתון קודם של 215 אלף, ומדד הפעילות של שלוחת הפד בפילדלפיה. אחרי שמדד המחירים לצרכן שפורסם ביום שלישי הפתיע לטובה והגדיל את הציפיות להורדת ריבית, הנתונים של היום יספקו קריאת חוזק לצרכן האמריקאי ולשוק העבודה. נתונים יציבים יחזקו את תרחיש הנחיתה הרכה, בעוד חולשה חדה עלולה להעלות חשש מהאטה דווקא כשמחירי האנרגיה גבוהים.
-* מניית יונייטדהלת' (UNH): ענקית ביטוח הבריאות פתחה את יום הדוחות עם רבעון חזק במיוחד, רווח מתואם של 6.38 דולר למניה מול צפי של 4.85 דולר, הכנסות של 112 מיליארד דולר והעלאת תחזית הרווח השנתית לטווח של 19.50 עד 20 דולר למניה. בתגובה נרשם זינוק של יותר מ-8% במסחר המוקדם, שמציב את המניה יותר מ-75% מעל השפל של סוף מרץ. הדוח מעניק פתיחה אופטימית לעונת הדוחות ורוח גבית למגזר הבריאות כולו.
-* השבבים בין דוח חזק לאיום רגולטורי: טייוואן סמיקונדקטור (TSM) היכתה את התחזיות עם רווח של 4.31 דולר למניה מול צפי של 3.95 דולר, צפי הכנסות של כ-45.2 מיליארד דולר לרבעון הבא מעל ההערכות, והכרזה על השקעה נוספת של 100 מיליארד דולר באריזונה שמביאה את סך השקעתה בארה"ב ל-265 מיליארד דולר. מנגד, לפי Financial Times מחוקקים בוושינגטון קוראים לממשל לאסור שבבי זיכרון מתוצרת סין, התפתחות שמוסיפה אי-ודאות ליצרניות הזיכרון כמו מיקרון (MU) וסאנדיסק (SNDK) אחרי שבוע סוער בסקטור. למרות הדוח החזק, מניית טייוואן סמיקונדקטור יורדת כ-3.2% במסחר המוקדם, ויצרניות הזיכרון ווסטרן דיגיטל (WDC) וסיגייט (STX) נחלשות כ-3.9% וכ-3.3% בהתאמה, איתות שהמשקיעים ממקדים את הדאגה בסיכון הרגולטורי ובמחירי הזיכרון.
-* איתותי פיוס מול איראן והנפט נשאר גבוה: הנשיא טראמפ מסר כי קיבל פנייה מטהרן המבקשת להיפגש ולהגיע להסדר, ואיראן שחררה אזרח אמריקאי במחווה של רצון טוב. למרות זאת מחירי הנפט הוסיפו כ-1% והם נסחרים מעל 80 דולר לחבית, כאשר יבוא הגולמי של סין ירד ביוני כ-41% בהשוואה שנתית לרמה הנמוכה בעשור, עדות לעומק זעזוע ההיצע שיצרה המלחמה. עבור המשקיעים, אנרגיה יקרה נשארת תעלת ההזנה המרכזית של האינפלציה, גם אם ההסלמה הצבאית תתקרר.
-* שורה תחתונה: את כיוון המסחר היום יכתיבו נתוני המאקרו של 15:30 שעון ישראל, המכירות הקמעונאיות ליוני עם צפי לעלייה של 0.2%, תביעות האבטלה השבועיות ומדד הפד של פילדלפיה, קריאת חוזק ראשונה לצרכן אחרי ההקלה באינפלציה. עונת הדוחות החזקה מעניקה לשוק עוגן חיובי, אבל מחירי הנפט מעל 80 דולר לחבית שומרים את סיכון האינפלציה על השולחן, כך שנתון צרכני חם מדי עלול דווקא להחיות את חששות הריבית.
+[לקראת יום המסחר]
+* סנטימנט זהיר על רקע תמחור מלא: הבורסה בתל אביב נכנסת ליום המסחר של יום שני לאחר שבוע עמוס בגיוסים, הנפקות והורדת ריבית, כשהמשקיעים נותרים סלקטיביים. קול בולט בשוק מזהיר כי אין כיום מגזר אחד בתמחור מעניין וכי הכל יקר מאוד, אמירה שמשקפת חשש מרמות המחירים לאחר תקופה ארוכה של עליות. ברקע ממשיך לרחף נתיב הריבית של בנק ישראל, שהופחתה לאחרונה ל-3.50% בנימה יונית, גורם שתומך בתיאבון לסיכון אך גם מחדד את השאלה על ההצדקה לתמחור הנוכחי.
+* מדד יוני במוקד: תשומת הלב הכלכלית לקראת יום שני מופנית אל פרסום מדד המחירים לצרכן לחודש יוני. הכלכלן הראשי של בנק מזרחי טפחות מעריך כי השקל החזק והוזלת מחירי הטיסות יובילו למדד שלילי ביוני, אך מזהיר כי הפיחות שנרשם בשקל בשבועות האחרונים עלול להפוך לגורם אינפלציוני בהמשך. מדד נמוך יחזק את הציפיות להמשך הורדות ריבית, בעוד האזהרה מהפיחות מזכירה שהתמונה האינפלציונית עשויה להתהפך.
+* הנדל״ן בזירת הריבית היורדת: בסביבת ריבית יורדת חוזר סקטור הנדל״ן למרכז העניין, והשאלה היא אילו חברות ייהנו יותר, יזמיות בנייה, חברות קניונים או חברות תשתית. ברקע, קרן המטבע הבינלאומית הזהירה בסקירתה על ישראל מפני סיכונים הולכים וגוברים בשוק הנדל״ן ומהחשיפה של הבנקים אליו. המשקיעים נדרשים לאזן בין הרוח הגבית של הריבית הנמוכה לבין אזהרות על תמחור וסיכון אשראי בענף.
+* הקוונטום הישראלי לוול סטריט: בסוף השבוע נחשף כי שתי חברות קוונטום ישראליות נמצאות בדרך להנפקה בוול סטריט לפי שווי כולל של כ-5 מיליארד דולר. המהלך ממחיש את המגמה שבה חברות דיפ-טק ישראליות פונות אל השווקים בארה״ב לגיוסי ענק. עבור השוק המקומי זו תזכורת לכוח המשיכה של וול סטריט לחברות הצמיחה, ולשאלת הערך שנותר או שאובד לבורסה בתל אביב.
+* שוק ההנפקות נותר רותח: התיאבון בשוק הראשוני המקומי אינו מראה סימני האטה. סמח״ט גולני לשעבר הנפיק חברת רחפנים קטנה בבורסה והצהיר כי אין סיכון למשקיעים ושהשוק רותח, בעוד אקונרג׳י השלימה בהצלחה את השלב המוסדי בהנפקת סדרת אג״ח חדשה. גל ההנפקות והגיוסים ממשיך להעמיד למבחן את הביקוש של המשקיעים, במיוחד כשקולות בשוק מזהירים מפני תמחור מלא.
+* השקל ורכישות המט״ח של בנק ישראל: בנק ישראל רכש בחודש יוני מטבע חוץ בהיקף של כמיליארד דולר, המשך למאמץ למתן את התחזקות השקל. לפי הערכת הכלכלן הראשי של מזרחי טפחות, ההשפעה הממתנת של השקל החזק קרובה למיצוי, והפיחות האחרון עלול אף להפוך לאינפלציוני. תנועות המטבע יישארו גורם מרכזי שישפיע הן על היצואנים והן על מדד המחירים הקרוב.
+* רקע גלובלי מעורב: בזירה הבינלאומית נקלעה קבוצת פולקסווגן למשבר לאחר צניחה במכירות בסין ובארה״ב, ובחברה מתכננים להפסיק את ייצורם של מחצית מדגמי הקבוצה, הכוללת גם את סקודה ואאודי. מנגד, יצרנית השבבים הקוריאנית SK Hynix זינקה ביום המסחר הראשון שלה בנאסד״ק, המשך לעניין הגובר בשבבים ובבינה מלאכותית. התפתחויות אלו ממחישות עד כמה השוק המקומי רגיש לסנטימנט הגלובלי בטכנולוגיה ובתעשייה.
+* שורה תחתונה: כיוון המסחר ביום שני יוכרע במידה רבה מהציפיות לקראת מדד המחירים לחודש יוני ומהפרשנות להמשך נתיב הריבית של בנק ישראל. במקביל יבחנו המשקיעים האם שוק ההנפקות הרותח והנדל״ן הרגיש לריבית ימשיכו למשוך ביקושים, זאת על רקע אזהרות חוזרות כי התמחור בבורסה המקומית מלא.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-07-16. Never mention in the review that these came from tweets/posts:
+מקורות מרשת X (בעברית) — Never mention in the review that these came from posts/X:
 
-@KobeissiLetter [Thu Jul 16 15:59:34 +0000 2026]: Retail is cashing-in tech profits: Retail investors sold -$125 million in SanDisk, $SNDK, stock last week, the largest sale among any stock. This was followed by Apple, $AAPL, at -$120 million, and Tesla, $TSLA, at -$105 million. Furthermore, retail investors sold -$65 million in Nvidia, $NVDA, -$40 million in American Airlines, $AAL, and -$22 million in Meta, $META. This brings 2-week retail sales volume in $TSLA and $AAPL up to -$200 million. Meanwhile, the total retail turnover in single stocks rose to a record $370 billion, up from $220 billion at the start of 2026. Retail investors are locking in gains following a historic tech rally.
+@ModiShafrir [Tue Jul 14 12:47:53 +0000 2026]: האינפלציה (CPI) ב- 🇺🇸 הפתיעה בחדות כלפי מטה, כך שההסתברות להעלאת ריבית בחודש הקרוב צפויה לרדת, הדולר בעולם נחלש, תשואות ה- Treasuries יורדות, והחוזים על מדדי המניות עולים בחדות יחסית (חרף העלייה הנוספת והחדה במחירי הנפט): ✅האינפלציה (headline) ירדה ביוני ב- 0.4% (צפי ל- 0.1%-). ✅יתרה מכך, ליבת האינפלציה (Core CPI) נותרה לל"ש (צפי ל- 0.2%+), כך שקצב העלייה השנתי התמתן בחדות ל- 2.6%+ YoY (לעומת 2.9%+ במאי). 1/
 
-@StockMKTNewz [Thu Jul 16 14:47:46 +0000 2026]: Here's Taiwan Semiconductor's $TSM revenue by platform 66% - HPC 22% - Smartphone 5% - IOT 4% - Automotive 2% - Others 1% - DCE Credit to my partners at @LeverageShares for the graphic https://t.co/1fvGKzOd76
+@ModiShafrir [Sun Jul 05 06:01:20 +0000 2026]: תמצית הסקירה השבועית 05.07.26: 1. שווקים ונפט 🌏- חרף הירידה החדה במניות השבבים (מדד ה- SOX ירד השבוע ב- 4.4%), מדד ה- S&P 500 במשקל שווה (equal weighted) עלה לרמת שיא, בתמיכת ידיעות גיאופוליטיות חיוביות, התבססות מחירי הנפט ברמת שפל של ארבעה חודשים, והתמתנות הציפיות להעלאת ריבית קרובה בארה"ב.
 
-@AIStockSavvy [Thu Jul 16 16:09:50 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Intel and Google Cloud are partnering to accelerate Intel's enterprise AI transformation. - $INTC $GOOGL
+@ModiShafrir [Wed Jul 15 16:50:51 +0000 2026]: מדד חודש יוני נותר לל"ש, בדומה להערכתנו ומעל לממוצע תחזיות החזאים והשוק לירידה של כ- 0.1%. חרף ההפתעה כלפי מעלה (וההאצה במחירי השכירות), האינפלציה השנתית התמתנה ל- 1.60% YoY (לעומת 1.90%+ בחודשיים האחרונים), והתמתנות נרשמה גם במדדי הליבה השונים. מה ההשלכות לגבי ריבית בנק ישראל? 1/
 
-@StockMKTNewz [Thu Jul 16 15:08:32 +0000 2026]: ~185M SpaceX $SPCX shares are now sold short, representing ~29% of the company’s publicly tradable float and ~$25B in bearish wagers - S3 Partners via CNBC https://t.co/FDFIYJu6gi
+@SponserNews [Thu Jul 16 08:46:19 +0000 2026]: אחרי נתוני האינפלציה: אין לפסול הורדת ריבית נוספת בתחילת ספטמבר: מדד המחירים לצרכן חודש יוני נותר ללא שינוי וקצב האינפלציה התמתן ל-1.6%; יחד עם נתוני מאקרו שפורסמו השוק מעניק הסתברות של 50% להורדת ריבית בישראל בספטמבר https://t.co/eZEwLjNrVC
 
-@StockMKTNewz [Thu Jul 16 16:09:18 +0000 2026]: Intel $INTC and Google Cloud $GOOGL today announced an expansion of their previously disclosed multi-year strategic collaboration, which would "accelerate Intel’s enterprise-wide digital evolution through the deployment of Gemini Enterprise and Google Cloud." https://t.co/CHRxc3lNjj
+@SponserNews [Thu Jul 16 05:52:24 +0000 2026]: ענקית השבבים TSMC עקפה את התחזיות: הרווח זינק ב-23%, ההכנסות שברו שיא: יצרנית השבבים הגדולה בעולם הציגה רבעון חמישי ברציפות של רווחי שיא, עם הכנסות של 39.5 מיליארד דולר; הייצור המתקדם של 7 ננומטר ומטה היה אחראי ל-77% מהכנסות חטיבת השבבים https://t.co/qRCGEyl9sE
 
-@StockMKTNewz [Thu Jul 16 15:32:00 +0000 2026]: Sharkninja $SN just released the new Ninja Crispi Microwave a new Microwave/Airfryer combo that is "built to crisp as well as it heats" https://t.co/B7MGOOAjpa
+@ModiShafrir [Mon Jul 06 14:43:04 +0000 2026]: ב"י הוריד את הריבית ב- 25bp לרמה של 3.50% (בהתאם להערכתנו, ולהערכת הקונצנזוס). דברי הנגיד במסיבת העיתונאים היו יחסית 'יוניים' (במיוחד בהשוואה להודעת הריבית הקודמת) ✅ הנגיד הדגיש אמנם כי קיימת אי וודאות גדולה מאד סביב עתיד הריבית, וכי ההחלטות התקבלו בהתאם לנתונים שיתפרסמו (Data depended), אך בנימה 'יונית' ציין ש"ככל שציפיות האינפלציה יורדות, ובוודאי אם יתקרבו לגבול התחתון של היעד, הדבר מצדיק מדיניות מוניטרית מרחיבה יותר, ובקצבים מהירים יותר". בנוסף, כמענה לשאלת אחד העיתונאים - הנגיד לא פסל את האפשרות התיאורטית לכך שב"י יוריד את הריבית בפעימה אחת בשיעור של 50bp. ✅ בנימה 'ניצית' יותר - הנגיד ציין את האצת שכר הדירה, והשכר הממוצע וכן את ההתפתחויות האחרונות בתקציב המדינה, כגורמים המחייבים זהירות רבה יותר מצד ב"י. ✅ התייחסות ב"י לעתיד האינפלציה הייתה 'יונית' בהשוואה להודעות הקודמות – בעוד שבהודעות הריבית הקודמות צוין כי " להערכת הוועדה קיימים סיכונים לעלייה מחודשת של האינפלציה", בהודעה הנוכחית ציינו בב"י כי "להערכת הוועדה, קיימים מספר גורמים שיכולים להשפיע בכיוונים מנוגדים על התפתחות האינפלציה". ✅ חטיבת המחקר הורידה את תחזיתה לרמת הריבית בעוד כשנה ל- 3.0% (ריבית ממוצעת ברבעון השני של 2027) – מעט מעל לציפיות השוק לכ- 2.85%. ✅בנימה 'נניצית יותר - הנגיד הזהיר כי עליית תקציב הבטחון מעבר למוסכם תוביל לעלייה חדה בגירעון ולעליית האינפלציה בכ- 0.3% שורה תחתונה – אנו נותרים בינתיים בהערכתנו (התואמת עתה גם את תחזית חטיבת המחקר של ב"י) כי הריבית תעמוד בעוד כשנה על כ- 3.0%.
 
-@wallstengine [Thu Jul 16 14:59:15 +0000 2026]: UNITED AIRLINES $UAL EXPECTS FIRST BOEING 737 MAX 10 DELIVERY IN MID-TO-LATE 2027
+@ModiShafrir [Sun Jun 21 10:35:21 +0000 2026]: תמצית הסקירה השבועית 21.06.26: 1. שווקים ונפט 🌎 - התמתנות חששות המשקיעים מסטגפלציה הובילה לעליית מדדי המניות בארה"ב ובאירופה, למרות הודעת הריבית ה'ניצית' בארה"ב (אשר הובילה גם להתחזקות הדולר בעולם). https://t.co/EMtkBgnITn
 
-@AIStockSavvy [Thu Jul 16 15:57:13 +0000 2026]: Rocket Lab, AST SpaceMobile, and Intuitive Machines have all moved lower on a YTD performance basis. $RKLB $ASTS $LUNR https://t.co/D62rLHQhrP
+@matanshitrit [Tue Jul 14 13:39:36 +0000 2026]: אפשר לחזור לשגרה - מלאי הדירות שבידי הקבלנים חזר לעלות. ירושלים בשיא הכושר ופותחת פערים, אך תל אביב לא מוותרת וצמודה מאחור. בצד של העסקאות (הלמ"ס) - סך הדירות החדשות שנמכרו 3,700, אך בניכוי מחיר למשתכן - אלה הסתכמו ב-2,497, המספר הגבוה ביותר מזה חצי שנה, וגבוה בכ-34% בהשוואה למאי אשתקד. לפי האוצר, מאה דירות נרכשו ע"י קרנות ריט, עם הטבות מימון. כמו כן, ת"א בלטה לחיוב במכירות (481 מול 150 במאי אשתקד), כאשר שני פרויקטים בלבד ריכזו 44% מהמכירות באזור זה. אם כבר ת"א, באוצר הוסיפו כי בת"א נרשמה ירידה בשכיחות הטבות מימון (12% מול 24% במאי אשתקד), כאשר חלק משמעותי מהמכירות בת"א (כולל החודשיים הקודמים) התרכז בפרויקט גדול במסגרתו ניתנה הנחה משמעותית במחיר הדירה. מעניין לראות איך ההנחה המשמעותית תבוא לידי ביטוי במדד מחירי הדיור...
 
-@KobeissiLetter [Thu Jul 16 16:24:33 +0000 2026]: BREAKING: The average interest rate on a US 30-year fixed mortgage rises to 6.55%, the highest since August 2025. As the Iran War continues, interest rates are hitting new one-year highs.
+@matanshitrit [Tue Jul 14 04:21:37 +0000 2026]: היום ב-15:30 (שעון ישראל) - מדד המחירים לצרכן בארה"ב (CPI) קונצנזוס - ירידה של 0.1% וקצב שנתי 3.8% (לפי CPINowcast 3.9%) https://t.co/mmqJmgBlsk
 
-@StockMKTNewz [Thu Jul 16 15:49:36 +0000 2026]: What is the #1 worst performing stock in your portfolio so far today?
+@fundercoil [Thu Jul 16 11:42:30 +0000 2026]: מדד המחירים לצרכן לחודש יוני 2026 נותר ללא שינוי https://t.co/xA5iRAIqhy
 
-@wallstengine [Thu Jul 16 15:18:53 +0000 2026]: 👀
+@TheMarker [Thu Jul 16 14:00:15 +0000 2026]: הירידות בבורסה התחזקו; שער הדולר היציג נקבע על 3 שקלים https://t.co/x0KTBeSbS0
 
-@wallstengine [Thu Jul 16 14:52:09 +0000 2026]: TSMC Q2 REVENUE MIX HPC accounts for 66% of revenue, up 20% QoQ Smartphones: 22%, -4% QoQ IoT: 5%, +4% QoQ Automotive: 4%, +15% QoQ Other: 2%, +5% QoQ DCE: 1%, +5% QoQ https://t.co/7AyS2fNwYC
+@ModiShafrir [Sun Jul 12 08:08:23 +0000 2026]: תמצית הסקירה השבועית 12.07.26: 1. שווקים ונפט 🌎- מחירי הנפט ירדו לקראת הסופ"ש, אך עדיין סגרו את השבוע בעלייה של כ- 5.4%+, על רקע חששות השווקים מחזרה למלחמה במזרח התיכון. ארה"ב הכריזה כי הפסקת האש עם איראן 'הסתיימה' (over), והציבה לאיראן מועד אחרון (ליום שבת) להכרה פומבית בכך שמיצרי הורמוז יוותרו פתוחים לשיט. ✅חרף הסלמת המתיחות במזה"ת, מדד הנאסד"ק עלה השבוע ב- 1.7%, על רקע ידיעות חיוביות ממגזר הטכנולוגיה.
+
+@matanshitrit [Wed Jul 15 15:42:57 +0000 2026]: מדד מחירי הדירות בעסקאות אפריל-מאי ירד ב-1.0%, והשלים ירידה של 2.0% בשנה האחרונה. מחוז ת"א מוביל עם ירידה חודשית של 2.3%, ואחריו ירושלים עם ירידה של 1.8%. מדד מחירי הדירות החדשות בניכוי משתכן (שוק חופשי) - עלה ב-0.2%. כן כן עלה...טוב נו, לפחות המדד הכללי ירד. https://t.co/4ilJHyuaOW
+
+@matanshitrit [Mon Jul 13 06:24:58 +0000 2026]: 11 מיליארד שקל משכנתאות בחודש יוני - השוק רותח? לא כל כך מהר נתחיל מהשורה התחתונה - השוק לא רותח, ונתוני המשכנתאות לא מבשרים על שינוי כיוון. הסיבה פשוטה - מדובר בנתון שמגיב בפיגור לעסקאות בשוק הדיור. לפי בנק ישראל, הפיגור עומד על כ-6-9 חודשים. כלומר, אם רוצים להבין מה קורה עכשיו בשוק הדיור, עדיף להסתכל על מספר העסקאות בפועל. הנתונים זמינים כרגע עד אפריל, ומחר צפוי להתפרסם נתון מאי (הלמ״ס). עד כה, מספר העסקאות המשיך להתקרר בחודשים האחרונים. בהינתן הפיגור שבנק ישראל מציין, אם נלך 6 חודשים אחורה (ומעלה) במספר עסקאות הנדל"ן, נראה שבנובמבר ובדצמבר האחרונים נרשמו כ-8 ו-9 אלף עסקאות, בהתאמה. לאחר מכן, ברבעון הראשון של 2026, הממוצע החודשי כבר ירד לכ-7.6 אלף עסקאות, ובאפריל האחרון עמד הנתון על כ-5.1 אלף. אלא שההתקררות הזו עדיין לא אמורה להשתקף במלואה בנתוני המשכנתאות. ואכן, הפיגור שבנק ישראל מתאר עשוי להסביר את נתוני חודש יוני בשוק המשכנתאות. אז מה היה לנו? • סך המשכנתאות שנטלו הסתכם בכ-11 מיליארד שקל. • מתוך זה, כ-1.625 מיליארד שקל היו הלוואות בולט/בלון. • כ-0.85 מיליארד שקל היו מחזור חיצוני. ומה לגבי מחזור פנימי? הוא לא נכלל בנתון הזה, ומתפרסם בנפרד. אחת הטענות שעולות היא שהלוואות הקבלן "נספרות פעמיים" בתוך נתון ה-11 מיליארד. אבל לפי מה שאני מכיר, את הלוואות הקבלן יש למחזר באותו בנק - כך שבהגדרה מדובר במחזור פנימי, וכאמור, מחזורים פנימיים אינם נכללים בנתון הזה. בניכוי הלוואות הבולט/בלון והמחזור החיצוני, סך המשכנתאות שניטלו ביוני הסתכם בכ-8.58 מיליארד שקל. וזה כבר מסתדר הרבה יותר טוב עם הפיגור הסטטיסטי מול העסקאות שנחתמו כמה חודשים קודם לכן. בשורה התחתונה, להערכתי הנתונים האלה לא מבשרים על שינוי כיוון בשוק הדיור. להפך - ההתקררות בשוק המשכנתאות עוד לפנינו, לפחות בכל הנוגע למשכנתאות בגין עסקאות חדשות. מחזורים, חיצוניים ופנימיים, ייתכן שדווקא יעלו בהמשך לאור הפחתות הריבית (והלוואות הקבלן כאמור שהם חלק מהמחזורים הפנימיים), אבל זה כבר סיפור אחר. בנוסף, חשוב לזכור שהנתון שפורסם הוא במונחי כסף, ולא במונחי מספר הלוואות/עסקאות - אלה יתפרסמו רק בסוף החודש. אמנם אם נניח שהמשכנתא הממוצעת עדיין עומדת סביב 1.1 מיליון שקל, המספרים עדיין גבוהים יחסית לחודשים האחרונים, אבל גם כאן, ייתכן מאוד שהם בעיקר משקפים עסקאות שנחתמו סביב נובמבר-דצמבר, ולא שינוי כיוון בשוק הנוכחי.
+
+@matanshitrit [Sun Jul 12 17:08:40 +0000 2026]: שבוע מדדים יוצא לדרך (ארה״ב וישראל) עונת הדוחות בוול סטריט לרבעון השני יוצאת לדרך גם היא - עם פרסום תוצאות של בנקים, נטפליקס, asml ועוד https://t.co/4AydpY0HgM
+
+@fundercoil [Thu Jul 16 11:45:01 +0000 2026]: מדד האינפלציה הפתיע לטובה, אבל הפד לא ממהר לחגוג https://t.co/1VE0FEkEJp
+
+@fundercoil [Thu Jul 16 11:35:14 +0000 2026]: הפניקס מגדילה את היקף הרכישה העצמית בתוכנית 2026 ל-400 מיליון שקל https://t.co/PfsmvIpEQc
+
+@fundercoil [Thu Jul 16 10:26:14 +0000 2026]: בנק ישראל לא טעה – הנחות העבודה שעליהן נבנתה התחזית השתנו באופן דרמטי https://t.co/ydvl7HxYUz
+
+@SponserNews [Thu Jul 16 11:48:18 +0000 2026]: בריינסוויי מדווחת על השקעת מיעוט בחברת Sound Minds Behavioral: על פי תנאי ההסכם, בריינסוויי תשקיע סכום של חצי מיליון דולר בתמורה לזכויות מיעוט ב-Sound Minds, באמצעות מניות בכורה, הצוברות ריבית שנתית https://t.co/yR2WD9ntKl
+
+@SponserNews [Thu Jul 16 09:39:31 +0000 2026]: גולדן אנרג’י זכתה במכרז פוטנציאלי של מיליארד שקל, אך הדרך להכנסות עדיין ארוכה: החברה הבת אלגרי פאוור נבחרה כספקית ויזמית יחידה במכרז של אשכול רשויות מקומיות להקמת מתקנים סולאריים ואגירה; מדובר במכרז מסגרת עם פוטנציאל של 150 מגה-וואט https://t.co/oIg1NBHinP
+
+@ModiShafrir [Thu Jul 02 12:53:08 +0000 2026]: נתוני התעסוקה ב- 🇺🇸 של חודש יוני היו חלשים מהציפיות, כך שהשוק מתמחר עתה הסתברות נמוכה (20%) להעלאת ריבית הפד בחודש יוני, והסתברות של כ- 62% להעלאה בספטמבר: ✅ דו"ח ה NFP הצביע על תוספת של 57 אלף עובדים ביוני (צפי ל- 113+ אלף), שאת לאחר שנתוני החודשיים הקודמים עודכנו כלפי מטה בחדות (-74 אלף משרות). ✅ סקר כח האדם הצביע אמנם על ירידת שיעור האבטלה ל- 4.2% (צפי ל- 4.3%), אך זאת במקביל לירידה חדה מאד בשיעור ההשתתפות בכח העבודה (היצע העובדים) , כך שלפי סקר זה בחודש יוני נגרעו כ- 507 אלף עובדים... בגרף ניתן לראות שבכ- 5 מתוך 6 החודשים האחרונים נרשמה, לפי סקר זה, התכווצות במספר העובדים בשוק התעסוקה. 1/
+
+@ModiShafrir [Sun Jun 28 10:22:08 +0000 2026]: תמצית הסקירה השבועית 28.06.26: 1. שווקים ונפט 🌎- מחירי הנפט ירדו השבוע בחדות (10.6%- למחיר חבית Brent) לרמתם ערב המלחמה עם איראן, על רקע עלייה במספר המכליות שעברו במצר הורמוז ומתן רישיון אמריקאי לאיראן למכור נפט בשוק הבינלאומי לתקופה של 60 יום. בכירים בממשל האמריקאי הבהירו כי איראן לא תגבה דמי מעבר (tolls) במצר הורמוז, כך שגברו ההערכות כי שרשראות האספקה בעולם יחזרו למצבן טרום המלחמה. 2. עם זאת, חששות מהסלמה במצר הורמוז שבו ועלו בסופ"ש, על רקע פגיעה במכלית נפט, תקיפה אמריקאית מנגד ודיווח של בחריין על תקיפת כטב"מים איראניים.
+
+@ModiShafrir [Wed Jun 24 13:42:49 +0000 2026]: פערי הריבית בעולם (לדוג' בין ארה"ב לאירופה) תומכים בהתחזקות הדולר בעולם... - בהמשך לשיחה בערוץ הכלכלה - ראו בגרף https://t.co/TIFrYG0Fdy
+
+@ModiShafrir [Sun Jun 14 05:07:54 +0000 2026]: תמצית הסקירה השבועית 14.06.26: 1. שווקים ונפט 🌏- הודעת טראמפ על כך שארה"ב ואיראן צפויות לחתום על הסכם הכולל את פתיחת מצר הורמוז הובילה לקראת הסופ"ש לעליות חדות בשוקי המניות, לירידה חדה במחירי הנפט ולירידה חדה יחסית בתשואות אגרות החוב בשווקים המפותחים. https://t.co/dUh0lfvJlf
+
+@fundercoil [Thu Jul 16 11:40:01 +0000 2026]: התעשייה האווירית IAI ממשיכה לבסס את מחויבותה למצוינות בעולמות ה־ESG https://t.co/PAsSrwAGFI
+
+@fundercoil [Thu Jul 16 11:37:29 +0000 2026]: יוליוס בר: סיכון להעלאת ריבית מצד הפד מתפוגג ויש עוד מקום לירידות https://t.co/1r40Z8i1EB
+
+@SponserNews [Thu Jul 16 12:01:32 +0000 2026]: טראלייט החלה בפרויקטים סולאריים על גדרות ביטחון בהשקעה של כ-60 מיליון שקל: מימון מגיע מבנק לאומי ומגדל ביטוח, אך המבחן האמיתי יהיה הוכחת היעילות הכלכלית של הפקת חשמל אנכית, לצד סיכוני המצב הביטחוני בצפון https://t.co/PdfVwEdVpm
+
+@SponserNews [Thu Jul 16 11:39:00 +0000 2026]: אולי הפעם? קבוצת ION רוכשת את השליטה באר.אס.אל בעסקה בשווי 54 מיליון שקל: זאב ומאשה דגני המחזיקים ב-50.29% מההון של החברה חתמו עם שותפות מקבוצת קרנות ההשקעות ION למכירת כל מניותיהם לפי שווי חברה של 108 מיליון שקל https://t.co/Mja2hZGe32
+
+@SponserNews [Thu Jul 16 08:55:10 +0000 2026]: שפיר זכתה במכרז להארכת כביש 6 לצפון: היקף מוערך של כ-12 מיליארד שקל: במסגרת הפרויקט תקים, תממן, תפעיל ותתחזק שפיר את מקטעים 8 ו-9/א של כביש 6, באורך של כ-22 ק"מ, ממחלף סומך ועד בית העמק; תקופת הזיכיון תעמוד על 34 שנים ממועד הסגירה הפיננסית https://t.co/HBbMcXCV3U
+
+@SponserNews [Thu Jul 16 08:28:24 +0000 2026]: אקסון ויז’ן מזנקת: משיקה מערכת להגנה על כוחות מתמרנים מפני רחפני FPV: החברה מציגה פתרון משולב לגילוי, ניתוח ויירוט איומים אוויריים המבוסס על טכנולוגיות Edge AI; במקביל היא מקדמת תהליכי בחינה מול לקוחות בישראל ובחו"ל ורואה במוצר מנוע צמיחה חדש https://t.co/HUseOrFViO
+
+@SponserNews [Thu Jul 16 05:34:50 +0000 2026]: רכבת הרים בחסות השבבים: התנודתיות החריגה במדד הקוספי נמשכת - צונח ב-6%: לחץ על מניות טכנולוגיה ושבבים; ביפן מדד הניקיי יורד בכ-3%; המניות הכבדות בתחום השבבים - סמסונג אלקטרוניקס ו-SK Hynix - סופגות תנודתיות חריגה https://t.co/sEiZCoy6xV
+
+@globesnews [Thu Jul 16 16:18:07 +0000 2026]: הערב על שער גלובס: יו"ר רפאל מזהיר: "אם לא תהיה הנפקה, לא תהיה רפאל שאנחנו מכירים" https://t.co/RJ5Q1LT49E
+
+@globesnews [Thu Jul 16 15:34:20 +0000 2026]: סיבוב הפרסה של תוכנית המכסים: טראמפ נאלץ להחזיר 81 מיליארד דולר https://t.co/CBO7dt8MvF https://t.co/mmrajJN2Ez
+
+@globesnews [Thu Jul 16 15:16:56 +0000 2026]: כמה מס תשלמו על רווחי הון בתיק ההשקעות החל מגיל 60? https://t.co/gBfFOfNT0g https://t.co/xujK8HOTX8
+
+@calcalist [Thu Jul 16 14:00:02 +0000 2026]: פרארי רק במקום השמיני: רולס רויס כובשת את יבוא רכבי היוקרה בישראל - הדגם הזול ביותר עלה 2.5 מיליון שקל https://t.co/9EkkCWZWIA https://t.co/hBQiqWWt8x
+
+@calcalist [Thu Jul 16 11:10:00 +0000 2026]: תיקנתם רכב בשטחים? בקרוב תשלמו קנס של אלפי שקלים https://t.co/DNG4nNt2w5 https://t.co/PIOButhO4G
+
+@calcalist [Thu Jul 16 10:35:00 +0000 2026]: ותודה לצניחה במחירי האבטיחים: הנגיד קיבל אור ירוק להפחתת הריבית, אבל עם כוכבית https://t.co/dgIQvCPoRK @AdrianFilut https://t.co/N0JPDJDwOK
+
+@calcalist [Thu Jul 16 08:32:41 +0000 2026]: אחרי 26 אלף פצועים חדשים מאז 7 באוקטובר: הממשלה אישרה הקמת רשות שיקום לאומית https://t.co/hWCQggS4sP @YAzulai https://t.co/xFZO4tL4zu
+
+@calcalist [Thu Jul 16 08:10:00 +0000 2026]: אין לקבלנים עוד שפנים בכובע, וכדי למכור הם חייבים להוריד מחיר - אבל משבר הדיור הבא כבר מתבשל https://t.co/tvsxDSdEsv @gazitamitai https://t.co/bh9gQsCzIP
+
+@TheMarker [Thu Jul 16 16:01:13 +0000 2026]: הזיהום בשדה דב: המשרד להגנת הסביבה הורה לעיריית ת"א לעצור את העבודות https://t.co/BvNPNe2VtF
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
