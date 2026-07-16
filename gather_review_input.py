@@ -933,6 +933,8 @@ SHARED_RULES = """Rules:
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
 - Never write "נתון בפועל עדיין לא קיים". If a figure has not been released yet, give only the forecast (צפי) and the previous reading (נתון קודם).
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- EVERY Hebrew company/stock name gets its ticker in parentheses on FIRST mention — "קורוויב (CRWV)", "ג'יי.פי מורגן (JPM)" — both in the bullet body AND in the summary item. Indices (S&P 500) and private companies with no listed ticker are exempt.
+- Correct Hebrew causative syntax: a driver "הקפיץ את מחיר הנפט" (never "קפץ את הנפט"), and price moves belong to "מחיר הנפט/הזהב", not to the asset as a direct object.
 - Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
 - SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה"."""
 
@@ -1056,13 +1058,14 @@ Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date:
 
 This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
 no closing levels, and nothing that already appears in the prior-context block.
-6-9 points TOTAL, opening with the market picture and closing with the bottom line:
-* FIRST point — the opening picture (headline like "סנטימנט מעורב בפתיחה" / "אופטימיות זהירה לקראת הפתיחה"):
-  futures direction and the mood heading into the session, plus the single most important backdrop theme.
-  Futures percentages ONLY if a specific futures figure appears in the sources — never copy an ETF
-  percentage as a futures percentage.
-* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the morning from the menu below —
-  do NOT force every category, and never pad to reach a count:
+EXACTLY 6 points TOTAL (including the bottom-line point) — short and focused, not an article. Each point
+is 4-5 lines. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
+* FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
+  web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
+  open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
+  ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning from the menu
+  below — do NOT force every category:
   - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
     number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
   - The central story investors will watch today, with the transmission mechanism explained simply
@@ -1082,12 +1085,15 @@ No ETF proxies, no Finnhub, no ISO dates."""
 {POINT_STYLE}
 
 This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-6-9 points TOTAL, opening with the day's picture and closing with the bottom line:
+EXACTLY 6 points TOTAL (including the bottom-line point) — short and focused, not an article. Each point
+is 4-5 lines. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
+NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
+fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
 * FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
   what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
   session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
-  do NOT force every category, and never pad to reach a count:
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
+  do NOT force every category:
   - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
     mechanism explained simply.
   - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
@@ -1194,10 +1200,11 @@ summary points. {weekly_num_rule}
 
 {POINT_STYLE}
 
-6-9 points TOTAL in three blocks, in this order:
+8-10 points TOTAL in three blocks, in this order (the weekly review is the extended one, but every sentence
+must still carry a fact, a number or a mechanism — no mood-only filler):
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
   what flipped the sentiment, how it closed, {weekly_arc_rule}.
-* SUMMARY points (3-5) — ONE thematic point per major story of the week, each with its own specific headline.
+* SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
   Pick the STRONGEST stories — do NOT force every category:
   - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
   - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —

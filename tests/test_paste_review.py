@@ -122,33 +122,62 @@ def test_intraday_fixes_forbidden_cash_market_phrase():
 
 # ── Direction guards ─────────────────────────────────────────────
 
-def test_direction_regex_word_boundaries_do_not_match_inside_words():
+def test_direction_words_respect_word_boundaries():
     # The documented bug class: "נפל" inside "אינפלציה", "זינק" inside "זינקה",
-    # "יורד" inside "יורדות" — the neutralizer must not touch any of them.
-    for word in ("האינפלציה", "זינקה", "יורדות"):
-        assert pr.ANY_DIRECTION_RE.search(word) is None
+    # "יורד" inside "יורדות", "עולה" inside "פעולה" — none may register as a claim.
+    for word in ("האינפלציה", "זינקה", "יורדות", "פעולה"):
+        assert not pr._has_direction_word(word, pr.UP_WORDS + pr.DOWN_WORDS)
 
 
-def test_market_direction_guard_flips_wrong_oil_direction():
+def test_market_direction_check_fails_on_wrong_oil_direction():
+    # The guard must FAIL (demand a rewrite), never patch the verb in place —
+    # the old auto-fix published a bullet whose headline said "נסוג" and body "עלה".
     result = make_result("* הנפט יורד: מחיר הנפט נפל היום בחדות למרות נתוני האינפלציה הגבוהים.")
-    out = pr.apply_market_direction_guard(result, {"USO": 1.4, "BNO": 1.1})
-    c = content_of(out)
-    assert "עלה" in c
-    assert re.search(r"(?<!\w)נפל(?!\w)", c) is None
-    assert "האינפלציה" in c  # the innocent word must survive the rewrite
+    with pytest.raises(ValueError):
+        pr.market_direction_check(result, {"USO": 1.4, "BNO": 1.1})
 
 
-def test_market_direction_guard_neutralizes_flat_asset():
-    out = pr.apply_market_direction_guard(make_result("הזהב מזנק היום לשיא חדש."), {"GLD": 0.05})
-    c = content_of(out)
-    assert "נעים בתנודתיות" in c
-    assert re.search(r"(?<!\w)מזנק(?!\w)", c) is None
+def test_market_direction_check_flat_asset_is_warning_only():
+    pr.market_direction_check(make_result("הזהב מזנק היום לשיא חדש."), {"GLD": 0.05})
 
 
-def test_market_direction_guard_leaves_unrelated_text_alone():
-    text = "* מניות הבנקים יורדות: הסקטור הפיננסי נחלש היום."
-    out = pr.apply_market_direction_guard(make_result(text), {"USO": 1.4})
-    assert content_of(out) == text
+def test_market_direction_check_checks_the_summary_too():
+    result = make_result("* הזהב עולה: מחיר הזהב עלה היום.",
+                         summary=["הזהב עולה: מחיר הזהב ירד היום בחדות."])
+    with pytest.raises(ValueError):
+        pr.market_direction_check(result, {"GLD": 2.6})
+
+
+def test_market_direction_check_splits_mixed_clauses():
+    # "הזהב ירד" and "ה-VIX עלה" share one sentence — the gold claim must still
+    # be judged on its own clause (this exact pattern slipped through the old guard).
+    result = make_result("* הזהב נסוג: מחיר הזהב ירד כ-2.6%, בעוד מדד הפחד עלה בכ-3.3%.")
+    with pytest.raises(ValueError):
+        pr.market_direction_check(result, {"GLD": 2.6, "VIXY": 3.3})
+
+
+def test_market_direction_check_matching_direction_passes():
+    pr.market_direction_check(make_result("* הנפט מטפס: מחיר הנפט עלה היום בחדות."),
+                              {"USO": 1.4, "BNO": 1.1})
+
+
+def test_market_direction_check_yields_move_inversely_to_tlt():
+    # TLT (bond prices) UP means yields DOWN: "התשואות ירדו" is CORRECT then.
+    pr.market_direction_check(make_result("* שוק החוב נרגע: תשואות האג\"ח ירדו היום."), {"TLT": 0.5})
+    with pytest.raises(ValueError):
+        pr.market_direction_check(make_result("* שוק החוב לוחץ: תשואות האג\"ח עלו היום."), {"TLT": 0.5})
+
+
+def test_market_direction_check_ignores_dollar_amounts():
+    # "מיליארד דולר" / "79 דולר לחבית" are prices, not claims about the currency.
+    pr.market_direction_check(
+        make_result("* הנפט מטפס: מחיר הנפט עלה מעל 79 דולר לחבית על רקע המתיחות."),
+        {"USO": 1.4, "BNO": 1.1, "UUP": -0.5})
+
+
+def test_market_direction_check_leaves_unrelated_text_alone():
+    pr.market_direction_check(make_result("* מניות הבנקים יורדות: הסקטור הפיננסי נחלש היום."),
+                              {"USO": 1.4})
 
 
 def test_ticker_sign_flip_fails_publish():
@@ -227,6 +256,35 @@ def test_hard_validation_rejects_non_hebrew_review():
 def test_hard_validation_rejects_too_few_bullets():
     with pytest.raises(ValueError):
         pr.hard_content_validation(make_result(good_hebrew_content(4)), min_bullets=5)
+
+
+# ── Length enforcement ───────────────────────────────────────────
+
+def test_bullet_length_daily_requires_exactly_six():
+    pr.bullet_length_check(make_result(good_hebrew_content(6)), "daily_prep")
+    for n in (5, 7, 9):
+        with pytest.raises(ValueError):
+            pr.bullet_length_check(make_result(good_hebrew_content(n)), "daily_prep")
+
+
+def test_bullet_length_weekly_range_eight_to_ten():
+    pr.bullet_length_check(make_result(good_hebrew_content(9)), "weekly_summary")
+    with pytest.raises(ValueError):
+        pr.bullet_length_check(make_result(good_hebrew_content(6)), "weekly_summary")
+    with pytest.raises(ValueError):
+        pr.bullet_length_check(make_result(good_hebrew_content(12)), "weekly_summary")
+
+
+def test_bullet_length_rejects_overlong_daily_bullet():
+    long_bullet = "* נקודה ארוכה: " + "מילה " * (pr.MAX_BULLET_WORDS + 5)
+    content = "\n".join([long_bullet] + [f"* נקודה {i}: תיאור קצר." for i in range(5)])
+    with pytest.raises(ValueError):
+        pr.bullet_length_check(make_result(content), "daily_summary")
+
+
+def test_bullet_length_intraday_and_israel_are_free():
+    pr.bullet_length_check(make_result("* עדכון יחיד: אין מספיק עדכונים משמעותיים."), "intraday_update")
+    pr.bullet_length_check(make_result(good_hebrew_content(3)), "israel_prep")
 
 
 # ── Archive ──────────────────────────────────────────────────────
