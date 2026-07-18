@@ -1249,12 +1249,13 @@ THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
   levels, percentages, movers or macro data that do not appear in a source. A figure enters ONLY if a source
   states it explicitly. Web search is for VERIFICATION of a name/figure already in a source, never to add news.
 - Cover what the Tel Aviv investor should watch heading into the session: the leading themes and stories from
-  the sources (companies, sectors, reports, macro from Bank of Israel, global backdrop as the sources frame it).
+  the sources (companies, sectors, reports, macro from Bank of Israel).
 - 6-9 STRONG points TOTAL. FIRST point sets the picture heading into the session (headline like
   "סנטימנט זהיר לקראת הפתיחה"). MIDDLE points — ONE point per real story from the sources. LAST point —
   "שורה תחתונה: ..." — what will decide the direction of the Tel Aviv session, in 1-2 sentences.
 - If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
-No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
+NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
+posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
     if mode == "israel_summary":
         return f"""You are a senior investment advisor writing a signature END-OF-DAY review in Hebrew for the
 TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
@@ -1272,7 +1273,8 @@ THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that e
   real story (companies, sectors, reports, Bank of Israel, notable moves) as the sources framed them.
   LAST point — "{d['bl_label']}: ..." — what the Tel Aviv investor should watch next session and why.
 - If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
-No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
+NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
+posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
     if mode == "israel_weekly_summary":
         return f"""You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
 TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. The review does
@@ -1292,7 +1294,7 @@ THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then 
   sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
   qualitatively, with only figures that appear in a source.
 * SUMMARY points (3-5) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
-  defense, notable companies, Bank of Israel, the global backdrop as the sources frame it), each with its own
+  defense, notable companies, Bank of Israel), each with its own
   specific headline. Pick the STRONGEST stories from the sources — do NOT force categories or pad.
 * PREPARATION points (1-2) — the COMING Tel Aviv week:
   - "השבוע הקרוב במאקרו: ..." — the scheduled Bank of Israel decisions and Israeli macro releases with dates and
@@ -1302,7 +1304,8 @@ THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then 
 * CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor
   and the frame for the coming week.
 If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
-No US market data, no Wall Street framing unless a source raises it, no ISO dates."""
+NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
+posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
     if d.get("has_weekly"):
         weekly_num_rule = (
             "Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never "
