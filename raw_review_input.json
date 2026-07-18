@@ -1,12 +1,106 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-07-17T21:44:35.165751+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 17.7.2026, 21:44",
-  "first_heading": "עדכון ביניים",
+  "mode": "daily_summary",
+  "generated_at": "2026-07-18T13:07:17.091695+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שישי, 17.7.2026",
+  "first_heading": "סיכום המסחר",
   "review_date": "2026-07-17",
   "title_date_str": "2026-07-17",
   "title_day_name": "שישי",
   "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "etf_pcts": {
+    "SPY": -0.9897,
+    "QQQ": -1.503,
+    "DIA": -0.766,
+    "IWM": -0.5244,
+    "XLE": 1.1575,
+    "XLK": -1.0872,
+    "XLF": -0.8634,
+    "XLY": -1.6192,
+    "XLV": -0.4388,
+    "XLI": -0.4108,
+    "XLP": -0.7225,
+    "XLU": -0.6598,
+    "USO": 3.9061,
+    "BNO": 4.1043,
+    "GLD": 0.9453,
+    "SLV": 0.774,
+    "IBIT": -0.1099,
+    "TLT": 0.3681,
+    "UUP": -0.0353,
+    "VIXY": 5.3016
+  },
+  "ticker_quotes": {
+    "SPCX": {
+      "price": 123.99,
+      "pct": -5.4306,
+      "prev_close": 131.11,
+      "ts": 1784318400
+    },
+    "META": {
+      "price": 646.01,
+      "pct": -2.7884,
+      "prev_close": 664.54,
+      "ts": 1784318400
+    },
+    "AAPL": {
+      "price": 333.74,
+      "pct": 0.144,
+      "prev_close": 333.26,
+      "ts": 1784318400
+    },
+    "ORCL": {
+      "price": 126.41,
+      "pct": 1.7712,
+      "prev_close": 124.21,
+      "ts": 1784318400
+    },
+    "DJT": {
+      "price": 9.66,
+      "pct": 0.3115,
+      "prev_close": 9.63,
+      "ts": 1784318400
+    },
+    "AMZN": {
+      "price": 247.23,
+      "pct": -1.0645,
+      "prev_close": 249.89,
+      "ts": 1784318400
+    },
+    "MSFT": {
+      "price": 393.82,
+      "pct": -1.815,
+      "prev_close": 401.1,
+      "ts": 1784318400
+    },
+    "RKLB": {
+      "price": 67.62,
+      "pct": 0.4009,
+      "prev_close": 67.35,
+      "ts": 1784318400
+    },
+    "PYPL": {
+      "price": 56.56,
+      "pct": -0.2997,
+      "prev_close": 56.73,
+      "ts": 1784318400
+    },
+    "BAC": {
+      "price": 61.27,
+      "pct": -0.3578,
+      "prev_close": 61.49,
+      "ts": 1784318400
+    },
+    "CSX": {
+      "price": 50.75,
+      "pct": -0.2751,
+      "prev_close": 50.89,
+      "ts": 1784318400
+    },
+    "CTVA": {
+      "price": 87.3,
+      "pct": 0.7501,
+      "prev_close": 86.65,
+      "ts": 1784318400
+    }
+  }
 }
