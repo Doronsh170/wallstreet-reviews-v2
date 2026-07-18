@@ -58,7 +58,8 @@ def test_share_opens_new_tab_with_noopener():
     body = share_function_body()
     assert "a.target = '_blank'" in body
     assert "a.rel = 'noopener noreferrer'" in body
-    assert "iframe" not in body.lower()
+    code = "\n".join(l for l in body.split("\n") if not l.strip().startswith("//"))
+    assert "iframe" not in code.lower()
 
 
 def test_share_never_fails_summary_errors_fall_back_to_title_and_link():
