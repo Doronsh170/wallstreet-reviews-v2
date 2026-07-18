@@ -42,28 +42,38 @@ def test_share_button_is_wired():
     assert 'onclick="shareWhatsApp()"' in INDEX_HTML, "the share button lost its onclick handler"
 
 
-def test_share_routes_avoid_blocked_whatsapp_endpoints():
-    # Filtered networks block whatsapp.com HTTP endpoints (api, web, and wa.me's
-    # redirect target) with ERR_BLOCKED_BY_RESPONSE. Mobile uses wa.me, which
-    # the OS resolves into the app without HTTP. Desktop tries the whatsapp://
-    # scheme (straight into the installed app), then the OS share sheet, and
-    # wa.me only as a last resort. api.whatsapp.com and web.whatsapp.com may
-    # never appear as navigation URLs.
+def test_share_uses_navigator_share_first():
+    # The primary route is the OS share sheet: an awaited navigator.share call
+    # carrying title, text and url. window.open is forbidden outright.
     body = share_function_body()
-    assert "https://wa.me/?text=" in body
-    assert "whatsapp://send?text=" in body
-    assert "navigator.share" in body
+    assert re.search(r"await navigator\.share\(\{ title:.*text:.*url:", body), (
+        "shareWhatsApp() must await navigator.share({title, text, url})"
+    )
     code = "\n".join(l for l in body.split("\n") if not l.strip().startswith("//"))
-    assert "web.whatsapp.com" not in code
+    assert "window.open" not in code
+
+
+def test_share_never_navigates_to_whatsapp_domains():
+    # Filtered networks block every whatsapp.com HTTP endpoint with
+    # ERR_BLOCKED_BY_RESPONSE — wa.me, api.whatsapp.com and web.whatsapp.com
+    # may never appear as navigation URLs. The whatsapp:// app scheme is a
+    # MOBILE-ONLY fallback and must sit behind the isMobile guard.
+    body = share_function_body()
+    code = "\n".join(l for l in body.split("\n") if not l.strip().startswith("//"))
+    assert "wa.me" not in code
     assert "api.whatsapp.com" not in code
-
-
-def test_share_opens_new_tab_with_noopener():
-    body = share_function_body()
-    assert "a.target = '_blank'" in body
-    assert "a.rel = 'noopener noreferrer'" in body
-    code = "\n".join(l for l in body.split("\n") if not l.strip().startswith("//"))
+    assert "web.whatsapp.com" not in code
     assert "iframe" not in code.lower()
+    assert "whatsapp://send?text=" in code
+    assert code.index("isMobile") < code.index("whatsapp://send?text=")
+
+
+def test_share_failure_copies_text_and_notifies():
+    # When navigator.share is unavailable or fails on desktop, the text is
+    # copied to the clipboard and the user is told so, in these exact words.
+    body = share_function_body()
+    assert "navigator.clipboard.writeText" in body
+    assert "הטקסט הועתק, אפשר להדביק בוואטסאפ" in body
 
 
 def test_share_never_fails_summary_errors_fall_back_to_title_and_link():
