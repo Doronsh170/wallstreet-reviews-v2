@@ -159,16 +159,17 @@ DAILY PERFORMANCE:
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $SPCX: $123.99 (daily: -5.43%), prev close: $131.11
-  $META: $646.01 (daily: -2.79%), prev close: $664.54
   $AAPL: $333.74 (daily: +0.14%), prev close: $333.26
+  $META: $646.01 (daily: -2.79%), prev close: $664.54
   $ORCL: $126.41 (daily: +1.77%), prev close: $124.21
-  $DJT: $9.66 (daily: +0.31%), prev close: $9.63
+  $PLTR: $132.38 (daily: -1.53%), prev close: $134.44
+  $INTU: $291.09 (daily: -1.26%), prev close: $294.79
+  $SNDK: $1354.82 (daily: -3.99%), prev close: $1411.08
   $AMZN: $247.23 (daily: -1.06%), prev close: $249.89
   $MSFT: $393.82 (daily: -1.81%), prev close: $401.10
   $RKLB: $67.62 (daily: +0.40%), prev close: $67.35
-  $PYPL: $56.56 (daily: -0.30%), prev close: $56.73
-  $AXTI: $45.86 (daily: +0.64%), prev close: $45.57
-  $CIEN: $374.41 (daily: -3.70%), prev close: $388.81
+  $CRWV: $73.21 (daily: +0.41%), prev close: $72.91
+  $NVDA: $202.81 (daily: -2.21%), prev close: $207.40
 
 WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):
   S&P 500 (SPY ETF): weekly -1.54% (from $754.95 to $743.29)
@@ -185,10 +186,12 @@ WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the 
   Gold (GLD ETF): weekly -2.28% (from $377.01 to $368.41)
   Bitcoin (IBIT ETF): weekly +0.33% (from $36.23 to $36.35)
   US 20Y+ Bonds (TLT ETF): weekly +0.06% (from $84.47 to $84.52)
-  $META: weekly -3.47% (from $669.21 to $646.01)
   $AAPL: weekly +5.84% (from $315.32 to $333.74)
+  $META: weekly -3.47% (from $669.21 to $646.01)
+  $SNDK: weekly -29.29% (from $1915.92 to $1354.82)
+  $NVDA: weekly -3.86% (from $210.96 to $202.81)
 
-NOTE — no weekly figure is available for: $SPCX, $ORCL, $DJT, $AMZN, $MSFT, $RKLB, $PYPL, $AXTI, $CIEN. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
+NOTE — no weekly figure is available for: $SPCX, $ORCL, $PLTR, $INTU, $AMZN, $MSFT, $RKLB, $CRWV. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): עולה (USO: +3.91%, BNO: +4.10%)
@@ -226,19 +229,15 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in t
 
 @wallstengine [Fri Jul 17 21:17:39 +0000 2026]: U.S. AIR FORCE MORE THAN TRIPLES LAUNCH CONTRACT CEILING The Air Force is raising the ceiling for National Security Space Launch Phase 3 Lane 1 contracts to $17B from $5.6B, an $11.4B increase. Eligible providers include $RKLB, SpaceX, Blue Origin, ULA, Stoke Space, Impulse Space and Relativity. No funds are being obligated yet. Awards will be issued at the task-order level.
 
+@KobeissiLetter [Sat Jul 18 15:42:00 +0000 2026]: Shocking stat of the day: The 3-week volatility of momentum stocks relative to the S&P 500 volatility is up to a record 4.0x. This group includes high-growth technology stocks at the center of the AI boom like Nvidia, $NVDA, Super Micro Computer, $SMCI, Palantir, $PLTR, D-Wave Quantum, $QBTS, and CoreWeave, $CRWV. This figure has more than QUADRUPLED over the last several weeks. By comparison, this ratio peaked at ~2.0x during the 2020 pandemic crash and ~1.8x during the Dot-Com bust. This comes as the index of US momentum stocks is down -24% so far in July, on track for its biggest monthly decline since the 2008 Financial Crisis. The market's biggest winners are rapidly falling out of favor.
+
 @gurgavin [Sat Jul 18 00:39:19 +0000 2026]: THANK YOUR BROKER FOR NOT GIVING YOU THE FULL SPAECX SHARE ALLOCATION U REQUESTED FOR THE IPO $SPCX
 
 @gurgavin [Thu Jul 16 22:52:49 +0000 2026]: JUST IN : SPACEX HAS JUST CALLED OFF IT’S MAJOR TEST MISSION OF STARSHIP ROCKET AT THE LAST MOMENT $SPCX https://t.co/CN59sfbGJy
 
-@StockMKTNewz [Fri Jul 17 19:07:09 +0000 2026]: SpaceX $SPCX is in talks with the Defense Department about providing the agency with access to data-center capacity worth billions of dollars for running AI models - WSJ https://t.co/uKs5Si3mh0
-
 @gurgavin [Thu Jul 16 22:42:53 +0000 2026]: PAYPAL'S BOARD HAS REPORTEDLY REJECTED THE $53 BILLION TAKEOVER OFFER FROM STRIPE CALLING IT “INADEQUATE” JUST LIKE I SAID YESTERDAY PAYPAL IS WORTH MUCH MORE AND THE BOARD KNOWS $PYPL
 
 @gurgavin [Thu Jul 16 18:47:32 +0000 2026]: THIS IS CRAZY TO ME TRUMP’S SOCIAL MEDIA PLATFORM WILL NOW SELL A LIVE DATA FEED TO FINANCIAL FIRMS THIS MEANS BIG HEDGE FUNDS CAN NOW GET FASTER ACCESS TO DONALD TRUMP’S MARKET MOVING TWEETS $DJT
-
-@StockMKTNewz [Sat Jul 18 10:26:49 +0000 2026]: If anyone wants to do some research into a new ETF this week my partners over at KraneShares launched a new Photonic and Optical ETF trading under the ticker $LUMA Here are all the stock holdings in the ETF: Lumentum Holdings $LITE - 6.36% Coherent $COHR - 6.09% Aixtron $AIXA - 5.51% MACOM Technology $MTSI - 5.41% Tower Semiconductor $TSEM - 5.30% Marvell Technology $MRVL - 4.83% EOTOLINK $300502 - 4.83% AXT Inc $AXTI - 4.81% Zhongji Innolight $300308 - 4.57% Land Mark Optoelectronics $3081 - 4.54% Soitec $SOI - 4.53% Nokia $NOK - 4.20% Ezconn Corporation $6442 - 3.63% STMicroelectronics $STM - 3.35% FormFactor $FORM - 3.34% Fabrinet $FN - 3.33% Sumitomo Electric Industries $5802 - 3.25% Himax Technologies $HIMX - 2.92% Foci Fiber Optic $3363 - 2.81% Ciena $CIEN - 2.77% Corning $GLW - 2.72% Yuanjie Semiconductor $688498 - 2.21% Semtech $SMTC - 2.07% Furukawa Electric $5801 - 2.00% nLight $LASR - 1.95% Veeco Instruments $VECO - 1.19% The website and fund documents are a good place to start your research
-
-@StockMKTNewz [Fri Jul 17 19:50:09 +0000 2026]: All these stocks hit new 52 WEEK HIGHS at some point today Apple $AAPL Palo Alto $PANW Starbucks $SBUX Bank of America $BAC Target $TGT Merck $MRK US Bancorp $USB Keycorp $KEY $CSX Monster $MNST Travelers $TRV Prologis $PLD Dominion Energy $D Electronic Arts $EA Philip Morris $PM Union Pacific $UNP Valero $VLO Corteva $CTVA Phillips 66 $PSX Maratho Petro $MPC PNC Bank $PNC
 
 @wallstengine [Fri Jul 17 17:27:43 +0000 2026]: JUDGE WILL NOT BLOCK $META LAYOFFS IN AI DISCRIMINATION CASE
 
@@ -250,47 +249,51 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in t
 
 @KobeissiLetter [Fri Jul 17 16:46:29 +0000 2026]: BREAKING: The Trump Administration has notified Israel that it is sending "dozens more" refueling planes to the country ahead of a potential "massive offensive" in Iran, per Axios. Details include: 1. President Trump is reportedly considering a "massive offensive" in Iran 2. Among the options being considered are bombing Iranian infrastructure facilities like power plants and nuclear sites 3. President Trump could order the escalation "in the coming days" Brent oil prices surge toward $88/barrel on the news.
 
+@StockMKTNewz [Sat Jul 18 14:22:24 +0000 2026]: Apple $AAPL and the US Justice Department are in early discussions about settling a 2024 lawsuit that alleges the iPhone maker violated antitrust laws - Bloomberg
+
 @AIStockSavvy [Fri Jul 17 19:00:20 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Apple Music subscription price rises to $11.99 from $10.99 - $AAPL $SPOT
+
+@AIStockSavvy [Sat Jul 18 16:32:52 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: France and Germany Explore European Alternative to $PLTR Palantir Military Software - Politico 👉 𝐊𝐞𝐲 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐅𝐫𝐚𝐧𝐜𝐞 and 𝐆𝐞𝐫𝐦𝐚𝐧𝐲 to examine a European alternative to 𝐏𝐚𝐥𝐚𝐧𝐭𝐢𝐫. ➤ Initiative aims to strengthen 𝐄𝐮𝐫𝐨𝐩𝐞𝐚𝐧 𝐝𝐚𝐭𝐚 𝐬𝐨𝐯𝐞𝐫𝐞𝐢𝐠𝐧𝐭𝐲. ➤ Plan includes a sovereign digital backbone with 𝐀𝐈 and cloud technologies. ➤ France's 𝐀𝐫𝐜𝐚𝐝𝐢𝐚 platform highlighted as a key solution. ➤ Germany previously selected 𝐂𝐡𝐚𝐩𝐬𝐕𝐢𝐬𝐢𝐨𝐧 over Palantir for its spy agency. ➤ France ended its domestic intelligence contract with 𝐏𝐚𝐥𝐚𝐧𝐭𝐢𝐫 in June. ➤ Countries will develop a 𝐄𝐮𝐫𝐨𝐩𝐞𝐚𝐧 𝐜𝐨𝐥𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐢𝐯𝐞 𝐜𝐨𝐦𝐛𝐚𝐭 𝐬𝐭𝐚𝐧𝐝𝐚𝐫𝐝. ➤ Joint MGCS research will focus on 𝐚𝐮𝐭𝐨𝐧𝐨𝐦𝐨𝐮𝐬 𝐝𝐫𝐢𝐯𝐢𝐧𝐠, sensors, and battlefield networking. ➤ France, Germany, and Britain will study cooperation on 𝐥𝐨𝐧𝐠-𝐫𝐚𝐧𝐠𝐞 𝐦𝐢𝐬𝐬𝐢𝐥𝐞 capabilities. ➤ Both nations reaffirmed support for a future 𝐊𝐍𝐃𝐒 stock-market listing
 
 @AIStockSavvy [Fri Jul 17 19:40:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $TSM TSMC adds $100 bln to Arizona fab; Trump invites firms to build in US President Trump said TSMC will add $100 billion to its Arizona semiconductor fab, bringing total US investment to a record $265 billion. He credited his trade policies with driving reshoring of advanced manufacturing and invited companies to build plants in the United States.
 
 @AIStockSavvy [Fri Jul 17 19:14:16 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $SPCX Spacex In Talks To Provide Pentagon Billions Of Dollars Of Ai Cloud-computing Capacity, Sources Say - WSJ
 
-@StockMKTNewz [Fri Jul 17 20:03:00 +0000 2026]: Meta Platforms $META closed the week with a larger market cap than SpaceX $SPCX https://t.co/qsSkkVYOLE
+@StockMKTNewz [Sat Jul 18 14:08:13 +0000 2026]: SpaceX $SPCX closed the week down by more than $1 Trillion in from its recent All Time Highs https://t.co/lrgbEQhkV4
 
-@StockMKTNewz [Fri Jul 17 19:39:23 +0000 2026]: Intuitive Surgical $ISRG stock just hit new 52 WEEK LOWS today $OKLO stock just hit new 52 WEEK LOWS today Synopsys $SNPS stock just hit new 52 WEEK LOWS today https://t.co/tfHGqvlkdy
+@gurgavin [Fri Jul 17 19:25:55 +0000 2026]: *TRUMP: HOLDING CANADA RESPONSIBLE FOR FACT THAT THEY ARE NOT PROPERLY MAINTAINING THEIR FORESTS *TRUMP: COSTS OF CANADIAN AIR POLLUTION MUST BE ADDED TO EXISTING TARIFFS ON CANADA
 
-@StockMKTNewz [Fri Jul 17 19:37:46 +0000 2026]: Netflix $NFLX stock just hit new 52 WEEK LOWS today https://t.co/DVn9BMLdOD
-
-@KobeissiLetter [Fri Jul 17 16:09:29 +0000 2026]: BREAKING: US margin debt jumped +$86.5 billion in June, to a record $1.5 trillion. This marks the 3rd consecutive monthly increase, totaling +$281.2 billion, or +23%. Margin debt has surged +$494.1 billion, or +49%, over the last 12 months. Meanwhile, a broader measure of investor leverage, which subtracts cash held in brokerage accounts from total margin borrowing, is up to ~1.4% of the S&P 500 market cap, near the highest on record. This is in-line with the 2018 peak levels and exceeds the 2000 Dot-Com bubble peak of ~1.1%. US investors have never been more leveraged.
-
-@KobeissiLetter [Fri Jul 17 15:21:17 +0000 2026]: Japanese retail investors are increasingly betting against the US Dollar: Net dollar short positions held by Japanese retail traders are up to $17.2 billion, the highest since records began in 2008. This figure has more than quadrupled from month-over-month. The surge reflects growing expectations that Japanese authorities will continue supporting the Yen through intervention, encouraging retail traders to position for a weaker US Dollar. This comes after the Ministry of Japan spent ~$73.6 billion to support the Yen between April 28th and May 27th, with the Yen still falling more than 4% from its May high. Retail investors in Japan believe the US Dollar rally is nearing its end.
+@StockMKTNewz [Sat Jul 18 16:27:09 +0000 2026]: Here are the current best and worst performing stocks in the NASDAQ 100 so far this year 👑 Sandisk $SNDK +471%🟢 🥈 Micron $MU +197%🟢 ......... Almost last: Intuitive Surgical $ISRG -39%🔴 💩 Intuit $INTU -56%🔴 https://t.co/lxDlljqb8t
 
 @AIStockSavvy [Fri Jul 17 20:16:41 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $SPCE Virgin Galactic: Files for Mixed Shelf Offering, Size Not Disclosed - Filing
 
 @wallstengine [Fri Jul 17 16:54:45 +0000 2026]: APPLE $AAPL IN EARLY SETTLEMENT TALKS WITH US DOJ OVER ANTITRUST SUIT
 
-@StockMKTNewz [Fri Jul 17 19:27:50 +0000 2026]: 🇺🇸 President Trump just threatened to add additional tariffs onto Canada 🇨🇦 due to "not properly maintaining their Forests, and Brush therein, and the United States is being unnecessarily invaded by filthy, polluted, and unhealthy air, the quality of which is dangerous, and totally unacceptable"
+@StockMKTNewz [Sat Jul 18 15:50:12 +0000 2026]: Despite its pullback from the highs Sandisk $SNDK is still the best performing stock in the S&amp;P 500 so far this year https://t.co/oA91LAybTw
+
+@KobeissiLetter [Sat Jul 18 14:41:33 +0000 2026]: US corporate executives are increasingly selling their own stock: Stock sales of corporate insiders rose +20% YoY in the first half of 2026, to $77.6 billion, the largest half-year total since H1 2021. This is also the 2nd-largest half-year total in over 20 years. By comparison, insider purchases totaled just $6.9 billion over the same period, slightly above the 7-year low of $6.7 billion set in 2025. In other words, corporate executives sold more than 11 shares for every 1 share they bought during the first 6 months of the year. This comes as insiders are increasingly concerned over geopolitical risks, elevated valuations, and the sustainability of AI spending. Corporate insiders are locking in historic gains.
 
 @KobeissiLetter [Sat Jul 18 00:09:22 +0000 2026]: Big Tech’s dominance is unprecedented: The Technology, Media, and Telecom (TMT) sector now accounts for a record 49% of the S&P 500’s market value. This is ~9 percentage points above the 2000 Dot-Com Bubble peak and ~20 percentage points above the late-1960s high. The tech sector now carries a larger weight than the financials, cyclicals, and defensives sectors combined. By comparison, TMT accounted for just ~19% of the S&P 500 during the 2008 Financial Crisis. The US stock market has never been this reliant on tech.
 
 @KobeissiLetter [Fri Jul 17 17:50:25 +0000 2026]: It's official: US oil prices are now up over +20% in 15 days as the Iran War has resumed. In another sudden turn of events, Brent oil prices are on the verge of rising back above $90/barrel. https://t.co/wtuupOLHQN
 
-@KobeissiLetter [Fri Jul 17 14:17:53 +0000 2026]: BREAKING: The Dow Jones Industrial Average erases all losses and turns green on the day. https://t.co/EgdhFFNOtE
-
-@gurgavin [Fri Jul 17 19:25:55 +0000 2026]: *TRUMP: HOLDING CANADA RESPONSIBLE FOR FACT THAT THEY ARE NOT PROPERLY MAINTAINING THEIR FORESTS *TRUMP: COSTS OF CANADIAN AIR POLLUTION MUST BE ADDED TO EXISTING TARIFFS ON CANADA
-
 @gurgavin [Fri Jul 17 08:17:57 +0000 2026]: NASDAQ 100 FUTURES EXTEND LOSSES TO 2% 📉📉📉📉📉
+
+@StockMKTNewz [Sat Jul 18 16:11:22 +0000 2026]: $DELL stock is currently the 2nd best performing stock in the S&amp;P 500 so far this year https://t.co/kQtUOzE9yZ
+
+@StockMKTNewz [Sat Jul 18 15:40:03 +0000 2026]: Intuit $INTU is currently the worst performing stock in the S&amp;P 500 so far in 2026 https://t.co/oZVQS3Dv8T
+
+@AIStockSavvy [Sat Jul 18 15:39:15 +0000 2026]: 🏆 TOP 10 WEEKLY ANALYST RATINGS: $HUT $PANW $UNH $INTC $CLSK $AMC $AVAV $ARM $CRCL $AAPL https://t.co/Aonvz06RiH
 
 @AIStockSavvy [Sat Jul 18 05:11:42 +0000 2026]: $ORCL $BE 👀👀👀
 
 @AIStockSavvy [Fri Jul 17 20:20:08 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $HIMS Hims &amp; Hers Chief Accounting Officer, Irene Becklund, Announces Departure from the Company
 
-@AIStockSavvy [Fri Jul 17 16:32:22 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $DJT Trump Media Floats $100,000/Month Fee For 'Truth API' - FT
+@KobeissiLetter [Sat Jul 18 16:18:41 +0000 2026]: BREAKING: Iran has accused the United States of violating the 14-point "Memorandum of Understanding" and says a statement from Iran's Supreme Leader will be released shortly.
 
-@AIStockSavvy [Fri Jul 17 16:22:51 +0000 2026]: $META | 'Meta In Talks To Lease Computing Power To Anthropic In Potential $10 Billion Deal; A Deal Would Underline How Scarce Computing Power Is For Artificial Intelligence Development, And Could Create A New Business For Meta' - NY Times
+@wallstengine [Fri Jul 17 23:42:51 +0000 2026]: The White House has launched Gold Eagle, a new AI cybersecurity clearinghouse. CNBC reports the government may now require approval over which companies receive early access to frontier cyber models from OpenAI and Anthropic. The White House says participation remains voluntary and denies approving private model releases. For now, this appears to be more control over early-access partner lists, not every AI launch.
 
-@AIStockSavvy [Fri Jul 17 16:22:21 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Meta Platforms (META) in talks to lease compute to Anthropic - NYT - $META $NBIS $CRWV $IREN
+@StockMKTNewz [Sat Jul 18 12:56:00 +0000 2026]: The 🇺🇸 Trump administration is considering creating an independent regulator similar to the Financial Industry Regulatory Authority (FINRA) to vet AI models for safety with industry input - Bloomberg https://t.co/aXsRWyHHvL
 
 @gurgavin [Thu Jul 16 22:23:33 +0000 2026]: WHICHEVER COUNTRY WINS SHOULD GET 0% TARIFFS FOR A YEAR FROM TRUMP
 
