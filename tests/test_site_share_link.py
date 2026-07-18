@@ -42,12 +42,20 @@ def test_share_button_is_wired():
     assert 'onclick="shareWhatsApp()"' in INDEX_HTML, "the share button lost its onclick handler"
 
 
-def test_share_uses_wa_me_link():
-    # wa.me is the canonical click-to-chat form that works with no phone number;
-    # api.whatsapp.com/send is unreliable on both desktop and mobile.
+def test_share_uses_wa_me_on_mobile_and_web_whatsapp_on_desktop():
+    # Mobile: wa.me deep-links into the WhatsApp app. Desktop: wa.me redirects to
+    # api.whatsapp.com/send, which Chrome blocks (ERR_BLOCKED_BY_RESPONSE), so the
+    # desktop link must go straight to WhatsApp Web's compose screen instead.
     body = share_function_body()
     assert "https://wa.me/?text=" in body
-    assert "api.whatsapp.com" not in body.replace("// The older api.whatsapp.com", "")
+    assert "https://web.whatsapp.com/send?text=" in body
+    assert re.search(r"navigator\.userAgent", body), (
+        "shareWhatsApp() must branch on the user agent: wa.me on mobile, "
+        "web.whatsapp.com on desktop"
+    )
+    # api.whatsapp.com must never be a navigation target (comments exempt).
+    code_lines = [l for l in body.split("\n") if not l.strip().startswith("//")]
+    assert "api.whatsapp.com" not in "\n".join(code_lines)
 
 
 def test_share_never_fails_summary_errors_fall_back_to_title_and_link():

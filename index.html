@@ -696,11 +696,15 @@ function shareWhatsApp(){
   }catch(e){
     lines = [title, '', cta];
   }
-  // wa.me is WhatsApp's canonical click-to-chat share link and works with no phone
-  // number: it opens WhatsApp with the text prefilled and a contact/group picker.
-  // The older api.whatsapp.com/send?text= form is unreliable without a phone —
-  // on desktop it lands on an interstitial and on mobile it often fails to deep-link.
-  const url = 'https://wa.me/?text=' + encodeURIComponent(lines.join('\n'));
+  // On desktop, wa.me redirects to api.whatsapp.com/send, which Chrome blocks
+  // (ERR_BLOCKED_BY_RESPONSE) — so desktop must go straight to WhatsApp Web's
+  // compose screen and never touch api.whatsapp.com. On mobile, wa.me deep-links
+  // into the WhatsApp app and is the reliable route.
+  const text = encodeURIComponent(lines.join('\n'));
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const url = isMobile
+    ? 'https://wa.me/?text=' + text
+    : 'https://web.whatsapp.com/send?text=' + text;
   // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
   // where window.open('_blank') is often blocked or silently dropped.
   const a = document.createElement('a');
