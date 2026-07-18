@@ -696,15 +696,11 @@ function shareWhatsApp(){
   }catch(e){
     lines = [title, '', cta];
   }
-  // On desktop, wa.me redirects to api.whatsapp.com/send, which Chrome blocks
-  // (ERR_BLOCKED_BY_RESPONSE) — so desktop must go straight to WhatsApp Web's
-  // compose screen and never touch api.whatsapp.com. On mobile, wa.me deep-links
-  // into the WhatsApp app and is the reliable route.
-  const text = encodeURIComponent(lines.join('\n'));
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const url = isMobile
-    ? 'https://wa.me/?text=' + text
-    : 'https://web.whatsapp.com/send?text=' + text;
+  // wa.me is the only allowed share target: direct web.whatsapp.com links get
+  // blocked by the browser (ERR_BLOCKED_BY_RESPONSE), and iframes/embedded
+  // windows are equally off-limits. One URL for desktop and mobile alike,
+  // opened in a new tab.
+  const url = 'https://wa.me/?text=' + encodeURIComponent(lines.join('\n'));
   // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
   // where window.open('_blank') is often blocked or silently dropped.
   const a = document.createElement('a');
