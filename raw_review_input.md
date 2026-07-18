@@ -1,4 +1,4 @@
-אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
+אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
 You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
 trading week 13/07–17/07/2026. The review does BOTH: sums up the week that ended AND prepares the reader for
@@ -25,30 +25,48 @@ must still carry a fact, a number or a mechanism — no mood-only filler):
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
   what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
 * SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
-  Pick the STRONGEST stories — do NOT force every category:
-  - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
-  - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —
-    merge related releases into one point.
+  Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
+  outside the tweets:
+  - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
+  - Macro data ONLY as it appears in the tweets or the verified economic block, with the full numbers they
+    provide (actual vs forecast vs previous) and the market implication — merge related releases into one point.
+    Do NOT web-search for macro data the sources did not cover, and do NOT fill in missing
+    actual/forecast/previous figures from memory.
   - The week's defining sector/technology story, with the transmission mechanism.
   - Notable company news: earnings, M&A, milestones — merged where related.
   - Commodities and the dollar with weekly context, or geopolitics with market impact.
-* PREPARATION points (1-2) — the COMING week (verify the schedule via web search):
+* PREPARATION points (1-2) — the COMING week (verify the schedule via web search — permitted use c):
   - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
   - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
     (merge into the macro point when the earnings slate is thin).
 * CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
   and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified.
 
+══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
+The review is built EXCLUSIVELY from two sources:
+1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
+2. The source tweets below — the ONLY source for stories, news and narrative.
+Web search is permitted for THREE narrow purposes ONLY:
+  a. Verifying a claim of an all-time high / 52-week high before writing it.
+  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+  c. Verifying the COMING week's schedule (macro releases, Fed events, key earnings) for the preparation points.
+FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
+in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
+cover a story — the review does not cover it either.
+══════════════════════════════════════════════════════
+
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
 - Be specific: every claim must include a number, percentage, or ticker. No vague statements.
 - Do NOT repeat information across bullets. One company = one bullet (merge multiple news items).
 - No buy/sell recommendations, no price targets of your own, no "כדאי לקנות/למכור".
-- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) your web search. NEVER invent, estimate, or recall numbers from memory. When in doubt, omit.
+- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) one of the PERMITTED verification searches listed in the SOURCE HIERARCHY block. NEVER invent, estimate, or recall numbers from memory or from general knowledge. When in doubt, omit the number and keep the story, or omit the point entirely.
 - If a tweet contradicts the Finnhub data, the Finnhub data is correct.
+- SINGLE-SOURCE ATTRIBUTION: a story reported in the tweets citing a news outlet (WSJ, NYT, FT, Axios, Reuters) keeps that attribution in Hebrew: "לפי WSJ", "לפי דיווח ב-NYT". A story appearing in only ONE tweet with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
 - Directional words (צונח/יורד/מזנק/עולה) are factual claims — they MUST match the DIRECTIONAL FACTS block.
 - Sector percentages (XLE/XLK/...) — ONLY from the Finnhub data. Missing sector → omit.
-- Never claim an all-time high (שיא כל הזמנים) without web-search verification.
+- Never claim an all-time high (שיא כל הזמנים) or 52-week high without web-search verification or an explicit tweet stating it. A tweet-sourced high keeps its scope exactly: 52-week high ≠ all-time high.
 - CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
 - IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
@@ -60,8 +78,31 @@ Rules:
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
 - EVERY Hebrew company/stock name gets its ticker in parentheses on FIRST mention — "קורוויב (CRWV)", "ג'יי.פי מורגן (JPM)" — both in the bullet body AND in the summary item. Indices (S&P 500) and private companies with no listed ticker are exempt.
 - Correct Hebrew causative syntax: a driver "הקפיץ את מחיר הנפט" (never "קפץ את הנפט"), and price moves belong to "מחיר הנפט/הזהב", not to the asset as a direct object.
+- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, no inflated or "clever" wording, correct gender and number agreement throughout. Read every sentence back: if it would sound odd spoken aloud by an Israeli investment advisor, rewrite it in simpler, more natural Hebrew.
 - Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
 - SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה".
+
+══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
+Go over every bullet you wrote and check, one by one:
+1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
+   tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
+   DELETE it or the whole claim.
+2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
+   "no weekly figure" note is described qualitatively or as a daily move labeled as such.
+3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
+4. SIGN-FLIP: no stock that fell is described positively.
+5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
+6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
+   (the permitted verification purposes excepted).
+7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (8-10 bullets).
+8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
+   number/direction in the summary passes checks 1-5 as well.
+9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
+   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
+   rewritten.
+If ANY check fails — fix the bullet and re-run the checks. Only then return the JSON.
+══════════════════════════════════════════════════════════════════════════════
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
@@ -126,9 +167,8 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $MSFT: $393.82 (daily: -1.81%), prev close: $401.10
   $RKLB: $67.62 (daily: +0.40%), prev close: $67.35
   $PYPL: $56.56 (daily: -0.30%), prev close: $56.73
-  $BAC: $61.27 (daily: -0.36%), prev close: $61.49
-  $CSX: $50.75 (daily: -0.28%), prev close: $50.89
-  $CTVA: $87.30 (daily: +0.75%), prev close: $86.65
+  $AXTI: $45.86 (daily: +0.64%), prev close: $45.57
+  $CIEN: $374.41 (daily: -3.70%), prev close: $388.81
 
 WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):
   S&P 500 (SPY ETF): weekly -1.54% (from $754.95 to $743.29)
@@ -148,7 +188,7 @@ WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the 
   $META: weekly -3.47% (from $669.21 to $646.01)
   $AAPL: weekly +5.84% (from $315.32 to $333.74)
 
-NOTE — no weekly figure is available for: $SPCX, $ORCL, $DJT, $AMZN, $MSFT, $RKLB, $PYPL, $BAC, $CSX, $CTVA. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
+NOTE — no weekly figure is available for: $SPCX, $ORCL, $DJT, $AMZN, $MSFT, $RKLB, $PYPL, $AXTI, $CIEN. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): עולה (USO: +3.91%, BNO: +4.10%)
@@ -165,14 +205,15 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO DATA CHECK ══
-Use web search to find ALL major US economic data released during the week of 13/07–17/07/2026:
-CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
-ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
-Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
-IN ADDITION — for the preparation points, use web search to verify the COMING week's schedule:
-economic releases and Fed events (with dates, Israel times and consensus where available) and the key
-earnings reports scheduled, and what the market will look for in each.
+══ MANDATORY MACRO TIMING CHECK (verification only) ══
+The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
+they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
+the week of 13/07–17/07/2026 was indeed released in that week (headline AND core where relevant),
+and that nothing already released is written as 'expected', and (2) the COMING week's schedule for the
+preparation points: economic releases and Fed events (with dates, Israel times and consensus where
+available) and the key earnings reports scheduled, and what the market will look for in each.
+Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
+actual/forecast/previous figures from memory or from search results.
 ══════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in the review that these came from tweets/posts:
@@ -195,6 +236,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in t
 
 @gurgavin [Thu Jul 16 18:47:32 +0000 2026]: THIS IS CRAZY TO ME TRUMP’S SOCIAL MEDIA PLATFORM WILL NOW SELL A LIVE DATA FEED TO FINANCIAL FIRMS THIS MEANS BIG HEDGE FUNDS CAN NOW GET FASTER ACCESS TO DONALD TRUMP’S MARKET MOVING TWEETS $DJT
 
+@StockMKTNewz [Sat Jul 18 10:26:49 +0000 2026]: If anyone wants to do some research into a new ETF this week my partners over at KraneShares launched a new Photonic and Optical ETF trading under the ticker $LUMA Here are all the stock holdings in the ETF: Lumentum Holdings $LITE - 6.36% Coherent $COHR - 6.09% Aixtron $AIXA - 5.51% MACOM Technology $MTSI - 5.41% Tower Semiconductor $TSEM - 5.30% Marvell Technology $MRVL - 4.83% EOTOLINK $300502 - 4.83% AXT Inc $AXTI - 4.81% Zhongji Innolight $300308 - 4.57% Land Mark Optoelectronics $3081 - 4.54% Soitec $SOI - 4.53% Nokia $NOK - 4.20% Ezconn Corporation $6442 - 3.63% STMicroelectronics $STM - 3.35% FormFactor $FORM - 3.34% Fabrinet $FN - 3.33% Sumitomo Electric Industries $5802 - 3.25% Himax Technologies $HIMX - 2.92% Foci Fiber Optic $3363 - 2.81% Ciena $CIEN - 2.77% Corning $GLW - 2.72% Yuanjie Semiconductor $688498 - 2.21% Semtech $SMTC - 2.07% Furukawa Electric $5801 - 2.00% nLight $LASR - 1.95% Veeco Instruments $VECO - 1.19% The website and fund documents are a good place to start your research
+
 @StockMKTNewz [Fri Jul 17 19:50:09 +0000 2026]: All these stocks hit new 52 WEEK HIGHS at some point today Apple $AAPL Palo Alto $PANW Starbucks $SBUX Bank of America $BAC Target $TGT Merck $MRK US Bancorp $USB Keycorp $KEY $CSX Monster $MNST Travelers $TRV Prologis $PLD Dominion Energy $D Electronic Arts $EA Philip Morris $PM Union Pacific $UNP Valero $VLO Corteva $CTVA Phillips 66 $PSX Maratho Petro $MPC PNC Bank $PNC
 
 @wallstengine [Fri Jul 17 17:27:43 +0000 2026]: JUDGE WILL NOT BLOCK $META LAYOFFS IN AI DISCRIMINATION CASE
@@ -208,8 +251,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in t
 @KobeissiLetter [Fri Jul 17 16:46:29 +0000 2026]: BREAKING: The Trump Administration has notified Israel that it is sending "dozens more" refueling planes to the country ahead of a potential "massive offensive" in Iran, per Axios. Details include: 1. President Trump is reportedly considering a "massive offensive" in Iran 2. Among the options being considered are bombing Iranian infrastructure facilities like power plants and nuclear sites 3. President Trump could order the escalation "in the coming days" Brent oil prices surge toward $88/barrel on the news.
 
 @AIStockSavvy [Fri Jul 17 19:00:20 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Apple Music subscription price rises to $11.99 from $10.99 - $AAPL $SPOT
-
-@StockMKTNewz [Sat Jul 18 10:26:49 +0000 2026]: If anyone wants to do some research into a new ETF this week my partners over at KraneShares launched a new Photonic and Optical ETF trading under the ticker $LUMA Here are all the stock holdings in the ETF: Lumentum Holdings $LITE - 6.36% Coherent $COHR - 6.09% Aixtron $AIXA - 5.51% MACOM Technology $MTSI - 5.41% Tower Semiconductor $TSEM - 5.30% Marvell Technology $MRVL - 4.83% EOTOLINK $300502 - 4.83% AXT Inc $AXTI - 4.81% Zhongji Innolight $300308 - 4.57% Land Mark Optoelectronics $3081 - 4.54% Soitec $SOI - 4.53% Nokia $NOK - 4.20% Ezconn Corporation $6442 - 3.63% STMicroelectronics $STM - 3.35% FormFactor $FORM - 3.34% Fabrinet $FN - 3.33% Sumitomo Electric Industries $5802 - 3.25% Himax Technologies $HIMX - 2.92% Foci Fiber Optic $3363 - 2.81% Ciena $CIEN - 2.77% Corning $GLW - 2.72% Yuanjie Semiconductor $688498 - 2.21% Semtech $SMTC - 2.07% Furukawa Electric $5801 - 2.00% nLight $LASR - 1.95% Veeco Instruments $VECO - 1.19% The website and fund documents are a good place to start your research
 
 @AIStockSavvy [Fri Jul 17 19:40:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $TSM TSMC adds $100 bln to Arizona fab; Trump invites firms to build in US President Trump said TSMC will add $100 billion to its Arizona semiconductor fab, bringing total US investment to a record $265 billion. He credited his trade policies with driving reshoring of advanced manufacturing and invited companies to build plants in the United States.
 
