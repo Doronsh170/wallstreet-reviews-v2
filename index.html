@@ -696,11 +696,19 @@ function shareWhatsApp(){
   }catch(e){
     lines = [title, '', cta];
   }
-  // wa.me is the only allowed share target: direct web.whatsapp.com links get
-  // blocked by the browser (ERR_BLOCKED_BY_RESPONSE), and iframes/embedded
-  // windows are equally off-limits. One URL for desktop and mobile alike,
-  // opened in a new tab.
-  const url = 'https://wa.me/?text=' + encodeURIComponent(lines.join('\n'));
+  // Filtered networks and browser policies block every whatsapp.com HTTP
+  // endpoint with ERR_BLOCKED_BY_RESPONSE — api.whatsapp.com, web.whatsapp.com,
+  // and wa.me too, since wa.me redirects into api.whatsapp.com. The OS share
+  // sheet (Web Share API) never touches whatsapp.com, so it is the primary
+  // route: WhatsApp appears in it whenever the app is installed. wa.me stays
+  // as the fallback for browsers without navigator.share.
+  const message = lines.join('\n');
+  if (navigator.share) {
+    // A rejected promise here is the user closing the share sheet — not an error.
+    navigator.share({ text: message }).catch(function(){});
+    return;
+  }
+  const url = 'https://wa.me/?text=' + encodeURIComponent(message);
   // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
   // where window.open('_blank') is often blocked or silently dropped.
   const a = document.createElement('a');

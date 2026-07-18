@@ -42,13 +42,17 @@ def test_share_button_is_wired():
     assert 'onclick="shareWhatsApp()"' in INDEX_HTML, "the share button lost its onclick handler"
 
 
-def test_share_uses_wa_me_link_only():
-    # wa.me is the single allowed share target for desktop and mobile alike.
-    # Direct web.whatsapp.com links are blocked by the browser
-    # (ERR_BLOCKED_BY_RESPONSE), and api.whatsapp.com is its blocked redirect
-    # target — neither may appear as a navigation URL (comments exempt).
+def test_share_prefers_os_share_sheet_with_wa_me_fallback():
+    # Filtered networks block every whatsapp.com HTTP endpoint (api, web, and
+    # wa.me's redirect) with ERR_BLOCKED_BY_RESPONSE. The OS share sheet
+    # (navigator.share) bypasses whatsapp.com entirely, so it must be tried
+    # first; wa.me remains the fallback for browsers without the Web Share API.
+    # web.whatsapp.com / api.whatsapp.com may never be navigation URLs.
     body = share_function_body()
-    assert "https://wa.me/?text=" in body
+    assert "navigator.share" in body
+    assert body.index("navigator.share") < body.index("https://wa.me/?text="), (
+        "navigator.share must be tried before the wa.me fallback"
+    )
     code = "\n".join(l for l in body.split("\n") if not l.strip().startswith("//"))
     assert "web.whatsapp.com" not in code
     assert "api.whatsapp.com" not in code
