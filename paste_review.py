@@ -65,8 +65,8 @@ MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
 # Enforced here so an overgrown review never reaches the site.
 EXACT_BULLETS = {"daily_prep": 6, "daily_summary": 6}
 BULLET_RANGE = {"weekly_summary": (8, 10)}
-MAX_BULLET_WORDS = 100     # hard cap per daily bullet, headline included
-TARGET_BULLET_WORDS = 85   # above this → warning (the 4-5 line target is ~60-80)
+MAX_BULLET_WORDS = 80      # hard cap per daily bullet, headline included — dailies stay SHORT
+TARGET_BULLET_WORDS = 60   # above this → warning (the 3-4 line target is ~40-60)
 MAX_SUMMARY_ITEM_WORDS = 28  # a תקציר item should be ~20 words — warning only
 
 BULLET_CHARS = r'[•■●▪▫◦‣⁃–—]'
@@ -691,7 +691,7 @@ def bullet_length_check(result: Dict[str, Any], mode: str) -> None:
             if n > MAX_BULLET_WORDS:
                 raise ValueError(
                     f"בולט ארוך מדי ({n} מילים, המקסימום {MAX_BULLET_WORDS}): \"{b.strip()[:60]}...\" "
-                    f"קצר אותו ל-4-5 שורות: השאר רק את העובדות שנושאות את הסיפור ואת הפואנטה למשקיע."
+                    f"קצר אותו ל-3-4 שורות: השאר רק את העובדות שנושאות את הסיפור ואת הפואנטה למשקיע."
                 )
             if n > TARGET_BULLET_WORDS:
                 print(f"  ⚠️  בולט ארוך ({n} מילים, היעד עד ~{TARGET_BULLET_WORDS}): {b.strip()[:60]}...")
