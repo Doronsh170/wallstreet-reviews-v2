@@ -662,21 +662,40 @@ function showMarkets(){
   document.getElementById('activeLabel').textContent = '';
 }
 
+/* Longest wa.me ?text= payload we allow (encoded). Browsers and WhatsApp builds
+   silently reject absurdly long URLs, so an over-long summary must degrade
+   gracefully instead of producing a dead button. */
+const MAX_SHARE_URL_CHARS = 6000;
+
 function shareWhatsApp(){
   // currentReview covers both a live tab and an opened archive entry.
   const review = currentReview;
   if(!review) return;
-  // The WhatsApp message carries the CONDENSED summary (תקציר), not the full points,
-  // followed by a call-to-action link that opens the complete review on the site.
-  const summaries = summariesOf(review);
-  const lines = [
-    '*' + stripCtl(review.title || LABELS[active].he) + '*',
-    '',
-    '📋 תקציר הנקודות:',
-    ...summaries.map(s => '• ' + (s.label ? s.label + ': ' : '') + s.text),
-    '',
-    '👈 לצפייה בסקירה המלאה: ' + SITE_URL,
-  ];
+  // The share button must NEVER fail: any error while condensing the summary falls
+  // back to sharing the title + site link, which always works.
+  const title = '*' + stripCtl(String(review.title || (LABELS[active] || {}).he || 'סקירה חדשה')) + '*';
+  const cta = '👈 לצפייה בסקירה המלאה: ' + SITE_URL;
+  let lines;
+  try{
+    // The WhatsApp message carries the CONDENSED summary (תקציר), not the full points,
+    // followed by a call-to-action link that opens the complete review on the site.
+    const summaries = summariesOf(review);
+    lines = [
+      title,
+      '',
+      '📋 תקציר הנקודות:',
+      ...summaries.map(s => '• ' + (s.label ? s.label + ': ' : '') + s.text),
+      '',
+      cta,
+    ];
+    // Over-long messages: drop summary lines from the end until the encoded URL
+    // fits — the title and the site link always survive.
+    while(encodeURIComponent(lines.join('\n')).length > MAX_SHARE_URL_CHARS && lines.length > 5){
+      lines.splice(lines.length - 3, 1);
+    }
+  }catch(e){
+    lines = [title, '', cta];
+  }
   // wa.me is WhatsApp's canonical click-to-chat share link and works with no phone
   // number: it opens WhatsApp with the text prefilled and a contact/group picker.
   // The older api.whatsapp.com/send?text= form is unreliable without a phone —

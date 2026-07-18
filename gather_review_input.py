@@ -992,7 +992,9 @@ def get_self_verification(mode: str) -> str:
 5. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, and the bullet count fits the
    instructions above ({count_note}).
 6. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
-   number/direction in the summary passes checks 1-4 as well."""
+   number/direction in the summary passes checks 1-4 as well.
+7. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
+   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets rewritten."""
     else:
         if mode == "weekly_summary":
             timing_check = """2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
@@ -1000,6 +1002,8 @@ def get_self_verification(mode: str) -> str:
         else:
             timing_check = """2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
    matches the instructions (never describe a closed market as open or trading)."""
+        length_check = ("" if mode == "weekly_summary" else
+                        " Every bullet stays within 3-4 lines (~60 words) — trim any bullet that runs long.")
         checks = f"""1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
    tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
    DELETE it or the whole claim.
@@ -1012,7 +1016,10 @@ def get_self_verification(mode: str) -> str:
 7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
    first mention, headline under 40 chars with no ":" inside it, and the bullet count is right ({count_note}).
 8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
-   number/direction in the summary passes checks 1-5 as well."""
+   number/direction in the summary passes checks 1-5 as well.
+9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
+   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
+   rewritten.{length_check}"""
     return f"""══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
 Go over every bullet you wrote and check, one by one:
 {checks}
@@ -1042,6 +1049,7 @@ SHARED_RULES = """Rules:
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
 - EVERY Hebrew company/stock name gets its ticker in parentheses on FIRST mention — "קורוויב (CRWV)", "ג'יי.פי מורגן (JPM)" — both in the bullet body AND in the summary item. Indices (S&P 500) and private companies with no listed ticker are exempt.
 - Correct Hebrew causative syntax: a driver "הקפיץ את מחיר הנפט" (never "קפץ את הנפט"), and price moves belong to "מחיר הנפט/הזהב", not to the asset as a direct object.
+- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, no inflated or "clever" wording, correct gender and number agreement throughout. Read every sentence back: if it would sound odd spoken aloud by an Israeli investment advisor, rewrite it in simpler, more natural Hebrew.
 - Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
 - SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה"."""
 
@@ -1091,6 +1099,7 @@ INTRADAY_RULES = """Rules:
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
 - Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- NATURAL HEBREW: the update must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
 # The Israeli WEEKLY review is tweet-only like the other Israel modes, but its
@@ -1109,6 +1118,7 @@ ISRAEL_WEEKLY_RULES = """Rules:
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
 - Never OPEN a bullet with a raw ticker. Open with the Hebrew company name.
+- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
 
@@ -1167,8 +1177,9 @@ Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date:
 
 This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
 no closing levels, and nothing that already appears in the prior-context block.
-EXACTLY 6 points TOTAL (including the bottom-line point) — short and focused, not an article. Each point
-is 4-5 lines. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
+two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
 * FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
   web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
   open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
@@ -1195,8 +1206,9 @@ No ETF proxies, no Finnhub, no ISO dates."""
 {POINT_STYLE}
 
 This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-EXACTLY 6 points TOTAL (including the bottom-line point) — short and focused, not an article. Each point
-is 4-5 lines. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
+two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
 NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
 fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
 * FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
