@@ -852,25 +852,32 @@ Do NOT use it to find additional news, index levels, prices or macro data. Conte
 sources does not enter the review.
 ══════════════════════════════════"""
     if mode == "daily_summary":
-        return f"""══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on {date_str}: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+        return f"""══ MANDATORY MACRO TIMING CHECK (verification only) ══
+Use web search to verify the macro calendar for {date_str}: which of the majors (CPI headline AND core,
+PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
+actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
+review as a story only if it appears in the source tweets or the verified economic block, with the figures
+they provide (actual, forecast, previous AND the market implication). Never present an already-released
+event as upcoming, and never import from the search a macro story the sources did not cover.
+IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
+bottom-line point.
 ══════════════════════════════════"""
     if mode == "weekly_summary":
-        return f"""══ MANDATORY MACRO DATA CHECK ══
-Use web search to find ALL major US economic data released during the week of {week_range or date_str}:
-CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
-ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
-Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
-IN ADDITION — for the preparation points, use web search to verify the COMING week's schedule:
-economic releases and Fed events (with dates, Israel times and consensus where available) and the key
-earnings reports scheduled, and what the market will look for in each.
+        return f"""══ MANDATORY MACRO TIMING CHECK (verification only) ══
+The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
+they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
+the week of {week_range or date_str} was indeed released in that week (headline AND core where relevant),
+and that nothing already released is written as 'expected', and (2) the COMING week's schedule for the
+preparation points: economic releases and Fed events (with dates, Israel times and consensus where
+available) and the key earnings reports scheduled, and what the market will look for in each.
+Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
+actual/forecast/previous figures from memory or from search results.
 ══════════════════════════════════"""
-    return f"""══ SCHEDULED DATA CHECK ══
-Use web search to find what US economic data is scheduled for release on {date_str}.
-Include the release time in Israel time and the market consensus/forecast.
+    return f"""══ SCHEDULED DATA CHECK (verification only) ══
+Use web search to verify what US economic data is scheduled for release on {date_str} — release time in
+Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
+upcoming was already released. This is schedule verification only: do NOT use the search to import news
+stories the source tweets did not cover.
 ══════════════════════════════════"""
 
 
@@ -914,16 +921,116 @@ def get_prior_review_context(mode: str, data: Dict[str, Any]) -> str:
 # PROMPT — the full paste-ready instruction block
 # ══════════════════════════════════════════════════════════════
 
+# Source-exclusivity + pre-output self-verification (the error-prevention
+# mechanism): every mode's prompt (1) declares the curated X sources as the ONLY
+# story source — with Finnhub as the only price/direction source in the US
+# modes — restricting web search to narrow VERIFICATION purposes, and (2) ends
+# with a mandatory self-check the model must run before returning the JSON.
+
+def get_source_hierarchy(mode: str) -> str:
+    """The source-exclusivity block for the Finnhub-backed US modes. The
+    tweet-only modes (intraday + Israel) already carry equivalent exclusivity
+    wording inside their mode instructions, so they get no extra block."""
+    if mode == "daily_prep":
+        purposes = """Web search is permitted for FOUR narrow purposes ONLY:
+  a. Verifying the futures direction and percentage for the opening point.
+  b. Verifying TODAY'S scheduled macro calendar (Israel times, consensus, previous reading), and cross-checking
+     that an event you present as upcoming was not already released.
+  c. Verifying a claim of an all-time high / 52-week high before writing it.
+  d. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead."""
+    elif mode == "daily_summary":
+        purposes = """Web search is permitted for THREE narrow purposes ONLY:
+  a. Verifying a claim of an all-time high / 52-week high before writing it.
+  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
+     and cross-checking that an event you present as upcoming was not already released."""
+    elif mode == "weekly_summary":
+        purposes = """Web search is permitted for THREE narrow purposes ONLY:
+  a. Verifying a claim of an all-time high / 52-week high before writing it.
+  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+  c. Verifying the COMING week's schedule (macro releases, Fed events, key earnings) for the preparation points."""
+    else:
+        return ""
+    return f"""══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
+The review is built EXCLUSIVELY from two sources:
+1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
+2. The source tweets below — the ONLY source for stories, news and narrative.
+{purposes}
+FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
+in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
+cover a story — the review does not cover it either.
+══════════════════════════════════════════════════════"""
+
+
+BULLET_COUNT_NOTE = {
+    "daily_prep": "EXACTLY 6 bullets including the bottom line",
+    "daily_summary": "EXACTLY 6 bullets including the bottom line",
+    "weekly_summary": "8-10 bullets",
+    "israel_prep": "6-9 bullets",
+    "israel_summary": "6-9 bullets",
+    "israel_weekly_summary": "6-9 bullets",
+    "intraday_update": "one bullet per material topic, no minimum and no cap",
+}
+
+
+def get_self_verification(mode: str) -> str:
+    """The mandatory pre-output checklist appended to EVERY mode's prompt."""
+    count_note = BULLET_COUNT_NOTE[mode]
+    if mode in ("intraday_update",) + ISRAEL_MODES:
+        carve_out = (" (the scheduled-calendar items verified for the preparation points excepted)"
+                     if mode == "israel_weekly_summary" else "")
+        checks = f"""1. NUMBERS: every percentage, price and figure traces to a specific source post{carve_out}.
+   Any number you cannot point to a source line for — DELETE it or the whole claim.
+2. SCOPE: no story, price, index level or data point appears that is absent from the source posts{carve_out}.
+3. DIRECTIONS: every directional claim (עלה/ירד/זינק/צנח) is stated by a source post — you did not determine
+   any direction or magnitude yourself.
+4. ATTRIBUTION: a story a source reports citing a news outlet keeps "לפי <outlet>". A story appearing in only
+   ONE source post with no outlet attribution carries "לפי דיווחים" — never stated as an established fact.
+5. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, and the bullet count fits the
+   instructions above ({count_note}).
+6. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
+   number/direction in the summary passes checks 1-4 as well."""
+    else:
+        if mode == "weekly_summary":
+            timing_check = """2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
+   "no weekly figure" note is described qualitatively or as a daily move labeled as such."""
+        else:
+            timing_check = """2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
+   matches the instructions (never describe a closed market as open or trading)."""
+        checks = f"""1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
+   tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
+   DELETE it or the whole claim.
+{timing_check}
+3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
+4. SIGN-FLIP: no stock that fell is described positively.
+5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
+6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
+   (the permitted verification purposes excepted).
+7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right ({count_note}).
+8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
+   number/direction in the summary passes checks 1-5 as well."""
+    return f"""══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
+Go over every bullet you wrote and check, one by one:
+{checks}
+If ANY check fails — fix the bullet and re-run the checks. Only then return the JSON.
+══════════════════════════════════════════════════════════════════════════════"""
+
+
 SHARED_RULES = """Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
 - Be specific: every claim must include a number, percentage, or ticker. No vague statements.
 - Do NOT repeat information across bullets. One company = one bullet (merge multiple news items).
 - No buy/sell recommendations, no price targets of your own, no "כדאי לקנות/למכור".
-- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) your web search. NEVER invent, estimate, or recall numbers from memory. When in doubt, omit.
+- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) one of the PERMITTED verification searches listed in the SOURCE HIERARCHY block. NEVER invent, estimate, or recall numbers from memory or from general knowledge. When in doubt, omit the number and keep the story, or omit the point entirely.
 - If a tweet contradicts the Finnhub data, the Finnhub data is correct.
+- SINGLE-SOURCE ATTRIBUTION: a story reported in the tweets citing a news outlet (WSJ, NYT, FT, Axios, Reuters) keeps that attribution in Hebrew: "לפי WSJ", "לפי דיווח ב-NYT". A story appearing in only ONE tweet with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
 - Directional words (צונח/יורד/מזנק/עולה) are factual claims — they MUST match the DIRECTIONAL FACTS block.
 - Sector percentages (XLE/XLK/...) — ONLY from the Finnhub data. Missing sector → omit.
-- Never claim an all-time high (שיא כל הזמנים) without web-search verification.
+- Never claim an all-time high (שיא כל הזמנים) or 52-week high without web-search verification or an explicit tweet stating it. A tweet-sourced high keeps its scope exactly: 52-week high ≠ all-time high.
 - CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
 - IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
@@ -979,6 +1086,7 @@ INTRADAY_RULES = """Rules:
 - No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
 - No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when the tweet itself cites them.
+- SINGLE-SOURCE ATTRIBUTION: a story appearing in only ONE source post with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
@@ -996,6 +1104,7 @@ ISRAEL_WEEKLY_RULES = """Rules:
 - No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
 - No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
+- SINGLE-SOURCE ATTRIBUTION: a story appearing in only ONE source post with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
@@ -1064,8 +1173,9 @@ is 4-5 lines. Fewer, deeper points beat many thin ones, so pick only the stronge
   web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
   open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
   ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning from the menu
-  below — do NOT force every category:
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning FROM THE SOURCE
+  TWEETS (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category,
+  and do NOT import a story that web search found on its own:
   - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
     number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
   - The central story investors will watch today, with the transmission mechanism explained simply
@@ -1092,8 +1202,9 @@ fact, a number or a mechanism. A sentence whose deletion loses no information mu
 * FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
   what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
   session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
-  do NOT force every category:
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
+  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
+  NOT import a story that web search found on its own:
   - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
     mechanism explained simply.
   - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
@@ -1205,14 +1316,17 @@ must still carry a fact, a number or a mechanism — no mood-only filler):
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
   what flipped the sentiment, how it closed, {weekly_arc_rule}.
 * SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
-  Pick the STRONGEST stories — do NOT force every category:
-  - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
-  - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —
-    merge related releases into one point.
+  Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
+  outside the tweets:
+  - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
+  - Macro data ONLY as it appears in the tweets or the verified economic block, with the full numbers they
+    provide (actual vs forecast vs previous) and the market implication — merge related releases into one point.
+    Do NOT web-search for macro data the sources did not cover, and do NOT fill in missing
+    actual/forecast/previous figures from memory.
   - The week's defining sector/technology story, with the transmission mechanism.
   - Notable company news: earnings, M&A, milestones — merged where related.
   - Commodities and the dollar with weekly context, or geopolitics with market impact.
-* PREPARATION points (1-2) — the COMING week (verify the schedule via web search):
+* PREPARATION points (1-2) — the COMING week (verify the schedule via web search — permitted use c):
   - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
   - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
     (merge into the macro point when the earnings slate is thin).
@@ -1229,10 +1343,17 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         if mode == "intraday_update" else
         "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\\n* כותרת נוספת: ..."
     )
+    source_hierarchy = get_source_hierarchy(mode)
     parts = [
-        "אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.",
+        "אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.",
         "",
         mode_instructions(mode, d, bool(tweets)),
+    ]
+    # The Finnhub-backed US modes carry the explicit source-hierarchy block; the
+    # tweet-only modes state their exclusivity inside the mode instructions.
+    if source_hierarchy:
+        parts += ["", source_hierarchy]
+    parts += [
         "",
         # Tweet-only modes (intraday + Israeli reviews) get the reduced rule set with
         # no references to a verified Finnhub layer, which they do not have. The Israeli
@@ -1240,6 +1361,10 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         ISRAEL_WEEKLY_RULES if mode == "israel_weekly_summary"
         else INTRADAY_RULES if mode in ("intraday_update",) + ISRAEL_MODES
         else SHARED_RULES,
+        "",
+        # The error-prevention mechanism: every mode ends its instruction section
+        # with a mandatory pre-output self-check before the JSON may be returned.
+        get_self_verification(mode),
         "",
         f"""CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
@@ -1287,7 +1412,11 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
                        "single bullet stating there is not enough source material right now: "
                        "\"* אין מספיק חומר מהמקורות להפקת סקירה כרגע.\"")]
     else:
-        parts += ["", "NOTE: no tweets were gathered for this run. Base the review on the verified data above plus your own web search of today's major market news from reliable sources (Reuters, Bloomberg, CNBC)."]
+        parts += ["", ("NOTE: no source tweets were gathered for this run, so the stories layer is missing. Build the "
+                       "review ONLY from the verified Finnhub blocks above (indices, sectors, commodities, economic "
+                       "data) plus the permitted verification searches (scheduled calendar, futures). Do NOT import "
+                       "news stories from web search or memory — describe the verified moves and the scheduled "
+                       "calendar instead.")]
     parts += ["", "החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."]
     return "\n".join(parts)
 
