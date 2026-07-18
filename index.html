@@ -696,26 +696,40 @@ function shareWhatsApp(){
   }catch(e){
     lines = [title, '', cta];
   }
-  // Filtered networks and browser policies block every whatsapp.com HTTP
-  // endpoint with ERR_BLOCKED_BY_RESPONSE — api.whatsapp.com, web.whatsapp.com,
-  // and wa.me too, since wa.me redirects into api.whatsapp.com. The OS share
-  // sheet (Web Share API) never touches whatsapp.com, so it is the primary
-  // route: WhatsApp appears in it whenever the app is installed. wa.me stays
-  // as the fallback for browsers without navigator.share.
+  // Filtered networks block every whatsapp.com HTTP endpoint with
+  // ERR_BLOCKED_BY_RESPONSE (api.whatsapp.com, web.whatsapp.com, and wa.me,
+  // which redirects into api.whatsapp.com), and the OS share sheet only lists
+  // WhatsApp when the desktop app is installed. So the routing is:
+  // mobile — wa.me, which the OS resolves into the WhatsApp app without HTTP;
+  // desktop — the whatsapp:// scheme straight into the installed app (no
+  // whatsapp.com involved), then the OS share sheet, then wa.me as last resort.
   const message = lines.join('\n');
-  if (navigator.share) {
-    // A rejected promise here is the user closing the share sheet — not an error.
-    navigator.share({ text: message }).catch(function(){});
+  const encoded = encodeURIComponent(message);
+  function openLink(url){
+    // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
+    // where window.open('_blank') is often blocked or silently dropped.
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    openLink('https://wa.me/?text=' + encoded);
     return;
   }
-  const url = 'https://wa.me/?text=' + encodeURIComponent(message);
-  // A real anchor click hands off to the WhatsApp app/site reliably on mobile,
-  // where window.open('_blank') is often blocked or silently dropped.
-  const a = document.createElement('a');
-  a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  openLink('whatsapp://send?text=' + encoded);
+  // No handler for the scheme means nothing opened and the page kept focus:
+  // fall back to the OS share sheet, or to wa.me where the Share API is missing.
+  setTimeout(function(){
+    if (!document.hasFocus()) return;
+    if (navigator.share) {
+      // A rejected promise here is the user closing the sheet — not an error.
+      navigator.share({ text: message }).catch(function(){});
+    } else {
+      openLink('https://wa.me/?text=' + encoded);
+    }
+  }, 1200);
 }
 
 /* An intraday update whose only bullet is the "quiet window" message is real but
