@@ -1,7 +1,9 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-07-17 (יום שישי). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
+trading week 13/07–17/07/2026. The review does BOTH: sums up the week that ended AND prepares the reader for
+the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
+summary points. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse Friday's daily change with the weekly change. Where only a daily number is given for a symbol, do NOT present it as a weekly change.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,26 +20,24 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-EXACTLY 6 points TOTAL (including the bottom-line point) — short and focused, not an article. Each point
-is 4-5 lines. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
-NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
-fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day from the menu below —
-  do NOT force every category:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה לשבוע הבא: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+8-10 points TOTAL in three blocks, in this order (the weekly review is the extended one, but every sentence
+must still carry a fact, a number or a mechanism — no mood-only filler):
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
+  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
+* SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
+  Pick the STRONGEST stories — do NOT force every category:
+  - Fed policy signals and rate expectations, with the probabilities when they appear in the sources.
+  - The week's key macro data with FULL numbers (actual vs forecast vs previous) and the market implication —
+    merge related releases into one point.
+  - The week's defining sector/technology story, with the transmission mechanism.
+  - Notable company news: earnings, M&A, milestones — merged where related.
+  - Commodities and the dollar with weekly context, or geopolitics with market impact.
+* PREPARATION points (1-2) — the COMING week (verify the schedule via web search):
+  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
+  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
+    (merge into the macro point when the earnings slate is thin).
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
+  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified.
 
 Rules:
 - Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
@@ -66,17 +66,17 @@ Rules:
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שישי, 17.7.2026",
+  "title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 13/07–17/07/2026",
   "date": "2026-07-17",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "סיכום השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -130,6 +130,26 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $CSX: $50.75 (daily: -0.28%), prev close: $50.89
   $CTVA: $87.30 (daily: +0.75%), prev close: $86.65
 
+WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):
+  S&P 500 (SPY ETF): weekly -1.54% (from $754.95 to $743.29)
+  Nasdaq 100 (QQQ ETF): weekly -4.16% (from $725.51 to $695.33)
+  Dow Jones (DIA ETF): weekly -0.95% (from $525.78 to $520.81)
+  Russell 2000 (IWM ETF): weekly -0.66% (from $295.99 to $294.04)
+  Energy Sector (XLE ETF): weekly +4.72% (from $55.08 to $57.68)
+  Technology Sector (XLK ETF): weekly -5.48% (from $185.78 to $175.59)
+  Financials Sector (XLF ETF): weekly +0.99% (from $55.71 to $56.26)
+  Consumer Discretionary Sector (XLY ETF): weekly -1.54% (from $117.24 to $115.44)
+  Healthcare Sector (XLV ETF): weekly +0.16% (from $160.84 to $161.09)
+  WTI Crude Oil (USO ETF): weekly +14.04% (from $108.70 to $123.96)
+  Brent Crude Oil (BNO ETF): weekly +15.54% (from $42.15 to $48.70)
+  Gold (GLD ETF): weekly -2.28% (from $377.01 to $368.41)
+  Bitcoin (IBIT ETF): weekly +0.33% (from $36.23 to $36.35)
+  US 20Y+ Bonds (TLT ETF): weekly +0.06% (from $84.47 to $84.52)
+  $META: weekly -3.47% (from $669.21 to $646.01)
+  $AAPL: weekly +5.84% (from $315.32 to $333.74)
+
+NOTE — no weekly figure is available for: $SPCX, $ORCL, $DJT, $AMZN, $MSFT, $RKLB, $PYPL, $BAC, $CSX, $CTVA. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
+
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): עולה (USO: +3.91%, BNO: +4.10%)
   זהב: עולה (GLD: +0.95%)
@@ -146,23 +166,14 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ MANDATORY MACRO DATA CHECK ══
-Use web search to check if ANY of these were released on 2026-07-18: CPI (headline AND core),
-PPI (headline AND core), NFP, Jobless Claims, Consumer Sentiment (Michigan), ISM PMI, GDP,
-Retail Sales, FOMC decision/minutes. If released — include with actual, forecast, previous,
-AND the market implication. If none — skip, but you MUST check first.
+Use web search to find ALL major US economic data released during the week of 13/07–17/07/2026:
+CPI (headline+core, monthly+annual), PPI, NFP/employment, Jobless Claims, Consumer Sentiment,
+ISM PMI, FOMC, GDP, Retail Sales. For EVERY data point: actual, forecast, previous, market implication.
+Do NOT skip Core CPI if headline CPI was released. Do NOT write 'expected' about data already released.
+IN ADDITION — for the preparation points, use web search to verify the COMING week's schedule:
+economic releases and Fed events (with dates, Israel times and consensus where available) and the key
+earnings reports scheduled, and what the market will look for in each.
 ══════════════════════════════════
-
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
-
-[נקודות מרכזיות]
-* החוזים מאותתים על לחץ חד: חוזי Nasdaq 100 יורדים 2.05% וחוזי S&P 500 יורדים 1.03%, כך שהשוק צפוי להיפתח בירידות בהובלת הטכנולוגיה. מדד VIX עולה לרמה של 18.53, על רקע המשך המכירות במניות הזיכרון והלילה השישי ברציפות של תקיפות אמריקאיות באיראן. השילוב בין ירידה במניות ה־AI לסיכון גיאופוליטי מגדיל את הביקוש להגנות ומקשה על התאוששות מהירה בפתיחה.
-* נתוני המאקרו במוקד: ב־15:30 שעון ישראל צפויות התחלות הבנייה לעלות לקצב שנתי של 1.33 מיליון לעומת 1.177 מיליון, והיתרי הבנייה צפויים לעמוד על 1.40 מיליון לעומת 1.413 מיליון. ב־17:00 צפוי הייצור התעשייתי לעלות 0.2% לאחר 0.1%, ומדד אמון הצרכנים של אוניברסיטת מישיגן צפוי לעלות ל־51.0 לעומת 49.5. נתונים חזקים מהצפי עשויים לחזק את ציפיות הריבית ולהכביד במיוחד על מניות צמיחה בעלות מכפילים גבוהים.
-* סין מאבדת תנופה: כלכלת סין צמחה ברבעון השני ב־4.3% בלבד לעומת 5.0% ברבעון הראשון, מתחת לטווח היעד הממשלתי של 4.5% עד 5.0%. ההשקעות בנכסים קבועים ירדו 5.7% במחצית הראשונה וההשקעות בנדל״ן צנחו 18%, בעוד המכירות הקמעונאיות עלו ביוני רק 1.0%. ההאטה בכלכלה השנייה בגודלה בעולם עלולה לפגוע בביקוש לחומרי גלם, למוצרים תעשייתיים ולחברות אמריקאיות החשופות לצרכן הסיני.
-* מניית אפל (AAPL): HSBC העלה את ההמלצה למניית אפל לקנייה מהחזקה והעלה את מחיר היעד ל־366 דולר מ־260 דולר. הבנק מעריך שבסיס של 2.5 מיליארד מכשירים, שדרוג Siri והשקת מוצרים חדשים עשויים ליצור מחזור החלפה, תוך השקעות הון של 2.5% בלבד מהמכירות הצפויות ב־2026. תחזית הרווח למניה ל־2027 הועלתה בכ־8% ל־10.26 דולר, רמה הגבוהה ב־7.5% מהקונצנזוס.
-* מניית 3M (MMM): ג׳יי.פי מורגן העלה את ההמלצה למניית 3M למשקל יתר מניטרלי ואת מחיר היעד ל־180 דולר מ־178 דולר. הבנק מצביע על צמיחה אורגנית של יותר מ־3%, לצד ביקוש ממרכזי נתונים ומשבבים שמקזז חולשה באלקטרוניקה צרכנית וברכב. שיפור בתמחור והפחתת עלויות עשויים להוסיף כ־0.10 דולר לרווח השנתי למניה מהרבעון הרביעי ועד 2027.
-* שורה תחתונה: כיוון המסחר ייקבע לפי השאלה אם הירידה של 2.05% בחוזי Nasdaq 100 תתמתן לאחר פרסום נתוני המאקרו. כל עוד ה־VIX ברמה של 18.53 והלחץ על מניות הזיכרון נמשך לצד המלחמה באיראן, הסיכון לפתיחה תנודתית נשאר גבוה.
-══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in the review that these came from tweets/posts:
 
@@ -182,8 +193,6 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in t
 
 @gurgavin [Thu Jul 16 22:42:53 +0000 2026]: PAYPAL'S BOARD HAS REPORTEDLY REJECTED THE $53 BILLION TAKEOVER OFFER FROM STRIPE CALLING IT “INADEQUATE” JUST LIKE I SAID YESTERDAY PAYPAL IS WORTH MUCH MORE AND THE BOARD KNOWS $PYPL
 
-@StockMKTNewz [Fri Jul 17 18:30:23 +0000 2026]: Michael Burry has covered his short position in Oracle $ORCL and is no longer short https://t.co/o60vZfTX7O
-
 @gurgavin [Thu Jul 16 18:47:32 +0000 2026]: THIS IS CRAZY TO ME TRUMP’S SOCIAL MEDIA PLATFORM WILL NOW SELL A LIVE DATA FEED TO FINANCIAL FIRMS THIS MEANS BIG HEDGE FUNDS CAN NOW GET FASTER ACCESS TO DONALD TRUMP’S MARKET MOVING TWEETS $DJT
 
 @StockMKTNewz [Fri Jul 17 19:50:09 +0000 2026]: All these stocks hit new 52 WEEK HIGHS at some point today Apple $AAPL Palo Alto $PANW Starbucks $SBUX Bank of America $BAC Target $TGT Merck $MRK US Bancorp $USB Keycorp $KEY $CSX Monster $MNST Travelers $TRV Prologis $PLD Dominion Energy $D Electronic Arts $EA Philip Morris $PM Union Pacific $UNP Valero $VLO Corteva $CTVA Phillips 66 $PSX Maratho Petro $MPC PNC Bank $PNC
@@ -199,6 +208,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-07-18. Never mention in t
 @KobeissiLetter [Fri Jul 17 16:46:29 +0000 2026]: BREAKING: The Trump Administration has notified Israel that it is sending "dozens more" refueling planes to the country ahead of a potential "massive offensive" in Iran, per Axios. Details include: 1. President Trump is reportedly considering a "massive offensive" in Iran 2. Among the options being considered are bombing Iranian infrastructure facilities like power plants and nuclear sites 3. President Trump could order the escalation "in the coming days" Brent oil prices surge toward $88/barrel on the news.
 
 @AIStockSavvy [Fri Jul 17 19:00:20 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Apple Music subscription price rises to $11.99 from $10.99 - $AAPL $SPOT
+
+@StockMKTNewz [Sat Jul 18 10:26:49 +0000 2026]: If anyone wants to do some research into a new ETF this week my partners over at KraneShares launched a new Photonic and Optical ETF trading under the ticker $LUMA Here are all the stock holdings in the ETF: Lumentum Holdings $LITE - 6.36% Coherent $COHR - 6.09% Aixtron $AIXA - 5.51% MACOM Technology $MTSI - 5.41% Tower Semiconductor $TSEM - 5.30% Marvell Technology $MRVL - 4.83% EOTOLINK $300502 - 4.83% AXT Inc $AXTI - 4.81% Zhongji Innolight $300308 - 4.57% Land Mark Optoelectronics $3081 - 4.54% Soitec $SOI - 4.53% Nokia $NOK - 4.20% Ezconn Corporation $6442 - 3.63% STMicroelectronics $STM - 3.35% FormFactor $FORM - 3.34% Fabrinet $FN - 3.33% Sumitomo Electric Industries $5802 - 3.25% Himax Technologies $HIMX - 2.92% Foci Fiber Optic $3363 - 2.81% Ciena $CIEN - 2.77% Corning $GLW - 2.72% Yuanjie Semiconductor $688498 - 2.21% Semtech $SMTC - 2.07% Furukawa Electric $5801 - 2.00% nLight $LASR - 1.95% Veeco Instruments $VECO - 1.19% The website and fund documents are a good place to start your research
 
 @AIStockSavvy [Fri Jul 17 19:40:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $TSM TSMC adds $100 bln to Arizona fab; Trump invites firms to build in US President Trump said TSMC will add $100 billion to its Arizona semiconductor fab, bringing total US investment to a record $265 billion. He credited his trade policies with driving reshoring of advanced manufacturing and invited companies to build plants in the United States.
 
