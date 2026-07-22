@@ -375,6 +375,7 @@ const SITE_URL = 'https://doronsh170.github.io/wallstreet-reviews-v2/';
 const LABELS = {
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
+  dailyDigest: {he:'מבזק מקורות', en:'sources digest',   empty:'הרץ את Gather Review Input במצב daily_digest כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
   weeklySummary:{he:'סיכום שבועי והכנה', en:'weekly summary', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'},
   israelPrep:  {he:'הכנה ליום מסחר', en:'israel prep',      empty:'הרץ את Gather Review Input במצב israel_prep כדי ליצור אותה.'},
@@ -383,14 +384,14 @@ const LABELS = {
   archive:     {he:'ארכיון', en:'archive', empty:'עדיין לא פורסמו סקירות לארכיון.'}
 };
 const MARKETS = {
-  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary']},
+  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailyDigest','dailySummary','weeklySummary']},
   il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary','israelWeeklySummary']}
 };
 /* Archive entries store the pipeline mode (snake_case) — map it to the site key. */
 const MODE_KEYS = {
-  daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_summary:'dailySummary',
-  weekly_summary:'weeklySummary', israel_prep:'israelPrep', israel_summary:'israelSummary',
-  israel_weekly_summary:'israelWeeklySummary'
+  daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_digest:'dailyDigest',
+  daily_summary:'dailySummary', weekly_summary:'weeklySummary', israel_prep:'israelPrep',
+  israel_summary:'israelSummary', israel_weekly_summary:'israelWeeklySummary'
 };
 let data = null;
 let activeMarket = null;
@@ -638,7 +639,7 @@ function buildTabs(market){
 function pickDefaultTab(market){
   const dated = MARKETS[market].tabs
     .filter(k => data && data[k] && data[k].date)
-    .filter(k => !(k === 'intradayUpdate' && isEmptyIntraday(data[k])))
+    .filter(k => !((k === 'intradayUpdate' || k === 'dailyDigest') && isEmptyIntraday(data[k])))
     .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
   return dated[0] || MARKETS[market].tabs[0];
 }
@@ -743,7 +744,8 @@ async function shareWhatsApp(){
    empty — it must not win the default tab over an actual review. */
 function isEmptyIntraday(review){
   const b = bulletsOf(review);
-  return b.length === 1 && b[0].includes('אין מספיק עדכונים משמעותיים');
+  return b.length === 1 &&
+    (b[0].includes('אין מספיק עדכונים משמעותיים') || b[0].includes('אין מספיק חומר מהמקורות'));
 }
 
 document.querySelectorAll('.market-card').forEach(c => c.addEventListener('click', () => selectMarket(c.dataset.market)));

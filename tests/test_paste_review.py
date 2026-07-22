@@ -287,6 +287,16 @@ def test_bullet_length_intraday_and_israel_are_free():
     pr.bullet_length_check(make_result(good_hebrew_content(3)), "israel_prep")
 
 
+def test_daily_digest_is_wired_and_length_free():
+    # Tweet-only digest: mapped to its own site key, floor of one bullet, no fixed count.
+    assert pr.DATA_JSON_KEY["daily_digest"] == "dailyDigest"
+    assert pr.MIN_BULLETS["daily_digest"] == 1
+    assert "daily_digest" not in pr.EXACT_BULLETS and "daily_digest" not in pr.BULLET_RANGE
+    pr.bullet_length_check(make_result("* מבזק יחיד: אין מספיק חומר מהמקורות להפקת מבזק כרגע."), "daily_digest")
+    pr.bullet_length_check(make_result(good_hebrew_content(2)), "daily_digest")
+    pr.bullet_length_check(make_result(good_hebrew_content(9)), "daily_digest")
+
+
 # ── Archive ──────────────────────────────────────────────────────
 
 def archived_entries(path):
