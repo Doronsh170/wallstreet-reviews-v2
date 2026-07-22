@@ -46,6 +46,7 @@ DATA_JSON_KEY = {
     "daily_summary": "dailySummary",
     "weekly_summary": "weeklySummary",
     "intraday_update": "intradayUpdate",
+    "daily_digest": "dailyDigest",
     "israel_prep": "israelPrep",
     "israel_summary": "israelSummary",
     "israel_weekly_summary": "israelWeeklySummary",
@@ -57,8 +58,8 @@ DATA_JSON_KEY = {
 # chat skipped material and needs another round.
 # The Israeli reviews are tweet-only, so a thin source day may legitimately yield
 # a short review (or the single "not enough material" bullet) — floor of 1.
-MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
-               "israel_weekly_summary": 1}
+MIN_BULLETS = {"intraday_update": 1, "daily_digest": 1, "israel_prep": 1,
+               "israel_summary": 1, "israel_weekly_summary": 1}
 
 # Signature length (CLAUDE.md): the US daily reviews are EXACTLY 6 bullets
 # including the bottom line, each 4-5 lines; the weekly is 8-10 bullets.
@@ -765,7 +766,7 @@ def main() -> None:
     result = strip_meta_and_markdown(result)
     result = apply_text_fixes(result)
     result = apply_style_fixes(result)
-    if mode == "intraday_update":
+    if mode in ("intraday_update", "daily_digest"):
         result = apply_intraday_fixes(result)
 
     print("── Market direction check (vs gather-time Finnhub snapshot) ──")
