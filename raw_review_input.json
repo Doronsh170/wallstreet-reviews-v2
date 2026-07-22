@@ -1,12 +1,106 @@
 {
-  "mode": "israel_prep",
-  "generated_at": "2026-07-22T08:27:15.221604+03:00",
-  "expected_title": "נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום רביעי, 22.7.2026",
-  "first_heading": "לקראת יום המסחר",
-  "review_date": "2026-07-22",
-  "title_date_str": "2026-07-22",
-  "title_day_name": "רביעי",
+  "mode": "daily_summary",
+  "generated_at": "2026-07-21T23:31:56.649424+03:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שלישי, 21.7.2026",
+  "first_heading": "סיכום המסחר",
+  "review_date": "2026-07-21",
+  "title_date_str": "2026-07-21",
+  "title_day_name": "שלישי",
   "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "etf_pcts": {
+    "SPY": 0.8341,
+    "QQQ": 1.8547,
+    "DIA": 0.6893,
+    "IWM": 1.4471,
+    "XLE": 0.9665,
+    "XLK": 2.8854,
+    "XLF": 0.1249,
+    "XLY": 0.2269,
+    "XLV": 0.6279,
+    "XLI": 0.3032,
+    "XLP": -0.9427,
+    "XLU": -0.0445,
+    "USO": 2.6611,
+    "BNO": 2.5142,
+    "GLD": 1.9614,
+    "SLV": 4.1193,
+    "IBIT": 2.1144,
+    "TLT": -0.2742,
+    "UUP": 0.317,
+    "VIXY": -2.6849
+  },
+  "ticker_quotes": {
+    "SPCX": {
+      "price": 123.54,
+      "pct": 3.0788,
+      "prev_close": 119.85,
+      "ts": 1784664000
+    },
+    "SMCI": {
+      "price": 25.5,
+      "pct": 7.008,
+      "prev_close": 23.83,
+      "ts": 1784664000
+    },
+    "PEGA": {
+      "price": 30.94,
+      "pct": -2.3667,
+      "prev_close": 31.69,
+      "ts": 1784664000
+    },
+    "IBKR": {
+      "price": 94.42,
+      "pct": 2.9887,
+      "prev_close": 91.68,
+      "ts": 1784664000
+    },
+    "OKLO": {
+      "price": 44.13,
+      "pct": 6.3117,
+      "prev_close": 41.51,
+      "ts": 1784664000
+    },
+    "PANW": {
+      "price": 342.15,
+      "pct": -1.8671,
+      "prev_close": 348.66,
+      "ts": 1784664000
+    },
+    "AMZN": {
+      "price": 247.55,
+      "pct": -0.976,
+      "prev_close": 249.99,
+      "ts": 1784664000
+    },
+    "BX": {
+      "price": 124.15,
+      "pct": 0.4369,
+      "prev_close": 123.61,
+      "ts": 1784664000
+    },
+    "CNI": {
+      "price": 127.1,
+      "pct": 0.3236,
+      "prev_close": 126.69,
+      "ts": 1784664000
+    },
+    "GOOGL": {
+      "price": 347.15,
+      "pct": -1.375,
+      "prev_close": 351.99,
+      "ts": 1784664000
+    },
+    "INTC": {
+      "price": 105.45,
+      "pct": 8.6441,
+      "prev_close": 97.06,
+      "ts": 1784664000
+    },
+    "NLY": {
+      "price": 22.65,
+      "pct": -0.2203,
+      "prev_close": 22.7,
+      "ts": 1784664000
+    }
+  }
 }

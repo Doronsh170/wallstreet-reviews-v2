@@ -40,7 +40,6 @@ ISR_TZ = ZoneInfo("Asia/Jerusalem")
 NY_TZ = ZoneInfo("America/New_York")
 
 VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "intraday_update",
-               "daily_digest",
                "israel_prep", "israel_summary", "israel_weekly_summary")
 # Israeli-market modes are tweet-only (no Finnhub layer), summarizing the curated
 # Hebrew X sources into the signature prep/summary format for the Tel Aviv exchange.
@@ -87,7 +86,6 @@ EXPECTED_FIRST_HEADING = {
     "daily_summary": "סיכום המסחר",
     "weekly_summary": "סיכום השבוע",
     "intraday_update": "עדכון ביניים",
-    "daily_digest": "מבזק מקורות",
     "israel_prep": "לקראת יום המסחר",
     "israel_summary": "סיכום המסחר",
     "israel_weekly_summary": "סיכום השבוע",
@@ -155,8 +153,6 @@ def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Op
         return f"סיכום יום המסחר בוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}"
     if mode == "intraday_update":
         return f"עדכון ביניים מוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}, {time_str}"
-    if mode == "daily_digest":
-        return f"מבזק מקורות מוול סטריט 🇺🇸 – יום {day_name}, {heb_date(date_str)}, {time_str}"
     if mode == "israel_prep":
         return f"נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
     if mode == "israel_summary":
@@ -282,8 +278,6 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         nxt = get_next_trading_day(target, holidays)
         bl_label = "שורה תחתונה למחר" if (nxt.date() - target.date()).days == 1 else "שורה תחתונה לשבוע הבא"
     elif mode == "intraday_update":
-        review_date = date_str
-    elif mode == "daily_digest":
         review_date = date_str
     elif mode == "israel_prep":
         target = now if is_israel_trading_day(now) else get_next_israel_trading_day(now)
@@ -841,12 +835,6 @@ Web search is for VERIFICATION ONLY — confirming a name, time or figure that a
 tweets, for the window {window} Israel time on {date_str}. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════"""
-    if mode == "daily_digest":
-        return """══ WEB SEARCH POLICY ══
-Web search is for VERIFICATION ONLY — confirming a name, ticker, time or figure that already appears in the
-source tweets. Do NOT use it to find additional news, headlines, prices or macro data. Content that is not
-present in the tweets does not enter the digest.
-══════════════════════════════════"""
     if mode == "israel_weekly_summary":
         return f"""══ WEB SEARCH POLICY (WEEKLY — TWO PARTS) ══
 SUMMARY of the week that ended ({week_range or date_str}): the stories come EXCLUSIVELY from the source posts
@@ -985,14 +973,13 @@ BULLET_COUNT_NOTE = {
     "israel_summary": "6-9 bullets",
     "israel_weekly_summary": "6-9 bullets",
     "intraday_update": "one bullet per material topic, no minimum and no cap",
-    "daily_digest": "one bullet per topic, no minimum and no cap",
 }
 
 
 def get_self_verification(mode: str) -> str:
     """The mandatory pre-output checklist appended to EVERY mode's prompt."""
     count_note = BULLET_COUNT_NOTE[mode]
-    if mode in ("intraday_update", "daily_digest") + ISRAEL_MODES:
+    if mode in ("intraday_update",) + ISRAEL_MODES:
         carve_out = (" (the scheduled-calendar items verified for the preparation points excepted)"
                      if mode == "israel_weekly_summary" else "")
         checks = f"""1. NUMBERS: every percentage, price and figure traces to a specific source post{carve_out}.
@@ -1170,33 +1157,6 @@ THE UPDATE SUMMARIZES THE SOURCES — it is NOT market analysis:
   session as "המסחר הרגיל".
 - Web search may be used ONLY to verify a name, time or figure that already appears in a tweet — NEVER to
   discover or add stories, prices or data."""
-    if mode == "daily_digest":
-        return f"""You are compiling a SOURCE DIGEST in Hebrew for a financial website. Script date: {d['date_str']}
-(יום {d['day_name']}), {d['time_str']} שעון ישראל. A digest is a FAITHFUL, point-by-point RELAY of what the
-curated Wall Street X (Twitter) sources posted — NOT a market analysis and NOT a summary in your own voice.
-Its whole purpose is to skip the interpretation layer where mistakes creep in: you relay what the sources
-said, grouped by topic, and add nothing of your own.
-
-THE DIGEST RELAYS THE SOURCES — it does NOT analyze:
-- Content comes EXCLUSIVELY from the source tweets at the bottom of this prompt. Add NOTHING else: no price
-  data, no daily-change percentages, no movers lists, no macro backdrop, no external headlines, no independent
-  market interpretation, and NO "bottom line" or conclusion of your own.
-- Do NOT determine who rose or fell, and do NOT attach a price, percentage or direction to any story UNLESS a
-  tweet states that figure/move explicitly — in which case relay it EXACTLY as the source gave it (same number,
-  same direction, same attribution). Never compute, estimate or recall a figure from memory.
-- GROUP BY TOPIC: several tweets about the same company or topic → ONE bullet that relays what those sources
-  said together. Different topics → separate bullets.
-- FILTER: keep only market-material posts. Drop promotional posts, engagement bait, and bare ticker lists with
-  no story.
-- Each bullet: a short Hebrew topic label, then 1-3 plain sentences relaying what the sources said on that
-  topic. Open a single-company bullet with "מניית <שם בעברית> (TICKER)".
-- Order the bullets by importance — the biggest market stories in the sources first.
-- There is NO fixed bullet count and NO bottom-line point. Include every material topic, and do NOT pad.
-- If the sources do not contain enough material, return a SINGLE bullet:
-  "* אין מספיק חומר מהמקורות להפקת מבזק כרגע." — nothing else.
-- Web search may be used ONLY to verify a name, ticker, time or figure that already appears in a tweet — NEVER
-  to discover, add or expand stories, prices or data.
-- No ISO dates. Refer to the regular US session as "המסחר הרגיל", never "מסחר במזומן"."""
     if mode == "daily_prep":
         if d["target_is_trading"]:
             if d["date_str"] == d["title_date_str"]:
@@ -1395,7 +1355,7 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
     first_heading = EXPECTED_FIRST_HEADING[mode]
     example_content = (
         "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\\n* נושא שני: ...\\n* נושא שלישי: ..."
-        if mode in ("intraday_update", "daily_digest") else
+        if mode == "intraday_update" else
         "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\\n* כותרת נוספת: ..."
     )
     source_hierarchy = get_source_hierarchy(mode)
@@ -1414,7 +1374,7 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
         # no references to a verified Finnhub layer, which they do not have. The Israeli
         # weekly gets a variant that permits scheduled-calendar figures for its prep block.
         ISRAEL_WEEKLY_RULES if mode == "israel_weekly_summary"
-        else INTRADAY_RULES if mode in ("intraday_update", "daily_digest") + ISRAEL_MODES
+        else INTRADAY_RULES if mode in ("intraday_update",) + ISRAEL_MODES
         else SHARED_RULES,
         "",
         # The error-prevention mechanism: every mode ends its instruction section
@@ -1461,10 +1421,6 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
                        f"gathered for this run. Per the rules above, return the single bullet "
                        f"\"* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה.\" — do NOT use web search to fill "
                        f"the update with news, and do NOT recycle older headlines or unrelated macro.")]
-    elif mode == "daily_digest":
-        parts += ["", ("NOTE: no source tweets were gathered for this run. Per the rules above, return the single "
-                       "bullet \"* אין מספיק חומר מהמקורות להפקת מבזק כרגע.\" — do NOT use web search to fill the "
-                       "digest with news, and do NOT recycle older headlines or unrelated macro.")]
     elif mode in ISRAEL_MODES:
         parts += ["", ("NOTE: no source posts were gathered for this run. These reviews are sourced ONLY from the "
                        "curated Hebrew X accounts, so do NOT fabricate a review from web search or memory. Return a "
@@ -1503,7 +1459,7 @@ def main() -> None:
     tweets, top_cashtags = fetch_and_select_tweets(since, REVIEW_MODE)
 
     # Tweet-only modes (intraday + Israeli reviews) carry no Finnhub layer.
-    tweet_only = REVIEW_MODE in ("intraday_update", "daily_digest") + ISRAEL_MODES
+    tweet_only = REVIEW_MODE in ("intraday_update",) + ISRAEL_MODES
 
     print("\n── Finnhub market data ──")
     if tweet_only:
