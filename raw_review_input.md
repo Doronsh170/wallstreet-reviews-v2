@@ -1,7 +1,9 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-08-05 (יום רביעי). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
+trading week 03/08–07/08/2026. The review does BOTH: sums up the week that ended AND prepares the reader for
+the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
+summary points. No WEEKLY PERFORMANCE numbers are available this run. Do NOT state ANY weekly percentage and never present a daily change as the weekly change. If you cite a specific percentage, make explicit that it is the last trading day's move only.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,28 +20,27 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
-two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
-a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
-NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
-fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
-  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
-  NOT import a story that web search found on its own:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+8-10 points TOTAL in three blocks, in this order (the weekly review is the extended one, but every sentence
+must still carry a fact, a number or a mechanism — no mood-only filler):
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
+  what flipped the sentiment, how it closed, describing the week's direction and drivers qualitatively (no invented weekly percentages).
+* SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
+  Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
+  outside the tweets:
+  - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
+  - Macro data ONLY as it appears in the tweets or the verified economic block, with the full numbers they
+    provide (actual vs forecast vs previous) and the market implication — merge related releases into one point.
+    Do NOT web-search for macro data the sources did not cover, and do NOT fill in missing
+    actual/forecast/previous figures from memory.
+  - The week's defining sector/technology story, with the transmission mechanism.
+  - Notable company news: earnings, M&A, milestones — merged where related.
+  - Commodities and the dollar with weekly context, or geopolitics with market impact.
+* PREPARATION points (1-2) — the COMING week (verify the schedule via web search — permitted use c):
+  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
+  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
+    (merge into the macro point when the earnings slate is thin).
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
+  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified.
 
 ══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
 The review is built EXCLUSIVELY from two sources:
@@ -49,8 +50,7 @@ Web search is permitted for THREE narrow purposes ONLY:
   a. Verifying a claim of an all-time high / 52-week high before writing it.
   b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
-     and cross-checking that an event you present as upcoming was not already released.
+  c. Verifying the COMING week's schedule (macro releases, Fed events, key earnings) for the preparation points.
 FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
 in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
 cover a story — the review does not cover it either.
@@ -87,37 +87,37 @@ Go over every bullet you wrote and check, one by one:
 1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
    tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
    DELETE it or the whole claim.
-2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
-   matches the instructions (never describe a closed market as open or trading).
+2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
+   "no weekly figure" note is described qualitatively or as a daily move labeled as such.
 3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
 4. SIGN-FLIP: no stock that fell is described positively.
 5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
 6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
    (the permitted verification purposes excepted).
 7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
-   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (EXACTLY 6 bullets including the bottom line).
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (8-10 bullets).
 8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
    number/direction in the summary passes checks 1-5 as well.
 9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
-   rewritten. Every bullet stays within 3-4 lines (~60 words) — trim any bullet that runs long.
+   rewritten.
 If ANY check fails — fix the bullet and re-run the checks. Only then return the JSON.
 ══════════════════════════════════════════════════════════════════════════════
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 5.8.2026",
-  "date": "2026-08-05",
+  "title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 03/08–07/08/2026",
+  "date": "2026-08-07",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "סיכום השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -136,48 +136,49 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $769.79 (daily: -0.20%), prev close: $771.33
-  Nasdaq 100 (QQQ ETF): $717.30 (daily: -0.90%), prev close: $723.85
-  Dow Jones (DIA ETF): $542.81 (daily: +0.44%), prev close: $540.43
-  Russell 2000 (IWM ETF): $299.77 (daily: -0.64%), prev close: $301.71
-  Energy Sector (XLE ETF): $57.31 (daily: -2.07%), prev close: $58.52
-  Technology Sector (XLK ETF): $185.91 (daily: -0.53%), prev close: $186.90
-  Financials Sector (XLF ETF): $58.00 (daily: +0.21%), prev close: $57.88
-  Consumer Discretionary Sector (XLY ETF): $118.64 (daily: +0.30%), prev close: $118.29
-  Healthcare Sector (XLV ETF): $164.16 (daily: +1.27%), prev close: $162.10
-  Industrials Sector (XLI ETF): $186.35 (daily: -0.03%), prev close: $186.40
-  Consumer Staples Sector (XLP ETF): $85.33 (daily: -0.05%), prev close: $85.37
-  Utilities Sector (XLU ETF): $43.66 (daily: -1.02%), prev close: $44.11
-  WTI Crude Oil (USO ETF): $114.88 (daily: -0.78%), prev close: $115.78
-  Brent Crude Oil (BNO ETF): $45.41 (daily: +0.20%), prev close: $45.32
-  Gold (GLD ETF): $389.64 (daily: +4.14%), prev close: $374.16
-  Silver (SLV ETF): $56.07 (daily: +4.14%), prev close: $53.84
-  Bitcoin (IBIT ETF): $36.74 (daily: +0.96%), prev close: $36.39
-  US 20Y+ Bonds (TLT ETF): $83.00 (daily: +0.22%), prev close: $82.82
-  US Dollar (UUP ETF): $28.09 (daily: -0.25%), prev close: $28.16
-  VIX Volatility (VIXY ETF): $19.77 (daily: -3.33%), prev close: $20.45
+  S&P 500 (SPY ETF): $773.26 (daily: +0.61%), prev close: $768.56
+  Nasdaq 100 (QQQ ETF): $723.03 (daily: +1.17%), prev close: $714.65
+  Dow Jones (DIA ETF): $539.62 (daily: +0.27%), prev close: $538.19
+  Russell 2000 (IWM ETF): $301.56 (daily: +1.11%), prev close: $298.25
+  Energy Sector (XLE ETF): $57.50 (daily: -1.13%), prev close: $58.16
+  Technology Sector (XLK ETF): $187.97 (daily: +1.42%), prev close: $185.33
+  Financials Sector (XLF ETF): $57.60 (daily: -0.36%), prev close: $57.81
+  Consumer Discretionary Sector (XLY ETF): $119.86 (daily: +1.49%), prev close: $118.10
+  Healthcare Sector (XLV ETF): $165.68 (daily: +0.75%), prev close: $164.45
+  Industrials Sector (XLI ETF): $185.18 (daily: +0.23%), prev close: $184.76
+  Consumer Staples Sector (XLP ETF): $85.12 (daily: +0.01%), prev close: $85.11
+  Utilities Sector (XLU ETF): $43.61 (daily: +0.53%), prev close: $43.38
+  WTI Crude Oil (USO ETF): $117.98 (daily: -0.75%), prev close: $118.87
+  Brent Crude Oil (BNO ETF): $46.93 (daily: -0.93%), prev close: $47.37
+  Gold (GLD ETF): $398.47 (daily: +2.26%), prev close: $389.67
+  Silver (SLV ETF): $57.50 (daily: +2.95%), prev close: $55.85
+  Bitcoin (IBIT ETF): $36.80 (daily: +0.85%), prev close: $36.49
+  US 20Y+ Bonds (TLT ETF): $82.76 (daily: +0.29%), prev close: $82.52
+  US Dollar (UUP ETF): $28.07 (daily: -0.43%), prev close: $28.19
+  VIX Volatility (VIXY ETF): $19.56 (daily: +0.15%), prev close: $19.53
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $SNDK: $1350.50 (daily: -5.40%), prev close: $1427.62
-  $SPCX: $108.27 (daily: -13.61%), prev close: $125.33
-  $NVDA: $219.22 (daily: +3.43%), prev close: $211.94
-  $SOUN: $6.43 (daily: -1.23%), prev close: $6.51
-  $META: $588.77 (daily: +0.14%), prev close: $587.94
-  $AMD: $482.05 (daily: -7.04%), prev close: $518.58
-  $CLS: $362.76 (daily: -2.26%), prev close: $371.15
-  $WDC: $519.17 (daily: -5.36%), prev close: $548.56
-  $CVX: $186.41 (daily: -2.10%), prev close: $190.40
-  $SHEL: $87.76 (daily: -2.32%), prev close: $89.84
-  $XOM: $151.63 (daily: -1.51%), prev close: $153.96
-  $SMH: $569.70 (daily: -1.04%), prev close: $575.71
+  $GOOGL: $354.30 (daily: -0.96%), prev close: $357.75
+  $SPCX: $133.11 (daily: +15.83%), prev close: $114.92
+  $TTD: $13.80 (daily: -21.90%), prev close: $17.67
+  $NVDA: $223.96 (daily: +2.27%), prev close: $218.99
+  $APP: $346.80 (daily: +3.32%), prev close: $335.67
+  $NBIS: $187.97 (daily: -1.01%), prev close: $189.88
+  $AVAV: $186.73 (daily: +9.12%), prev close: $171.12
+  $AMZN: $274.48 (daily: +0.82%), prev close: $272.26
+  $AVGO: $427.76 (daily: +1.71%), prev close: $420.56
+  $META: $592.10 (daily: +0.37%), prev close: $589.90
+  $ORCL: $147.02 (daily: +2.47%), prev close: $143.47
+
+⚠️ WEEKLY PERFORMANCE DATA UNAVAILABLE this run (the close history is still being built up). Do NOT state ANY weekly percentage and do NOT present a daily change as a weekly change. Tell the week's arc qualitatively (direction and drivers). If you cite a specific percentage, make explicit that it is the last trading day's move, not the weekly change.
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: -0.78%, BNO: +0.20%)
-  זהב: עולה (GLD: +4.14%)
-  ביטקוין: עולה (IBIT: +0.96%)
-  דולר: יורד (UUP: -0.25%)
-  תנודתיות / VIX: יורד (VIXY: -3.33%)
-  אג"ח ארוכות / TLT: עולה (TLT: +0.22%)
+  נפט (WTI/ברנט): יורד (USO: -0.75%, BNO: -0.93%)
+  זהב: עולה (GLD: +2.26%)
+  ביטקוין: עולה (IBIT: +0.85%)
+  דולר: יורד (UUP: -0.43%)
+  תנודתיות / VIX: עולה (VIXY: +0.15%)
+  אג"ח ארוכות / TLT: עולה (TLT: +0.29%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -187,108 +188,96 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ MANDATORY MACRO TIMING CHECK (verification only) ══
-Use web search to verify the macro calendar for 2026-08-06: which of the majors (CPI headline AND core,
-PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
-actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
-review as a story only if it appears in the source tweets or the verified economic block, with the figures
-they provide (actual, forecast, previous AND the market implication). Never present an already-released
-event as upcoming, and never import from the search a macro story the sources did not cover.
-IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
-bottom-line point.
+The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
+they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
+the week of 03/08–07/08/2026 was indeed released in that week (headline AND core where relevant),
+and that nothing already released is written as 'expected', and (2) the COMING week's schedule for the
+preparation points: economic releases and Fed events (with dates, Israel times and consensus where
+available) and the key earnings reports scheduled, and what the market will look for in each.
+Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
+actual/forecast/previous figures from memory or from search results.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+Source tweets/posts from X (Twitter) — gathered 2026-08-08. Never mention in the review that these came from tweets/posts:
 
-[נקודות מרכזיות]
-* החוזים נוטים לעליות זהירות: חוזי S&P 500 עולים 0.21% וחוזי נאסד"ק 100 מוסיפים 0.6% לקראת הפתיחה, בעיקר בזכות הירידה החדה במחירי האנרגיה. מדד הפחד VIX נסוג לאזור 15.99, רמה שמעידה על צמצום פרמיית הסיכון הגאופוליטית שתמחר השוק בשבועות האחרונים. תשואת האג"ח הממשלתית לעשר שנים נסחרת סביב 4.68%.
-* הנפט צונח על רקע מגעים עם איראן: מחיר הנפט צנח כ-5% ל-80.34 דולר לחבית ב-WTI ו-83.77 דולר בברנט, אחרי שטראמפ ביטל תקיפה מתוכננת באיראן, הצהיר שזו ההזדמנות האחרונה לחתום על הסכם והעריך שמצר הורמוז ייפתח כבר מחר. הוזלת האנרגיה מקררת את ציפיות האינפלציה ומרחיבה את מרחב התמרון של הפד, ולכן היא נתפסת כחיובית למניות.
-* מניית פלנטיר (PLTR) מפתיעה לטובה: החברה דיווחה רווח מתואם של 0.41 דולר למניה מול צפי של 0.35 דולר, והכנסות של 1.94 מיליארד דולר מול צפי של 1.81 מיליארד, וזינקה מעל 8% במסחר שלאחר הנעילה. ההנהלה גם העלתה את תחזית הרווח התפעולי השנתי ל-4.9 מיליארד דולר מול צפי של 4.51 מיליארד, סימן שהביקוש לפלטפורמות הבינה המלאכותית שלה ממשיך להתרחב.
-* השבבים בתנודתיות של ימי משבר: מדד השבבים SOX איבד 21% ביולי, החודש הגרוע שלו מאז אוקטובר 2008, ומחק 2.2 טריליון דולר משווי השוק שלו. התנודתיות הממומשת ל-60 יום טיפסה לכ-66%, הרמה הגבוהה ביותר מאז 2020. על רקע זה יפורסמו היום דוחות אדוונסד מיקרו דיוואיסס (AMD), כשבבנצ'מרק חוזרים על המלצת קנייה ומפנים את הזרקור לתחזית לרבעון השלישי.
-* כסף גדול זורם חזרה לטכנולוגיה: קרנות הגידור רשמו את הרכישה הגדולה ביותר של מניות טכנולוגיה אמריקאיות מאז דצמבר 2022, וקרנות הטכנולוגיה העולמיות גייסו 15.7 מיליארד דולר בשבוע אחד, הגיוס השבועי השלישי בגודלו אי פעם. במקביל מניית מיקרוסופט (MSFT) הוסיפה יותר מ-25% בשלושה ימי מסחר, תוספת של כ-750 מיליארד דולר לשווי השוק שלה.
-* שורה תחתונה: נתוני מאזן הסחר לחודש יוני יתפרסמו היום ב-15:30 שעון ישראל בצפי לגירעון של 76.5 מיליארד דולר, ונתוני המשרות הפתוחות JOLTS יחד עם הזמנות המפעלים ב-17:00 שעון ישראל. בהיעדר אירוע מאקרו כבד, כיוון המסחר ייקבע בעיקר לפי דוחות אדוונסד מיקרו דיוואיסס והאם רגיעת מחירי הנפט תחזיק מעמד.
-══════════════════════════════════════════════════════════════
+@KobeissiLetter [Sat Aug 08 16:11:00 +0000 2026]: Investors are worried about Big Tech's debt. Oracle's, $ORCL, 5-year credit default swap (CDS) has surged +70 basis points year-to-date, to a record ~215 basis points, the largest increase among Big Tech companies. This is followed by Broadcom, $AVGO, whose 5-year CDS has risen +48 basis points over the same period. Meta’s, $META, 5-year CDS is up +39 basis points, to 95 basis points, the highest since trading began in October 2025. Nvidia's, $NVDA, 5-year CDS is up +32 basis points so far in 2026 to ~82 basis points, the highest since it began trading in November 2025. Furthermore, the 5-year CDS for Amazon, $AMZN, and Alphabet, $GOOGL, has increased +30 and +29 basis points, respectively. This comes as Big Tech companies have issued ~$200 billion in corporate bonds year-to-date, nearly double the full-year total for 2025. Credit markets are becoming increasingly worried about the cost of financing the AI race.
 
-Source tweets/posts from X (Twitter) — gathered 2026-08-06. Never mention in the review that these came from tweets/posts:
-
-@KobeissiLetter [Wed Aug 05 22:24:00 +0000 2026]: Oil industry profits are soaring: Earnings for 5 major Western oil companies are on track to surge to ~$44 billion in Q2 2026, the 3rd-largest quarterly total on record. The only quarters with larger profits were Q2 and Q3 2022, when oil prices exceeded $120/barrel. This comes as ExxonMobil, $XOM, posted $14.7 billion in profit, its strongest quarter since Q3 2022. At the same time, Chevron, $CVX, reported a record $12.1 billion quarterly profit, surpassing its previous high set in 2022. Meanwhile, Shell, $SHEL, reported $9.8 billion in profit in Q2, its 2nd-largest quarterly profit in the company's history. Oil companies are cashing-in massive gains amid the Iran War.
-
-@KobeissiLetter [Thu Aug 06 00:53:16 +0000 2026]: BREAKING: US-listed ETFs have attracted +$1.2 trillion in inflows year-to-date, the largest amount at this point of the year on record. This figure is already double the inflows recorded over the same period in 2025. This has also surpassed every full-year total in history except 2025, which saw +$1.5 trillion in inflows. At the current pace, US-listed ETFs are on track to exceed +$2.1 trillion in annual inflows for the first time, ~50% above last year's all-time high. Meanwhile, the semiconductor ETFs, $SMH and $SOXX, posted a combined +$13 billion in inflows in July, the largest monthly total on record. ETF demand is surging at an unprecedented rate.
-
-@KobeissiLetter [Wed Aug 05 20:17:38 +0000 2026]: BREAKING: SanDisk stock, $SNDK, falls over -10% despite reporting stronger than expected earnings. https://t.co/7JXCeKvRHc
+@KobeissiLetter [Sat Aug 08 14:00:08 +0000 2026]: BREAKING: Berkshire Hathaway has begun deploying the $397.4 billion cash pile that Warren Buffett accumulated for 14 consecutive quarters. Details include: 1. Instead of continuing stock sales, Berkshire was a net buyer of equities in Q2 with $19.8 billion in net purchases 2. Berkshire now holds $364.7 billion in cash and cash equivalents 3. The company invested $10 billion in Alphabet, $GOOGL, during Q2 in addition to acquiring Taylor Morrison Home for $6.8 billion 4. Berkshire bought $23.5 billion of equity securities during in Q2 and sold $3.7 billion in the same period Berkshire Hathaway appears to be leaning bullish again.
 
 @gurgavin [Tue Aug 04 20:19:02 +0000 2026]: SPACEX SHARES ARE DOWN ALMOST 9% AFTER HOURS AFTER REPORTING EARNINGS WIPING ALL THE GAINS FROM EARLIER TODAY $SPCX https://t.co/jTrQWhzs1C
 
-@gurgavin [Tue Aug 04 20:04:04 +0000 2026]: SPACEX JUST REPORTED IT’S FIRST EVER EARNINGS *SPACEX 2Q REV. $7.8B, EST. $6.81B ( BEAT ✅ ) *SPACEX 2Q AI SEGMENT OPERATING LOSS $1.26B, EST. LOSS $2.39B ( BEAT ✅ ) $SPCX https://t.co/WbYb4mU4qm
+@StockMKTNewz [Sat Aug 08 18:33:08 +0000 2026]: Here are the worst performing stocks in the S&P 500 so far this year 💩Trade Desk $TTD: -63.7% 🔴 Costar $CSGP: -55.0% 🔴 Intuit $INTU: -50.9% 🔴 Insulet $PODD: -50.3% 🔴 AppLovin $APP: -48.5% 🔴 Boston Scientific $BSX: -48.3% 🔴 Zoetis $ZTS: -42.3% 🔴 Fair Isaac $FICO: -38.4% 🔴 Lululemon $LULU: -38.1% 🔴 Rollins $ROL: -37.1% 🔴 Fidelity National $FIS: -35.7% 🔴 Nike $NKE: -34.6% 🔴 Accenture $ACN: -34.5% 🔴 Pentair $PNR: -33.9% 🔴 Intuitive Surgical $ISRG: -33.1% 🔴 Coinbase $COIN: -32.1% 🔴
 
-@gurgavin [Tue Aug 04 19:32:39 +0000 2026]: *SPACEX ANNOUNCES NEW PARTNERSHIP WITH NVIDIA SPACEX REPORT EARNINGS IN 30 MINUTES WHY ANNOUNCE RIGHT NOW ?? $SPCX $NVDA
+@StockMKTNewz [Sat Aug 08 14:26:34 +0000 2026]: ChatGPT is up by almost 80% so far this year and is green on every name it holds in the Rallies AI Stock Market Arena This is what its portfolio looks like right now $31.9K of Google $GOOGL (+24%🟢) $26.2K of Leidos $LDOS (+17%🟢) $18.7K of Credo Technology $CRDO (+112%🟢) $18.4K of Cigna $CI (+1%🟢) $18.1K of Visa $V (+10%🟢) $17.8K of Amphenol $APH (+28%🟢) $15.3K of Exxon Mobil $XOM (+6%🟢) $15.1K of Progressive $PGR (+7%🟢) $10.7K of JPMorgan Chase $JPM (+20%🟢) $5.6K of Nebius Group $NBIS (+64%🟢) (More info on how to keep up with the portfolio below)
 
-@wallstengine [Thu Aug 06 05:42:00 +0000 2026]: Today's Key Events (All EST) — 08/06/2026 05:30: US Challenger Layoffs 08:30: US Initial Jobless Claims 10:00: US Wholesale Inventories MoM Revised 17:30: Fed's Musalem Speaks Before Open 👇 06:00: Celsius $CELH 06:00: Oscar Health $OSCR 06:20: Himax $HIMX 06:30: Planet Fitness $PLNT 06:30: Kenvue $KVUE 06:45: Warby Parker $WRBY 07:00: Datadog $DDOG 07:00: ConocoPhillips $COP 07:00: D-Wave Quantum $QBTS 07:00: Energy Fuels $UUUU 07:00: Unity $U 07:00: Fiserv $FISV 07:00: Keurig Dr Pepper $KDP 07:00: Insmed $INSM 07:00: Zoetis $ZTS 07:00: BlackSky $BKSY 07:00: Peloton $PTON 07:00: Howmet Aerospace 07:00: Shift4 $FOUR 07:00: Warner Bros. Discovery $WBD 07:00: PENN Entertainment 07:00: Palladyne AI $PDYN 07:05: Constellation Energy $CEG 07:30: Cheniere Energy $LNG 08:00: Ralph Lauren $RL After Hours 👇 16:00: Airbnb $ABNB 16:00: Trade Desk $TTD 16:00: Serve Robotics $SERV 16:00: Akamai $AKAM 16:00: Doximity $DOCS 16:05: Rigetti Computing $RGTI 16:05: Innodata $INOD 16:05: MP Materials 16:05: Roku 16:05: Red Cat $RCAT 16:05: Atlassian $TEAM 16:05: Rocket $RKT 16:05: Ouster $OUST 16:05: LYFT 16:05: Twilio $TWLO 16:05: Marathon Digital $MARA 16:05: Dropbox $DBX 16:05: JFrog 16:05: Natera $NTRA 16:10: Applied Optoelectronics $AAOI 16:10: Monster Beverage $MNST 16:15: DraftKings $DKNG 16:15: Cloudflare $NET 16:15: CleanSpark $CLSK 16:15: Microchip $MCHP Follow @wallstengine for detailed earnings highlights from many of these companies throughout the day
+@StockMKTNewz [Sat Aug 08 13:09:54 +0000 2026]: FOR THE FIRST TIME EVER ... GOOGLE $GOOGL IS NOW ONE OF BERKSHIRE HATHAWAY'S $BRK.B TOP 5 LARGEST STOCK HOLDINGS Here are Berkshire's updated top 5 largest holdings (Not in order) Google $GOOGL Apple $AAPL American Express $AXP Bank of America $BAC Coca-Cola $KO https://t.co/Wxsj3PJBNr
+
+@wallstengine [Sat Aug 08 15:29:19 +0000 2026]: Pathfounders reports, citing industry sources… that Demis Hassabis wanted to LEAVE Google alongside Jeff Dean but was persuaded to become $GOOGL DeepMind chair instead. The outlet predicts he could leave within a year. https://t.co/8dvkQ1I7d3
+
+@wallstengine [Sat Aug 08 00:42:19 +0000 2026]: WSJ is now reporting that Leopold’s $400M investment went into Source Foundry, a semiconductor equipment startup recently valued at $5 Billion. The company plans to build machines, equipment and software for AI chip manufacturing, with the goal of competing with $ASML.
+
+@StockMKTNewz [Sat Aug 08 13:31:56 +0000 2026]: BERKSHIRE HATHAWAY WAS A NET BUYER OF STOCKS DURING Q2 FOR THE FIRST TIME IN 14 QUARTERS Berkshire Hathaway $BRK.B spent a total of $23.5 Billion buying stocks during Q2 ... they brought in a total of $3.7 Billion by selling stocks during Q2 That means Berkshire spent a net total of $19.8 Billion buying stocks during Q2
+
+@gurgavin [Thu Aug 06 20:42:21 +0000 2026]: ITS OVER FOR SPACEX $SPCX
 
 @gurgavin [Thu Aug 06 03:34:41 +0000 2026]: FOR CONTEXT STARTING TOMORROW SPACEX EMPLOYEES CAN START SELLING SHARES IN THE OPEN MARKET FOR THE FIRST TIME EVER KEY EMPLOYEES HAVE ALREADY STARTED LEAVING RIGHT WHEN THEY CAN CASH OUT $SPCX https://t.co/Qrfq7I2XMd
 
-@gurgavin [Tue Aug 04 18:08:16 +0000 2026]: SPACEX REPORTS IT’S FIRST EVER EARNINGS TODAY AFTER HOURS GET READY $SPCX
-
-@KobeissiLetter [Wed Aug 05 15:55:31 +0000 2026]: BREAKING: Gold futures extend gains to +4% on the day and rise above $4,300/oz. The asset owner economy is expanding. https://t.co/cTe4RbuGmE
-
-@AIStockSavvy [Thu Aug 06 01:09:04 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $NVDA NVIDIA Reportedly Seeks Chinese Partners for 6G AI-RAN Base Stations 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗡𝗩𝗜𝗗𝗜𝗔 is reportedly expanding into the 𝗔𝗜-𝗥𝗔𝗡 telecom market. ➤ Company is seeking 𝗖𝗵𝗶𝗻𝗲𝘀𝗲 base-station manufacturers for 6G AI infrastructure. ➤ Goal is to develop 𝗔𝗜-𝗥𝗔𝗡 base stations combining connectivity and AI compute. ➤ 𝗦𝗵𝗲𝗻𝘇𝗵𝗲𝗻 𝗝𝗶𝗮𝘅𝗶𝗮𝗻 𝗖𝗼𝗺𝗺𝘂𝗻𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀 is identified as one development partner. ➤ Collaboration reportedly began in 𝟮𝟬𝟮𝟱 and has continued for over 𝘀𝗶𝘅 𝗺𝗼𝗻𝘁𝗵𝘀. ➤ Development is said to leverage the 𝗡𝗩𝗜𝗗𝗜𝗔 𝗖𝗨𝗗𝗔 ecosystem. ➤ Parties are reportedly discussing a potential 𝗼𝘃𝗲𝗿𝘀𝗲𝗮𝘀 joint venture. ➤ NVIDIA reportedly plans to begin 𝗲𝗱𝗴𝗲 𝗰𝗼𝗺𝗽𝘂𝘁𝗲 network deployments within the next 𝘁𝘄𝗼 𝘆𝗲𝗮𝗿𝘀. ➤ Proposed 6G AI-RAN systems are intended to meet 𝗼𝘃𝗲𝗿𝘀𝗲𝗮𝘀 market requirements. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Could expand NVIDIA beyond AI chips into 𝟲𝗚 telecom infrastructure. ➤ AI-RAN may create new demand for NVIDIA GPUs and the 𝗖𝗨𝗗𝗔 software ecosystem. ➤ Edge AI deployments could enable lower-latency AI services for telecom operators. ➤ Signals growing convergence of 𝗔𝗜, telecom networks, and edge computing.
-
-@wallstengine [Wed Aug 05 21:26:47 +0000 2026]: SOUNDHOUND AI $SOUN Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $61.9M (Est. $52.4M) 🟢; +45% YoY 🔹 Adj. EPS: -$0.02 (Est. -$0.06) 🟢 🔹 Gross Margin: 45.1% Raises FY26 Guide: 🔹 Revenue: $230M-$260M (Est. $232M) 🟢 Other Q2 Metrics: 🔹 Cash & Cash Equivalents: $203M; no debt Other Updates: 🔹 LivePerson: guidance update expected after contemplated close before the end of 2026 Comments: 🔸 “enterprise demand for high-ROI voice and agentic AI accelerating globally” 🔸 “Our investment in innovation, combined with our cost discipline, is key as we drive our business toward achieving profitable growth.”
-
-@StockMKTNewz [Wed Aug 05 22:38:45 +0000 2026]: SpaceX $SPCX ramped up its spending on Tesla $TSLA Megapacks during Q2 SpaceX spent $295 million on Tesla’s big backup batteries in the quarter and is using them to help power its data centers in Greater Memphis - CNBC https://t.co/DA1RVyuMCB
-
-@wallstengine [Wed Aug 05 23:29:28 +0000 2026]: $META AI HACKED ANOTHER COMPANY DURING TESTING During a cybersecurity evaluation, Muse Spark 1.1 accessed the public internet after testing firm Irregular misconfigured its sandbox. The model then exploited a vulnerability in a third-party service and changed its internal systems. Irregular said it was the exact same testing-environment issue disclosed by Anthropic last week, not a sandbox escape or sophisticated attack. It said no open security issues remain. Meta is investigating and plans to publish a full retrospective. Source: The Information
-
-@wallstengine [Wed Aug 05 21:04:50 +0000 2026]: Sandisk $SNDK will provide more details on its High Bandwidth Flash, or HBF, technology next week at Investor Day.
-
-@gurgavin [Tue Aug 04 20:16:43 +0000 2026]: AMD JUST REPORTED EARNINGS *AMD 2Q REV. $11.54B, EST. $11.31B ( BEAT ✅ ) *AMD 2Q ADJ EPS $1.66, EST. $1.62 ( BEAT ✅ ) *AMD 2Q ADJ. OPER MARGIN 27%, EST. 26.9% ( BEAT ✅ ) $AMD https://t.co/MRxbrqdouY
-
 @gurgavin [Wed Aug 05 20:39:05 +0000 2026]: SPACEX SHARES CLOSED TODAY AT THE LOWEST PRICE SINCE IT WENT PUBLIC $SPCX https://t.co/wapc5vQuc3
 
-@KobeissiLetter [Wed Aug 05 17:10:02 +0000 2026]: BREAKING: The market no longer expects the Fed to raise interest rates in September. After rising to as high as 70%, the market now sees a 47% chance of a Fed rate hike in September. If the Fed leaves rates unchanged, it will extend the Fed's longest rate pause since 2008. https://t.co/lvTBaTHJYy
+@AIStockSavvy [Sat Aug 08 14:53:18 +0000 2026]: $BRK.B | 𝐁𝐞𝐫𝐤𝐬𝐡𝐢𝐫𝐞 𝐐𝟐 𝐄𝐚𝐫𝐧𝐢𝐧𝐠𝐬 𝐑𝐞𝐩𝐨𝐫𝐭: Rev: $101.81B (↑10.0% YoY) | EPS: $11.91 (↑107.9%) 👉 𝐁𝐮𝐬𝐢𝐧𝐞𝐬𝐬 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ 𝐎𝐩𝐞𝐫𝐚𝐭𝐢𝐧𝐠 𝐞𝐚𝐫𝐧𝐢𝐧𝐠𝐬 increased to $12.98B, up from $11.16B. ➤ 𝐌𝐚𝐧𝐮𝐟𝐚𝐜𝐭𝐮𝐫𝐢𝐧𝐠, 𝐬𝐞𝐫𝐯𝐢𝐜𝐞 & 𝐫𝐞𝐭𝐚𝐢𝐥 operating earnings rose to $4.47B. ➤ 𝐁𝐍𝐒𝐅 operating earnings increased to $1.56B from $1.47B. ➤ 𝐁𝐞𝐫𝐤𝐬𝐡𝐢𝐫𝐞 𝐇𝐚𝐭𝐡𝐚𝐰𝐚𝐲 𝐄𝐧𝐞𝐫𝐠𝐲 operating earnings climbed to $891M. ➤ 𝐈𝐧𝐬𝐮𝐫𝐚𝐧𝐜𝐞 𝐮𝐧𝐝𝐞𝐫𝐰𝐫𝐢𝐭𝐢𝐧𝐠 generated $1.73B in operating earnings. ➤ 𝐈𝐧𝐬𝐮𝐫𝐚𝐧𝐜𝐞 𝐟𝐥𝐨𝐚𝐭 reached approximately $177.5B, up $1.1B since year-end 2025. ➤ 𝐒𝐡𝐚𝐫𝐞 𝐛𝐮𝐲𝐛𝐚𝐜𝐤𝐬 totaled approximately $4.5B during Q2 and $4.8B year-to-date. ➤ 𝐎𝐱𝐲𝐂𝐡𝐞𝐦 acquisition completed in January 2026 for approximately $9.4B. ➤ Investment gains included $10.9B of unrealized gains and $1.8B of realized gains during Q2.
 
-@AIStockSavvy [Wed Aug 05 20:48:28 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $CLS Celestica Announces $𝟯 𝗕𝗶𝗹𝗹𝗶𝗼𝗻 Common Share Offering 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗖𝗲𝗹𝗲𝘀𝘁𝗶𝗰𝗮 launches a $𝟯 𝗯𝗶𝗹𝗹𝗶𝗼𝗻 treasury offering of common shares. ➤ Proceeds will support 𝘄𝗼𝗿𝗸𝗶𝗻𝗴 𝗰𝗮𝗽𝗶𝘁𝗮𝗹, capital expenditures, and corporate purposes. ➤ Underwriters have a 𝟯𝟬-𝗱𝗮𝘆 option to purchase up to 𝟭𝟱% additional shares. ➤ 𝗕𝗼𝗳𝗔 𝗦𝗲𝗰𝘂𝗿𝗶𝘁𝗶𝗲𝘀 and 𝗖𝗶𝘁𝗶𝗴𝗿𝗼𝘂𝗽 are joint lead bookrunners. ➤ 𝗧𝗗 𝗦𝗲𝗰𝘂𝗿𝗶𝘁𝗶𝗲𝘀 is serving as bookrunner. ➤ Closing remains subject to customary conditions and regulatory approvals. ➤ New shares are expected to be listed on the 𝗡𝗬𝗦𝗘 and 𝗧𝗦𝗫. ➤ Capital raise aims to support growth alongside rising customer demand. ➤ Celestica continues expanding its AI data center infrastructure business. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Strengthens Celestica's balance sheet to fund future AI infrastructure growth. ➤ Provides financial flexibility to support increasing customer demand. ➤ Reflects management's confidence in sustained multi-year business momentum. ➤ Additional shares may dilute existing shareholders but increase growth capital. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁𝘀: 𝗠𝗮𝗻𝗱𝗲𝗲𝗽 𝗖𝗵𝗮𝘄𝗹𝗮, Chief Financial Officer of Celestica: "Maintaining a robust capital structure with enhanced balance sheet flexibility is central to executing our long-term strategy." 𝗥𝗼𝗯 𝗠𝗶𝗼𝗻𝗶𝘀, Chief Executive Officer of Celestica: "Our demand outlook is the strongest in the Company's history, and our multi-year visibility continues to strengthen."
+@StockMKTNewz [Sat Aug 08 18:36:24 +0000 2026]: Here is every stock in the S&P 500 that has more than doubled so far this year 🥇 SanDisk $SNDK: +410.7% 🟢 🥈 Dell $DELL: +260.5% 🟢 🥉 Micron $MU: +207.5% 🟢 Seagate $STX: +195.1% 🟢 Intel $INTC: +175.5% 🟢 Marvell $MRVL: +157.4% 🟢 Western Digital $WDC: +152.1% 🟢 Lumentum $LITE: +141.5% 🟢 AMD $AMD: +125.7% 🟢 Hewlett Packard $HPE: +121.6% 🟢 Applied Materials $AMAT: +109.8% 🟢 Coherent $COHR: +105.4% 🟢 Fortinet $FTNT: +101.0% 🟢 Flex $FLEX: +100.8% 🟢 Moderna $MRNA: +100.6% 🟢
 
-@wallstengine [Wed Aug 05 21:13:43 +0000 2026]: Hudson Technologies $HDSN has been awarded a potential $210.4M Defense Logistics Agency contract for industrial gases and cylinders. The contract includes a five-year base period and one five-year option, supporting the Army, Navy, Air Force, Marine Corps and Space Force. https://t.co/VQLvlr3jwo
+@gurgavin [Fri Aug 07 20:01:46 +0000 2026]: TRADE DESK SHARES ARE NOW DOWN ALMOST 90% OVER THE LAST 1 YEAR FROM $70 BILLION AT PEAK TO NOW JUST $6 BILLION LATEST VICTIM OF THE AI TRADE $TTD https://t.co/CtCiamgZYW
 
-@StockMKTNewz [Wed Aug 05 22:47:51 +0000 2026]: Amazon $AMZN founder Jeff Bezos just filed for his sale of 1,209,649 shares of Amazon stock at $286.41 per share Jeff Bezos brought in $346.5 Million pre tax from the sale https://t.co/hqDb2XCU6p
+@KobeissiLetter [Sat Aug 08 12:32:41 +0000 2026]: This is absolutely incredible. Corporate America is currently on pace for the biggest earnings beat EVER recorded. S&P 500 companies are beating earnings per share estimates by an aggregate +29.2%. To put this into perspective, the 5-year average stands at +7.0%, which is already historically high. In other words, S&P 500 companies are now beating already high expectations by ~4.2 TIMES the 5-year average. On top of this, the blended net margin for the S&P 500 is up to 16.9%, also an all time high. Even if you removed Alphabet’s $98 billion gain from unrealized equity investments and Amazon’s $53 billion gain from Anthropic, S&P 500 earnings growth would STILL be +32.0% year-over-year. We are in the midst of the largest investment boom in history.
 
-@StockMKTNewz [Wed Aug 05 20:28:47 +0000 2026]: Costco $COST just reported July sales of $23.12 Billion up 10.7% YoY https://t.co/hkUmb0XUCN
+@StockMKTNewz [Sat Aug 08 13:01:17 +0000 2026]: Berkshire Hathaway $BRK.B ended Q2 with $365.5 Billion of cash and cash equivalents down from the $397.4B they ended Q1 with https://t.co/dKEBEhjAjL
 
-@wallstengine [Wed Aug 05 21:03:16 +0000 2026]: $SNDK calls these long-term customer supply agreements its “New Business Model,” or NBM. They include committed purchase volumes, multi-year duration, pricing floors and ceilings, and financial guarantees from customers.
+@StockMKTNewz [Sat Aug 08 13:00:04 +0000 2026]: Berkshire Hathaway $BRK.B spent $4.5 Billion buying back its own stock during Q2
 
-@wallstengine [Wed Aug 05 20:59:36 +0000 2026]: $SNDK expects its New Business Model agreements to represent: &gt; More than 50% of bits in FY27 &gt; Approximately two-thirds of bits in FY28 Management says NBMs are “quickly becoming our predominant way of doing business.”
+@AIStockSavvy [Fri Aug 07 22:53:58 +0000 2026]: $NBIS | The Goldman Sachs Group, Inc. and its subsidiary Goldman Sachs &amp; Co. LLC filed a Schedule 13G with the SEC, disclosing beneficial ownership of 15,896,355.61 Class A Ordinary Shares of Nebius Group N.V., representing 7.2% of the class.
 
-@KobeissiLetter [Wed Aug 05 19:17:25 +0000 2026]: Chinese investors are rotating back into gold: China's gold-backed ETFs have recorded 14 consecutive daily inflows ending Monday, the longest streak since March. Over this period, these funds have attracted +$1.2 billion. The largest single-day inflow during this streak totaled +$370 million. Before this rebound, China's gold-backed ETFs recorded outflows in 38 of 44 trading sessions. This comes as elevated volatility in China's stock market has renewed interest in alternative assets, particularly among institutional investors. Chinese investors are increasingly bullish on gold.
+@KobeissiLetter [Sat Aug 08 15:10:24 +0000 2026]: US crude oil inventories are experiencing an unprecedented decline: Total US crude oil inventories have fallen for 17 consecutive weeks, the longest streak on record. This surpasses the previous record of 16-straight weekly declines seen in 2021. Since early April, total crude oil inventories have plunged -166 million barrels, to 712 million barrels, the lowest since March 1984. The Strategic Petroleum Reserve (SPR) alone has dropped -111 million barrels since March, to 305 million barrels, the lowest since February 1983. Meanwhile, excluding the SPR, US oil inventories have fallen for 10 consecutive weeks, matching the 2018 record streak. US oil supplies are experiencing a historic decline.
 
-@KobeissiLetter [Wed Aug 05 18:20:06 +0000 2026]: BREAKING: US job openings dropped -178,000 in June, to 7.36 million, the lowest since March. This marks the 2nd consecutive monthly decline, bringing the total drop to -226,000. The decline was driven by private education and health services, as well as leisure and hospitality, which fell -133,000 and -86,000, respectively. This was followed by wholesale trade and professional and business services, which declined -74,000 and -71,000, respectively. Despite the decline, there are still 265,000 more available vacancies than unemployed workers, the 2nd-largest difference since January 2025. As a result, the ratio of job openings to unemployed workers remains at 1.0, the highest since January 2025. The labor market is becoming increasingly unstable.
+@KobeissiLetter [Fri Aug 07 17:36:00 +0000 2026]: Most people don't realize how big of a growth wave we are currently experiencing. So far, with 88% of S&P 500 companies reporting earnings, the index has posted +50.4% growth in earnings year-over-year. To put this into perspective, the already astronomical expectation of +23.1% growth has been more than doubled. This will mark the 2nd consecutive quarter of earnings growth above +25% and the 7th consecutive quarter of double-digit earnings growth for the S&P 500. The last time growth was this strong was in Q2 2021 as the US economy emerged from the pandemic and $4+ trillion in stimulus was handed out. We are arguably in the midst of the biggest technological revolution in US history. The data is absolutely insane.
 
-@StockMKTNewz [Thu Aug 06 02:05:15 +0000 2026]: Etsy $ETSY is cutting roughly 12% of its workforce - WSJ https://t.co/NqSHfr2R2r
+@AIStockSavvy [Sat Aug 08 02:14:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $NVDA Nvidia to Invest up to $3 Billion in Blackstone-Backed Power Firm Behind Stargate - The Information
 
-@wallstengine [Wed Aug 05 21:35:48 +0000 2026]: $AEVA SIGNS NEAR-PACKAGED OPTICS AGREEMENT Signed a JDA with an optics provider for a major hyperscaler’s NPO solution. Volumes could begin in 2027 and ramp in 2028. If qualified, Aeva sees potential for millions of units annually and hundreds of millions in annual revenue. https://t.co/NBRSoeJLxt
+@AIStockSavvy [Fri Aug 07 20:55:48 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $DJT Trump Media &amp; Technology - Deal With https://t.co/DJdsAWn0F5 &amp; Yorkville Acquisition Corp Terminated Due to Market Conditions
 
-@AIStockSavvy [Thu Aug 06 02:19:03 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Japanese and U.S. companies, and possibly firms from the UAE and other countries, will invest about ¥2 trillion to build Japan's largest AI data center. - Nikkei - $NVDA $AMD
+@AIStockSavvy [Fri Aug 07 19:15:18 +0000 2026]: US official: We expect a deal soon between Iran and Oman on Strait of Hormuz - $QQQ $SPY $USO
 
-@AIStockSavvy [Wed Aug 05 22:31:17 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $META Meta AI Model Muse Spark 1.1 Hacked Another Company During Cybersecurity Test - The Information
+@wallstengine [Fri Aug 07 19:52:56 +0000 2026]: Chevron $CVX expects capex to land near the low end of its $18B-$19B guidance by year-end and sees roughly $12.5B in additional free cash flow by 2026 - Bloomberg. https://t.co/j6ryCci0k4
 
-@AIStockSavvy [Wed Aug 05 20:55:20 +0000 2026]: $SNDK | Jane Street Group, LLC filed a Schedule 13G with the SEC, disclosing beneficial ownership of 7.41 million shares of SanDisk Corp common stock, representing 5.0% of the class. All shares are held with shared voting and dispositive power. Jane Street Capital, LLC holds 5.89 million shares (4.0%), Jane Street Global Trading, LLC owns 1.28 million shares (0.9%), and Leonard Street Holdings, LP possesses 238,102 shares (0.2%). All entities are Delaware-based and maintain shared voting and dispositive power over their respective holdings.
+@wallstengine [Fri Aug 07 18:29:02 +0000 2026]: AeroVironment set to win $400M US Army anti-drone award. The Army is expected to purchase dozens of $AVAV’s Locust counter-drone laser systems, with the award set to be announced soon, Bloomberg reports. https://t.co/cnAyNUmCnd
 
-@KobeissiLetter [Thu Aug 06 02:42:28 +0000 2026]: Global passive equity fund inflows are skyrocketing: Passive equity funds across developed and emerging markets attracted a record +$250 billion in inflows over the last 4 weeks. Over the same timeframe, active funds recorded -$50 billion in outflows. This brings combined 4-week flows across passive and active equity funds to +$200 billion, an all-time high. This surpasses the previous record of +$165 billion set in early 2021, when both passive and active funds recorded inflows. Overall, passive equity fund inflows have more than quadrupled since mid-2025. Passive investing remains exceptionally popular.
+@KobeissiLetter [Sat Aug 08 17:23:00 +0000 2026]: BREAKING: US corporate profits before tax as a % of GDP are up to a record 14%. This ratio has nearly doubled since the 2008 Financial Crisis. This also exceeds previous peaks of ~13% posted in 1951, 2010, and 2011. Meanwhile, US corporate profits after tax as a % of GDP are up to ~11%, also an all-time high. By comparison, this figure averaged ~5% between 1980 and 1995. This comes as nominal profits after tax have surged +101% since the 2020 pandemic, to a record $3.62 trillion. US corporations are more profitable than ever.
 
-@KobeissiLetter [Wed Aug 05 21:24:12 +0000 2026]: The US manufacturing recovery is accelerating: ISM Manufacturing PMI rose +2.3 points in July, to 55.6, the highest since May 2022. This marks the 7th consecutive monthly expansion. Since December 2025, the index has surged +7.7 points, the biggest increase since the 2020 pandemic recovery. This comes as new orders rose +0.7 points, to 56.7, the 3rd-highest since February 2022, pointing to further strength ahead. At the same time, the employment index jumped +3.1 points, to 52.8, the highest since August 2022, marking the first monthly expansion since January 2025. Meanwhile, prices paid fell -1.9 points, to 71.1, the lowest since February, posting the 3rd consecutive monthly decline by a total of -13.5 points. Manufacturing activity is gaining momentum.
+@KobeissiLetter [Fri Aug 07 20:05:31 +0000 2026]: BREAKING: The S&amp;P 500 closes at the highest level on record, up another +3.6% this week. The S&amp;P 500 added +$2.5 trillion in market cap this week. https://t.co/W1mq4t8hdb
 
-@KobeissiLetter [Wed Aug 05 15:30:00 +0000 2026]: BREAKING: The Dow Jones Industrial average rises over +500 points to a fresh record high. This puts the index up nearly +10,000 points since its March 30th bottom. https://t.co/gSnJraPyOU
+@KobeissiLetter [Fri Aug 07 19:12:27 +0000 2026]: Layoffs across the information sector are accelerating: The layoff rate in the information sector jumped +0.7 percentage points in June, to 2.3%, the 3rd-highest since the 2020 pandemic. This means that ~2.3% of employees in the sector were laid off or discharged during the month. Since November 2025, the layoff rate has more than doubled. In absolute terms, 63,000 workers were laid off or discharged in June, the 3rd-highest monthly total since April 2020. As a result, the 6-month moving average layoff rate rose to 2.0%, the 2nd-highest on record. By comparison, this metric peaked at ~1.5% during the 2008 Financial Crisis and the 2001 recession. AI continues to transform the labor market.
+
+@KobeissiLetter [Fri Aug 07 16:32:38 +0000 2026]: US productivity growth is accelerating: US labor productivity rose +1.4% annualized rate in Q2 2026, more than double the +0.6% expected. This follows an upwardly revised +0.8% increase in Q1, marking the 5th consecutive quarter of productivity gains. At the same time, US manufacturing productivity jumped +1.9%, driven by a +4.6% surge in output, the strongest increase since Q4 2021. However, these productivity gains came at the expense of workers, with inflation-adjusted compensation falling -3.2%, the largest quarterly decline since Q4 2022. Meanwhile, unit labor costs, which measure how much a company pays workers to produce one unit of output, rose just +1.3% last quarter, well below the +2.1% expected. The productivity boom is gaining momentum.
 
 @gurgavin [Wed Aug 05 02:11:59 +0000 2026]: *US NEARS HORMUZ DEAL, AIMING FOR ANNOUNCEMENT TOMORROW MORNING *U.S &amp; IRAN NEAR 60-DAY DEAL TO REOPEN STRAIT OF HORMUZ *HORMUZ DEAL EXCLUDES TOLLS OR TRANSIT FEES DURING INITIAL 60-DAY PERIOD *PARTIES AGREE TO CLEAR NAVAL MINES FROM HORMUZ WITHIN 30 DAYS
 
-@AIStockSavvy [Thu Aug 06 02:55:44 +0000 2026]: $SNDK | Mizuho Securities 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗕𝘂𝘆 on 𝗦𝗮𝗻𝗗𝗶𝘀𝗸, cuts PT to $𝟭𝟵𝟬𝟬 from $𝟮𝟮𝟬𝟬 https://t.co/iTHPKdjcIE
+@AIStockSavvy [Sat Aug 08 14:55:31 +0000 2026]: 🏆 TOP 10 WEEKLY ANALYST RATINGS: $TAM $U $TTD $SERV $CRCL $ALAB $RDW $HUM $CLEH $APP https://t.co/NnkgXgjpxO
 
-@AIStockSavvy [Thu Aug 06 01:40:20 +0000 2026]: $WDC | Mizuho Securities 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗕𝘂𝘆 on 𝗪𝗲𝘀𝘁𝗲𝗿𝗻 𝗗𝗶𝗴𝗶𝘁𝗮𝗹, cuts PT to $𝟱𝟵𝟬 from $𝟲𝟴𝟱 https://t.co/TIti9YqtLS
+@AIStockSavvy [Fri Aug 07 19:04:51 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $AVAV Aerovironment Set To Win $400 Million Anti-drone Us Army Award - Bloomberg
 
-@AIStockSavvy [Wed Aug 05 23:56:35 +0000 2026]: Jim Cramer on $FTNT Fortinet: “Fortinet is good. ... They’re doing a good job, and I like it.”
+@AIStockSavvy [Fri Aug 07 15:32:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Rockstar Energy Founder Builds $CELH Celsius Stake, Wants To Take Over As Ceo - Cnbc
 
-@AIStockSavvy [Wed Aug 05 23:55:42 +0000 2026]: Jim Cramer on $RKLB Rocket Lab: “Pure spec. I like $VOYG Voyager.”
+@KobeissiLetter [Sat Aug 08 18:52:11 +0000 2026]: South Korean retail investors are turning to US stocks amid domestic market turmoil: Retail investors from South Korea bought +$4.6 billion worth of US stocks in July, the largest monthly total since January 2026. This marks a +627% MoM increase and follows -$469 million and -$940 million in sales in April and May, respectively. July purchases were also well above the +$2.7 billion monthly average recorded in 2025, a year when South Korean retail investors more than tripled their purchases of US equities from 2024. As a result, South Korean retail investors bought more US stocks last month than domestic equities for the first time since February. This comes as the KOSPI Index has dropped -33% from its June peak, with ~75% of the decline driven by the 2 largest chipmakers, Samsung and SK Hynix. US stocks are benefiting from South Korea's market downturn.
 
-@AIStockSavvy [Wed Aug 05 21:12:18 +0000 2026]: 🚨 After-market buzz! $MGRX $SOUN $CHYM $RDW $DASH $OXY $XYZ $SNDK $AXON $MELI $WDC $ROOT $CLS $KVYO $Z $DUOL $HONA $FIG $HUBS $APP $FLNC https://t.co/8ftVcpv4Vl
+@gurgavin [Sat Aug 08 15:19:24 +0000 2026]: CANADA’S ECONOMY ADDED 75,000 JOBS LAST MONTH ECONOMISTS EXPECTED CANADA TO ADD JUST 15,000 JOBS 🇨🇦🇨🇦🇨🇦
+
+@gurgavin [Wed Aug 05 17:47:16 +0000 2026]: NEW ALL TIME HIGHS ARE COMING
+
+@StockMKTNewz [Sat Aug 08 16:35:37 +0000 2026]: 86% of S&P 500 companies that reported earnings this past week beat analyst expectations for EPS 73% of S&P 500 companies that reported earnings this past week beat analyst expectations for Revenue 83% of S&P 500 companies that reported earnings this past week grew their revenue from the same quarter last year
+
+@wallstengine [Fri Aug 07 19:21:19 +0000 2026]: U.S. EXPANDS DIRECT FUNDING OF CRITICAL SUPPLY CHAINS Pentagon commitments include $1.4B for silicon-battery maker Sila, $400M for scandium miner Sunrise, $150M for rare-earth magnet producer Niron and an $85.5M equity investment in Strategic Bauxite. The agreements still need to be finalized. Source: WSJ
+
+@wallstengine [Fri Aug 07 19:03:01 +0000 2026]: U.S. OFFICIAL SAYS HORMUZ DEAL COULD COME SOON Talks involving Oman and Iran are progressing. Under the expected agreement, commercial shipping would resume without impediments and the U.S. would lift its blockade of Iranian ports, subject to Iran meeting its commitments.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
