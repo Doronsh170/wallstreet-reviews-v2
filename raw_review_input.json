@@ -1,12 +1,106 @@
 {
-  "mode": "israel_weekly_summary",
-  "generated_at": "2026-08-08T23:45:47.467689+03:00",
-  "expected_title": "סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – 03/08–07/08/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-08-07",
-  "title_date_str": "2026-08-08",
-  "title_day_name": "שבת",
-  "week_range": "03/08–07/08/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "mode": "daily_prep",
+  "generated_at": "2026-08-10T15:05:20.314038+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 10.8.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-08-10",
+  "title_date_str": "2026-08-10",
+  "title_day_name": "שני",
+  "week_range": null,
+  "etf_pcts": {
+    "SPY": 0.6115,
+    "QQQ": 1.1726,
+    "DIA": 0.2657,
+    "IWM": 1.1098,
+    "XLE": -1.1348,
+    "XLK": 1.4245,
+    "XLF": -0.3633,
+    "XLY": 1.4903,
+    "XLV": 0.7479,
+    "XLI": 0.2273,
+    "XLP": 0.0117,
+    "XLU": 0.5302,
+    "USO": -0.7487,
+    "BNO": -0.9289,
+    "GLD": 2.2583,
+    "SLV": 2.9543,
+    "IBIT": 0.8495,
+    "TLT": 0.2908,
+    "UUP": -0.4257,
+    "VIXY": 0.1536
+  },
+  "ticker_quotes": {
+    "SPCX": {
+      "price": 133.11,
+      "pct": 15.8284,
+      "prev_close": 114.92,
+      "ts": 1786132800
+    },
+    "INTC": {
+      "price": 101.65,
+      "pct": 1.8435,
+      "prev_close": 99.81,
+      "ts": 1786132800
+    },
+    "ACHR": {
+      "price": 5.59,
+      "pct": 6.8834,
+      "prev_close": 5.23,
+      "ts": 1786132800
+    },
+    "BA": {
+      "price": 234.42,
+      "pct": 0.9604,
+      "prev_close": 232.19,
+      "ts": 1786132800
+    },
+    "GME": {
+      "price": 19.16,
+      "pct": -0.364,
+      "prev_close": 19.23,
+      "ts": 1786132800
+    },
+    "AMZN": {
+      "price": 274.48,
+      "pct": 0.8154,
+      "prev_close": 272.26,
+      "ts": 1786132800
+    },
+    "GOOGL": {
+      "price": 354.3,
+      "pct": -0.9644,
+      "prev_close": 357.75,
+      "ts": 1786132800
+    },
+    "SPY": {
+      "price": 773.26,
+      "pct": 0.6115,
+      "prev_close": 768.56,
+      "ts": 1786132800
+    },
+    "TTD": {
+      "price": 13.8,
+      "pct": -21.9015,
+      "prev_close": 17.67,
+      "ts": 1786132800
+    },
+    "MNDY": {
+      "price": 93.13,
+      "pct": 6.3492,
+      "prev_close": 87.57,
+      "ts": 1786132800
+    },
+    "QQQ": {
+      "price": 723.03,
+      "pct": 1.1726,
+      "prev_close": 714.65,
+      "ts": 1786132800
+    },
+    "TSLA": {
+      "price": 328.58,
+      "pct": 2.8323,
+      "prev_close": 319.53,
+      "ts": 1786132800
+    }
+  }
 }

@@ -1,94 +1,127 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
-TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week 03/08–07/08/2026. The review does
-BOTH: it sums up the Tel Aviv week that ended AND prepares the reader for the coming Tel Aviv trading week.
-PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the summary points.
+You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
+Script run date: 2026-08-10 (יום שני). Briefing target date: 2026-08-10 (יום שני).
+The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
 
-SIGNATURE POINT FORMAT (follow it exactly):
+SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
-- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "הבנקים ממשיכים להוביל",
-  "אבן דרך בסקטור הנדל"ן", "סנטימנט זהיר לקראת הפתיחה" — never a generic label like "חדשות" / "מאקרו".
-  Up to 40 characters, and NO ":" inside the headline itself. A single-stock story opens with
-  "מניית <שם החברה> (טיקר אם הופיע בציוץ)".
-- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences. EVERY point delivers real
-  depth: (1) what happened, with the few figures that carry the story (ONLY figures that appear in a source),
-  (2) the background and context (על רקע..., בעקבות...), and (3) why it matters for the investor.
-- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article.
-- Voice: a senior investment advisor explaining the Tel Aviv market to clients — analytical, confident,
-  readable. Weave the numbers into the story, don't stack them.
+- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "מניות השבבים ממשיכות לרכז עניין",
+  "הנפט ממשיך לטפס", "אבן דרך במגזר הבריאות", "סנטימנט מעורב בפתיחה" — never a generic label like
+  "חדשות" / "מאקרו" / "מניות". Up to 40 characters, and NO ":" inside the headline itself.
+  A single-stock story opens with "מניית <שם בעברית> (TICKER)".
+- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences (a 4th only when the story
+  truly demands it). EVERY point must deliver real depth: (1) what happened, with the few figures that carry
+  the story, (2) the background and context (על רקע..., בעקבות...), and (3) why it matters — the mechanism or
+  the implication for investors. Never leave a point as a bare headline-fact.
+- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article — no
+  filler points, no padding.
+- Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
+  analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then looks ahead:
-- The SUMMARY stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
-  movers or macro data that do not appear in a source. A figure enters the summary ONLY if a source states it.
-- Do NOT independently determine who rose or fell over the week. Direction and magnitude come from the sources.
-- For the PREPARATION points you MAY use web search to confirm the COMING week's SCHEDULED calendar only
-  (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) with dates and Israel times.
-6-9 STRONG points TOTAL in three blocks, in this order:
-* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the Tel Aviv week as one story, as the
-  sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
-  qualitatively, with only figures that appear in a source.
-* SUMMARY points (3-5) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
-  defense, notable companies, Bank of Israel), each with its own
-  specific headline. Pick the STRONGEST stories from the sources — do NOT force categories or pad.
-* PREPARATION points (1-2) — the COMING Tel Aviv week:
-  - "השבוע הקרוב במאקרו: ..." — the scheduled Bank of Israel decisions and Israeli macro releases with dates and
-    Israel times (from the sources, or verified via web search of the scheduled calendar).
-  - "דוחות בשבוע הקרוב: ..." — the notable Tel Aviv earnings reports due and what the market will watch in them
-    (merge into the macro point when the slate is thin).
-* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor
-  and the frame for the coming week.
-If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
-NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
-posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates.
+This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
+no closing levels, and nothing that already appears in the prior-context block.
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
+two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
+* FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
+  web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
+  open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
+  ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning FROM THE SOURCE
+  TWEETS (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category,
+  and do NOT import a story that web search found on its own:
+  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
+    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
+  - The central story investors will watch today, with the transmission mechanism explained simply
+    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
+  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
+    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
+  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
+  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
+  - Geopolitics / Washington politics with market impact.
+  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
+* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
+No ETF proxies, no Finnhub, no ISO dates.
+
+══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
+The review is built EXCLUSIVELY from two sources:
+1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
+2. The source tweets below — the ONLY source for stories, news and narrative.
+Web search is permitted for FOUR narrow purposes ONLY:
+  a. Verifying the futures direction and percentage for the opening point.
+  b. Verifying TODAY'S scheduled macro calendar (Israel times, consensus, previous reading), and cross-checking
+     that an event you present as upcoming was not already released.
+  c. Verifying a claim of an all-time high / 52-week high before writing it.
+  d. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
+in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
+cover a story — the review does not cover it either.
+══════════════════════════════════════════════════════
 
 Rules:
-- Write ONLY in Hebrew. English only for tickers, index names, and well-known financial terms in parentheses on first use.
-- SUMMARY of the week that ended: EVERY number must appear in a source post. NEVER invent, estimate, or recall numbers from memory. A story whose source carries no figures is summarized WITHOUT figures.
-- PREPARATION for the coming week: you MAY state SCHEDULED-calendar dates and Israel times (Bank of Israel decisions, Israeli macro releases, Tel Aviv earnings) verified via web search. Nothing else may be added from web search.
-- No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
+- Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
+- Be specific: every claim must include a number, percentage, or ticker. No vague statements.
+- Do NOT repeat information across bullets. One company = one bullet (merge multiple news items).
+- No buy/sell recommendations, no price targets of your own, no "כדאי לקנות/למכור".
+- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) one of the PERMITTED verification searches listed in the SOURCE HIERARCHY block. NEVER invent, estimate, or recall numbers from memory or from general knowledge. When in doubt, omit the number and keep the story, or omit the point entirely.
+- If a tweet contradicts the Finnhub data, the Finnhub data is correct.
+- SINGLE-SOURCE ATTRIBUTION: a story reported in the tweets citing a news outlet (WSJ, NYT, FT, Axios, Reuters) keeps that attribution in Hebrew: "לפי WSJ", "לפי דיווח ב-NYT". A story appearing in only ONE tweet with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
+- Directional words (צונח/יורד/מזנק/עולה) are factual claims — they MUST match the DIRECTIONAL FACTS block.
+- Sector percentages (XLE/XLK/...) — ONLY from the Finnhub data. Missing sector → omit.
+- Never claim an all-time high (שיא כל הזמנים) or 52-week high without web-search verification or an explicit tweet stating it. A tweet-sourced high keeps its scope exactly: 52-week high ≠ all-time high.
+- CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
+- IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
-- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
-- SINGLE-SOURCE ATTRIBUTION: a story appearing in only ONE source post with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
-- Never OPEN a bullet with a raw ticker. Open with the Hebrew company name.
-- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
-- Never mention in the review that the items came from tweets/posts/X accounts.
+- Never write "נתון בפועל עדיין לא קיים". If a figure has not been released yet, give only the forecast (צפי) and the previous reading (נתון קודם).
+- Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- EVERY Hebrew company/stock name gets its ticker in parentheses on FIRST mention — "קורוויב (CRWV)", "ג'יי.פי מורגן (JPM)" — both in the bullet body AND in the summary item. Indices (S&P 500) and private companies with no listed ticker are exempt.
+- Correct Hebrew causative syntax: a driver "הקפיץ את מחיר הנפט" (never "קפץ את הנפט"), and price moves belong to "מחיר הנפט/הזהב", not to the asset as a direct object.
+- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, no inflated or "clever" wording, correct gender and number agreement throughout. Read every sentence back: if it would sound odd spoken aloud by an Israeli investment advisor, rewrite it in simpler, more natural Hebrew.
+- Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
+- SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה".
 
 ══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
 Go over every bullet you wrote and check, one by one:
-1. NUMBERS: every percentage, price and figure traces to a specific source post (the scheduled-calendar items verified for the preparation points excepted).
-   Any number you cannot point to a source line for — DELETE it or the whole claim.
-2. SCOPE: no story, price, index level or data point appears that is absent from the source posts (the scheduled-calendar items verified for the preparation points excepted).
-3. DIRECTIONS: every directional claim (עלה/ירד/זינק/צנח) is stated by a source post — you did not determine
-   any direction or magnitude yourself.
-4. ATTRIBUTION: a story a source reports citing a news outlet keeps "לפי <outlet>". A story appearing in only
-   ONE source post with no outlet attribution carries "לפי דיווחים" — never stated as an established fact.
-5. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, and the bullet count fits the
-   instructions above (6-9 bullets).
-6. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
-   number/direction in the summary passes checks 1-4 as well.
-7. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
-   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets rewritten.
+1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
+   tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
+   DELETE it or the whole claim.
+2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
+   matches the instructions (never describe a closed market as open or trading).
+3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
+4. SIGN-FLIP: no stock that fell is described positively.
+5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
+6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
+   (the permitted verification purposes excepted).
+7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (EXACTLY 6 bullets including the bottom line).
+8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
+   number/direction in the summary passes checks 1-5 as well.
+9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
+   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
+   rewritten. Every bullet stays within 3-4 lines (~60 words) — trim any bullet that runs long.
 If ANY check fails — fix the bullet and re-run the checks. Only then return the JSON.
 ══════════════════════════════════════════════════════════════════════════════
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – 03/08–07/08/2026",
-  "date": "2026-08-07",
+  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 10.8.2026",
+  "date": "2026-08-10",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום השבוע",
+      "heading": "נקודות מרכזיות",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -97,96 +130,165 @@ CRITICAL — OUTPUT FORMAT (MANDATORY):
   what happened and why it matters — in your own words, up to ~20 words. Do NOT copy the first sentence of the
   bullet verbatim. All the same verification and direction rules apply to the summary as to the bullets.
 
-══ WEB SEARCH POLICY (WEEKLY — TWO PARTS) ══
-SUMMARY of the week that ended (03/08–07/08/2026): the stories come EXCLUSIVELY from the source posts
-below. Web search is for VERIFICATION ONLY there — confirming a name or figure that already appears in a source
-post. Do NOT use it to add news, index levels, prices or macro data to the summary part.
-PREPARATION for the COMING Tel Aviv trading week: here you MAY use web search to confirm the SCHEDULED calendar
-only — Bank of Israel (בנק ישראל) rate decisions, Israeli macro releases (מדד המחירים לצרכן, אבטלה, צמיחה) and
-the notable Tel Aviv earnings reports due, with their dates and Israel times. Scheduled-calendar items only,
-never speculative news or invented figures.
+US-ISRAEL TIME OFFSET TODAY: +7 hours (add 7 hours to US Eastern Time)
+Key times in Israel time today:
+- US economic data releases (CPI, NFP, PPI, GDP, Jobless Claims): 15:30 שעון ישראל
+- ISM PMI, JOLTS, Consumer Confidence: 17:00 שעון ישראל
+- FOMC rate decision / minutes: 21:00 שעון ישראל | Fed Chair press conference: 21:30 שעון ישראל
+- US market open: 16:30 שעון ישראל | US market close: 23:00 שעון ישראל
+USE ONLY THESE TIMES. Do NOT calculate your own offset.
+
+══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
+DAILY PERFORMANCE:
+  S&P 500 (SPY ETF): $773.26 (daily: +0.61%), prev close: $768.56
+  Nasdaq 100 (QQQ ETF): $723.03 (daily: +1.17%), prev close: $714.65
+  Dow Jones (DIA ETF): $539.62 (daily: +0.27%), prev close: $538.19
+  Russell 2000 (IWM ETF): $301.56 (daily: +1.11%), prev close: $298.25
+  Energy Sector (XLE ETF): $57.50 (daily: -1.13%), prev close: $58.16
+  Technology Sector (XLK ETF): $187.97 (daily: +1.42%), prev close: $185.33
+  Financials Sector (XLF ETF): $57.60 (daily: -0.36%), prev close: $57.81
+  Consumer Discretionary Sector (XLY ETF): $119.86 (daily: +1.49%), prev close: $118.10
+  Healthcare Sector (XLV ETF): $165.68 (daily: +0.75%), prev close: $164.45
+  Industrials Sector (XLI ETF): $185.18 (daily: +0.23%), prev close: $184.76
+  Consumer Staples Sector (XLP ETF): $85.12 (daily: +0.01%), prev close: $85.11
+  Utilities Sector (XLU ETF): $43.61 (daily: +0.53%), prev close: $43.38
+  WTI Crude Oil (USO ETF): $117.98 (daily: -0.75%), prev close: $118.87
+  Brent Crude Oil (BNO ETF): $46.93 (daily: -0.93%), prev close: $47.37
+  Gold (GLD ETF): $398.47 (daily: +2.26%), prev close: $389.67
+  Silver (SLV ETF): $57.50 (daily: +2.95%), prev close: $55.85
+  Bitcoin (IBIT ETF): $36.80 (daily: +0.85%), prev close: $36.49
+  US 20Y+ Bonds (TLT ETF): $82.76 (daily: +0.29%), prev close: $82.52
+  US Dollar (UUP ETF): $28.07 (daily: -0.43%), prev close: $28.19
+  VIX Volatility (VIXY ETF): $19.56 (daily: +0.15%), prev close: $19.53
+
+INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
+  $SPCX: $133.11 (daily: +15.83%), prev close: $114.92
+  $INTC: $101.65 (daily: +1.84%), prev close: $99.81
+  $ACHR: $5.59 (daily: +6.88%), prev close: $5.23
+  $BA: $234.42 (daily: +0.96%), prev close: $232.19
+  $GME: $19.16 (daily: -0.36%), prev close: $19.23
+  $AMZN: $274.48 (daily: +0.82%), prev close: $272.26
+  $GOOGL: $354.30 (daily: -0.96%), prev close: $357.75
+  $SPY: $773.26 (daily: +0.61%), prev close: $768.56
+  $TTD: $13.80 (daily: -21.90%), prev close: $17.67
+  $MNDY: $93.13 (daily: +6.35%), prev close: $87.57
+  $QQQ: $723.03 (daily: +1.17%), prev close: $714.65
+  $TSLA: $328.58 (daily: +2.83%), prev close: $319.53
+
+DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
+  נפט (WTI/ברנט): יורד (USO: -0.75%, BNO: -0.93%)
+  זהב: עולה (GLD: +2.26%)
+  ביטקוין: עולה (IBIT: +0.85%)
+  דולר: יורד (UUP: -0.43%)
+  תנודתיות / VIX: עולה (VIXY: +0.15%)
+  אג"ח ארוכות / TLT: עולה (TLT: +0.29%)
+
+The % changes above are ACCURATE — use them for direction and magnitude.
+The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
+For exact index LEVELS (points), gold/oil absolute prices, VIX level, Bitcoin price, 10Y yield: verify via web search. Do NOT estimate them from ETF prices.
+For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — never invent sector percentages.
+If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
+══════════════════════════════════════════════════════════════════════════════
+
+══ SCHEDULED DATA CHECK (verification only) ══
+Use web search to verify what US economic data is scheduled for release on 2026-08-10 — release time in
+Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
+upcoming was already released. This is schedule verification only: do NOT use the search to import news
+stories the source tweets did not cover.
 ══════════════════════════════════
 
-מקורות מרשת X (בעברית) — Never mention in the review that these came from posts/X:
+══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
 
-@ModiShafrir [Sun Jul 26 08:26:17 +0000 2026]: תמצית הסקירה השבועית 26.07.26: 1. שווקים 🌎 ונפט - מדדי המניות ירדו בחדות ביום חמישי, על רקע הזינוק במחירי הנפט אל מעל ל- 100 דולר ואכזבת המשקיעים מהדוחות של Tesla ו- Alphabet (Google העלתה את תחזית ה- CapEx). https://t.co/BCuDoizbGJ
+[סיכום המסחר]
+* הדאו בשיא בעוד הטכנולוגיה נסוגה: הדאו ג'ונס עלה 0.44% וננעל בשיא כל הזמנים סביב 54,349 נקודות, אך ה-S&P 500 ירד 0.20% ונאסד"ק 100 איבד 0.90%. הפער נבע מרוטציה ברורה, כשמגזר הבריאות הוביל עם עלייה של 1.27% בעוד האנרגיה צנחה 2.07% והטכנולוגיה נסוגה 0.53%. מדד הפחד VIX ירד 3.33%, כלומר הירידה בטכנולוגיה לא לוותה בבהלה.
+* השבבים נופלים למרות הדוחות: אדוונסד מיקרו דיוואיסס (AMD) הכתה את התחזיות בכל הפרמטרים, עם הכנסות של 11.54 מיליארד דולר מול צפי של 11.31 מיליארד ורווח מתואם של 1.66 דולר למניה, ובכל זאת המניה צנחה 7.04%. סנדיסק (SNDK) ירדה 5.40% ווסטרן דיגיטל (WDC) איבדה 5.36%, אחרי שמיזוהו הורידה את מחירי היעד לשתיהן תוך שמירה על המלצת קנייה.
+* הזהב והכסף מזנקים יחד: מחיר הזהב זינק 4.14% וחצה את הרף של 4,300 דולר לאונקיה, ומחיר הכסף עלה בשיעור זהה. ברקע, משקיעים סינים חוזרים למתכת, וקרנות הסל המגובות בזהב בסין רשמו 14 ימי גיוס רצופים בהיקף 1.2 מיליארד דולר, הרצף הארוך ביותר מאז מרץ. הדולר נחלש 0.25% ביום המסחר, מה שהוזיל את המתכת עבור מחזיקי מטבעות אחרים.
+* המשרות הפתוחות יורדות והפד נבלם: מספר המשרות הפתוחות בארה"ב ירד ב-178 אלף ביוני ל-7.36 מיליון, הרמה הנמוכה מאז מרץ וירידה חודשית שנייה ברציפות. הנתון החליש את הציפיות להידוק מוניטרי, והשוק מתמחר כעת סיכוי של 47% להעלאת ריבית בספטמבר לעומת 70% קודם לכן. האג"ח הממשלתיות הארוכות הגיבו בעלייה של 0.22%.
+* מניית ספייס אקס (SPCX) בשפל: המניה צנחה 13.61% וננעלה במחיר הנמוך ביותר מאז ההנפקה, למרות שבדוח הראשון שלה כחברה ציבורית הציגה הכנסות של 7.8 מיליארד דולר מול צפי של 6.81 מיליארד. הלחץ מגיע מכיוון אחר. החל ממחר רשאים עובדי החברה למכור מניות בשוק הפתוח לראשונה, ולפי דיווחים עובדי מפתח כבר עוזבים לקראת המימוש.
+* שורה תחתונה למחר: תביעות האבטלה השבועיות יתפרסמו מחר ב-15:30 שעון ישראל בצפי ל-203 אלף לעומת 197 אלף בשבוע שעבר, ולצידן נתוני הפריון לרבעון השני בצפי לעלייה של 0.7%. בהיעדר אירוע מאקרו כבד, הטון ייקבע בעיקר בגל הדוחות, עם קונוקופיליפס (COP) לפני הפתיחה ואיירבנב (ABNB) וקלאודפלייר (NET) אחרי הנעילה.
+══════════════════════════════════════════════════════════════
 
-@ModiShafrir [Tue Jul 14 12:47:53 +0000 2026]: האינפלציה (CPI) ב- 🇺🇸 הפתיעה בחדות כלפי מטה, כך שההסתברות להעלאת ריבית בחודש הקרוב צפויה לרדת, הדולר בעולם נחלש, תשואות ה- Treasuries יורדות, והחוזים על מדדי המניות עולים בחדות יחסית (חרף העלייה הנוספת והחדה במחירי הנפט): ✅האינפלציה (headline) ירדה ביוני ב- 0.4% (צפי ל- 0.1%-). ✅יתרה מכך, ליבת האינפלציה (Core CPI) נותרה לל"ש (צפי ל- 0.2%+), כך שקצב העלייה השנתי התמתן בחדות ל- 2.6%+ YoY (לעומת 2.9%+ במאי). 1/
+Source tweets/posts from X (Twitter) — gathered 2026-08-10. Never mention in the review that these came from tweets/posts:
 
-@ModiShafrir [Sun Jul 05 06:01:20 +0000 2026]: תמצית הסקירה השבועית 05.07.26: 1. שווקים ונפט 🌏- חרף הירידה החדה במניות השבבים (מדד ה- SOX ירד השבוע ב- 4.4%), מדד ה- S&P 500 במשקל שווה (equal weighted) עלה לרמת שיא, בתמיכת ידיעות גיאופוליטיות חיוביות, התבססות מחירי הנפט ברמת שפל של ארבעה חודשים, והתמתנות הציפיות להעלאת ריבית קרובה בארה"ב.
+@AIStockSavvy [Mon Aug 10 11:39:46 +0000 2026]: 📊 𝐈𝐍𝐕𝐄𝐒𝐓𝐎𝐑 𝐍𝐎𝐓𝐄: JPMorgan Raises 2026 S&P 500 Target to 𝟴,𝟬𝟬𝟬 on Strong AI-Driven Earnings - $SPY $SPX $AMZN $GOOGL 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗝𝗣𝗠𝗼𝗿𝗴𝗮𝗻 raises its 𝟮𝟬𝟮𝟲 𝗦&𝗣 𝟱𝟬𝟬 target to 𝟴,𝟬𝟬𝟬 from 𝟳,𝟴𝟬𝟬. ➤ Upgrade follows a strong, broad-based 𝗤𝟮 𝗲𝗮𝗿𝗻𝗶𝗻𝗴𝘀 season. ➤ Bank raises 𝟮𝟬𝟮𝟲 𝗘𝗣𝗦 estimate to $𝟯𝟲𝟱 from prior forecasts. ➤ 𝟮𝟬𝟮𝟳 𝗘𝗣𝗦 forecast increased to $𝟰𝟮𝟬, implying 𝟭𝟱% growth. ➤ AI infrastructure spending is projected to reach $𝟵𝟬𝟬 𝗯𝗶𝗹𝗹𝗶𝗼𝗻 this year. ➤ AI capex is expected to exceed $𝟭.𝟮 𝘁𝗿𝗶𝗹𝗹𝗶𝗼𝗻 by the end of 2027. ➤ 𝗔𝗪𝗦 revenue grew 𝟯𝟳%, 𝗔𝘇𝘂𝗿𝗲 𝟰𝟯%, and 𝗚𝗼𝗼𝗴𝗹𝗲 𝗖𝗹𝗼𝘂𝗱 𝟴𝟮%. ➤ Google Cloud backlog reached $𝟱𝟭𝟰 𝗯𝗶𝗹𝗹𝗶𝗼𝗻; AWS backlog reached $𝟰𝟵𝟲 𝗯𝗶𝗹𝗹𝗶𝗼𝗻. ➤ JPMorgan maintained its valuation multiple near 𝟮𝟬𝘅 despite stronger fundamentals. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Signals growing confidence in AI-driven earnings and corporate profitability. ➤ Reinforces bullish outlook for hyperscalers and AI infrastructure leaders. ➤ Higher S&P 500 target reflects improving expectations for U.S. equities. ➤ Continued AI investment supports long-term demand for chips, cloud, and data centers. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁: 𝗗𝘂𝗯𝗿𝗮𝘃𝗸𝗼 𝗟𝗮𝗸𝗼𝘀-𝗕𝘂𝗷𝗮𝘀 and JPMorgan strategists: "remains strong and broad-based across multiple sectors." "one of the strongest fundamental backdrops since GFC." "stronger cloud growth, backlog expansion, and improved operating cash flow visibility cleared a high investor expectation bar."
 
-@matanshitrit [Sun Aug 02 06:03:59 +0000 2026]: הפד ודוחות הטכנולוגיה עוברים למרכז הבמה | סקירה שבועית 02/08/26 לבקשתכם - מעכשיו גם באפל פודקאסט אשמח לשיתופים 🙏 נושאים - ⁠- סיכום ביצועים בשווקים הפיננסים וסביבת מכפילים ⁠- דרום קוריאה – כשהמינוף משתלט על המדד ⁠- הסיפור הגדול של הסופ"ש בוול סטריט – ליאופולד אשנברנר ⁠- עונת הדו"חות בוול סטריט – תמונת מצב עד כה, כולל מייקרוסופט, אמזון, אפל ומטא ⁠- החלטת הריבית הניצית של הפד, הזינוק בתשואות האג"ח הארוכות ותמחור הריבית ⁠- נתוני הצמיחה לרבעון השני בארה"ב – חזקים יותר מהשורה העליונה ⁠- עוצמת הצריכה הפרטית בישראל לקראת נתוני הצמיחה ⁠- שוק האג"ח המקומי ותמחור ריבית בנק ישראל ⁠- מבט לשבוע הקרוב – מאקרו ועונת הדו"חות שבוע טוב! יוטיוב – https://t.co/Let6BMnokh ספוטיפיי - https://t.co/MyrXpZI8i7 אפל פודקאסט – https://t.co/On12Am2dLf
+@KobeissiLetter [Mon Aug 10 10:47:50 +0000 2026]: BREAKING: SpaceX, $SPCX, officially rises back above its IPO price, now up +30% in 3 days. https://t.co/OECRjJEeaJ
 
-@ModiShafrir [Wed Jul 15 16:50:51 +0000 2026]: מדד חודש יוני נותר לל"ש, בדומה להערכתנו ומעל לממוצע תחזיות החזאים והשוק לירידה של כ- 0.1%. חרף ההפתעה כלפי מעלה (וההאצה במחירי השכירות), האינפלציה השנתית התמתנה ל- 1.60% YoY (לעומת 1.90%+ בחודשיים האחרונים), והתמתנות נרשמה גם במדדי הליבה השונים. מה ההשלכות לגבי ריבית בנק ישראל? 1/
+@gurgavin [Tue Aug 04 20:19:02 +0000 2026]: SPACEX SHARES ARE DOWN ALMOST 9% AFTER HOURS AFTER REPORTING EARNINGS WIPING ALL THE GAINS FROM EARLIER TODAY $SPCX https://t.co/jTrQWhzs1C
 
-@matanshitrit [Fri Aug 07 13:38:04 +0000 2026]: דו"ח התעסוקה ביולי חלש משמעותית מהציפיות לפי נתוני שוק העבודה לחודש יולי, מספר המשרות ירד ב-23 אלף, לעומת צפי לתוספת של כ-80 אלף משרות. בנוסף, נרשם עדכון משמעותי כלפי מטה של כ-103 אלף משרות עבור החודשיים הקודמים במצטבר. שיעור האבטלה ירד מ-4.2% ל-4.1% (צפי 4.2%), אך הירידה נרשמה במקביל לירידה של 0.1 נ"א בשיעור ההשתתפות, לרמה של 61.4% בלבד, (צפי ל-61.6%). כלומר, הירידה באבטלה מעט פחות מרשימה מכפי שנראה במבט ראשון. אגב, בסקירה השבועית שבתחילת יולי הרחבתי על הסביבה הדמוגרפית החדשה, כזאת שלא דורשת תוספת משרות כדי לשמור על אבטלה יציבה (כתוצאה מהירידה בהשתתפות). מצרף לינק - https://t.co/7KEuAW91CL הסקטורים שהובילו את הירידה במספר המשרות ביולי היו הסקטור הממשלתי, עם ירידה של 53 אלף משרות, פנאי ואירוח עם ירידה של 40 אלף, ומסחר קמעונאי עם ירידה של כ-19 אלף. מנגד, בתעשייה ובבנייה מספר המשרות המשיך לעלות - דבר שעשוי להיות מוסבר, בין היתר, על רקע המשך ההשקעות בבניית מרכזי נתונים (Data Centers), במיוחד כאשר הבנייה למגורים עדיין מוגבלת יחסית על רקע סביבת הריבית הגבוהה. מצד אחד, ייתכן שהנתונים עדיין רועשים על רקע השפעות המונדיאל, כפי שמשתקף בעיקר בענפי הפנאי והאירוח. מצד שני, ייתכן שהחולשה מתחילה לשקף גם השפעה רחבה יותר של מחירים גבוהים ואי וודאות סביב המלחמה במזרח התיכון. השכר הממוצע עלה ב-0.1% בלבד ברמה החודשית (צפי 0.3%), והקצב השנתי האט מ-3.5% ל-3.2% - חדשות טובות יחסית עבור מי שחושש מאינפלציה דביקה. בתגובה לדו"ח, תשואות האג"ח יורדות על רקע ירידה בציפיות להעלאת ריבית (נזכיר כי אנו אחרי שתי דו"חות תעסוקה חלשים מהצפי ואינפלציה שהפתיעה גם היא כלפי מטה במדד האחרון). הציפיות שנה קדימה ירדו מ-1.8 העלאות ריבית במצטבר ל-1.5 העלאות ריבית. במקביל, החוזים על מדדי המניות עולים בתגובה. בשורה התחתונה, דו"ח התעסוקה החלש מציב את הפד בדילמה - מצד אחד, שוק העבודה מאותת על חולשה, אך מצד שני, האינפלציה עדיין עקשנית יחסית. דו"ח אחד חלש מאוד ככל הנראה לא יכתיב לבדו את מדיניות הפד בהחלטה הקרובה, וסביר שהבנק ימשיך בגישת ההמתנה עם הריבית, דבר שיאפשר לו לבחון את הנתונים הכלכליים הבאים לפני שינוי כיוון. שבת שלום !
+@StockMKTNewz [Sun Aug 09 21:32:28 +0000 2026]: SpaceX $SPCX may reportedly complete its $60B acquisition of AI startup Cursor this week
 
-@ModiShafrir [Wed Jul 29 19:40:39 +0000 2026]: הפד הותיר את הריבית ללא שינוי בטווח של 3.5%–3.75% ברוב של 9 מול 3 מתנגדים אשר תמכו בהעלאה של 25bp (השוק תמחר טרם ההודעה העלאה בהסתברות של כ- 33%). הוועדה הותירה בהודעה את המסר בדבר מחויבותה ליציבות מחירים, לצד הערכה כי הכלכלה צומחת בקצב איתן והאינפלציה עדיין גבוהה מהיעד. ✅ הפד ציין בהודעה את שמות שלושת החברים שתמכו בהעלאת ריבית, כולם נשיאי בנקים אזוריים בעלי זכות הצבעה בשנת 2026: Hammack (קליבלנד), Kashkari (מיניאפוליס) ו-Logan (דאלאס). בהקשר לכך בלטה העובדה כי כל חברי מועצת הנגידים (Governor) תמכו בהותרת הריבית על כנה. יו"ר הפד תמך, כאמור, בהותרת הריבית על כנה, אך המסרים שנקט במסיבת העיתונאים היו יחסית 'ניציים': ✅אמר מספר פעמים במסיבת העיתונאים כי הוועדה נחושה להחזיר את האינפלציה לרמה של 2%, לאחר 5 שנים של אינפלציה גבוהה. ✅הבהיר כי הפד 'לא יהסס לפעול' (won't hesitate to act), וכי קובעי המדיניות יישאו באחריות למאבק באינפלציה. ✅ ווארש אמר כי בעוד שבצד התעסוקה הפד מצליח לעמוד במנדט של תעסוקה מלאה, הפד מצליח הרבה פחות בצד המחירים (The Fed is doing well on the full employment side of its mandate, but we're doing considerably less well on prices). ✅ בנימה 'יונית' יותר, Warsh ציין לחיוב את הירידה בציפיות האינפלציה מאז החלטת הריבית הקודמת, שלטעמו נבעה מהבנת השווקים את מחויבות חברי הוועדה להחזרת האינפלציה אל עבר היעד. ✅בנוסף, ווארש אמר כי הוא שבע רצון מכך שהשווקים עושים חלק מהעבודה עבור קובעי המדיניות (בהתייחסו לעליית התשואות החדה בתקופה האחרונה). לסיכום - חרף הנימה ה'ניצית' של יו"ר הפד, התשואות בטווחים הקצרים דווקא ירדו במהלך מסיבת העיתונאים והשוק מתמחר עתה העלאת ריבית בספטמבר בהסתברות של 57% בלבד, וסך הכל 1.25 העלאות ריבית בשנת 2026
+@gurgavin [Fri Aug 07 20:01:46 +0000 2026]: TRADE DESK SHARES ARE NOW DOWN ALMOST 90% OVER THE LAST 1 YEAR FROM $70 BILLION AT PEAK TO NOW JUST $6 BILLION LATEST VICTIM OF THE AI TRADE $TTD https://t.co/CtCiamgZYW
 
-@ModiShafrir [Mon Jul 06 14:43:04 +0000 2026]: ב"י הוריד את הריבית ב- 25bp לרמה של 3.50% (בהתאם להערכתנו, ולהערכת הקונצנזוס). דברי הנגיד במסיבת העיתונאים היו יחסית 'יוניים' (במיוחד בהשוואה להודעת הריבית הקודמת) ✅ הנגיד הדגיש אמנם כי קיימת אי וודאות גדולה מאד סביב עתיד הריבית, וכי ההחלטות התקבלו בהתאם לנתונים שיתפרסמו (Data depended), אך בנימה 'יונית' ציין ש"ככל שציפיות האינפלציה יורדות, ובוודאי אם יתקרבו לגבול התחתון של היעד, הדבר מצדיק מדיניות מוניטרית מרחיבה יותר, ובקצבים מהירים יותר". בנוסף, כמענה לשאלת אחד העיתונאים - הנגיד לא פסל את האפשרות התיאורטית לכך שב"י יוריד את הריבית בפעימה אחת בשיעור של 50bp. ✅ בנימה 'ניצית' יותר - הנגיד ציין את האצת שכר הדירה, והשכר הממוצע וכן את ההתפתחויות האחרונות בתקציב המדינה, כגורמים המחייבים זהירות רבה יותר מצד ב"י. ✅ התייחסות ב"י לעתיד האינפלציה הייתה 'יונית' בהשוואה להודעות הקודמות – בעוד שבהודעות הריבית הקודמות צוין כי " להערכת הוועדה קיימים סיכונים לעלייה מחודשת של האינפלציה", בהודעה הנוכחית ציינו בב"י כי "להערכת הוועדה, קיימים מספר גורמים שיכולים להשפיע בכיוונים מנוגדים על התפתחות האינפלציה". ✅ חטיבת המחקר הורידה את תחזיתה לרמת הריבית בעוד כשנה ל- 3.0% (ריבית ממוצעת ברבעון השני של 2027) – מעט מעל לציפיות השוק לכ- 2.85%. ✅בנימה 'נניצית יותר - הנגיד הזהיר כי עליית תקציב הבטחון מעבר למוסכם תוביל לעלייה חדה בגירעון ולעליית האינפלציה בכ- 0.3% שורה תחתונה – אנו נותרים בינתיים בהערכתנו (התואמת עתה גם את תחזית חטיבת המחקר של ב"י) כי הריבית תעמוד בעוד כשנה על כ- 3.0%.
+@gurgavin [Thu Aug 06 20:42:21 +0000 2026]: ITS OVER FOR SPACEX $SPCX
 
-@calcalist [Fri Aug 07 17:00:01 +0000 2026]: זוג מתל אביב שכר יחידת אחסון עם כספת אישית, ולא פינה אותה בתום השכירות. חברת הכספות בריקסטון פנתה אליהם עשרות פעמים ולא קיבלה מענה. לאחר 399 ימי איחור, החברה פרצה את הכספת. התכולה: 50 שקל. ועכשיו חברת הכספות תובעת את הזוג על סך יותר מ-21 אלף שקל. https://t.co/QXJ6C94xn3 https://t.co/ZfhZRPYZrk
+@gurgavin [Thu Aug 06 03:34:41 +0000 2026]: FOR CONTEXT STARTING TOMORROW SPACEX EMPLOYEES CAN START SELLING SHARES IN THE OPEN MARKET FOR THE FIRST TIME EVER KEY EMPLOYEES HAVE ALREADY STARTED LEAVING RIGHT WHEN THEY CAN CASH OUT $SPCX https://t.co/Qrfq7I2XMd
 
-@SponserNews [Thu Aug 06 12:01:40 +0000 2026]: נובה עוקפת את התחזיות: הכנסות של 255 מיליון דולר ברבעון השני: ההכנסות ברבעון השני עלו ב-8% לרמה של 255 מיליון דולר; ויסמן: "יש לנו תמונה עסקית ברורה יותר ברבעונים הקרובים, צבר הזדמנויות חזק וביטחון ביכולתנו להציג שנה נוספת של צמיחה רווחית" https://t.co/e3CSUdAQyD
+@gurgavin [Wed Aug 05 20:39:05 +0000 2026]: SPACEX SHARES CLOSED TODAY AT THE LOWEST PRICE SINCE IT WENT PUBLIC $SPCX https://t.co/wapc5vQuc3
 
-@ModiShafrir [Sun Jul 19 05:59:07 +0000 2026]: תמצית הסקירה השבועית 19.07.26 1. שווקים 🌎 ונפט - מניות השבבים ה- AI ירדו ביום שישי בחדות, על רקע דחיית השקת המודל החדש של Gemini, העלאת תחזית ההשקעות (capex) של TSMC, והשקת מודל ה- Kimi K3 של Moonshot הסינית, אשר עוררה חששות כי מודלים סיניים זולים ישחקו את הביקוש לשבבים בארה"ב (בדומה ל'הלם DeepSeek' מתחילת 2025).
+@KobeissiLetter [Sun Aug 09 22:52:40 +0000 2026]: BREAKING: Unrealized losses on domestic bond holdings for Japan's 4 largest life insurers rose +7% in Q2 2026, to a record $96 billion. All 4 insurers, Nippon Life, Daiichi Life, Sumitomo Life, and Meiji Yasuda, reported increases in paper losses. This marks the 7th consecutive quarterly increase, with unrealized losses more than tripling over the period. Japanese life insurers typically hold government bonds and other debt securities until maturity to match their long-term insurance obligations. However, a potential surge in customer policy cancellations could force them to liquidate those holdings to meet payouts, putting pressure on both investment portfolios and earnings. This comes as 30-year Japanese government bond yields surged above +4.0% in May for the first time since the bonds were introduced in 1999, driven by concerns that Prime Minister Takaichi's administration may increase fiscal spending. Pressure on Japan's financial institutions is intensifying.
 
-@ModiShafrir [Sun Jul 12 08:08:23 +0000 2026]: תמצית הסקירה השבועית 12.07.26: 1. שווקים ונפט 🌎- מחירי הנפט ירדו לקראת הסופ"ש, אך עדיין סגרו את השבוע בעלייה של כ- 5.4%+, על רקע חששות השווקים מחזרה למלחמה במזרח התיכון. ארה"ב הכריזה כי הפסקת האש עם איראן 'הסתיימה' (over), והציבה לאיראן מועד אחרון (ליום שבת) להכרה פומבית בכך שמיצרי הורמוז יוותרו פתוחים לשיט. ✅חרף הסלמת המתיחות במזה"ת, מדד הנאסד"ק עלה השבוע ב- 1.7%, על רקע ידיעות חיוביות ממגזר הטכנולוגיה.
+@KobeissiLetter [Sun Aug 09 17:30:05 +0000 2026]: BREAKING: President Trump says he is “low keying it with Iran” and he is prepared to allow economic pressure to mount as opposed to ordering a new military offensive, per Axios. Details include: 1. On Saturday, Iran issued a new list of demands to allow shipping through the Strait of Hormuz 2. “We are only semi-negotiating with them,” Trump said 3. US officials say President Trump is looking to “de-escalate for now” US stock market futures open in under 5 hours.
 
-@matanshitrit [Mon Aug 03 13:26:00 +0000 2026]: רובנו מכירים את מדד מחירי הדיור של הלמ״ס (איך אפשר שלא עם כל הרעש סביבו בשנה-שנתיים האחרונות), אבל אולי פחות מכירים את מדד מחירי הדירות של מכון אקרו (לשעבר מדד G City). המדד מבוסס על שיטת המדידות החוזרות (Repeat Sales), בדומה למדד Case-Shiller בארה״ב. במקום להשוות בין דירות שונות, הוא בוחן את אותה הדירה בשתי עסקאות שבוצעו במועדים שונים. כך מנטרלים במידה רבה את ההשפעה של שינויי איכות ותמהיל הדירות שנמכרו. למעשה, המדד מבוסס על שוק היד השנייה. כמה נתונים מעניינים - • ברמה הארצית, המחירים הנומינליים כמעט שלא השתנו כלל מאז הרבעון השני של 2024. • באזורי השרון, גוש דן, המרכז והדרום – המחירים נותרו יציבים מאז הרבעון השלישי של 2022. לעומת זאת, באזור הצפון, חיפה והקריות נרשמה עלייה של כמעט 15% באותה התקופה. בתרשים המצורף אפשר לראות את ההתפתחות בעשור האחרון (כולל את השיעור שינוי בשנה האחרונה). בתגובה אצרף גם את המדד במונחים ריאליים - שם תראו עד כמה הירידה הריאלית בולטת. למה אני מעלה את זה? בימים שבהם עסקאות רבות בשוק הדירות החדשות כוללות הטבות מימון שאינן מנוכות ממדד מחירי הדירות של הלמ"ס, המבוסס על המחיר הנקוב בחוזה, ייתכן שכדאי לתת תשומת לב גם למדד המבוסס על שוק היד השנייה - מדד שעשוי לספק תמונה נקייה יותר של כיוון המחירים בשוק. למי שרוצה לשחק עם הנתונים בעצמו, מצרף את הקישור - https://t.co/rvE4cPXUxb
+@wallstengine [Mon Aug 10 11:08:23 +0000 2026]: MONDAY .COM $MNDY Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $364.6M (Est. $355M) 🟢; +22% YoY 🔹 Adj. EPS: $1.48 (Est. $1.11) 🟢; +36% YoY 🔹 Non-GAAP Oper Income: $61.1M (Est. $47.2M) 🟢; +35% YoY 🔹 AI Products ARR: 17% of net new ARR FY26 Guide: 🔹 Revenue: $1.47B-$1.47B (Est. $1.47B) 🟡 🔹 Operating Income: $230M-$234M (Est. $193M) 🟢 🔹 Adjusted FCF: $280M-$290M (Est. $308M) 🔴 Q3 Guide: 🔹 Revenue: $368M-$370M (Est. $373M) 🔴 🔹 Operating Income: $57M-$59M (Est. $47.2M) 🟢 Other Q2 Metrics: 🔹 Net Dollar Retention Rate: 109% 🔹 Non-GAAP Operating Margin: 17%; +200 bps YoY 🔹 Adjusted Free Cash Flow: $52.3M; -18% YoY 🔹 RPO: $937M; +34% YoY 🔹 cRPO: $750M; +27% YoY Capital Return: 🔹 Share Repurchases: $182M 🔹 Repurchase Authorization: $870M utilized; no shares available Comments: 🔸 “We made the difficult decision to restructure our organization, sharpen our product portfolio, and commit fully to the AI Work Platform” 🔸 “customer response to our new direction continues to exceed our expectations.”
 
-@fundercoil [Fri Aug 07 15:33:08 +0000 2026]: לקראת דוח התעסוקה בארה"ב: נובה ואורמת מדווחות, הנפט מטפס על רקע מצר הורמוז https://t.co/qAEnZNlsw5
+@StockMKTNewz [Sun Aug 09 21:08:54 +0000 2026]: The NASDAQ 100 $QQQ is up by 276% since the 3rd worst day in S&amp;P 500 history on March 16th, 2020 https://t.co/Kc7HFjUvWE
 
-@SponserNews [Fri Aug 07 10:32:11 +0000 2026]: אפולו פאוור: צמיחה חדה בהכנסות, אך ההפסד התפעולי והנקי העמיקו. יום טוב סמיה פורש: הכנסות החברה ברבעון גדלו בכ- 160% לעומת הרבעון המקביל אשתקד לכ- 8.3 מיליון שקל; ההפסד הנקי במחצית העמיק ל-80.1 מיליון שקל, לעומת 72.8 מיליון שקל במחצית הראשונה של 2025 https://t.co/WLhmPc1zFw
+@StockMKTNewz [Sun Aug 09 20:35:37 +0000 2026]: Tesla $TSLA will increase its delivery locations in Japan 🇯🇵 by 60% this year - NikkeiAsia https://t.co/sIOHwyZa3j
 
-@SponserNews [Fri Aug 07 08:01:31 +0000 2026]: אביסרור החלה להיסחר לאחר שגייסה כ-530 מיליון שקל לפי שווי של 2.6 מיליארד שקל: החברה מצטרפת ל-19 חברות חדשות שהנפיקו את מניותיהן לראשונה בבורסה בשנת 2026. כ-40% מהחברות שהנפיקו מתחילת השנה הן מענף הנדל"ן https://t.co/MyFsoZcN2r
+@KobeissiLetter [Sun Aug 09 15:08:00 +0000 2026]: BREAKING: President Trump has been floating the idea privately to senior aides that he's willing to "walk away" from the Iran War without a nuclear deal should Iran fully reopen the Strait of Hormuz, per WSJ. Details include: 1. This objective reportedly became "more difficult" yesterday when Iran insisted on its highest price yet for reopening the Strait of Hormuz 2. Iran is now seeking billions of dollars in US payments, the removal of US troops from the region, among other things to reopen Hormuz 3. US officials said Trump is patient and expected to ride out the latest developments as long as gas prices remain where they are 4. Trump has reportedly told senior aides that Iran is likely unable to revive its nuclear work during his presidency The Iran War negotiations are becoming increasingly complicated.
 
-@SponserNews [Fri Aug 07 07:17:46 +0000 2026]: רציו פטרוליום לא מוותרת: מעלה את הרף בהצעה לרכישת Pharos: הצעה זו, לפי שווי של 200 מיליון דולר, מגיעה בהמשך להצעת רכישה אותה ביצעה רציו פטרוליום בחודש יוני האחרון ולאחר שחברת אנרגיה בריטית נוספת הגישה הצעה מתחרה גבוהה בכ-20% https://t.co/HBTv55lBty
+@KobeissiLetter [Sun Aug 09 14:38:19 +0000 2026]: Key Events This Week: 1. July Existing Home Sales data - Tuesday 2. OPEC Monthly Report - Wednesday 3. July CPI Inflation data - Wednesday 4. July PPI Inflation data - Thursday 5. July Retail Sales data - Friday 6. August MI Consumer Sentiment data - Friday It's a big week for inflation data.
 
-@SponserNews [Thu Aug 06 11:17:25 +0000 2026]: בנק ישראל סיים לרכוש דולרים? נתוני היתרות של בנק ישראל בחוץ: יתרות המט"ח של ישראל נותרו ברמה גבוהה במיוחד, כאשר בסוף יולי הן עמדו על 37.2% מהתוצר המקומי הגולמי – שיעור המשקף את כרית הביטחון המשמעותית שבנק ישראל https://t.co/IWI7j7UytO
+@wallstengine [Mon Aug 10 12:02:05 +0000 2026]: Archer $ACHR to acquire Boeing’s Wisk Aero, SkyGrid and Insitu in an aerospace AI deal. Boeing $BA will take an equity stake in Archer and retain access to Wisk’s autonomous flight technology. Insitu generates $200M+ in annual revenue, while the acquisitions are expected to expand Archer’s ZEE aerospace and defense AI platform
 
-@globesnews [Sat Aug 08 13:53:19 +0000 2026]: היורש של באפט מספק את הסחורה: כל הנתונים מדוחות הרבעון השני https://t.co/CNf3LnrO5p https://t.co/LsWQ6Ujrzk
+@wallstengine [Mon Aug 10 11:47:22 +0000 2026]: Clear Street analyst Greg Pendy upgraded BlackSky Technology $BKSY from Hold to Buy with a price target of $41 from $29
 
-@TheMarker [Sat Aug 08 14:00:16 +0000 2026]: הסיפוח בדרך? חברה המקורבת לטראמפ מקדמת קידוחי נפט בגרינלנד https://t.co/o8UbepXbLn
+@wallstengine [Mon Aug 10 11:17:49 +0000 2026]: $CEVA Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $29.0M (Est. $28.2M) 🟢; +13% YoY 🔹 Adj. EPS: $0.08 (Est. $0.07) 🟢; +14% YoY 🔹 Licensing & Related Revenue: $18.2M; +21% YoY Segment Net Revenue: 🔹 Licensing & Related: $18.2M; +21% YoY 🔹 Royalties: $10.8M; +1% YoY Other Q2 Metrics: 🔹 Non-GAAP Operating Margin: 11%; +800 bps YoY 🔹 Non-GAAP Net Income: $2.3M (Est. $2.2M) 🟢; +28% YoY 🔹 Royalty Revenue: $10.8M; +1% YoY Comments: 🔸 “Our agreement signed in the quarter with a leading global AI and computing platform company represents an important expansion of our AI customer base.” 🔸 “Combined with improving royalty trends and disciplined expense management, this drove non-GAAP operating margin to 11%, up from 3% a year ago, demonstrating the operating leverage inherent in our business model.”
 
-@ModiShafrir [Thu Jul 02 12:53:08 +0000 2026]: נתוני התעסוקה ב- 🇺🇸 של חודש יוני היו חלשים מהציפיות, כך שהשוק מתמחר עתה הסתברות נמוכה (20%) להעלאת ריבית הפד בחודש יוני, והסתברות של כ- 62% להעלאה בספטמבר: ✅ דו"ח ה NFP הצביע על תוספת של 57 אלף עובדים ביוני (צפי ל- 113+ אלף), שאת לאחר שנתוני החודשיים הקודמים עודכנו כלפי מטה בחדות (-74 אלף משרות). ✅ סקר כח האדם הצביע אמנם על ירידת שיעור האבטלה ל- 4.2% (צפי ל- 4.3%), אך זאת במקביל לירידה חדה מאד בשיעור ההשתתפות בכח העבודה (היצע העובדים) , כך שלפי סקר זה בחודש יוני נגרעו כ- 507 אלף עובדים... בגרף ניתן לראות שבכ- 5 מתוך 6 החודשים האחרונים נרשמה, לפי סקר זה, התכווצות במספר העובדים בשוק התעסוקה. 1/
+@KobeissiLetter [Mon Aug 10 01:31:08 +0000 2026]: Saudi Arabia's crude export flows are facing renewed uncertainty: Saudi Arabia's crude exports fell -460,000 barrels per day in July, to 4.19 million barrels per day. The 746-mile pipeline carrying crude from Saudi Arabia's eastern oil fields to the Red Sea coast has been a key factor in bypassing the Strait of Hormuz, making Yanbu Saudi's primary alternative export route. However, Yanbu has faced fresh threats after Yemen's Houthis pledged to blockade Saudi ports and claimed attacks on Saudi vessels and energy facilities last month. Meanwhile, Yanbu shipments have become harder to track as more vessels switch off their transponders, though satellite images showed 6 very large crude carriers loading at the port over the weekend, a possible sign exports are picking back up. Saudi Arabia's crude exports remain highly volatile.
 
-@matanshitrit [Thu Jul 30 12:36:58 +0000 2026]: הרבה נתונים פורסמו בזה הרגע בארה"ב - 1) הצמיחה ברבעון השני הסתכמה ב-1.5% (צפי 2.0%) - על פניו מספר נמוך מהצפי, אך הביקוש המקומי דווקא היה חזק (מאוד) כאשר המכירות הסופיות לרוכשים פרטיים מקומיים (צריכה והשקעות) צמחו ב-3.9%. מה גרע על הצמיחה? יבוא שכרגע כ-1.5 נ"א מהצמיחה, בעיקר על רקע יבוא של ציוד הון, שבבים, תקשורת וציוד תעשייתי. בנוסף, המלאים גרעו כ-0.7 נ"א מהצמיחה הרבעונית. 2) מדד המחירים (המועדף על הפד/או שפחות מועדף היום) - ירד ב-0.1% והקצב השנתי התמתן מ-4.1% ל-3.7% (בהתאם לצפי)
+@StockMKTNewz [Mon Aug 10 11:45:13 +0000 2026]: Intel $INTC just announced plans to raise $15 Billion by selling shares of common stock in the company https://t.co/kfZYgwNMdc
 
-@fundercoil [Fri Aug 07 15:28:37 +0000 2026]: שוק העבודה בארה"ב מאבד גובה: נתוני תעסוקה חלשים במיוחד מקפיצים את השווקים ומחלישים את הדולר https://t.co/CSEv5eheGw
+@AIStockSavvy [Mon Aug 10 12:00:52 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: Archer to Acquire Boeing's Wisk, SkyGrid, and Insitu to Build Physical AI Platform - $ACHR $BA 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗔𝗿𝗰𝗵𝗲𝗿 will acquire 𝗕𝗼𝗲𝗶𝗻𝗴'𝘀 Wisk, SkyGrid, and Insitu subsidiaries. ➤ Transaction creates an end-to-end 𝗽𝗵𝘆𝘀𝗶𝗰𝗮𝗹 𝗔𝗜 platform for aerospace and defense. ➤ Deal adds a profitable defense business generating over $𝟮𝟬𝟬 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 in annual revenue. ➤ Combined companies bring nearly 𝟮 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 cumulative flight hours. ➤ Technologies will strengthen Archer's 𝗭𝗘𝗘 AI foundation model. ➤ Boeing will take an equity stake and become a 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝗶𝗰 𝗽𝗮𝗿𝘁𝗻𝗲𝗿 to Archer. ➤ Companies will establish a long-term 𝘁𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝘆-𝘀𝗵𝗮𝗿𝗶𝗻𝗴 collaboration. ➤ Insitu operates across 𝟯𝟱 𝗰𝗼𝘂𝗻𝘁𝗿𝗶𝗲𝘀 and has delivered over 𝟯,𝟱𝟬𝟬 UAS. ➤ Transaction is expected to close by the end of 𝟮𝟬𝟮𝟲, subject to regulatory approvals. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Positions Archer as a leading 𝗽𝗵𝘆𝘀𝗶𝗰𝗮𝗹 𝗔𝗜 platform for commercial and defense aviation. ➤ Expands Archer beyond eVTOL into autonomy, AI software, and defense technologies. ➤ Gives Boeing continued exposure to next-generation autonomous aviation through its Archer stake. ➤ Accelerates AI-driven aviation innovation by combining proven autonomy, airspace management, and UAS technologies. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁𝘀: 𝗔𝗱𝗮𝗺 𝗚𝗼𝗹𝗱𝘀𝘁𝗲𝗶𝗻, Founder and CEO of Archer: "This is a watershed moment for Archer and the future of physical AI in aerospace and defense. This is the next big step forward in becoming a diversified platform, rapidly growing our revenue base and bringing scale to our business." 𝗕𝗿𝗶𝗮𝗻 𝗬𝘂𝘁𝗸𝗼, Boeing Vice President, Commercial Airplanes Product Development: "This transaction is a win-win for Boeing and Archer. It allows Wisk, SkyGrid and Insitu to accelerate capability development and time to market while ensuring Boeing capitalizes on its investments in these technologies over the past two decades through continued development in our core businesses. Having worked with the incredible teams in these companies firsthand, it's clear this transaction will create an industry leader in the advanced aviation market. We look forward to collaborating with Archer to drive continued innovation in aerospace, defense and autonomy."
 
-@fundercoil [Fri Aug 07 15:23:53 +0000 2026]: מניבים מסכמת מחצית עם צמיחה דו-ספרתית, מעלה תחזית FFO ומחלקת דיבידנד https://t.co/IlCfYBrhCl
+@AIStockSavvy [Mon Aug 10 11:56:18 +0000 2026]: $DDOG | Stifel 𝗿𝗲𝗶𝘁𝗲𝗿𝗮𝘁𝗲𝘀 𝗕𝘂𝘆 on 𝗗𝗮𝘁𝗮𝗱𝗼𝗴, PT $𝟯𝟬𝟱 Analyst sees de-risked OAI commentary but models a roughly 2% NTM revenue headwind from lower future OAI revenue. https://t.co/h73gx6kDb6
 
-@fundercoil [Fri Aug 07 14:50:43 +0000 2026]: נקסט ויז׳ן: הזמנות ב-14.4 מיליון דולר משני לקוחות; יסופקו עוד השנה https://t.co/kRLqzTJRGR
+@AIStockSavvy [Mon Aug 10 11:54:21 +0000 2026]: $MSFT | Bernstein SocGen Group maintains 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on Microsoft Corporation, raises PT to $𝟲𝟲𝟬 from $𝟲𝟰𝟳 https://t.co/K8f34gZDvT
 
-@SponserNews [Fri Aug 07 07:43:50 +0000 2026]: המנכ”לים של מאנדיי: קודם מפטרים 620 עובדים, אחר כך מכפילים לעצמם את השכר: שבועיים אחרי שמאנדיי שלחה הביתה כ-620 עובדים בעלי המניות אישרו למנכ"לים המייסדים עלאת שכר; כי ככה נראית "התייעלות" בעידן ה-AI https://t.co/eEZqjwvP3a
+@AIStockSavvy [Mon Aug 10 11:40:38 +0000 2026]: $UBER | Jefferies 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗕𝘂𝘆 on 𝗨𝗯𝗲𝗿 𝗧𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝗶𝗲𝘀, raises PT to $𝟭𝟭𝟬 from $𝟭𝟬𝟬 Analyst sees a bullish 2027 story crystallizing through sustainable Bookings growth and progress scaling US AV operations. https://t.co/USBpKP4lyP
 
-@SponserNews [Fri Aug 07 06:32:56 +0000 2026]: נקסט ויז’ן קיבלה שתי הזמנות חדשות בהיקף מצטבר של 14.4 מיליון דולר: ההזמנה הראשונה, בהיקף של כ-11.7 מיליון דולר ואילו ההזמנה השנייה, בהיקף של כ-2.7 מיליון דולר; כל אחד מהלקוחות שילם מקדמה בשיעור של 20% מערך ההזמנה https://t.co/gYHJjEYZrD
+@wallstengine [Mon Aug 10 11:48:54 +0000 2026]: GAMESTOP’S $GME RYAN COHEN IS SAID TO WEIGH PULLING $56 BILLION EBAY BID https://t.co/C3z0LeRmTj
 
-@globesnews [Sat Aug 08 18:07:47 +0000 2026]: במשחק הכיסאות הזה אף אחד לא ירצה להיתפס אחרון עם 325 טריליון דולר של חוב שנשחק במהירות https://t.co/wymPeivMU7 https://t.co/TMOxSf57J5
+@wallstengine [Mon Aug 10 11:17:39 +0000 2026]: CAMTEK $CAMT Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $133.2M (Est. $130M) 🟢; +8% YoY 🔹 Adj. EPS: $0.78 (Est. $0.76) 🟢; +2% YoY 🔹 Non-GAAP Oper Income: $36.0M (Est. $34.9M) 🟢; -4% YoY 🔹 Non-GAAP Net Income: $39.4M (Est. $38.7M) 🟢; +2% YoY Q3 Guide: 🔹 Revenue: $158M-$160M (Est. $149M) 🟢 H2-26 Guide: 🔹 Growth: 30%+ vs. H1-26 2027 Outlook: 🔹 Growth: Continued growth into 2027 Other Q2 Metrics: 🔹 GAAP Gross Margin: 50.1%; -70 bps YoY 🔹 Non-GAAP Gross Margin: 51.4%; -50 bps YoY 🔹 Operating Cash Flow: $12.2M Comments: 🔸 “results which came ahead of our expectations.” 🔸 “This exceptional order intake coupled with our strong market position in the AP segment is expected to result in phenomenal growth in our AP business of 45% half over half.”
 
-@globesnews [Sat Aug 08 16:36:59 +0000 2026]: מיליארדר ה־AI הכפיל את הונו. גרושתו דרשה חצי ממנו https://t.co/UbRLW7ogxO https://t.co/lb3QYOWyi8
+@KobeissiLetter [Mon Aug 10 00:01:39 +0000 2026]: US hiring plans are improving: US-based employers announced plans to add 16,095 jobs in July, marking a +47% increase from 10,933 in June, the strongest July total since 2022. By comparison, US hiring plans stood at just 3,200 in July 2025, or -80% below this year's level. Aerospace and Defense led all industries last month, with 4,625 announced hires, followed by Technology at 2,470 and Automotive at 2,068. Year-to-date, US hiring plans surged +25% YoY, to 107,500 workers, the strongest January-to-July total since 2023. Technology leads all sectors with 17,231 announcements in 2026, followed by Automotive at 14,704 and Aerospace/Defense at 12,516. US hiring is finally showing signs of life.
 
-@globesnews [Sat Aug 08 16:09:31 +0000 2026]: תמורת אלפי שקלים לתיק: בתי הדין הפרטיים שעוקפים את הסחבת https://t.co/NGe1HeFogU https://t.co/Lq0IlzozxT
+@KobeissiLetter [Sun Aug 09 20:24:52 +0000 2026]: Hedge funds are rapidly unwinding their bearish Yen bets following US-Japan FX intervention: Leveraged funds cut their net short Yen positions by -74,440 contracts, to 63,600 contracts, over the 5 weeks ending August 4th, according to CFTC data. This was one of the sharpest reductions in short positioning since the 2008 Financial Crisis. At the end of June, leveraged funds held 138,000 net short contracts, the largest short position since 2007. This comes as Japanese authorities purchased ~$85 billion worth of Yen between July 30th and 31st to prop up the currency, the largest 2-day currency intervention since 2011, when Japan intervened in the aftermath of the tsunami that caused the Fukushima nuclear disaster. This also marked the first coordinated action between Japan and the US in 15 years, after the Yen weakened to its lowest since 1986. Historic intervention is changing FX market dynamics.
 
-@globesnews [Sat Aug 08 13:07:50 +0000 2026]: מנהל ההשקעות שממליץ על מניה שהיא "כמו לקנות בונקר" https://t.co/fILOzrkSO9 https://t.co/eN9txKOWxG
+@KobeissiLetter [Sun Aug 09 16:24:29 +0000 2026]: BREAKING: Global equity funds attracted +$21.2 billion in inflows in the week ending August 5th. This follows +$27.7 billion in inflows the week prior and marks the 11th consecutive weekly inflow. European equity funds led with +$12.5 billion in inflows, the largest weekly total since July 8th. This was followed by Asian funds at +$8.2 billion, while US funds recorded -$1.6 billion in outflows. Since the start of June, global equity funds have attracted +$215 billion in inflows. Investors are extremely bullish on global stocks.
 
-@calcalist [Sat Aug 08 05:00:00 +0000 2026]: המדור שצולל אל הרגלי השינה של הישראלים, והפעם: גיל נוה, בן 43, דובר שגרירות זרה ודראג קווין (גלינה פור דה־ברה), חי בתל אביב עם בן זוגו, ושתי בנותיהם (בנות 11 ו־9), בהורות משותפת https://t.co/SQM5v3qCfh https://t.co/RSbjACCEMJ
+@gurgavin [Sat Aug 08 15:19:24 +0000 2026]: CANADA’S ECONOMY ADDED 75,000 JOBS LAST MONTH ECONOMISTS EXPECTED CANADA TO ADD JUST 15,000 JOBS 🇨🇦🇨🇦🇨🇦
 
-@TheMarker [Sat Aug 08 17:00:16 +0000 2026]: 100 שקל לק"ג: המחיר של הליצ'י נחתך, אבל בכל זאת יש בעיה קטנה https://t.co/bZV33Ae7Ke
+@gurgavin [Wed Aug 05 02:11:59 +0000 2026]: *US NEARS HORMUZ DEAL, AIMING FOR ANNOUNCEMENT TOMORROW MORNING *U.S &amp; IRAN NEAR 60-DAY DEAL TO REOPEN STRAIT OF HORMUZ *HORMUZ DEAL EXCLUDES TOLLS OR TRANSIT FEES DURING INITIAL 60-DAY PERIOD *PARTIES AGREE TO CLEAR NAVAL MINES FROM HORMUZ WITHIN 30 DAYS
 
-@TheMarker [Sat Aug 08 16:00:15 +0000 2026]: "מישהו השתגע": מה עשה חיל הים עם נשק ב-17 מיליארד שקל? https://t.co/NlhA1nXvIO
+@StockMKTNewz [Mon Aug 10 12:03:05 +0000 2026]: Michael Saylor and MicroStrategy $MSTR just confirmed they sold another 1,690 Bitcoin $BTC this past week at an average price of $64,262 https://t.co/iFbYDJmWV9
 
-@TheMarker [Sat Aug 08 15:00:20 +0000 2026]: שיא של חמש שנים: ברקשייר התאוויי רכשה בחזרה מניות ב–4.5 מיליארד דולר https://t.co/SgzsFQWnnG
+@StockMKTNewz [Mon Aug 10 11:34:38 +0000 2026]: Meta Platforms $META CEO Mark Zuckerberg post this earlier today: “Today we're also opening the weights for Muse Glimmer, a great 30B parameter dense model that can run locally. Soon we'll also release the weights for Muse Spark 1.2, our latest foundation model. Meta is a strong supporter of open source and I'm proud of these releases”
 
-@TheMarker [Sat Aug 08 13:00:15 +0000 2026]: שתי דירות של 160 מ"ר באותה עיר נמכרו בפער של 1.8 מיליון שקל https://t.co/oDw1OKSPHn
+@AIStockSavvy [Mon Aug 10 12:01:25 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $KTOS Kratos Supports U.S.-Japan Missile Defense Flight Test 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗞𝗿𝗮𝘁𝗼𝘀 supported the 𝗠𝗶𝘀𝘀𝗶𝗹𝗲 𝗗𝗲𝗳𝗲𝗻𝘀𝗲 𝗔𝗴𝗲𝗻𝗰𝘆 and 𝗝𝗠𝗦𝗗𝗙 during 𝗝𝗙𝗧𝗫-𝟬𝟭. ➤ 𝗝𝗙𝗧𝗫-𝟬𝟭 validated Japan's next-generation 𝗔𝗘𝗚𝗜𝗦 𝗦𝘆𝘀𝘁𝗲𝗺 𝗘𝗾𝘂𝗶𝗽𝗽𝗲𝗱 𝗩𝗲𝘀𝘀𝗲𝗹 capabilities. ➤ Kratos provided target vehicles for two live radar tracking events. ➤ 𝗦𝗣𝗬-𝟳 radar successfully detected, tracked, and generated simulated engagement solutions. ➤ Flight test produced critical datasets for future 𝗔𝗦𝗘𝗩 development milestones. ➤ Exercise strengthened U.S.-Japan cooperation on advanced missile defense. ➤ Virtual target engagements supported future shipboard missile defense capabilities. ➤ SPY-7 technology is derived from the 𝗟𝗼𝗻𝗴 𝗥𝗮𝗻𝗴𝗲 𝗗𝗶𝘀𝗰𝗿𝗶𝗺𝗶𝗻𝗮𝘁𝗶𝗼𝗻 𝗥𝗮𝗱𝗮𝗿 program. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Reinforces Kratos' role in advanced missile defense testing programs. ➤ Supports Japan's next-generation naval missile defense deployment. ➤ Highlights growing U.S.-Japan defense technology collaboration. ➤ Demonstrates continued demand for Kratos' target and defense systems. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁𝘀: 𝗗𝗮𝘃𝗲 𝗖𝗮𝗿𝘁𝗲𝗿, President of Kratos Defense & Rocket Support Services: “Our team’s proven ability to rapidly deliver reliable, mission-relevant target vehicles was central to the success of JFTX-01. Kratos target vehicles provide realistic threat representation, ensuring allied navies can test and validate advanced tracking and engagement solutions with confidence.” 𝗘𝗿𝗶𝗰 𝗗𝗲𝗠𝗮𝗿𝗰𝗼, President and CEO of Kratos: “At Kratos, we are dedicated to investing in and deploying real, mission-relevant products and systems that strengthen the capabilities of the U.S. warfighter and our allies. Our history of rapid development and fielding, combined with affordability as a technology, ensures that systems like Aegis are tested using operationally relevant target vehicles leading to maximum tactical readiness. This JFTX-01 achievement reaffirms Kratos’ leadership in advancing national and global security.”
 
-@matanshitrit [Sun Aug 02 11:21:24 +0000 2026]: מי שחושב שהמינוף במניות השבבים הקוריאניות כבר נשטף - כדאי שיחשוב שוב 😬 אמנם המינוף ב-Samsung נשטף בחלקו, אבל ב-SK Hynix הסיפור הפוך - מספר היחידות במוצר הממונף דווקא זינק לשיא חדש 🤦‍♂️ מתוך הסקירה השבועית שהצגתי הבוקר 👇 https://t.co/vT2fRokXGh https://t.co/rvC2ItzR0h
+@AIStockSavvy [Mon Aug 10 11:49:49 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: GameStop CEO Ryan Cohen is reportedly considering withdrawing his $56 billion bid to acquire eBay. - $GME $EBAY
 
-@fundercoil [Fri Aug 07 17:51:57 +0000 2026]: תוך 9 ימים, אנבידה חוזרת למקום הראשון בעולם, בפער https://t.co/Jl86925qHY
+@AIStockSavvy [Mon Aug 10 11:45:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $INTC Intel Announces Proposed $15 Billion Common Stock Offering
 
-@fundercoil [Fri Aug 07 15:37:46 +0000 2026]: יוצאים לסופ"ש עם טעם מתוק של עליות https://t.co/ipnGRMiwsd
+@AIStockSavvy [Mon Aug 10 11:37:02 +0000 2026]: $SNDK | Argus 𝘂𝗽𝗴𝗿𝗮𝗱𝗲𝘀 𝗦𝗮𝗻𝗗𝗶𝘀𝗸 from Hold to 𝗕𝘂𝘆, PT $𝟭,𝟲𝟬𝟬, 'strong fundamentals' Analyst sees strong fundamentals and accelerating financial momentum creating a compelling entry point after recent profit taking. https://t.co/DCB6QRZ1s8
 
-@fundercoil [Fri Aug 07 14:55:41 +0000 2026]: עסקה אסטרטגית לקבוצת גולד בונד https://t.co/bq7K3Wo0nx
+@AIStockSavvy [Mon Aug 10 11:33:34 +0000 2026]: $SBET | SharpLink Gaming Inc., Q3-2026 Earning Report https://t.co/Oa43UxGFxP
+
+@wallstengine [Mon Aug 10 11:43:16 +0000 2026]: INTEL $INTC TO OFFER $15B OF COMMON SHARES: BBG
+
+@wallstengine [Mon Aug 10 11:39:49 +0000 2026]: INTEL $INTC FILES SHELF REGISTRATION FOR POTENTIAL COMMON STOCK SALES https://t.co/3htddSzFje
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
