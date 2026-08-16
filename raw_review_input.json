@@ -1,12 +1,106 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-08-14T17:40:06.315481+03:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 14.8.2026, 17:40",
-  "first_heading": "עדכון ביניים",
+  "mode": "weekly_summary",
+  "generated_at": "2026-08-16T08:30:48.151481+03:00",
+  "expected_title": "סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – 10/08–14/08/2026",
+  "first_heading": "סיכום השבוע",
   "review_date": "2026-08-14",
-  "title_date_str": "2026-08-14",
-  "title_day_name": "שישי",
-  "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {}
+  "title_date_str": "2026-08-16",
+  "title_day_name": "ראשון",
+  "week_range": "10/08–14/08/2026",
+  "etf_pcts": {
+    "SPY": -0.198,
+    "QQQ": -0.1366,
+    "DIA": -0.2064,
+    "IWM": 0.5239,
+    "XLE": 1.3921,
+    "XLK": -0.3984,
+    "XLF": -0.1716,
+    "XLY": -0.2111,
+    "XLV": -0.5998,
+    "XLI": 0.3875,
+    "XLP": 0.1047,
+    "XLU": 0.6131,
+    "USO": 1.2557,
+    "BNO": 1.8094,
+    "GLD": 0.6316,
+    "SLV": 0.5502,
+    "IBIT": -0.6968,
+    "TLT": -0.6659,
+    "UUP": -0.2484,
+    "VIXY": -1.2195
+  },
+  "ticker_quotes": {
+    "NVDA": {
+      "price": 225.16,
+      "pct": -0.0621,
+      "prev_close": 225.3,
+      "ts": 1786737600
+    },
+    "GOOGL": {
+      "price": 345.9,
+      "pct": -0.1328,
+      "prev_close": 346.36,
+      "ts": 1786737600
+    },
+    "META": {
+      "price": 589.85,
+      "pct": -0.8605,
+      "prev_close": 594.97,
+      "ts": 1786737600
+    },
+    "SPCX": {
+      "price": 140.0,
+      "pct": -0.913,
+      "prev_close": 141.29,
+      "ts": 1786737600
+    },
+    "AAPL": {
+      "price": 305.93,
+      "pct": 0.2195,
+      "prev_close": 305.26,
+      "ts": 1786737600
+    },
+    "AMZN": {
+      "price": 262.65,
+      "pct": -0.9354,
+      "prev_close": 265.13,
+      "ts": 1786737600
+    },
+    "MU": {
+      "price": 971.66,
+      "pct": 2.2983,
+      "prev_close": 949.83,
+      "ts": 1786737600
+    },
+    "NBIS": {
+      "price": 277.68,
+      "pct": 8.877,
+      "prev_close": 255.04,
+      "ts": 1786737600
+    },
+    "MSFT": {
+      "price": 495.4,
+      "pct": -0.2979,
+      "prev_close": 496.88,
+      "ts": 1786737600
+    },
+    "AKAM": {
+      "price": 124.99,
+      "pct": -0.2394,
+      "prev_close": 125.29,
+      "ts": 1786737600
+    },
+    "APH": {
+      "price": 167.11,
+      "pct": 0.8205,
+      "prev_close": 165.75,
+      "ts": 1786737600
+    },
+    "CBRS": {
+      "price": 218.98,
+      "pct": -5.2076,
+      "prev_close": 231.01,
+      "ts": 1786737600
+    }
+  }
 }
