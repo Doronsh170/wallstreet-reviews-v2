@@ -1,8 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
-Script run date: 2026-08-18 (יום שלישי). Briefing target date: 2026-08-18 (יום שלישי).
-The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
+You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
+2026-08-19 (יום רביעי). PAST TENSE.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -19,42 +18,39 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
-no closing levels, and nothing that already appears in the prior-context block.
-KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
+This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
 two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
-a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
-* FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
-  web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
-  open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
-  ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning FROM THE SOURCE
-  TWEETS (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category,
-  and do NOT import a story that web search found on its own:
-  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
-    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
-  - The central story investors will watch today, with the transmission mechanism explained simply
-    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
-  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
-    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
-  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
-  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
-  - Geopolitics / Washington politics with market impact.
-  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
-* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
-No ETF proxies, no Finnhub, no ISO dates.
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
+NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
+fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
+* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
+  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
+  session — how it opened, what moved it, how it closed — not a list of numbers.
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
+  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
+  NOT import a story that web search found on its own:
+  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
+    mechanism explained simply.
+  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
+    expectations, yields, sector rotation).
+  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
+  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
+  - Commodities, dollar and yields — direction and meaning, not a list of prices.
+  - After-hours earnings, or geopolitics that moved markets today — when truly material.
+* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
+Every direction word MUST match the DIRECTIONAL FACTS block.
 
 ══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
 The review is built EXCLUSIVELY from two sources:
 1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
 2. The source tweets below — the ONLY source for stories, news and narrative.
-Web search is permitted for FOUR narrow purposes ONLY:
-  a. Verifying the futures direction and percentage for the opening point.
-  b. Verifying TODAY'S scheduled macro calendar (Israel times, consensus, previous reading), and cross-checking
-     that an event you present as upcoming was not already released.
-  c. Verifying a claim of an all-time high / 52-week high before writing it.
-  d. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+Web search is permitted for THREE narrow purposes ONLY:
+  a. Verifying a claim of an all-time high / 52-week high before writing it.
+  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
+     and cross-checking that an event you present as upcoming was not already released.
 FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
 in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
 cover a story — the review does not cover it either.
@@ -111,17 +107,17 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שלישי, 18.8.2026",
-  "date": "2026-08-18",
+  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 19.8.2026",
+  "date": "2026-08-19",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "נקודות מרכזיות",
+      "heading": "סיכום המסחר",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -140,48 +136,48 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $772.67 (daily: -0.47%), prev close: $776.34
-  Nasdaq 100 (QQQ ETF): $729.87 (daily: -0.16%), prev close: $731.07
-  Dow Jones (DIA ETF): $534.19 (daily: -0.49%), prev close: $536.80
-  Russell 2000 (IWM ETF): $304.06 (daily: -0.34%), prev close: $305.09
-  Energy Sector (XLE ETF): $62.58 (daily: +1.08%), prev close: $61.91
-  Technology Sector (XLK ETF): $190.32 (daily: +0.16%), prev close: $190.01
-  Financials Sector (XLF ETF): $57.58 (daily: -1.00%), prev close: $58.16
-  Consumer Discretionary Sector (XLY ETF): $116.75 (daily: -1.23%), prev close: $118.20
-  Healthcare Sector (XLV ETF): $167.05 (daily: -0.19%), prev close: $167.37
-  Industrials Sector (XLI ETF): $186.32 (daily: -0.10%), prev close: $186.51
-  Consumer Staples Sector (XLP ETF): $84.68 (daily: -1.64%), prev close: $86.09
-  Utilities Sector (XLU ETF): $44.18 (daily: -0.29%), prev close: $44.31
-  WTI Crude Oil (USO ETF): $130.29 (daily: +2.91%), prev close: $126.60
-  Brent Crude Oil (BNO ETF): $51.97 (daily: +2.63%), prev close: $50.64
-  Gold (GLD ETF): $405.49 (daily: +1.00%), prev close: $401.48
-  Silver (SLV ETF): $59.57 (daily: +1.86%), prev close: $58.48
-  Bitcoin (IBIT ETF): $36.42 (daily: +2.22%), prev close: $35.63
-  US 20Y+ Bonds (TLT ETF): $81.35 (daily: -0.84%), prev close: $82.04
-  US Dollar (UUP ETF): $28.10 (daily: -0.04%), prev close: $28.11
-  VIX Volatility (VIXY ETF): $18.82 (daily: +1.02%), prev close: $18.63
+  S&P 500 (SPY ETF): $769.06 (daily: +0.21%), prev close: $767.45
+  Nasdaq 100 (QQQ ETF): $716.08 (daily: -0.20%), prev close: $717.51
+  Dow Jones (DIA ETF): $534.27 (daily: +0.26%), prev close: $532.91
+  Russell 2000 (IWM ETF): $301.72 (daily: +0.50%), prev close: $300.23
+  Energy Sector (XLE ETF): $63.58 (daily: -0.16%), prev close: $63.68
+  Technology Sector (XLK ETF): $183.64 (daily: -1.07%), prev close: $185.62
+  Financials Sector (XLF ETF): $57.48 (daily: -0.62%), prev close: $57.84
+  Consumer Discretionary Sector (XLY ETF): $118.59 (daily: +1.92%), prev close: $116.36
+  Healthcare Sector (XLV ETF): $175.68 (daily: +3.51%), prev close: $169.73
+  Industrials Sector (XLI ETF): $181.95 (daily: -0.88%), prev close: $183.57
+  Consumer Staples Sector (XLP ETF): $86.54 (daily: +1.12%), prev close: $85.58
+  Utilities Sector (XLU ETF): $44.02 (daily: +0.00%), prev close: $44.02
+  WTI Crude Oil (USO ETF): $130.91 (daily: +0.19%), prev close: $130.66
+  Brent Crude Oil (BNO ETF): $52.32 (daily: +0.40%), prev close: $52.11
+  Gold (GLD ETF): $413.84 (daily: +3.84%), prev close: $398.55
+  Silver (SLV ETF): $60.01 (daily: +4.47%), prev close: $57.44
+  Bitcoin (IBIT ETF): $38.78 (daily: +5.96%), prev close: $36.60
+  US 20Y+ Bonds (TLT ETF): $83.02 (daily: +1.67%), prev close: $81.66
+  US Dollar (UUP ETF): $27.88 (daily: -0.92%), prev close: $28.14
+  VIX Volatility (VIXY ETF): $18.31 (daily: -2.92%), prev close: $18.86
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $NVDA: $225.01 (daily: -0.07%), prev close: $225.16
-  $GOOGL: $344.00 (daily: -0.55%), prev close: $345.90
-  $FN: $598.58 (daily: +4.97%), prev close: $570.22
-  $NKE: $39.09 (daily: -4.03%), prev close: $40.73
-  $TSLA: $339.30 (daily: -0.87%), prev close: $342.27
-  $TLA: $23.70 (daily: -0.32%), prev close: $23.77
-  $NDAQ: $96.68 (daily: -0.35%), prev close: $97.02
-  $INFQ: $13.41 (daily: +4.28%), prev close: $12.86
-  $RDDT: $164.50 (daily: -7.63%), prev close: $178.09
-  $RKLB: $82.08 (daily: +2.28%), prev close: $80.25
-  $COHR: $351.22 (daily: +7.79%), prev close: $325.83
-  $MU: $1011.75 (daily: +4.13%), prev close: $971.66
+  $MRNA: $174.38 (daily: +176.97%), prev close: $62.96
+  $GOOGL: $344.72 (daily: +0.15%), prev close: $344.20
+  $NBIS: $223.90 (daily: -9.87%), prev close: $248.43
+  $AAPL: $316.83 (daily: +2.19%), prev close: $310.03
+  $COTY: $3.03 (daily: +10.58%), prev close: $2.74
+  $NFLX: $80.22 (daily: +3.15%), prev close: $77.77
+  $APH: $156.04 (daily: -2.21%), prev close: $159.57
+  $CI: $277.45 (daily: -0.38%), prev close: $278.50
+  $CRDO: $234.82 (daily: -4.53%), prev close: $245.97
+  $JPM: $357.26 (daily: -1.65%), prev close: $363.25
+  $LDOS: $146.31 (daily: +1.97%), prev close: $143.48
+  $PGR: $217.27 (daily: +4.84%), prev close: $207.23
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +2.91%, BNO: +2.63%)
-  זהב: עולה (GLD: +1.00%)
-  ביטקוין: עולה (IBIT: +2.22%)
-  דולר: יציב/כמעט ללא שינוי (UUP: -0.04%)
-  תנודתיות / VIX: עולה (VIXY: +1.02%)
-  אג"ח ארוכות / TLT: יורד (TLT: -0.84%)
+  נפט (WTI/ברנט): עולה (USO: +0.19%, BNO: +0.40%)
+  זהב: עולה (GLD: +3.84%)
+  ביטקוין: עולה (IBIT: +5.96%)
+  דולר: יורד (UUP: -0.92%)
+  תנודתיות / VIX: יורד (VIXY: -2.92%)
+  אג"ח ארוכות / TLT: עולה (TLT: +1.67%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -190,105 +186,109 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ SCHEDULED DATA CHECK (verification only) ══
-Use web search to verify what US economic data is scheduled for release on 2026-08-18 — release time in
-Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
-upcoming was already released. This is schedule verification only: do NOT use the search to import news
-stories the source tweets did not cover.
+══ MANDATORY MACRO TIMING CHECK (verification only) ══
+Use web search to verify the macro calendar for 2026-08-20: which of the majors (CPI headline AND core,
+PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
+actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
+review as a story only if it appears in the source tweets or the verified economic block, with the figures
+they provide (actual, forecast, previous AND the market implication). Never present an already-released
+event as upcoming, and never import from the search a macro story the sources did not cover.
+IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
+bottom-line point.
 ══════════════════════════════════
 
-══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
-Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
+══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
+Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
 
-[סיכום המסחר]
-* הדאו בשיא בעוד הטכנולוגיה נסוגה: הדאו ג'ונס עלה 0.44% וננעל בשיא כל הזמנים סביב 54,349 נקודות, אך ה-S&P 500 ירד 0.20% ונאסד"ק 100 איבד 0.90%. הפער נבע מרוטציה ברורה, כשמגזר הבריאות הוביל עם עלייה של 1.27% בעוד האנרגיה צנחה 2.07% והטכנולוגיה נסוגה 0.53%. מדד הפחד VIX ירד 3.33%, כלומר הירידה בטכנולוגיה לא לוותה בבהלה.
-* השבבים נופלים למרות הדוחות: אדוונסד מיקרו דיוואיסס (AMD) הכתה את התחזיות בכל הפרמטרים, עם הכנסות של 11.54 מיליארד דולר מול צפי של 11.31 מיליארד ורווח מתואם של 1.66 דולר למניה, ובכל זאת המניה צנחה 7.04%. סנדיסק (SNDK) ירדה 5.40% ווסטרן דיגיטל (WDC) איבדה 5.36%, אחרי שמיזוהו הורידה את מחירי היעד לשתיהן תוך שמירה על המלצת קנייה.
-* הזהב והכסף מזנקים יחד: מחיר הזהב זינק 4.14% וחצה את הרף של 4,300 דולר לאונקיה, ומחיר הכסף עלה בשיעור זהה. ברקע, משקיעים סינים חוזרים למתכת, וקרנות הסל המגובות בזהב בסין רשמו 14 ימי גיוס רצופים בהיקף 1.2 מיליארד דולר, הרצף הארוך ביותר מאז מרץ. הדולר נחלש 0.25% ביום המסחר, מה שהוזיל את המתכת עבור מחזיקי מטבעות אחרים.
-* המשרות הפתוחות יורדות והפד נבלם: מספר המשרות הפתוחות בארה"ב ירד ב-178 אלף ביוני ל-7.36 מיליון, הרמה הנמוכה מאז מרץ וירידה חודשית שנייה ברציפות. הנתון החליש את הציפיות להידוק מוניטרי, והשוק מתמחר כעת סיכוי של 47% להעלאת ריבית בספטמבר לעומת 70% קודם לכן. האג"ח הממשלתיות הארוכות הגיבו בעלייה של 0.22%.
-* מניית ספייס אקס (SPCX) בשפל: המניה צנחה 13.61% וננעלה במחיר הנמוך ביותר מאז ההנפקה, למרות שבדוח הראשון שלה כחברה ציבורית הציגה הכנסות של 7.8 מיליארד דולר מול צפי של 6.81 מיליארד. הלחץ מגיע מכיוון אחר. החל ממחר רשאים עובדי החברה למכור מניות בשוק הפתוח לראשונה, ולפי דיווחים עובדי מפתח כבר עוזבים לקראת המימוש.
-* שורה תחתונה למחר: תביעות האבטלה השבועיות יתפרסמו מחר ב-15:30 שעון ישראל בצפי ל-203 אלף לעומת 197 אלף בשבוע שעבר, ולצידן נתוני הפריון לרבעון השני בצפי לעלייה של 0.7%. בהיעדר אירוע מאקרו כבד, הטון ייקבע בעיקר בגל הדוחות, עם קונוקופיליפס (COP) לפני הפתיחה ואיירבנב (ABNB) וקלאודפלייר (NET) אחרי הנעילה.
+[נקודות מרכזיות]
+* החוזים נסוגים והנפט מטפס: החוזים על S&P 500 נסוגים 0.41% לפני הפתיחה, החוזים על נאסד"ק 100 יורדים 0.76% והחוזים על הדאו ג'ונס מאבדים 0.16%. הלחץ מגיע מכיוון האנרגיה, אחרי שמחיר הנפט עלה 2.91% במסחר האחרון. ברקע, נשיא ארה"ב טראמפ איים להפציץ את עומאן אם תפריע למאמץ לפתוח מחדש את מיצר הורמוז, ונפט יקר מחזיר את חשש האינפלציה לשולחן.
+* יום של נתוני דיור ודוח הום דיפו: שני נתוני נדל"ן יעמדו במוקד היום. התחלות הבנייה ליולי יתפרסמו ב-15:30 שעון ישראל בצפי ל-1.39 מיליון יחידות לעומת 1.427 מיליון בחודש הקודם, ומכירות הבתים הממתינות יתפרסמו ב-17:00. במקביל, הום דיפו (HD) תדווח לפני הפתיחה וטול ברדרס (TOL) אחרי הנעילה, כך שהיום כולו סובב סביב שוק הדיור והצרכן האמריקאי.
+* מניית נבידיה (NVDA) מגבה מיזם ענק: לפי FT, נבידיה תעמיד ערבות אשראי של עד 105 מיליארד דולר עבור הקרקע, החשמל והמעטפת של מרכז נתונים חדש של OpenAI במחוז פייק שבאוהיו, ותשקיע 1.5 מיליארד דולר נוספים ב-SB Energy. OpenAI תחכור שם עד 8 גיגה-ואט של כוח מחשוב, והבנייה תימשך עד 2032. זו אחת מעסקאות תשתית ה-AI הגדולות שנחתמו עד היום.
+* ספקיות תשתית ה-AI מכות תחזיות: פבריניט (FN) רשמה הכנסות שיא של 1.32 מיליארד דולר ברבעון מול צפי של 1.27 מיליארד, זינוק של 45% בשנה, ורווח מתואם של 4.10 דולר מול 3.82 בצפי, והתחזית לרבעון הקרוב גבוהה מהקונצנזוס. מיקרון (MU) עלתה 4.13% אחרי שבנק אוף אמריקה חזר על המלצת קנייה, וקוהרנט (COHR) החלה לספק דגימות מצעי SiC ליצרניות שבבי AI.
+* מניית נייקי (NKE) בשפל של 12 שנה: המניה ירדה 4.03% ונסחרת ברמה הנמוכה ביותר מאז ספטמבר 2014, ירידה של 78% מהשיא שרשמה ב-2021. מאז אותו שיא נמחקו יותר מ-200 מיליארד דולר משווי השוק שלה. הצניחה מגיעה בדיוק ביום שבו הום דיפו פותחת את גל דוחות הקמעונאות, ומזכירה שגם מותג עולמי חזק אינו חסין ללחץ על הצרכן.
+* שורה תחתונה: אין היום אירוע מאקרו כבד, והנתונים היחידים בעלי משקל הם התחלות הבנייה ב-15:30 שעון ישראל ומכירות הבתים הממתינות ב-17:00. הטון ייקבע בעיקר במחיר הנפט ובמתיחות סביב מיצר הורמוז מצד אחד, ובדוח הום דיפו לפני הפתיחה מצד שני. התחנה הכבדה הבאה היא סוף החודש, עם דוח נבידיה וכנס ג'קסון הול.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-08-18. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-08-20. Never mention in the review that these came from tweets/posts:
 
-@KobeissiLetter [Mon Aug 17 17:25:00 +0000 2026]: Markets are bracing for a more volatile period ahead: S&P 500 options are pricing a daily implied move of ~0.75% on August 27th, the day after Nvidia, $NVDA, reports its quarterly earnings. The following day, August 28th, carries a ~0.70% implied move in the index as the Jackson Hole symposium begins, making them the two most anticipated volatility events of the month. By comparison, typical daily implied moves on non-event days this week are just ~0.40-0.50%. At the same time, options positioning flipped from long to short gamma in early August, a dynamic that tends to amplify market swings once volatility picks up. Meanwhile, the volatility index, $VIX, finished last week at 14.3 points, the lowest level since December 2025. More volatility is likely ahead of us.
+@KobeissiLetter [Wed Aug 19 22:00:00 +0000 2026]: BREAKING: Moderna stock, $MRNA, extends gains to +212% on the day in after hours trading following positive phase 3 results of first the mRNA treatment to prevent cancer. The stock has now added over +$50 billion in market cap today. https://t.co/eKEU0ZjYqm
 
-@KobeissiLetter [Mon Aug 17 14:03:57 +0000 2026]: BREAKING: Nvidia, $NVDA, has agreed to provide a more than $100 billion backstop for a massive new OpenAI data center in Ohio, per FT. Details include: 1. Nvidia will provide credit support for the "land, power and shell" for the facility capped at $105 billion 2. The data center is being developed alongside a SoftBank-led energy companies 3. Nvidia will also invest $1.5 billion into SB Energy, an energy company founded as part of the SoftBank Group in 2019 4. OpenAI plans to lease as much as 8 gigawatts of AI computing power at the data center in Pike County, Ohio, which will take until 2032 to complete This will mark one of the largest AI infrastructure deals yet.
+@StockMKTNewz [Wed Aug 19 21:32:27 +0000 2026]: Google $GOOGL owned YouTube is reportedly offering millions of dollars to popular channels if they upload their videos to the site exclusively for a certain period of time, in an effort to halt Netflix’s $NFLX pursuit of its biggest stars - Bloomberg https://t.co/xq0WwKM3Vc
 
-@wallstengine [Mon Aug 17 18:39:37 +0000 2026]: UBS PREVIEWS $NVDA EARNINGS: Expect Nvidia to BEAT FQ2 revenue expectations by roughly $3-4 billion, with revenue reaching ~$94-95B. For FQ3, we see guidance in the ~$107-108 billion range and believe revenue could ultimately exceed $110 billion. Blackwell demand remains stable, while Rubin units are beginning to layer in ahead of what should be a more meaningful revenue step-up in FQ4 as Rubin sell-in accelerates toward ~500,000 GPU units per month and Blackwell begins to wind down. Because many of the debates around AI infrastructure spending, ROI, and credit risk are outside NVIDIA’s control, we think the numbers are more important than the narrative. Coming out of this earnings call, we expect investors to gain greater confidence in a path toward $15+ EPS in C2027E and $20 in C2028E, which should keep the stock grinding higher. Looking at compute through the lens of supply and demand, much of this year’s hyperscaler capex increase is being driven by memory price inflation, meaning compute supply growth is even further from keeping pace with demand. We view this as ultimately bullish for NVIDIA and believe the company could disclose another significant stair-step higher in backlog on the earnings call." Analyst: Timothy Arcuri
+@KobeissiLetter [Wed Aug 19 23:03:00 +0000 2026]: Gold and silver added a combined +$1.3 trillion in market cap after the US Treasury's announcement this morning. The Fed can no longer contain yields and the US government cannot afford higher yields. Asset owners will be the only winners. https://t.co/x6Alhhtg4L
 
-@StockMKTNewz [Mon Aug 17 19:28:52 +0000 2026]: Tesla $TLA reportedly has told staff it is gearing up for a public launch of the Cybercab, its first vehicle designed without a steering wheel or brake pedal Tesla aims to launch the Cybercab to the public in the city as soon as this month - The Information https://t.co/4BdE8oCuwb
-
-@wallstengine [Mon Aug 17 21:24:08 +0000 2026]: $GOOGL TO BUY SPIRIT AIRLINES DATA FOR AI TRAINING Google agreed to pay $10M for internal business data from bankrupt Spirit Airlines, including employee emails, Teams messages, spreadsheets, calendars and operational data. Google plans to use the dataset for product development and AI model training. The data will be de-identified with no customer information or personally identifiable information included. The sale still requires bankruptcy court approval.
-
-@wallstengine [Mon Aug 17 20:17:39 +0000 2026]: FABRINET $FN Q4’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $1.32B (Est. $1.27B) 🟢; +45% YoY 🔹 Adj. EPS: $4.10 (Est. $3.82) 🟢; +55% YoY 🔹 Oper Income: $134.25M (Est. $137M) 🔴 🔹 Net Income: $139.3M (Est. $139M) 🟡 Q1 Guide: 🔹 Revenue: $1.38B-$1.43B (Est. $1.32B) 🟢 🔹 Adj. EPS: $4.10-$4.25 (Est. $3.96) 🟢 🔹 GAAP EPS: $3.39-$3.54 Comments: 🔸 “We achieved record quarterly revenue of $1.316 billion, exceeding our guidance range, and increasing 45% from a year ago.” 🔸 “we remain very optimistic about the strength of our business and durability in the growth trends we are seeing”
-
-@StockMKTNewz [Mon Aug 17 23:05:28 +0000 2026]: Google $GOOGL is acquiring Spirit Airlines' emails, calendar info, chats, documents, spreadsheets and other business data - Axios https://t.co/s5ZJOFZYsz
-
-@StockMKTNewz [Mon Aug 17 19:59:30 +0000 2026]: NASDAQ $NDAQ SAYS THAT ON DECEMBER 6TH, 2026, IT WILL INTRODUCE A NEW TRADING SESSION FROM 9 PM TO 4 AM ET, NASDAQ SAYS IT IS ENGAGING WITH REGULATORS TO OFFER NEARLY CONTINUOUS TRADING 23 HOURS A DAY, FIVE DAYS A WEEK, ON THE NASDAQ STOCK MARKET https://t.co/KIqFyej8EN
-
-@KobeissiLetter [Mon Aug 17 16:23:00 +0000 2026]: BREAKING: Nike stock, $NKE, collapses to its lowest level since September 2014, now down -78% from its all time high seen in 2021. The stock has now officially erased over -$200 billion in market cap since its record high. https://t.co/KySEfWRNiz
-
-@wallstengine [Mon Aug 17 19:28:49 +0000 2026]: $TSLA TARGETS AUGUST CYBERCAB LAUNCH Tesla is preparing to launch its purpose-built Cybercab in Austin as soon as this month, per The Information. The two-seat robotaxi has no steering wheel or pedals. Tesla plans to begin with employee rides on public roads before adding Cybercabs to its Austin Robotaxi service days later. Tesla began Cybercab production in Texas last month, while the company continues testing and training local first responders ahead of the rollout.
+@StockMKTNewz [Thu Aug 20 02:30:02 +0000 2026]: This is what ChatGPT's portfolio looks like right now in the Rallies AI Arena Google $GOOGL: $30,993 Leidos $LDOS: $22,814 Progressive $PGR: $21,672 Visa $V: $18,376 Cigna $CI: $18,143 Credo $CRDO: $17,391 Exxon Mobil $XOM: $16,574 Amphenol $APH: $16,429 JPMorgan $JPM: $10,690 Nebius $NBIS: $4,393 Available Cash: $2,127
 
 @gurgavin [Mon Aug 17 19:16:26 +0000 2026]: THE CRAZIEST THING ABOUT NIKE SHARES BEING DOWN NEARLY 80% OVER THE LAST 5 YEARS IS NIKE SHARES ARE STILL NOT CHEAP HERE $NKE https://t.co/IeUAObrnXE
 
-@AIStockSavvy [Mon Aug 17 23:30:31 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $INFQ Infleqtion Raises Q2 Revenue to $13.5M, Lifts FY2026 Outlook to $45.1M 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗤𝟮 revenue revised upward to $𝟭𝟯.𝟱 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 from $12.6 million. ➤ Revenue increased 𝟭𝟱𝟳% year-over-year, entirely from quantum operations. ➤ 𝗙𝗬𝟮𝟬𝟮𝟲 revenue guidance increased to approximately $𝟰𝟱.𝟭 𝗺𝗶𝗹𝗹𝗶𝗼𝗻. ➤ Previous full-year revenue guidance was approximately $𝟰𝟯 𝗺𝗶𝗹𝗹𝗶𝗼𝗻. ➤ Revisions reflect revenue-recognition timing changes for 𝘁𝘄𝗼 𝗴𝗼𝘃𝗲𝗿𝗻𝗺𝗲𝗻𝘁 𝗰𝗼𝗻𝘁𝗿𝗮𝗰𝘁𝘀. ➤ Accounting adjustment has 𝗻𝗼 𝗶𝗺𝗽𝗮𝗰𝘁 𝘁𝗼 𝗰𝗮𝘀𝗵 or underlying business fundamentals. ➤ GAAP operating loss widened to $𝟮𝟵.𝟵 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 from $10.4 million. ➤ Non-GAAP operating loss increased to $𝟭𝟲.𝟮 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 from $7.6 million. ➤ Infleqtion remains on track to reach 𝟯𝟬 𝗹𝗼𝗴𝗶𝗰𝗮𝗹 𝗾𝘂𝗯𝗶𝘁𝘀 this year. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Higher reported revenue reflects 𝗮𝗰𝗰𝗼𝘂𝗻𝘁𝗶𝗻𝗴 𝘁𝗶𝗺𝗶𝗻𝗴, not additional cash generation. ➤ Unchanged cash metrics indicate the revision doesn't alter near-term liquidity. ➤ 𝟭𝟱𝟳% revenue growth highlights accelerating commercialization of Infleqtion's quantum technology. ➤ Wider operating losses underscore continued investment required to scale quantum operations. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁: 𝗠𝗮𝘁𝘁 𝗞𝗶𝗻𝘀𝗲𝗹𝗹𝗮, Chief Executive Officer of Infleqtion: “We are providing updated Q2 financial results and full year outlook after an accounting adjustment related to two contracts that shifted the timing of revenue recognition between periods with no impact to cash,” said Matt Kinsella, Chief Executive Officer of Infleqtion. “I want to reinforce that Q2 was a record quarter for Infleqtion, we remain on track for 30 logical qubits this year, and the pace of quantum commercialization is accelerating. The quantum market is entering an execution phase, and Infleqtion has spent more than a decade preparing for it.”
+@StockMKTNewz [Wed Aug 19 23:43:57 +0000 2026]: Apple $AAPL effort to sell camera-equipped AirPods remains on track for 2027 - Bloomberg https://t.co/4lYGhINlLN
 
-@StockMKTNewz [Tue Aug 18 02:37:49 +0000 2026]: Google $GOOGL has reportedly told suppliers it plans to have all of its Pixel smartphones, watches and wireless earbuds produced outside of China 🇨🇳 starting next year - NikkeiAsia https://t.co/Vgu4bICZF7
+@AIStockSavvy [Wed Aug 19 20:16:49 +0000 2026]: $BULL | 𝐖𝐞𝐛𝐮𝐥𝐥 𝐐𝟐 𝐄𝐚𝐫𝐧𝐢𝐧𝐠𝐬 𝐑𝐞𝐩𝐨𝐫𝐭: Revenue: $198.8M (↑51% YoY) | GAAP EPS: $0.04 | Adjusted NI: $43.2M 👉 𝐁𝐮𝐬𝐢𝐧𝐞𝐬𝐬 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Successfully launched 𝐮𝐩𝐝𝐚𝐭𝐞𝐝 𝐚𝐜𝐭𝐢𝐯𝐞 𝐭𝐫𝐚𝐝𝐞𝐫 functionality after Pattern Day Trader Rule elimination. ➤ 𝐕𝐞𝐠𝐚 𝐀𝐈 added approximately 𝟏𝟔𝟎,𝟎𝟎𝟎 new users, reaching about 𝟒𝟖𝟎,𝟎𝟎𝟎 active users. ➤ Expanded 𝐌𝐨𝐝𝐞𝐥 𝐂𝐨𝐧𝐭𝐞𝐱𝐭 𝐏𝐫𝐨𝐭𝐨𝐜𝐨𝐥 to support AI-powered research and trade execution. ➤ Introduced 𝐩𝐚𝐩𝐞𝐫 𝐭𝐫𝐚𝐝𝐢𝐧𝐠 across asset classes. ➤ Expanded into 𝐒𝐩𝐚𝐢𝐧, 𝐀𝐫𝐠𝐞𝐧𝐭𝐢𝐧𝐚, and 𝐂𝐨𝐥𝐨𝐦𝐛𝐢𝐚; now licensed across 𝟑𝟓 markets. ➤ International funded accounts reached approximately 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭: 𝟖𝟏𝟎,𝟎𝟎𝟎. ➤ Announced acquisition of 𝐏𝐢 𝐒𝐞𝐜𝐮𝐫𝐢𝐭𝐢𝐞𝐬 to strengthen Asia-Pacific presence. ➤ Expanded 𝐁𝟐𝐁 offerings with futures, prediction markets, and private market access. ➤ Customer assets increased to 𝐁𝐨𝐥𝐝: $28.5B, up 𝟕𝟗% YoY. ➤ Repurchased and cancelled 𝐁𝐨𝐥𝐝: 1.82M Class A shares at an average price of 𝐁𝐨𝐥𝐝: $6.03. 👉 𝐂𝐄𝐎 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: “I'm proud to report a record second quarter for Webull, highlighted by our successful implementation of updated active trader functionality following the June 4 elimination of the Pattern Day Trader Rule… We believe these investments are strengthening Webull's position as a leading platform for active traders.” — Anthony Denier, Group President & U.S. CEO 👉 𝐂𝐅𝐎 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: “Q2 was the best quarter in Webull's history, with record revenue of $198.8 million, up 51% year-over-year… Adjusted operating profit reached $62.6 million… demonstrating the operating leverage inherent in our platform and the potential for further margin expansion.” — H.C. Wang, Chief Financial Officer
 
-@StockMKTNewz [Tue Aug 18 00:52:06 +0000 2026]: Cathie Wood and Ark Invest bought 97,970 shares of Nvidia $NVDA today https://t.co/IglcQY4D7x
+@wallstengine [Wed Aug 19 20:40:27 +0000 2026]: NORDSON $NDSN Q3’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $818M (Est. $780M) 🟢; +10% YoY 🔹 Adj. EPS: $3.25 (Est. $3.10) 🟢; +19% YoY 🔹 EBITDA: $262M (Est. $254M) 🟢; +10% YoY Raises FY26 Guide: 🔹 Revenue: $3.04B-$3.08B (Est. $2.98B) 🟢 🔹 Adj. EPS: $11.80-$12.00 (Est. $11.59) 🟢 Segment Net Revenue: 🔹 Industrial Precision Solutions: $367M; +5% YoY 🔹 Medical & Fluid Solutions: $231M; +5% YoY 🔹 Advanced Technology Solutions: $220M; +28% YoY Other Q3 Metrics: 🔹 Net Income: $153M (Est. $174M) ; +21% YoY 🔹 Organic Sales Growth: 12% 🔹 Backlog: 35% YoY Comments: 🔸 “delivering results above the high-end of our most recent earnings guidance.” 🔸 “we expect the strong sales of the first nine months to continue through the fourth quarter.”
 
-@gurgavin [Thu Aug 13 21:16:59 +0000 2026]: JUST IN : REDDIT TO JOIN THE S&amp;P 500 $RDDT https://t.co/LyuyPxxOyk
+@StockMKTNewz [Thu Aug 20 01:14:21 +0000 2026]: $UBER, Verne and Pony AI just announced they have launched autonomous rides in Zagreb, Croatia This is the first European city where you can book a self driving car ride on the Uber App - Reuters https://t.co/xKEVlFVGkg
 
-@KobeissiLetter [Mon Aug 17 20:09:54 +0000 2026]: Demand for Chinese chips is skyrocketing: Chinese integrated circuit industry revenue jumped +22% YoY in 2025, to a record $245 billion. Since 2020, Chinese chip industry sales have nearly doubled. As a result, China now accounts for ~6% of the global semiconductor market. This is roughly in-line with Japan and the European Union, at ~7% each, and Taiwan, at ~6%. By comparison, North America represents 53% of the market, while South Korea accounts for 21%. China is rapidly emerging as a major global player in semiconductors.
+@KobeissiLetter [Wed Aug 19 22:36:00 +0000 2026]: BREAKING: President Trump is set to reduce tariffs on automobiles imported from Canada from 25% to 15% as part of a broader trade deal with the country, per Bloomberg. Details include: 1. Currently the US has imposed a 25% tariff on the non-US content of vehicles produces in Canada 2. The same content provision will apply to the new 15% rate 3. US and Canadian negotiators have reportedly discussed whether to widen the exemption to include additional content, though no firm decision to do so has been reached The US-Canada trade deal appears to be materializing.
 
-@AIStockSavvy [Mon Aug 17 21:20:27 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $RKLB Rocket Lab Added to U.S. Space Force’s $981 Million NITE-STAR Contract 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗥𝗼𝗰𝗸𝗲𝘁 𝗟𝗮𝗯 joins U.S. Space Force’s 𝗡𝗜𝗧𝗘-𝗦𝗧𝗔𝗥 contract. ➤ Contract carries a total ceiling of $𝟵𝟴𝟭 𝗺𝗶𝗹𝗹𝗶𝗼𝗻. ➤ 𝗦𝗽𝗮𝗰𝗲 𝗦𝘆𝘀𝘁𝗲𝗺𝘀 𝗖𝗼𝗺𝗺𝗮𝗻𝗱 manages the NITE-STAR program. ➤ Rocket Lab can now compete for individual 𝘁𝗮𝘀𝗸 𝗼𝗿𝗱𝗲𝗿𝘀. ➤ Program supports space operator testing for 𝗰𝗼𝗻𝘁𝗲𝘀𝘁𝗲𝗱 𝘀𝗰𝗲𝗻𝗮𝗿𝗶𝗼𝘀. ➤ Work includes 𝘀𝗽𝗮𝗰𝗲 𝘀𝘆𝘀𝘁𝗲𝗺𝘀 and ground-system development and integration. ➤ Contract also covers 𝗱𝗶𝗴𝗶𝘁𝗮𝗹 𝗲𝗻𝘃𝗶𝗿𝗼𝗻𝗺𝗲𝗻𝘁𝘀 and operational system sustainment. ➤ Inclusion does 𝗻𝗼𝘁 𝗴𝘂𝗮𝗿𝗮𝗻𝘁𝗲𝗲 Rocket Lab specific task-order awards. ➤ Rocket Lab previously supported government missions for 𝗡𝗥𝗢 and 𝗡𝗔𝗦𝗔. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Expands Rocket Lab’s access to future 𝗨.𝗦. 𝗦𝗽𝗮𝗰𝗲 𝗙𝗼𝗿𝗰𝗲 opportunities. ➤ Strengthens its position across 𝗻𝗮𝘁𝗶𝗼𝗻𝗮𝗹 𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 space programs. ➤ Creates potential revenue opportunities under a $𝟵𝟴𝟭 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 contract vehicle. ➤ However, actual revenue depends on winning future 𝘁𝗮𝘀𝗸 𝗼𝗿𝗱𝗲𝗿𝘀. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁: 𝗕𝗿𝗮𝗱 𝗖𝗹𝗲𝘃𝗲𝗻𝗴𝗲𝗿, Vice President of Space Systems at Rocket Lab: "Being selected for the NITE-STAR program highlights Rocket Lab's commitment to advancing space innovation and supporting the U.S. Space Force's mission to ensure space readiness."
+@StockMKTNewz [Thu Aug 20 01:04:41 +0000 2026]: Here is how much revenue Tempus AI $TEM has brought in every quarter since going public Q2 2024: $166M Q3 2024: $180.9M Q4 2024: $200.7M Q1 2025: $255.7M Q2 2025: $314.6M Q3 2025: $334.2M Q4 2025: $367.2M Q1 2026: $348.1M Q2 2026: $382.5M https://t.co/xZ7tpeV0dU
 
-@AIStockSavvy [Mon Aug 17 20:05:34 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $COHR Coherent Begins Sampling 300mm SiC Substrates to Leading AI Semiconductor Partners 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗖𝗼𝗵𝗲𝗿𝗲𝗻𝘁 begins sampling 𝟯𝟬𝟬𝗺𝗺 SiC substrates to leading AI chip partners. ➤ Customer sampling advances Coherent's 𝗔𝗜 and 𝗛𝗣𝗖 thermal-management platform. ➤ Substrates target rising heat challenges from higher-power 𝗔𝗜 processors. ➤ Coherent says SiC can improve heat spreading by up to 𝟮𝟱%. ➤ Technology remains compatible with existing 𝘀𝗲𝗺𝗶𝗰𝗼𝗻𝗱𝘂𝗰𝘁𝗼𝗿 manufacturing platforms. ➤ Coherent controls SiC 𝗰𝗿𝘆𝘀𝘁𝗮𝗹 𝗴𝗿𝗼𝘄𝘁𝗵, wafering, polishing, and characterization. ➤ Sampling moves the 𝟯𝟬𝟬𝗺𝗺 platform from development into customer evaluation. ➤ Platform is designed to support future 𝗵𝗶𝗴𝗵-𝘃𝗼𝗹𝘂𝗺𝗲 manufacturing. ➤ Coherent targets successive generations of 𝗔𝗜 and high-performance computing infrastructure. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Rising AI chip power makes 𝘁𝗵𝗲𝗿𝗺𝗮𝗹 𝗺𝗮𝗻𝗮𝗴𝗲𝗺𝗲𝗻𝘁 a critical performance bottleneck. ➤ Better heat spreading could improve 𝗽𝗲𝗿𝗳𝗼𝗿𝗺𝗮𝗻𝗰𝗲, reliability, and datacenter efficiency. ➤ Customer sampling represents an important step toward potential 𝗰𝗼𝗺𝗺𝗲𝗿𝗰𝗶𝗮𝗹 adoption. ➤ 𝟯𝟬𝟬𝗺𝗺 scalability could position Coherent within the expanding AI semiconductor supply chain. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁: 𝗖𝗿𝗮𝗶𝗴 𝗠𝘂𝗹𝗹𝗮𝗻𝗲𝘆, Senior Vice President and General Manager at Coherent: “AI performance is increasingly constrained by the industry’s ability to remove heat from next-generation processors,” said Craig Mullaney, Senior Vice President and General Manager at Coherent. “Advanced SiC thermal management materials can play an important role in addressing that challenge. By combining decades of silicon carbide expertise with a scalable 300mm manufacturing platform, Coherent is helping build the materials foundation for future AI infrastructure.”
+@AIStockSavvy [Wed Aug 19 23:20:32 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Trump announces toughest-ever economic sanctions on Iran - $QQQ $SPY $USO U.S. President Trump announced the toughest-ever economic sanctions on Iran and urged allies to join in isolating the country. He warned any state that allows its banks, companies, airports or government entities to provide any form of assistance to Iran will face severe economic consequences. He specifically said oil smuggling, swap lines, cash transfers, currency-exchange firms, vessel registration and shell companies must stop. Trump reiterated that Iran will not be allowed to develop nuclear weapons.
 
-@AIStockSavvy [Mon Aug 17 13:54:11 +0000 2026]: $MU | BofA Securities 𝗿𝗲𝗶𝘁𝗲𝗿𝗮𝘁𝗲𝘀 𝗕𝘂𝘆 on 𝗠𝗶𝗰𝗿𝗼𝗻 𝗧𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝘆, PT $𝟭,𝟱𝟱𝟬 Analyst sees durable memory dynamics supporting structurally higher earnings power and potential for $230+ in EPS. https://t.co/yQ455YsJCP
+@wallstengine [Thu Aug 20 00:20:28 +0000 2026]: Despite a leaked Apple video showing camera-equipped AirPods in action, with the cameras mainly designed to scan surroundings for AI context, the earbuds "remain off" $AAPL's 2026 roadmap. https://t.co/OXGPjnwSrs
 
-@KobeissiLetter [Tue Aug 18 00:20:08 +0000 2026]: BREAKING: US interest expense on the national debt hit a record $1.4 trillion over the last 12 months. Since 2020, the cost of servicing US public debt has nearly TRIPLED. If rates remain stable, interest payments are set to rise to $1.7 trillion by November 2028. As a result, interest will surpass Social Security spending as the government's largest outlay for the first time. America's debt bill is spiraling out of control.
+@wallstengine [Wed Aug 19 20:41:06 +0000 2026]: WOLFSPEED $WOLF Q4’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $149.6M (Est. $224M) 🔴 🔹 Adj. EPS: -$2.26 (Est. -$2.45) 🟢 🔹 Gross Margin: -25% 🔹 Free Cash Flow: -$60.9M (Est. -$108M) 🟢 Q1 Guide: 🔹 Revenue: $140M-$160M (Est. $150M) 🟡 🔹 Non-GAAP Gross Margin: Negative 🔹 Non-GAAP OpEx: $62M-$66M Segment Net Revenue: 🔹 Power Products: $106.3M 🔹 Materials Products: $43.3M Other Q4 Metrics: 🔹 Net Loss: -$145.4M 🔹 Operating Loss: -$115.4M 🔹 Adjusted EBITDA: -$62.4M 🔹 AI Data Center Revenue Growth: +20% QoQ 🔹 Cash & Investments: $1.1B Key Updates: 🔹 Launched: Fifth-generation SiC MOSFET 🔹 Board Appointment: Andy Mattes Comments: 🔸 “strong growth in AI data center applications and the launch of our fifth-generation SiC MOSFET” 🔸 “During the fourth quarter, our capital structure further improved as holders of $46 million of our convertible notes exercised a voluntary conversion of their debt to equity”
 
-@KobeissiLetter [Mon Aug 17 13:01:00 +0000 2026]: BREAKING: President Trump threatens to bomb Oman if they "get in the way" of US efforts to reopen the Strait of Hormuz and end the war with Iran. "If Oman gets in the way, we'll bomb the s*** out of them," President Trump said.
+@wallstengine [Wed Aug 19 20:40:52 +0000 2026]: $COTY Q4’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $1.27B (Est. $1.19B) 🟢; +1% YoY 🔹 Adj. EPS: -$0.02 (Est. -$0.01) 🔴; +60% YoY 🔹 EBITDA: $93.6M (Est. $96.2M) 🔴; -26% YoY 🔹 Free Cash Flow: $72.6M Q1 Guide: 🔹 Adj. EPS: $0.11-$0.13 (Est. $0.14) 🔴 🔹 LFL Revenue: Low- to mid-single-digit decline 🔹 Adj. Gross Margin: -50 to -100 bps YoY 🔹 Adj. EBITDA: Low-teens decline 🔹 H1 Free Cash Flow: Over $300M Segment Net Revenue: 🔹 Prestige: $771.8M; +1% YoY 🔹 Consumer Beauty: $497.4M; +1% YoY Other Q4 Metrics: 🔹 Gross Margin: 60.9%; -140 bps YoY 🔹 Operating Income: $39.5M; -42% YoY 🔹 Operating Cash Flow: $116.0M Comments: 🔸 “However, we are not content with our sell-out performance, which remains below market levels in both divisions, and steadily closing that gap remains a clear priority across the organization.” 🔸 “In sum, our Q4 results provide early signs of stabilization, although the recovery will not be linear.”
 
-@KobeissiLetter [Mon Aug 17 12:23:33 +0000 2026]: BREAKING: The US and Iran have reportedly agreed to extend their 60-day ceasefire which was set to expire today, per Al Arabiya. Details include: 1. Under the "Memorandum of Understanding" brokered by Pakistan, today marks the final day of the Iran War ceasefire 2. President Trump says that a "backchannel" is in place with Iran’s Revolutionary Guard officials 3. Despite the supposed extension, there remains no indication of an imminent deal Today marks day 170 of the Iran War.
+@StockMKTNewz [Thu Aug 20 02:13:21 +0000 2026]: MODERNA $MRNA IS NOW THE 2ND BEST PERFORMING NAME IN THE S&amp;P 500 SO FAR IN 2026 BEHIND JUST SANDISK $SNDK https://t.co/Qnlwm7FPm8
+
+@StockMKTNewz [Thu Aug 20 00:20:17 +0000 2026]: Cathie Wood and Ark Invest bought 78,756 shares of Cerebras $CBRS today https://t.co/sS1bCg1y5Q
+
+@KobeissiLetter [Thu Aug 20 00:44:10 +0000 2026]: US stocks are having one of their best decades in history: The S&P 500 has gained +141.0% so far since the end of 2019. If this pace continues, the index will finish the decade with a cumulative gain of roughly +277%. This would rank as the 2nd-best decade on record, trailing only the +316% return posted during the 1989-1999 Dot-Com Boom. This would also surpass the +257% gain seen during the postwar boom decade of 1949-1959. By comparison, between 2010 and 2020, the S&P 500 returned +190% following the 2008 Financial Crisis. The 2020s are shaping up to be one of the greatest decades in US equity market history.
+
+@KobeissiLetter [Wed Aug 19 23:04:12 +0000 2026]: BREAKING: President Trump announces “the most crushing economic operation ever taken against a country” on Iran. Trump says any country that does business with Iran will face “tremendous economic consequences.” This is “Economic D-Day” President Trump says. https://t.co/sp8PWZBnwO
+
+@KobeissiLetter [Wed Aug 19 21:22:31 +0000 2026]: BREAKING: Bitcoin extends gains to rise above $70,000 for the first time since June 2nd and levered short liquidations hit $2.7 billion in 24 hours. https://t.co/vs7NjXPsw1
+
+@KobeissiLetter [Wed Aug 19 20:38:00 +0000 2026]: BREAKING: Total US debt officially hits $40 trillion for the first time in history. That's $119,699 in US debt for every American. This puts the total US debt balance up +$17 trillion since 2020 and +$30 trillion since 2008. We are on an unsustainable fiscal path. https://t.co/kNIZDIZVeq
+
+@gurgavin [Wed Aug 19 02:18:11 +0000 2026]: JUST IN : TRUMP HAS DELAYED 50 PERCENT TARIFFS AGAINST CANADA THAT WERE SCHEDULED TO GO LIVE TOMORROW BY 3 DAYS TRUMP SAYS CANADA AND USA HAVE A DEAL SUBJECT TO FINALIZATION OF DOCUMENTS 🇨🇦🇨🇦🇨🇦🇨🇦🇨🇦🇨🇦
 
 @gurgavin [Mon Aug 17 19:58:51 +0000 2026]: JUST IN : NASDAQ SAYS IT WILL INTRODUCE A NEW EVENING TRADING SESSION FROM 9 PM TO 4 AM ET STARTING IN DECEMBER NASDAQ IS ALSO ENGAGING WITH REGULATORS TO OFFER NEARLY CONTINUOUS TRADING 23 HOURS A DAY, FIVE DAYS A WEEK
 
-@gurgavin [Fri Aug 14 21:15:03 +0000 2026]: JUST IN : JANE STREET TOOK A $15 BILLION DOLLAR HIT IN JULY TIED TO SITUATIONAL AWARENESS DRAWDOWN LAST MONTH
+@AIStockSavvy [Wed Aug 19 23:05:25 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $RGTI Rigetti Restructures Operations to Scale Quantum System Deployments 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗥𝗶𝗴𝗲𝘁𝘁𝗶 establishes dedicated 𝗦𝘆𝘀𝘁𝗲𝗺𝘀 𝗗𝗲𝗹𝗶𝘃𝗲𝗿𝘆 organization amid growing demand. ➤ Company creates new 𝗖𝗵𝗶𝗲𝗳 𝗢𝗽𝗲𝗿𝗮𝘁𝗶𝗻𝗴 𝗢𝗳𝗳𝗶𝗰𝗲𝗿 role. ➤ 𝗗𝗮𝘃𝗶𝗱 𝗥𝗶𝘃𝗮𝘀 moves from CTO to newly created COO position. ➤ 𝗔𝗻𝗱𝗿𝗲𝘄 𝗕𝗲𝘀𝘁𝘄𝗶𝗰𝗸, 𝗣𝗵.𝗗., becomes Chief Technology Officer. ➤ Rigetti reports increased demand for 𝗼𝗻-𝗽𝗿𝗲𝗺𝗶𝘀𝗲𝘀 quantum computing systems. ➤ Customer systems range from 𝟵-𝗾𝘂𝗯𝗶𝘁 Novera to 𝟭𝟬𝟴-𝗾𝘂𝗯𝗶𝘁 Cepheus-class systems. ➤ Technology teams will focus more heavily on 𝗾𝘂𝗮𝗻𝘁𝘂𝗺 𝗽𝗿𝗼𝗰𝗲𝘀𝘀𝗼𝗿 development. ➤ Rigetti targets 𝟵𝟵.𝟱% median two-qubit gate fidelity on Cepheus-1-108Q. ➤ Executive appointments became effective 𝗔𝘂𝗴𝘂𝘀𝘁 𝟭𝟴, 𝟮𝟬𝟮𝟲. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Restructuring signals Rigetti is preparing to 𝘀𝗰𝗮𝗹𝗲 customer quantum deployments. ➤ Dedicated delivery leadership could improve installation, support, and 𝗰𝘂𝘀𝘁𝗼𝗺𝗲𝗿 𝗲𝘅𝗲𝗰𝘂𝘁𝗶𝗼𝗻. ➤ Engineering specialization could accelerate progress toward Rigetti's 𝗾𝘂𝗮𝗻𝘁𝘂𝗺 𝗿𝗼𝗮𝗱𝗺𝗮𝗽. ➤ Growing 𝟭𝟬𝟴-𝗾𝘂𝗯𝗶𝘁 demand indicates expanding commercial interest in larger systems. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁: 𝗗𝗿. 𝗦𝘂𝗯𝗼𝗱𝗵 𝗞𝘂𝗹𝗸𝗮𝗿𝗻𝗶, President and Chief Executive Officer of Rigetti: "Rigetti’s growing deployment activity makes this the right time to establish a dedicated organization focused on delivering and supporting systems for customers," said Dr. Kulkarni. "This structure gives our commercial and operational teams clear, end-to-end accountability for scaling system delivery, while giving our technology organization even greater focus on quantum processor innovation and performance. David brings deep experience building the operational capabilities that support our systems and customers, and Andrew brings exceptional technical leadership to our chiplet-based architecture. Together, we believe these appointments position Rigetti to execute across both customer deployments and our technology roadmap."
 
-@AIStockSavvy [Tue Aug 18 02:35:30 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $GOOGL Google plans to stop manufacturing Pixel products in China from 2027 - Nikkei
+@AIStockSavvy [Wed Aug 19 23:04:23 +0000 2026]: $GOOGL | Rosenblatt 𝗶𝗻𝗶𝘁𝗶𝗮𝘁𝗲𝘀 𝗕𝘂𝘆 on 𝗔𝗹𝗽𝗵𝗮𝗯𝗲𝘁, PT $𝟰𝟭𝟬 Analyst sees sustained Cloud momentum driving operating profit growth and multiple expansion as Alphabet monetizes AI capacity and TPUs. https://t.co/rpUnD5Xqm0
 
-@AIStockSavvy [Mon Aug 17 23:15:22 +0000 2026]: Jim Cramer on $AMCR Amcor: “I’m never going to fight anyone on 10 times earnings. But remember, they also have a kind of a non-fast-growing part of their business, and therefore there are issues, but not a lot that can’t be solved by that low PE.”
+@AIStockSavvy [Wed Aug 19 23:03:24 +0000 2026]: $AMZN | Rosenblatt 𝗶𝗻𝗶𝘁𝗶𝗮𝘁𝗲𝘀 𝗕𝘂𝘆 on 𝗔𝗺𝗮𝘇𝗼𝗻.𝗰𝗼𝗺, PT $𝟯𝟯𝟱 Analyst sees Amazon’s AI leadership as underappreciated and expects AWS to exit 2026 at 45% growth, on a path to 335B+ by 2028. https://t.co/RbihX0YgJk
 
-@AIStockSavvy [Mon Aug 17 20:43:09 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: NASA has selected four firms to provide mission payload processing facility services, including Blue Origin, Firefly Aerospace and L3Harris. The contract value is up to $100 million. - $LHX $FLY $AMZN
+@AIStockSavvy [Wed Aug 19 21:22:59 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: FDA Grants Accelerated Approval to $RARE Ultragenyx’s GENGLYCOS Gene Therapy for GSDIa 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗙𝗗𝗔 grants accelerated approval to 𝗚𝗘𝗡𝗚𝗟𝗬𝗖𝗢𝗦 for GSDIa. ➤ Approval covers patients aged 𝗲𝗶𝗴𝗵𝘁 𝘆𝗲𝗮𝗿𝘀 𝗮𝗻𝗱 𝗼𝗹𝗱𝗲𝗿. ➤ Therapy is approved to reduce patients’ 𝗱𝗮𝗶𝗹𝘆 𝗰𝗼𝗿𝗻𝘀𝘁𝗮𝗿𝗰𝗵 intake. ➤ Phase 3 study enrolled 𝟰𝟲 patients over 𝟰𝟴 weeks. ➤ GENGLYCOS significantly reduced cornstarch requirements versus placebo, with 𝗽<𝟬.𝟬𝟬𝟭. ➤ Ultragenyx must provide additional 𝘀𝗮𝗳𝗲𝘁𝘆 𝗮𝗻𝗱 𝗲𝗳𝗳𝗶𝗰𝗮𝗰𝘆 data. ➤ Patients will be monitored for up to 𝟭𝟬 𝘆𝗲𝗮𝗿𝘀. ➤ FDA approval also awarded Ultragenyx a 𝗣𝗿𝗶𝗼𝗿𝗶𝘁𝘆 𝗥𝗲𝘃𝗶𝗲𝘄 𝗩𝗼𝘂𝗰𝗵𝗲𝗿. ➤ GENGLYCOS becomes Ultragenyx’s 𝗳𝗶𝗿𝘀𝘁 𝗴𝗲𝗻𝗲 𝘁𝗵𝗲𝗿𝗮𝗽𝘆 approval and fifth FDA approval. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Approval introduces a 𝗴𝗲𝗻𝗲 𝘁𝗵𝗲𝗿𝗮𝗽𝘆 option for the rare metabolic disease. ➤ Reduced cornstarch dependence could meaningfully change 𝗚𝗦𝗗𝗜𝗮 disease management. ➤ Accelerated approval creates a new commercial opportunity for 𝗨𝗹𝘁𝗿𝗮𝗴𝗲𝗻𝘆𝘅. ➤ Long-term follow-up remains critical for confirming 𝗰𝗹𝗶𝗻𝗶𝗰𝗮𝗹 𝗯𝗲𝗻𝗲𝗳𝗶𝘁 and safety.
 
-@AIStockSavvy [Mon Aug 17 19:31:32 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $TSLA Tesla readies August launch of CyberCab - The Information
+@AIStockSavvy [Wed Aug 19 20:25:16 +0000 2026]: $MRNA | Morgan Stanley 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗘𝗾𝘂𝗮𝗹𝘄𝗲𝗶𝗴𝗵𝘁 on 𝗠𝗼𝗱𝗲𝗿𝗻𝗮, raises PT to $𝟴𝟵 from $𝟯𝟵 Analyst sees long-term upside, but says the COVID-19 vaccine-driven valuation increase limits near-term upside. https://t.co/a3Ld29ktnt
 
-@wallstengine [Tue Aug 18 05:34:00 +0000 2026]: Today's Key Events (All EST) — 08/18/2026 08:15: US ADP Wkly Employment Change 08:30: US Import Prices MoM 08:30: US Housing Starts 09:15: US Capacity Utilization 10:00: US Pending Home Sales Before Open 👇 04:30: Hesai Group $HSAI 04:30: $VNET Group 04:30: uCloudlink Group $UCL 05:00: Baidu $BIDU 05:00: iQIYI $IQ 05:00: Pony AI $PONY 06:00: Home Depot $HD 06:00: Amer Sports $AS 07:30: Klarna Group $KLAR 08:30: Prenetics Global $PRE 08:30: Corporación América Airports $CAAP 09:35: ReNew Energy Global $RNW After Hours 👇 16:00: Mercury Systems $MRCY 16:05: Keysight Technologies $KEYS 16:15: Jack Henry & Associates $JKHY 16:15: La-Z-Boy $LZB 16:30: Toll Brothers $TOL 17:50: Auna $AUNA 18:00: ZTO Express (Cayman) $ZTO 19:55: Chemical & Mining Co. of Chile $SQM
+@AIStockSavvy [Wed Aug 19 20:23:38 +0000 2026]: $MRK | Morgan Stanley 𝘂𝗽𝗴𝗿𝗮𝗱𝗲𝘀 𝗠𝗲𝗿𝗰𝗸 from 𝗘𝗾𝘂𝗮𝗹𝘄𝗲𝗶𝗴𝗵𝘁 to 𝗢𝘃𝗲𝗿𝘄𝗲𝗶𝗴𝗵𝘁, raises PT to $𝟭𝟳𝟵 from $𝟭𝟭𝟲 Analyst sees new product cycles offsetting Keytruda and a robust catalyst path, supported by higher estimates and a 17x P/E multiple. https://t.co/MCZ0cPazar
 
-@wallstengine [Mon Aug 17 19:59:13 +0000 2026]: NASDAQ TO LAUNCH OVERNIGHT TRADING SESSION Starting Dec. 6, 2026, Nasdaq will introduce a new trading session running from 9 PM to 4 AM ET. Nasdaq is also working with regulators on plans to eventually offer nearly continuous trading, 23 hours a day, five days a week. https://t.co/NNXvBMh7LH
+@KobeissiLetter [Wed Aug 19 20:27:00 +0000 2026]: BREAKING: The Cass Freight Index fell -4.8% YoY in July, to 0.96, matching the lowest level since the 2020 pandemic. The index tracks freight shipment activity across North America and is a widely followed indicator of freight demand. This marks the 42nd consecutive monthly decline, the longest streak on record. Over this period, shipments have fallen -20%, with the index declining -7.0% in 2023, -5.8% in 2024, and -7.5% in 2025. MoM, shipments posted their 3rd consecutive monthly decline, reversing the brief rebound seen earlier this year. This decline reflects higher fuel prices, while a renewed driver shortage is reducing available trucking capacity and weighing on shipment volumes. The US freight market continues to weaken.
 
-@KobeissiLetter [Mon Aug 17 18:43:00 +0000 2026]: BREAKING: China's net new loans dropped -$50.4 billion in July, marking only the 3rd monthly decline this century. This is a broad measure of new bank lending in China and a key gauge of overall economic activity. The decline was also more than 3x larger than expected. Loans extended specifically to the real economy posted an even sharper drop, with net repayments of -$87.5 billion, the largest monthly decline in data going back to 2002. Aggregate financing, a broader measure of total credit, rose +$207.7 billion, but almost all of it came from +$192.9 billion in government bond sales rather than organic private lending. This comes as corporate and household longer-term loans shrank, reflecting weak investment appetite and demand for property. China's economic activity is deteriorating sharply.
+@KobeissiLetter [Wed Aug 19 19:11:00 +0000 2026]: BREAKING: The average price of US ground beef jumped +9% YoY in July, to a record $7.10 per pound. Ground beef prices have surged +65% since the end of 2019. Meanwhile, steak prices surged +10% YoY last month, to a record $13.10 per pound, up +70% since December 2019. As a result, beef sales volumes fell -0.3% YoY over the 13 weeks ending mid-July.. This is a sharp reversal from +5.4% YoY growth during the same period in 2025, and +4.6% YoY growth in 2024. Americans are reducing beef consumption amid rapidly surging prices.
 
-@gurgavin [Fri Aug 14 19:54:17 +0000 2026]: *TRUMP : PRETTY SOON I'LL BE DECLARING HORMUZ STRAIT A TERRITORY OF THE UNITED STATES
+@gurgavin [Wed Aug 19 00:12:39 +0000 2026]: THIS IS SOMETHING EVERYONE SHOULD BE LOOKING AT THE AVERAGE AI TOKEN PRICES ARE NOW DOWN OVER 50% OVER THE LAST 2 MONTHS WENT FROM NEARLY $2.10 PER MILLION TOKENS TO NOW JUST $1 https://t.co/5zPcShuAO0
 
-@AIStockSavvy [Mon Aug 17 23:14:24 +0000 2026]: Jim Cramer on $UBER Uber: “Uber is one great long-term stock. I am not backing away from that. ... So the answer is, I am a buyer of Uber.”
+@AIStockSavvy [Thu Aug 20 03:13:36 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $NBIS Nebius Group announces pricing of upsized private offering of $5.0 billion of convertible senior notes
 
-@AIStockSavvy [Mon Aug 17 20:16:02 +0000 2026]: $FN | Fabrinet, Q4-2026 Earning Report https://t.co/569opykHkw
+@AIStockSavvy [Wed Aug 19 20:30:38 +0000 2026]: $COTY | Coty Inc., Q4-2026 Earning Report https://t.co/RFwqnu3Aw8
 
-@wallstengine [Mon Aug 17 21:50:27 +0000 2026]: The biggest trading losses of all time: Leopold Aschenbrenner’s reported $35B July loss from leveraged AI stock bets now ranks as the biggest trading loss of all time, according to the FT. https://t.co/0Fb0aHYdZL
-
-@KobeissiLetter [Mon Aug 17 22:52:25 +0000 2026]: The leveraged ETF market is seeing massive inflows. US-listed leveraged ETF market exposure is up to $420 billion, the highest since early July. Over the last 3 weeks, exposure has surged by more than +$100 billion. At the same time, assets under management (AUM) have risen +$40 billion, to $180 billion. The gap between AUM and exposure comes from leverage: a 2x ETF with $100 billion in assets creates $200 billion in market exposure, while a 3x ETF creates $300 billion. This means the true market impact of leveraged ETFs is nearly 2.5x their headline AUM. At this pace, both metrics will exceed their June all-time highs as early as next month. There has never been more leverage in the market.
-
-@KobeissiLetter [Mon Aug 17 15:38:30 +0000 2026]: This is unprecedented: 2026 is currently on track to become the only calendar year in at least 30 years with zero 80%+ NYSE downside-volume days. These are days when at least 80% of NYSE trading volume comes from declining stocks, signaling unusually broad-based selling pressure. By comparison, 2008 had 49 such days during the Financial Crisis, versus 33 during the 2022 bear market and just 9 last year. Meanwhile, the average since 1997 is 21 such trading days, with no calendar year ever recording fewer than 5. In other words, broad-based selling pressure has been almost nonexistent so far in 2026. The market is more resilient than ever.
+@gurgavin [Tue Aug 18 22:12:54 +0000 2026]: *TRUMP ORDERS ENVOYS TO HALT ALL NEGOTIATIONS WITH IRAN - CNN ?????
 
 @gurgavin [Mon Aug 17 18:07:25 +0000 2026]: THIS IS ACTUALLY SICK YOU CAN NOW TRADE DIRECTLY ON TWITTER OR ANY OTHER NEWS WEBSITE
 
 @gurgavin [Sun Aug 16 22:01:54 +0000 2026]: I THINK THIS IS GONNA HAPPEN SOONER THAN MOST PEOPLE THINK
 
-@gurgavin [Sun Aug 16 19:09:05 +0000 2026]: 1 VERY INTERESTING THING I HAVE SEEN OVER THE LAST 72 HOURS IS AMERICAN EXPRESS CUTTING LIMITS OF AT LEAST 2 DOZEN PEOPLE I KNOW THESE GUYS REGULARLY SPEND HIGH 6 FIGS AND LOW 7 FIGS A MONTH ON BOTH PERSONAL AND BUSINESS CARDS EVEN WITH THE CHARGE CARDS THEY HAD A LIMIT IMPOSED LAST TIME I SAW IT THIS BROAD WAS APRIL 2020 NOT SURE WHAT AMEX SAW INTERNALLY OR WHAT THEY EXPECT TO HAPPEN
+@StockMKTNewz [Wed Aug 19 23:29:44 +0000 2026]: SAMSUNG JUST RAISED PRICES ON SOME ADVANCED CHIPMAKING SERVICES BY UP TO 15% FOR NEW ORDERS - Reuters https://t.co/OxbD2lT2dB
+
+@StockMKTNewz [Wed Aug 19 23:08:00 +0000 2026]: 🇺🇸 President Trump just posted this: "I am announcing the MOST CRUSHING ECONOMIC OPERATION EVER TAKEN AGAINST ANY COUNTRY! This will be Economic Warfare and Isolation on an unprecedented scale." https://t.co/QkNUAvHH65
+
+@wallstengine [Wed Aug 19 23:00:55 +0000 2026]: TRUMP: ANNOUNCING THE MOST CRUSHING ECONOMIC OPERATION ON IRAN IRAN FAILED TO TAKE DEAL ECONOMIC WARFARE AND ISOLATION ON AN UNPRECEDENTED SCALE https://t.co/PQFCenI8do
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
