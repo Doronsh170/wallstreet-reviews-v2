@@ -1,11 +1,11 @@
 {
-  "mode": "daily_summary",
-  "generated_at": "2026-08-20T09:54:37.689644+03:00",
-  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 19.8.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-08-19",
-  "title_date_str": "2026-08-19",
-  "title_day_name": "רביעי",
+  "mode": "daily_prep",
+  "generated_at": "2026-08-20T10:19:37.568742+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 20.8.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-08-20",
+  "title_date_str": "2026-08-20",
+  "title_day_name": "חמישי",
   "week_range": null,
   "etf_pcts": {
     "SPY": 0.2098,

@@ -1,7 +1,8 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-08-19 (יום רביעי). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
+Script run date: 2026-08-20 (יום חמישי). Briefing target date: 2026-08-20 (יום חמישי).
+The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,39 +19,42 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
+This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
+no closing levels, and nothing that already appears in the prior-context block.
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
 two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
-a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
-NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
-fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
-  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
-  NOT import a story that web search found on its own:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
+* FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
+  web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
+  open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
+  ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning FROM THE SOURCE
+  TWEETS (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category,
+  and do NOT import a story that web search found on its own:
+  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
+    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
+  - The central story investors will watch today, with the transmission mechanism explained simply
+    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
+  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
+    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
+  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
+  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
+  - Geopolitics / Washington politics with market impact.
+  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
+* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
+No ETF proxies, no Finnhub, no ISO dates.
 
 ══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
 The review is built EXCLUSIVELY from two sources:
 1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
 2. The source tweets below — the ONLY source for stories, news and narrative.
-Web search is permitted for THREE narrow purposes ONLY:
-  a. Verifying a claim of an all-time high / 52-week high before writing it.
-  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+Web search is permitted for FOUR narrow purposes ONLY:
+  a. Verifying the futures direction and percentage for the opening point.
+  b. Verifying TODAY'S scheduled macro calendar (Israel times, consensus, previous reading), and cross-checking
+     that an event you present as upcoming was not already released.
+  c. Verifying a claim of an all-time high / 52-week high before writing it.
+  d. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
-     and cross-checking that an event you present as upcoming was not already released.
 FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
 in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
 cover a story — the review does not cover it either.
@@ -107,17 +111,17 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 19.8.2026",
-  "date": "2026-08-19",
+  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 20.8.2026",
+  "date": "2026-08-20",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "נקודות מרכזיות",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -186,27 +190,23 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO TIMING CHECK (verification only) ══
-Use web search to verify the macro calendar for 2026-08-20: which of the majors (CPI headline AND core,
-PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
-actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
-review as a story only if it appears in the source tweets or the verified economic block, with the figures
-they provide (actual, forecast, previous AND the market implication). Never present an already-released
-event as upcoming, and never import from the search a macro story the sources did not cover.
-IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
-bottom-line point.
+══ SCHEDULED DATA CHECK (verification only) ══
+Use web search to verify what US economic data is scheduled for release on 2026-08-20 — release time in
+Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
+upcoming was already released. This is schedule verification only: do NOT use the search to import news
+stories the source tweets did not cover.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
 
-[נקודות מרכזיות]
-* החוזים נסוגים והנפט מטפס: החוזים על S&P 500 נסוגים 0.41% לפני הפתיחה, החוזים על נאסד"ק 100 יורדים 0.76% והחוזים על הדאו ג'ונס מאבדים 0.16%. הלחץ מגיע מכיוון האנרגיה, אחרי שמחיר הנפט עלה 2.91% במסחר האחרון. ברקע, נשיא ארה"ב טראמפ איים להפציץ את עומאן אם תפריע למאמץ לפתוח מחדש את מיצר הורמוז, ונפט יקר מחזיר את חשש האינפלציה לשולחן.
-* יום של נתוני דיור ודוח הום דיפו: שני נתוני נדל"ן יעמדו במוקד היום. התחלות הבנייה ליולי יתפרסמו ב-15:30 שעון ישראל בצפי ל-1.39 מיליון יחידות לעומת 1.427 מיליון בחודש הקודם, ומכירות הבתים הממתינות יתפרסמו ב-17:00. במקביל, הום דיפו (HD) תדווח לפני הפתיחה וטול ברדרס (TOL) אחרי הנעילה, כך שהיום כולו סובב סביב שוק הדיור והצרכן האמריקאי.
-* מניית נבידיה (NVDA) מגבה מיזם ענק: לפי FT, נבידיה תעמיד ערבות אשראי של עד 105 מיליארד דולר עבור הקרקע, החשמל והמעטפת של מרכז נתונים חדש של OpenAI במחוז פייק שבאוהיו, ותשקיע 1.5 מיליארד דולר נוספים ב-SB Energy. OpenAI תחכור שם עד 8 גיגה-ואט של כוח מחשוב, והבנייה תימשך עד 2032. זו אחת מעסקאות תשתית ה-AI הגדולות שנחתמו עד היום.
-* ספקיות תשתית ה-AI מכות תחזיות: פבריניט (FN) רשמה הכנסות שיא של 1.32 מיליארד דולר ברבעון מול צפי של 1.27 מיליארד, זינוק של 45% בשנה, ורווח מתואם של 4.10 דולר מול 3.82 בצפי, והתחזית לרבעון הקרוב גבוהה מהקונצנזוס. מיקרון (MU) עלתה 4.13% אחרי שבנק אוף אמריקה חזר על המלצת קנייה, וקוהרנט (COHR) החלה לספק דגימות מצעי SiC ליצרניות שבבי AI.
-* מניית נייקי (NKE) בשפל של 12 שנה: המניה ירדה 4.03% ונסחרת ברמה הנמוכה ביותר מאז ספטמבר 2014, ירידה של 78% מהשיא שרשמה ב-2021. מאז אותו שיא נמחקו יותר מ-200 מיליארד דולר משווי השוק שלה. הצניחה מגיעה בדיוק ביום שבו הום דיפו פותחת את גל דוחות הקמעונאות, ומזכירה שגם מותג עולמי חזק אינו חסין ללחץ על הצרכן.
-* שורה תחתונה: אין היום אירוע מאקרו כבד, והנתונים היחידים בעלי משקל הם התחלות הבנייה ב-15:30 שעון ישראל ומכירות הבתים הממתינות ב-17:00. הטון ייקבע בעיקר במחיר הנפט ובמתיחות סביב מיצר הורמוז מצד אחד, ובדוח הום דיפו לפני הפתיחה מצד שני. התחנה הכבדה הבאה היא סוף החודש, עם דוח נבידיה וכנס ג'קסון הול.
+[סיכום המסחר]
+* רוטציה מהטכנולוגיה אל הבריאות: המדדים ננעלו לכיוונים מנוגדים. S&P 500 עלה 0.21% והדאו ג'ונס הוסיף 0.26%, בעוד נאסד"ק 100 נסוג 0.20%. כל הפער נעוץ בסקטורים: מגזר הבריאות זינק 3.51% והוביל את השוק, בעוד מגזר הטכנולוגיה איבד 1.07%. גם הראסל 2000 עלה 0.50%, סימן שהכסף זרם אל מחוץ למניות הענק.
+* מניית מודרנה (MRNA) מזנקת: המניה זינקה 176.97% ביום מסחר אחד והוסיפה יותר מ-50 מיליארד דולר לשווי השוק, לפי דיווחים בעקבות תוצאות חיוביות בשלב השלישי של טיפול mRNA ראשון למניעת סרטן. אחרי הנעילה הרחיבה את הזינוק, והיא כעת המניה השנייה בתשואתה ב-S&P 500 מתחילת 2026, אחרי סנדיסק (SNDK).
+* החוב חוצה 40 טריליון והזהב מזנק: לפי דיווחים, החוב הפדרלי של ארה"ב חצה לראשונה את רף 40 טריליון דולר. שוקי הנכסים הריאליים הגיבו מיד, ומחיר הזהב עלה 3.84% ומחיר הכסף 4.47%, בעוד הדולר נחלש 0.92%. הביטקוין הוסיף 5.96% וחצה לפי דיווחים רף של 70 אלף דולר לראשונה מאז תחילת יוני.
+* סנקציות על איראן בלי זעזוע בנפט: הנשיא טראמפ הכריז על מבצע הסנקציות הכלכליות הקשה ביותר שננקט אי פעם נגד מדינה, ואיים בהשלכות כבדות על כל גורם שיסייע לאיראן. השוק בחר להתעלם, ומחיר הנפט עלה בפחות מחצי אחוז בלבד. מגזר האנרגיה אף נסוג 0.16%, סימן שהמשקיעים מעריכים כי הפגיעה בפועל בהיצע תהיה מוגבלת.
+* לחץ על ספקיות תשתית ה-AI: מניית נביוס (NBIS) ירדה 9.87%, ואחרי הנעילה הודיעה על תמחור הנפקה מוגדלת של 5 מיליארד דולר באיגרות חוב להמרה, מהלך שמדלל את בעלי המניות. קרדו (CRDO) איבדה 4.53%, ולפי Reuters סמסונג העלתה את מחירי שירותי ייצור השבבים המתקדמים בעד 15% להזמנות חדשות. עלות המימון של מרוץ ה-AI מטפסת.
+* שורה תחתונה למחר: תביעות האבטלה השבועיות יתפרסמו מחר, יום חמישי, ב-15:30 שעון ישראל, והן הנתון הכבד היחיד בלוח. ביום שישי יתפרסמו מדדי מנהלי הרכש המקדימים. השאלה המרכזית היא אם הרוטציה אל מניות הבריאות תחזיק מעמד ואם היחלשות הדולר תימשך. התחנות הבאות הן דוח נבידיה (NVDA) ב-26 באוגוסט וכנס ג'קסון הול בסוף החודש.
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-08-20. Never mention in the review that these came from tweets/posts:
@@ -219,9 +219,9 @@ Source tweets/posts from X (Twitter) — gathered 2026-08-20. Never mention in t
 
 @StockMKTNewz [Thu Aug 20 02:30:02 +0000 2026]: This is what ChatGPT's portfolio looks like right now in the Rallies AI Arena Google $GOOGL: $30,993 Leidos $LDOS: $22,814 Progressive $PGR: $21,672 Visa $V: $18,376 Cigna $CI: $18,143 Credo $CRDO: $17,391 Exxon Mobil $XOM: $16,574 Amphenol $APH: $16,429 JPMorgan $JPM: $10,690 Nebius $NBIS: $4,393 Available Cash: $2,127
 
-@gurgavin [Mon Aug 17 19:16:26 +0000 2026]: THE CRAZIEST THING ABOUT NIKE SHARES BEING DOWN NEARLY 80% OVER THE LAST 5 YEARS IS NIKE SHARES ARE STILL NOT CHEAP HERE $NKE https://t.co/IeUAObrnXE
-
 @StockMKTNewz [Wed Aug 19 23:43:57 +0000 2026]: Apple $AAPL effort to sell camera-equipped AirPods remains on track for 2027 - Bloomberg https://t.co/4lYGhINlLN
+
+@gurgavin [Mon Aug 17 19:16:26 +0000 2026]: THE CRAZIEST THING ABOUT NIKE SHARES BEING DOWN NEARLY 80% OVER THE LAST 5 YEARS IS NIKE SHARES ARE STILL NOT CHEAP HERE $NKE https://t.co/IeUAObrnXE
 
 @AIStockSavvy [Wed Aug 19 20:16:49 +0000 2026]: $BULL | 𝐖𝐞𝐛𝐮𝐥𝐥 𝐐𝟐 𝐄𝐚𝐫𝐧𝐢𝐧𝐠𝐬 𝐑𝐞𝐩𝐨𝐫𝐭: Revenue: $198.8M (↑51% YoY) | GAAP EPS: $0.04 | Adjusted NI: $43.2M 👉 𝐁𝐮𝐬𝐢𝐧𝐞𝐬𝐬 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Successfully launched 𝐮𝐩𝐝𝐚𝐭𝐞𝐝 𝐚𝐜𝐭𝐢𝐯𝐞 𝐭𝐫𝐚𝐝𝐞𝐫 functionality after Pattern Day Trader Rule elimination. ➤ 𝐕𝐞𝐠𝐚 𝐀𝐈 added approximately 𝟏𝟔𝟎,𝟎𝟎𝟎 new users, reaching about 𝟒𝟖𝟎,𝟎𝟎𝟎 active users. ➤ Expanded 𝐌𝐨𝐝𝐞𝐥 𝐂𝐨𝐧𝐭𝐞𝐱𝐭 𝐏𝐫𝐨𝐭𝐨𝐜𝐨𝐥 to support AI-powered research and trade execution. ➤ Introduced 𝐩𝐚𝐩𝐞𝐫 𝐭𝐫𝐚𝐝𝐢𝐧𝐠 across asset classes. ➤ Expanded into 𝐒𝐩𝐚𝐢𝐧, 𝐀𝐫𝐠𝐞𝐧𝐭𝐢𝐧𝐚, and 𝐂𝐨𝐥𝐨𝐦𝐛𝐢𝐚; now licensed across 𝟑𝟓 markets. ➤ International funded accounts reached approximately 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭: 𝟖𝟏𝟎,𝟎𝟎𝟎. ➤ Announced acquisition of 𝐏𝐢 𝐒𝐞𝐜𝐮𝐫𝐢𝐭𝐢𝐞𝐬 to strengthen Asia-Pacific presence. ➤ Expanded 𝐁𝟐𝐁 offerings with futures, prediction markets, and private market access. ➤ Customer assets increased to 𝐁𝐨𝐥𝐝: $28.5B, up 𝟕𝟗% YoY. ➤ Repurchased and cancelled 𝐁𝐨𝐥𝐝: 1.82M Class A shares at an average price of 𝐁𝐨𝐥𝐝: $6.03. 👉 𝐂𝐄𝐎 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: “I'm proud to report a record second quarter for Webull, highlighted by our successful implementation of updated active trader functionality following the June 4 elimination of the Pattern Day Trader Rule… We believe these investments are strengthening Webull's position as a leading platform for active traders.” — Anthony Denier, Group President & U.S. CEO 👉 𝐂𝐅𝐎 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: “Q2 was the best quarter in Webull's history, with record revenue of $198.8 million, up 51% year-over-year… Adjusted operating profit reached $62.6 million… demonstrating the operating leverage inherent in our platform and the potential for further margin expansion.” — H.C. Wang, Chief Financial Officer
 
