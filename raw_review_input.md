@@ -1,8 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
-Script run date: 2026-08-20 (יום חמישי). Briefing target date: 2026-08-20 (יום חמישי).
-The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
+You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
+2026-08-31 (יום שני). PAST TENSE.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -19,42 +18,39 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
-no closing levels, and nothing that already appears in the prior-context block.
-KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
+This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
 two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
-a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
-* FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
-  web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
-  open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
-  ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning FROM THE SOURCE
-  TWEETS (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category,
-  and do NOT import a story that web search found on its own:
-  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
-    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
-  - The central story investors will watch today, with the transmission mechanism explained simply
-    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
-  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
-    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
-  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
-  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
-  - Geopolitics / Washington politics with market impact.
-  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
-* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
-No ETF proxies, no Finnhub, no ISO dates.
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
+NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
+fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
+* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
+  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
+  session — how it opened, what moved it, how it closed — not a list of numbers.
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
+  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
+  NOT import a story that web search found on its own:
+  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
+    mechanism explained simply.
+  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
+    expectations, yields, sector rotation).
+  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
+  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
+  - Commodities, dollar and yields — direction and meaning, not a list of prices.
+  - After-hours earnings, or geopolitics that moved markets today — when truly material.
+* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
+Every direction word MUST match the DIRECTIONAL FACTS block.
 
 ══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
 The review is built EXCLUSIVELY from two sources:
 1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
 2. The source tweets below — the ONLY source for stories, news and narrative.
-Web search is permitted for FOUR narrow purposes ONLY:
-  a. Verifying the futures direction and percentage for the opening point.
-  b. Verifying TODAY'S scheduled macro calendar (Israel times, consensus, previous reading), and cross-checking
-     that an event you present as upcoming was not already released.
-  c. Verifying a claim of an all-time high / 52-week high before writing it.
-  d. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+Web search is permitted for THREE narrow purposes ONLY:
+  a. Verifying a claim of an all-time high / 52-week high before writing it.
+  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
+     and cross-checking that an event you present as upcoming was not already released.
 FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
 in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
 cover a story — the review does not cover it either.
@@ -111,17 +107,17 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 20.8.2026",
-  "date": "2026-08-20",
+  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום שני, 31.8.2026",
+  "date": "2026-08-31",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "נקודות מרכזיות",
+      "heading": "סיכום המסחר",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -140,48 +136,48 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $769.06 (daily: +0.21%), prev close: $767.45
-  Nasdaq 100 (QQQ ETF): $716.08 (daily: -0.20%), prev close: $717.51
-  Dow Jones (DIA ETF): $534.27 (daily: +0.26%), prev close: $532.91
-  Russell 2000 (IWM ETF): $301.72 (daily: +0.50%), prev close: $300.23
-  Energy Sector (XLE ETF): $63.58 (daily: -0.16%), prev close: $63.68
-  Technology Sector (XLK ETF): $183.64 (daily: -1.07%), prev close: $185.62
-  Financials Sector (XLF ETF): $57.48 (daily: -0.62%), prev close: $57.84
-  Consumer Discretionary Sector (XLY ETF): $118.59 (daily: +1.92%), prev close: $116.36
-  Healthcare Sector (XLV ETF): $175.68 (daily: +3.51%), prev close: $169.73
-  Industrials Sector (XLI ETF): $181.95 (daily: -0.88%), prev close: $183.57
-  Consumer Staples Sector (XLP ETF): $86.54 (daily: +1.12%), prev close: $85.58
-  Utilities Sector (XLU ETF): $44.02 (daily: +0.00%), prev close: $44.02
-  WTI Crude Oil (USO ETF): $130.91 (daily: +0.19%), prev close: $130.66
-  Brent Crude Oil (BNO ETF): $52.32 (daily: +0.40%), prev close: $52.11
-  Gold (GLD ETF): $413.84 (daily: +3.84%), prev close: $398.55
-  Silver (SLV ETF): $60.01 (daily: +4.47%), prev close: $57.44
-  Bitcoin (IBIT ETF): $38.78 (daily: +5.96%), prev close: $36.60
-  US 20Y+ Bonds (TLT ETF): $83.02 (daily: +1.67%), prev close: $81.66
-  US Dollar (UUP ETF): $27.88 (daily: -0.92%), prev close: $28.14
-  VIX Volatility (VIXY ETF): $18.31 (daily: -2.92%), prev close: $18.86
+  S&P 500 (SPY ETF): $767.05 (daily: -0.30%), prev close: $769.35
+  Nasdaq 100 (QQQ ETF): $716.76 (daily: +0.05%), prev close: $716.43
+  Dow Jones (DIA ETF): $531.57 (daily: -0.65%), prev close: $535.06
+  Russell 2000 (IWM ETF): $293.93 (daily: -0.62%), prev close: $295.75
+  Energy Sector (XLE ETF): $63.96 (daily: +2.04%), prev close: $62.68
+  Technology Sector (XLK ETF): $186.50 (daily: +0.44%), prev close: $185.69
+  Financials Sector (XLF ETF): $57.71 (daily: -0.67%), prev close: $58.10
+  Consumer Discretionary Sector (XLY ETF): $116.59 (daily: -0.53%), prev close: $117.21
+  Healthcare Sector (XLV ETF): $170.54 (daily: -0.36%), prev close: $171.16
+  Industrials Sector (XLI ETF): $175.13 (daily: -1.13%), prev close: $177.14
+  Consumer Staples Sector (XLP ETF): $84.98 (daily: -0.55%), prev close: $85.45
+  Utilities Sector (XLU ETF): $42.23 (daily: -1.17%), prev close: $42.73
+  WTI Crude Oil (USO ETF): $133.70 (daily: +3.08%), prev close: $129.70
+  Brent Crude Oil (BNO ETF): $52.84 (daily: +2.64%), prev close: $51.48
+  Gold (GLD ETF): $408.42 (daily: -0.11%), prev close: $408.89
+  Silver (SLV ETF): $60.13 (daily: +0.18%), prev close: $60.02
+  Bitcoin (IBIT ETF): $44.67 (daily: +1.75%), prev close: $43.90
+  US 20Y+ Bonds (TLT ETF): $82.52 (daily: -0.43%), prev close: $82.88
+  US Dollar (UUP ETF): $28.12 (daily: -0.21%), prev close: $28.18
+  VIX Volatility (VIXY ETF): $17.28 (daily: -2.15%), prev close: $17.66
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $MRNA: $174.38 (daily: +176.97%), prev close: $62.96
-  $GOOGL: $344.72 (daily: +0.15%), prev close: $344.20
-  $NBIS: $223.90 (daily: -9.87%), prev close: $248.43
-  $AAPL: $316.83 (daily: +2.19%), prev close: $310.03
-  $COTY: $3.03 (daily: +10.58%), prev close: $2.74
-  $NFLX: $80.22 (daily: +3.15%), prev close: $77.77
-  $APH: $156.04 (daily: -2.21%), prev close: $159.57
-  $CI: $277.45 (daily: -0.38%), prev close: $278.50
-  $CRDO: $234.82 (daily: -4.53%), prev close: $245.97
-  $JPM: $357.26 (daily: -1.65%), prev close: $363.25
-  $LDOS: $146.31 (daily: +1.97%), prev close: $143.48
-  $PGR: $217.27 (daily: +4.84%), prev close: $207.23
+  $NVDA: $220.78 (daily: +1.48%), prev close: $217.55
+  $AAPL: $316.85 (daily: -0.89%), prev close: $319.70
+  $META: $572.34 (daily: -0.98%), prev close: $578.02
+  $HUT: $78.64 (daily: -0.98%), prev close: $79.42
+  $DUOL: $148.36 (daily: +0.94%), prev close: $146.98
+  $IBIT: $44.67 (daily: +1.75%), prev close: $43.90
+  $AMZN: $259.77 (daily: -2.50%), prev close: $266.43
+  $SNDK: $1566.70 (daily: +5.50%), prev close: $1484.98
+  $TSLA: $367.95 (daily: +5.51%), prev close: $348.75
+  $HOOD: $104.81 (daily: +0.53%), prev close: $104.26
+  $CRWD: $231.00 (daily: +5.77%), prev close: $218.40
+  $BA: $207.78 (daily: -0.97%), prev close: $209.82
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +0.19%, BNO: +0.40%)
-  זהב: עולה (GLD: +3.84%)
-  ביטקוין: עולה (IBIT: +5.96%)
-  דולר: יורד (UUP: -0.92%)
-  תנודתיות / VIX: יורד (VIXY: -2.92%)
-  אג"ח ארוכות / TLT: עולה (TLT: +1.67%)
+  נפט (WTI/ברנט): עולה (USO: +3.08%, BNO: +2.64%)
+  זהב: יציב/כמעט ללא שינוי (GLD: -0.11%)
+  ביטקוין: עולה (IBIT: +1.75%)
+  דולר: יורד (UUP: -0.21%)
+  תנודתיות / VIX: יורד (VIXY: -2.15%)
+  אג"ח ארוכות / TLT: יורד (TLT: -0.43%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -190,105 +186,109 @@ For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — nev
 If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ SCHEDULED DATA CHECK (verification only) ══
-Use web search to verify what US economic data is scheduled for release on 2026-08-20 — release time in
-Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
-upcoming was already released. This is schedule verification only: do NOT use the search to import news
-stories the source tweets did not cover.
+══ MANDATORY MACRO TIMING CHECK (verification only) ══
+Use web search to verify the macro calendar for 2026-09-01: which of the majors (CPI headline AND core,
+PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
+actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
+review as a story only if it appears in the source tweets or the verified economic block, with the figures
+they provide (actual, forecast, previous AND the market implication). Never present an already-released
+event as upcoming, and never import from the search a macro story the sources did not cover.
+IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
+bottom-line point.
 ══════════════════════════════════
 
-══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
-Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
+══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
+Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
 
-[סיכום המסחר]
-* רוטציה מהטכנולוגיה אל הבריאות: המדדים ננעלו לכיוונים מנוגדים. S&P 500 עלה 0.21% והדאו ג'ונס הוסיף 0.26%, בעוד נאסד"ק 100 נסוג 0.20%. כל הפער נעוץ בסקטורים: מגזר הבריאות זינק 3.51% והוביל את השוק, בעוד מגזר הטכנולוגיה איבד 1.07%. גם הראסל 2000 עלה 0.50%, סימן שהכסף זרם אל מחוץ למניות הענק.
-* מניית מודרנה (MRNA) מזנקת: המניה זינקה 176.97% ביום מסחר אחד והוסיפה יותר מ-50 מיליארד דולר לשווי השוק, לפי דיווחים בעקבות תוצאות חיוביות בשלב השלישי של טיפול mRNA ראשון למניעת סרטן. אחרי הנעילה הרחיבה את הזינוק, והיא כעת המניה השנייה בתשואתה ב-S&P 500 מתחילת 2026, אחרי סנדיסק (SNDK).
-* החוב חוצה 40 טריליון והזהב מזנק: לפי דיווחים, החוב הפדרלי של ארה"ב חצה לראשונה את רף 40 טריליון דולר. שוקי הנכסים הריאליים הגיבו מיד, ומחיר הזהב עלה 3.84% ומחיר הכסף 4.47%, בעוד הדולר נחלש 0.92%. הביטקוין הוסיף 5.96% וחצה לפי דיווחים רף של 70 אלף דולר לראשונה מאז תחילת יוני.
-* סנקציות על איראן בלי זעזוע בנפט: הנשיא טראמפ הכריז על מבצע הסנקציות הכלכליות הקשה ביותר שננקט אי פעם נגד מדינה, ואיים בהשלכות כבדות על כל גורם שיסייע לאיראן. השוק בחר להתעלם, ומחיר הנפט עלה בפחות מחצי אחוז בלבד. מגזר האנרגיה אף נסוג 0.16%, סימן שהמשקיעים מעריכים כי הפגיעה בפועל בהיצע תהיה מוגבלת.
-* לחץ על ספקיות תשתית ה-AI: מניית נביוס (NBIS) ירדה 9.87%, ואחרי הנעילה הודיעה על תמחור הנפקה מוגדלת של 5 מיליארד דולר באיגרות חוב להמרה, מהלך שמדלל את בעלי המניות. קרדו (CRDO) איבדה 4.53%, ולפי Reuters סמסונג העלתה את מחירי שירותי ייצור השבבים המתקדמים בעד 15% להזמנות חדשות. עלות המימון של מרוץ ה-AI מטפסת.
-* שורה תחתונה למחר: תביעות האבטלה השבועיות יתפרסמו מחר, יום חמישי, ב-15:30 שעון ישראל, והן הנתון הכבד היחיד בלוח. ביום שישי יתפרסמו מדדי מנהלי הרכש המקדימים. השאלה המרכזית היא אם הרוטציה אל מניות הבריאות תחזיק מעמד ואם היחלשות הדולר תימשך. התחנות הבאות הן דוח נבידיה (NVDA) ב-26 באוגוסט וכנס ג'קסון הול בסוף החודש.
+[נקודות מרכזיות]
+* פתיחה חיובית בהובלת הטכנולוגיה: החוזים על S&P 500 עולים 0.16%, החוזים על נאסד"ק 100 מוסיפים 0.42%, ואלה של הדאו ג'ונס והראסל 2000 מטפסים 0.06% ו-0.24% בהתאמה. פער החוזים לטובת הטכנולוגיה מצביע על ניסיון להחזיר את מניות הצמיחה למרכז הבמה. המשקיעים ייכנסו למסחר עם שני נתוני מאקרו כבדים שיתפרסמו באותה שעה.
+* מכסי הרכב על קנדה יורדים ל-15%: לפי Bloomberg, הנשיא טראמפ עומד להוריד את המכס על מכוניות המיובאות מקנדה מ-25% ל-15%, כחלק מהסכם סחר רחב. הכלל שממסה רק את הרכיב הלא אמריקאי ברכב יישמר גם בשיעור החדש. במקביל נדחתה בשלושה ימים הטלת מכסים של 50% על קנדה, ולפי דיווחים ההסכם ממתין רק לחתימה. יצרניות הרכב וספקיות הרכיבים הן הנהנות הישירות.
+* יוטיוב נלחמת על היוצרים הגדולים: לפי Bloomberg, יוטיוב שבבעלות אלפאבית (GOOGL) מציעה מיליוני דולרים לערוצים פופולריים תמורת העלאת סרטונים בבלעדיות לתקופה מוגדרת, כדי לבלום את החיזור של נטפליקס (NFLX) אחרי הכוכבים הגדולים שלה. המאבק על תשומת הלב הופך כך לסעיף עלות ישיר בדוחות של שתי החברות. מניית אלפאבית עלתה 0.15% ונטפליקס עלתה 3.15%.
+* דלק חדש לרוטציה אל הבריאות: לפי דיווחים, מורגן סטנלי העלתה את ההמלצה למניית מרק (MRK) לתשואת יתר ואת מחיר היעד ל-179 דולר מ-116, בהנחה שמחזורי מוצרים חדשים יקזזו את שחיקת הקיטרודה. במקביל אישרה ה-FDA במסלול מזורז טיפול גנטי של אולטרג'ניקס (RARE) למחלה מטבולית נדירה, על בסיס ניסוי בשלב שלישי ב-46 חולים. הסקטור נכנס ליום המסחר עם שתי בשורות טובות.
+* מדד המשאות שולח אזהרה: לפי דיווחים, מדד Cass Freight ירד 4.8% בשנה האחרונה ביולי ונגע ברמה הנמוכה ביותר מאז מגפת 2020. זו הירידה החודשית ה-42 ברציפות, הרצף הארוך ביותר שנמדד, ובמהלכו נשלחו 20% פחות משלוחים. המדד נחשב לחיישן מוקדם של הביקוש הריאלי, והחולשה שלו מחדדת את המשקל של נתוני התעסוקה והייצור הבוקר.
+* שורה תחתונה: תביעות האבטלה השבועיות ומדד הפילדלפיה פד לאוגוסט יתפרסמו היום ב-15:30 שעון ישראל, ומדד המדדים המובילים ליולי ב-17:00. פרוטוקול ה-FOMC כבר פורסם אתמול, ולכן שני נתוני הבוקר הם המבחן היחיד בלוח של היום. השאלה המעשית היא אם הרוטציה אל מניות הבריאות תמשוך גם היום, או שהחוזים על הטכנולוגיה יחזירו את ההובלה לענקיות.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-08-20. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-09-01. Never mention in the review that these came from tweets/posts:
 
-@KobeissiLetter [Wed Aug 19 22:00:00 +0000 2026]: BREAKING: Moderna stock, $MRNA, extends gains to +212% on the day in after hours trading following positive phase 3 results of first the mRNA treatment to prevent cancer. The stock has now added over +$50 billion in market cap today. https://t.co/eKEU0ZjYqm
+@KobeissiLetter [Mon Aug 31 16:50:27 +0000 2026]: BREAKING: Crypto funds attracted +$3.2 billion in inflows last week, their largest weekly intake since October 2025. The largest crypto ETF, $IBIT, attracted +$928 million last week, following +$1.3 billion in the prior week, its biggest 2-week inflow since October 2025. As a result, crypto funds have averaged +$1.3 billion in weekly inflows over the last 4 weeks, their largest 4-week average in 10 months. Meanwhile, gold funds posted +$7.3 billion in inflows last week, also their biggest weekly inflow since October 2025. This brought the 4-week average of inflows up to +$4.5 billion, the largest in 10 months. The rush into crypto and gold is gaining momentum.
 
-@StockMKTNewz [Wed Aug 19 21:32:27 +0000 2026]: Google $GOOGL owned YouTube is reportedly offering millions of dollars to popular channels if they upload their videos to the site exclusively for a certain period of time, in an effort to halt Netflix’s $NFLX pursuit of its biggest stars - Bloomberg https://t.co/xq0WwKM3Vc
+@gurgavin [Wed Aug 26 13:05:18 +0000 2026]: FACEBOOK HAS AGREED TO PAY $16.7 BILLION DOLLARS IN SETTLEMENTS TO SETTLE CLAIMS THAT IT’S PLATFORM HARMED KIDS SHARES UP 4% ON THE NEWS $META https://t.co/CwqLrXTvBX
 
-@KobeissiLetter [Wed Aug 19 23:03:00 +0000 2026]: Gold and silver added a combined +$1.3 trillion in market cap after the US Treasury's announcement this morning. The Fed can no longer contain yields and the US government cannot afford higher yields. Asset owners will be the only winners. https://t.co/x6Alhhtg4L
+@KobeissiLetter [Mon Aug 31 15:40:47 +0000 2026]: Retail investors are piling into Nvidia after the company's record quarter. Retail investors purchased ~$250 million in Nvidia, $NVDA, shares on Wednesday, their 3rd-largest daily purchase since mid-May. This extended the buying streak to 15 consecutive trading sessions. Over this time, retail investors acquired +$2.5 billion in $NVDA shares. By comparison, the largest retail daily purchase was recorded in late February, at +$1.0 billion. Over the last 12 months, retail investors have purchased +$30.0 billion in Nvidia stock, the most among all Magnificent 7 companies. For retail investors, Nvidia remains at the center of the AI trade.
 
-@StockMKTNewz [Thu Aug 20 02:30:02 +0000 2026]: This is what ChatGPT's portfolio looks like right now in the Rallies AI Arena Google $GOOGL: $30,993 Leidos $LDOS: $22,814 Progressive $PGR: $21,672 Visa $V: $18,376 Cigna $CI: $18,143 Credo $CRDO: $17,391 Exxon Mobil $XOM: $16,574 Amphenol $APH: $16,429 JPMorgan $JPM: $10,690 Nebius $NBIS: $4,393 Available Cash: $2,127
+@wallstengine [Mon Aug 31 23:33:03 +0000 2026]: ANTHROPIC SIGNS $35B CLOUD DEAL WITH NVIDIA-BACKED LAMBDA: WSJ $NVDA will supply the chips and is leasing the underlying 700MW Texas data-center campus from $HUT, while Lambda will provide the compute to Anthropic. Hut 8 had already disclosed 15-year leases covering the entire campus, which it said could represent a ~$20B facility, but hadn’t named the tenant. Anthropic also signed a separate $45B deal earlier this month with NVIDIA-backed Nscale for NVIDIA compute capacity in West Virginia.
 
-@StockMKTNewz [Wed Aug 19 23:43:57 +0000 2026]: Apple $AAPL effort to sell camera-equipped AirPods remains on track for 2027 - Bloomberg https://t.co/4lYGhINlLN
+@wallstengine [Mon Aug 31 19:09:44 +0000 2026]: FTC & 22 STATES TO SUE $AMZN OVER ALLEGED SECRET AD PRICE HIKES The FTC is expected to allege Amazon manipulated its ad auctions by inserting its own “soft reserve” bid above the runner-up bid, effectively raising the minimum price advertisers had to pay. The practice allegedly began in 2018 and generated tens of billions of dollars over seven years. In recent years, Amazon allegedly used the mechanism to raise the minimum bid 70-80% of the time, with the FTC claiming it pushed pay-per-click costs up as much as 50% on major shopping days. Amazon generated $68B in advertising revenue in 2025. The case would be the FTC’s third major action against the company, following its Prime case and the ongoing monopoly lawsuit.
 
-@gurgavin [Mon Aug 17 19:16:26 +0000 2026]: THE CRAZIEST THING ABOUT NIKE SHARES BEING DOWN NEARLY 80% OVER THE LAST 5 YEARS IS NIKE SHARES ARE STILL NOT CHEAP HERE $NKE https://t.co/IeUAObrnXE
+@gurgavin [Wed Aug 26 20:21:50 +0000 2026]: NVIDIA JUST REPORTED EARNINGS *NVIDIA REVENUE $96.2 B, EST. $92.4 B ( BEAT ✅) *NVIDIA ADJ EPS $2.22 , EST. $2.09 ( BEAT ✅ ) $NVDA https://t.co/BHlIJMykLW
 
-@AIStockSavvy [Wed Aug 19 20:16:49 +0000 2026]: $BULL | 𝐖𝐞𝐛𝐮𝐥𝐥 𝐐𝟐 𝐄𝐚𝐫𝐧𝐢𝐧𝐠𝐬 𝐑𝐞𝐩𝐨𝐫𝐭: Revenue: $198.8M (↑51% YoY) | GAAP EPS: $0.04 | Adjusted NI: $43.2M 👉 𝐁𝐮𝐬𝐢𝐧𝐞𝐬𝐬 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭𝐬: ➤ Successfully launched 𝐮𝐩𝐝𝐚𝐭𝐞𝐝 𝐚𝐜𝐭𝐢𝐯𝐞 𝐭𝐫𝐚𝐝𝐞𝐫 functionality after Pattern Day Trader Rule elimination. ➤ 𝐕𝐞𝐠𝐚 𝐀𝐈 added approximately 𝟏𝟔𝟎,𝟎𝟎𝟎 new users, reaching about 𝟒𝟖𝟎,𝟎𝟎𝟎 active users. ➤ Expanded 𝐌𝐨𝐝𝐞𝐥 𝐂𝐨𝐧𝐭𝐞𝐱𝐭 𝐏𝐫𝐨𝐭𝐨𝐜𝐨𝐥 to support AI-powered research and trade execution. ➤ Introduced 𝐩𝐚𝐩𝐞𝐫 𝐭𝐫𝐚𝐝𝐢𝐧𝐠 across asset classes. ➤ Expanded into 𝐒𝐩𝐚𝐢𝐧, 𝐀𝐫𝐠𝐞𝐧𝐭𝐢𝐧𝐚, and 𝐂𝐨𝐥𝐨𝐦𝐛𝐢𝐚; now licensed across 𝟑𝟓 markets. ➤ International funded accounts reached approximately 𝐇𝐢𝐠𝐡𝐥𝐢𝐠𝐡𝐭: 𝟖𝟏𝟎,𝟎𝟎𝟎. ➤ Announced acquisition of 𝐏𝐢 𝐒𝐞𝐜𝐮𝐫𝐢𝐭𝐢𝐞𝐬 to strengthen Asia-Pacific presence. ➤ Expanded 𝐁𝟐𝐁 offerings with futures, prediction markets, and private market access. ➤ Customer assets increased to 𝐁𝐨𝐥𝐝: $28.5B, up 𝟕𝟗% YoY. ➤ Repurchased and cancelled 𝐁𝐨𝐥𝐝: 1.82M Class A shares at an average price of 𝐁𝐨𝐥𝐝: $6.03. 👉 𝐂𝐄𝐎 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: “I'm proud to report a record second quarter for Webull, highlighted by our successful implementation of updated active trader functionality following the June 4 elimination of the Pattern Day Trader Rule… We believe these investments are strengthening Webull's position as a leading platform for active traders.” — Anthony Denier, Group President & U.S. CEO 👉 𝐂𝐅𝐎 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭: “Q2 was the best quarter in Webull's history, with record revenue of $198.8 million, up 51% year-over-year… Adjusted operating profit reached $62.6 million… demonstrating the operating leverage inherent in our platform and the potential for further margin expansion.” — H.C. Wang, Chief Financial Officer
+@wallstengine [Mon Aug 31 20:17:38 +0000 2026]: Apple alleges fmr. engineer Chang Liu accessed a proprietary power-converter circuit schematic while at OpenAI & used confidential $AAPL info to train an AI agent. The new evidence came from a MacBook provided by OpenAI on Aug 21 & is asking a federal judge to expedite discovery - new court filing.
 
-@wallstengine [Wed Aug 19 20:40:27 +0000 2026]: NORDSON $NDSN Q3’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $818M (Est. $780M) 🟢; +10% YoY 🔹 Adj. EPS: $3.25 (Est. $3.10) 🟢; +19% YoY 🔹 EBITDA: $262M (Est. $254M) 🟢; +10% YoY Raises FY26 Guide: 🔹 Revenue: $3.04B-$3.08B (Est. $2.98B) 🟢 🔹 Adj. EPS: $11.80-$12.00 (Est. $11.59) 🟢 Segment Net Revenue: 🔹 Industrial Precision Solutions: $367M; +5% YoY 🔹 Medical & Fluid Solutions: $231M; +5% YoY 🔹 Advanced Technology Solutions: $220M; +28% YoY Other Q3 Metrics: 🔹 Net Income: $153M (Est. $174M) ; +21% YoY 🔹 Organic Sales Growth: 12% 🔹 Backlog: 35% YoY Comments: 🔸 “delivering results above the high-end of our most recent earnings guidance.” 🔸 “we expect the strong sales of the first nine months to continue through the fourth quarter.”
+@StockMKTNewz [Mon Aug 31 21:18:58 +0000 2026]: APPLE $AAPL SAYS OPENAI IS DESTROYING EVIDENCE IN TRADE SECRETS CASE - Bloomberg
 
-@StockMKTNewz [Thu Aug 20 01:14:21 +0000 2026]: $UBER, Verne and Pony AI just announced they have launched autonomous rides in Zagreb, Croatia This is the first European city where you can book a self driving car ride on the Uber App - Reuters https://t.co/xKEVlFVGkg
+@gurgavin [Wed Aug 26 20:04:52 +0000 2026]: 15 MINUTES TO GO FOR NVIDIA EARNINGS GET READY $NVDA
 
-@KobeissiLetter [Wed Aug 19 22:36:00 +0000 2026]: BREAKING: President Trump is set to reduce tariffs on automobiles imported from Canada from 25% to 15% as part of a broader trade deal with the country, per Bloomberg. Details include: 1. Currently the US has imposed a 25% tariff on the non-US content of vehicles produces in Canada 2. The same content provision will apply to the new 15% rate 3. US and Canadian negotiators have reportedly discussed whether to widen the exemption to include additional content, though no firm decision to do so has been reached The US-Canada trade deal appears to be materializing.
+@wallstengine [Mon Aug 31 20:01:00 +0000 2026]: $SNDK +8% in last 30mins https://t.co/HCOUMIiF6G
 
-@StockMKTNewz [Thu Aug 20 01:04:41 +0000 2026]: Here is how much revenue Tempus AI $TEM has brought in every quarter since going public Q2 2024: $166M Q3 2024: $180.9M Q4 2024: $200.7M Q1 2025: $255.7M Q2 2025: $314.6M Q3 2025: $334.2M Q4 2025: $367.2M Q1 2026: $348.1M Q2 2026: $382.5M https://t.co/xZ7tpeV0dU
+@AIStockSavvy [Mon Aug 31 23:27:39 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: Anthropic Signs $35 Billion Cloud Deal With Nvidia-Backed Lambda - WSJ - $NVDA $HUT 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗔𝗻𝘁𝗵𝗿𝗼𝗽𝗶𝗰 reportedly signs $𝟯𝟱 𝗯𝗶𝗹𝗹𝗶𝗼𝗻 cloud deal with 𝗟𝗮𝗺𝗯𝗱𝗮. ➤ 𝗡𝘃𝗶𝗱𝗶𝗮 reportedly holds the lease on the underlying Texas data center. ➤ 𝗛𝘂𝘁 𝟴 is developing the facility in 𝗡𝘂𝗲𝗰𝗲𝘀 𝗖𝗼𝘂𝗻𝘁𝘆, Texas. ➤ Lambda will install 𝗡𝘃𝗶𝗱𝗶𝗮 chips purchased for the data center. ➤ Nvidia is also an 𝗶𝗻𝘃𝗲𝘀𝘁𝗼𝗿 in cloud provider Lambda. ➤ Anthropic recently signed another reported $𝟰𝟱 𝗯𝗶𝗹𝗹𝗶𝗼𝗻 deal with 𝗡𝘀𝗰𝗮𝗹𝗲. ➤ Anthropic has accelerated capacity deals following an earlier 𝗔𝗜 𝗰𝗼𝗺𝗽𝘂𝘁𝗲 supply crunch. ➤ Hut 8 previously disclosed 𝟭𝟱-𝘆𝗲𝗮𝗿 leases covering its 𝟳𝟬𝟬-𝗠𝗪 Texas campus. ➤ Hut 8 said the Texas facility represents approximately $𝟮𝟬 𝗯𝗶𝗹𝗹𝗶𝗼𝗻. ➤ Nvidia's role highlights expanding financing support across the 𝗔𝗜 𝗰𝗹𝗼𝘂𝗱 ecosystem. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Signals continued massive spending on 𝗔𝗜 𝗰𝗼𝗺𝗽𝘂𝘁𝗲 despite infrastructure concerns. ➤ Strengthens demand for 𝗡𝘃𝗶𝗱𝗶𝗮 GPUs and Nvidia-backed cloud infrastructure. ➤ Highlights Anthropic's push to secure 𝗹𝗼𝗻𝗴-𝘁𝗲𝗿𝗺 computing capacity. ➤ Could significantly expand 𝗟𝗮𝗺𝗯𝗱𝗮 and 𝗛𝘂𝘁 𝟴 exposure to AI infrastructure. ➤ Shows Nvidia increasingly supporting the financing ecosystem around its 𝗚𝗣𝗨 demand.
 
-@AIStockSavvy [Wed Aug 19 23:20:32 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Trump announces toughest-ever economic sanctions on Iran - $QQQ $SPY $USO U.S. President Trump announced the toughest-ever economic sanctions on Iran and urged allies to join in isolating the country. He warned any state that allows its banks, companies, airports or government entities to provide any form of assistance to Iran will face severe economic consequences. He specifically said oil smuggling, swap lines, cash transfers, currency-exchange firms, vessel registration and shell companies must stop. Trump reiterated that Iran will not be allowed to develop nuclear weapons.
+@AIStockSavvy [Mon Aug 31 20:17:51 +0000 2026]: $AAPL | Apple said in court filings that new evidence was found on MacBooks OpenAI provided to the company on Aug. 21 and that the material is part of its trade-secrets lawsuit. Apple has asked a U.S. federal court to accelerate discovery in the case against OpenAI.
 
-@wallstengine [Thu Aug 20 00:20:28 +0000 2026]: Despite a leaked Apple video showing camera-equipped AirPods in action, with the cameras mainly designed to scan surroundings for AI context, the earbuds "remain off" $AAPL's 2026 roadmap. https://t.co/OXGPjnwSrs
+@wallstengine [Mon Aug 31 19:47:10 +0000 2026]: $TSLA +5%, its best day since July 6, as optimism builds ahead of Tesla’s Sept. 3 Cybercab launch event in Austin. https://t.co/eDIS5riwJI
 
-@wallstengine [Wed Aug 19 20:41:06 +0000 2026]: WOLFSPEED $WOLF Q4’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $149.6M (Est. $224M) 🔴 🔹 Adj. EPS: -$2.26 (Est. -$2.45) 🟢 🔹 Gross Margin: -25% 🔹 Free Cash Flow: -$60.9M (Est. -$108M) 🟢 Q1 Guide: 🔹 Revenue: $140M-$160M (Est. $150M) 🟡 🔹 Non-GAAP Gross Margin: Negative 🔹 Non-GAAP OpEx: $62M-$66M Segment Net Revenue: 🔹 Power Products: $106.3M 🔹 Materials Products: $43.3M Other Q4 Metrics: 🔹 Net Loss: -$145.4M 🔹 Operating Loss: -$115.4M 🔹 Adjusted EBITDA: -$62.4M 🔹 AI Data Center Revenue Growth: +20% QoQ 🔹 Cash & Investments: $1.1B Key Updates: 🔹 Launched: Fifth-generation SiC MOSFET 🔹 Board Appointment: Andy Mattes Comments: 🔸 “strong growth in AI data center applications and the launch of our fifth-generation SiC MOSFET” 🔸 “During the fourth quarter, our capital structure further improved as holders of $46 million of our convertible notes exercised a voluntary conversion of their debt to equity”
+@KobeissiLetter [Tue Sep 01 01:18:00 +0000 2026]: BREAKING: The White House publishes the details of the US-Venezuela oil deal and announces that Venezuela has granted North American Blue Energy Partners 100-year concessions for 17 oil fields. Details include: 1. The 17 fields contain ~65 billion barrels of proven oil reserves 2. The US government receives a 35% equity stake in NABEP's parent company at "zero cost to taxpayers" 3. The US receives the right to purchase 20% of all current and future production at production cost 4. The US also receives the right of first refusal to purchase the remaining 80% of production 5. The US government receives veto power over board appointments, while a majority of NABEP's board must be US citizens 6. NABEP plans to invest up to $100 billion into Venezuelan oil infrastructure to rapidly increase production 7. Venezuela is expected to receive ~$200 billion in royalty and tax payments over the first 25 years The White House is calling this the "biggest oil deal in world history."
 
-@wallstengine [Wed Aug 19 20:40:52 +0000 2026]: $COTY Q4’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $1.27B (Est. $1.19B) 🟢; +1% YoY 🔹 Adj. EPS: -$0.02 (Est. -$0.01) 🔴; +60% YoY 🔹 EBITDA: $93.6M (Est. $96.2M) 🔴; -26% YoY 🔹 Free Cash Flow: $72.6M Q1 Guide: 🔹 Adj. EPS: $0.11-$0.13 (Est. $0.14) 🔴 🔹 LFL Revenue: Low- to mid-single-digit decline 🔹 Adj. Gross Margin: -50 to -100 bps YoY 🔹 Adj. EBITDA: Low-teens decline 🔹 H1 Free Cash Flow: Over $300M Segment Net Revenue: 🔹 Prestige: $771.8M; +1% YoY 🔹 Consumer Beauty: $497.4M; +1% YoY Other Q4 Metrics: 🔹 Gross Margin: 60.9%; -140 bps YoY 🔹 Operating Income: $39.5M; -42% YoY 🔹 Operating Cash Flow: $116.0M Comments: 🔸 “However, we are not content with our sell-out performance, which remains below market levels in both divisions, and steadily closing that gap remains a clear priority across the organization.” 🔸 “In sum, our Q4 results provide early signs of stabilization, although the recovery will not be linear.”
+@KobeissiLetter [Mon Aug 31 14:03:18 +0000 2026]: BREAKING: President Trump releases a statement condemning the growing backlash against data centers in the US. "If we kill the Golden Goose, you will only have yourselves to blame," Trump says. https://t.co/8fPPYELSF6
 
-@StockMKTNewz [Thu Aug 20 02:13:21 +0000 2026]: MODERNA $MRNA IS NOW THE 2ND BEST PERFORMING NAME IN THE S&amp;P 500 SO FAR IN 2026 BEHIND JUST SANDISK $SNDK https://t.co/Qnlwm7FPm8
+@AIStockSavvy [Mon Aug 31 20:15:24 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $AAPL Apple alleges defendant in trade secret case against OpenAI accessed power converter circuit schematic while at OpenAI - legal filing
 
-@StockMKTNewz [Thu Aug 20 00:20:17 +0000 2026]: Cathie Wood and Ark Invest bought 78,756 shares of Cerebras $CBRS today https://t.co/sS1bCg1y5Q
+@StockMKTNewz [Mon Aug 31 21:59:23 +0000 2026]: Robinhood $HOOD CEO Vlad Tenev just posted this: "Robinhood Banking has crossed $4B in assets."
 
-@KobeissiLetter [Thu Aug 20 00:44:10 +0000 2026]: US stocks are having one of their best decades in history: The S&P 500 has gained +141.0% so far since the end of 2019. If this pace continues, the index will finish the decade with a cumulative gain of roughly +277%. This would rank as the 2nd-best decade on record, trailing only the +316% return posted during the 1989-1999 Dot-Com Boom. This would also surpass the +257% gain seen during the postwar boom decade of 1949-1959. By comparison, between 2010 and 2020, the S&P 500 returned +190% following the 2008 Financial Crisis. The 2020s are shaping up to be one of the greatest decades in US equity market history.
+@StockMKTNewz [Mon Aug 31 19:20:02 +0000 2026]: CrowdStrike $CRWD stock hit new ALL TIME HIGHS today https://t.co/iPF06ypVWk
 
-@KobeissiLetter [Wed Aug 19 23:04:12 +0000 2026]: BREAKING: President Trump announces “the most crushing economic operation ever taken against a country” on Iran. Trump says any country that does business with Iran will face “tremendous economic consequences.” This is “Economic D-Day” President Trump says. https://t.co/sp8PWZBnwO
+@StockMKTNewz [Mon Aug 31 19:10:52 +0000 2026]: Meta Platforms $META CEO Mark Zuckerberg just posted this “Muse Code is out of beta and now built to handle bigger, more complex engineering tasks.“ “Workflows can break out a task across multiple focused agents, carry the intermediate work between stages, and return one result at the end. Good for engineering work that's too complex for a single agent.￼”
 
-@KobeissiLetter [Wed Aug 19 21:22:31 +0000 2026]: BREAKING: Bitcoin extends gains to rise above $70,000 for the first time since June 2nd and levered short liquidations hit $2.7 billion in 24 hours. https://t.co/vs7NjXPsw1
+@StockMKTNewz [Mon Aug 31 18:21:20 +0000 2026]: $META is my largest single stock holding 🫡
 
-@KobeissiLetter [Wed Aug 19 20:38:00 +0000 2026]: BREAKING: Total US debt officially hits $40 trillion for the first time in history. That's $119,699 in US debt for every American. This puts the total US debt balance up +$17 trillion since 2020 and +$30 trillion since 2008. We are on an unsustainable fiscal path. https://t.co/kNIZDIZVeq
+@KobeissiLetter [Mon Aug 31 18:34:27 +0000 2026]: Are gold prices poised for more upside? Based on the historical relationship between gold and global M2 money supply, gold is valued at $5,025 per ounce today, according to Fidelity analysis. This implies +9% upside from the current gold price of ~$4,600. This comes as global M2 money supply grew ~8.5% YoY this month, an increase from the ~7.0% YoY growth seen in June. Furthermore, global gold ETFs have attracted +$18.9 billion in inflows over the last 12 months, the largest trailing 12-month inflow since February. This also marks an improvement from the +$12.0 billion in trailing 12-month inflows recorded in June. Gold markets are heating up.
 
-@gurgavin [Wed Aug 19 02:18:11 +0000 2026]: JUST IN : TRUMP HAS DELAYED 50 PERCENT TARIFFS AGAINST CANADA THAT WERE SCHEDULED TO GO LIVE TOMORROW BY 3 DAYS TRUMP SAYS CANADA AND USA HAVE A DEAL SUBJECT TO FINALIZATION OF DOCUMENTS 🇨🇦🇨🇦🇨🇦🇨🇦🇨🇦🇨🇦
+@KobeissiLetter [Mon Aug 31 13:48:19 +0000 2026]: There it is. 12 days since US Treasury intervention in the bond market was announced and yields are up to a new 19-month high. The 10Y Note Yield is now just 2 basis points away from its highest level since 2007. The bond market appears to be completely ignoring the US Treasury. We simply cannot afford the 10Y Yield at 5%+.
 
-@gurgavin [Mon Aug 17 19:58:51 +0000 2026]: JUST IN : NASDAQ SAYS IT WILL INTRODUCE A NEW EVENING TRADING SESSION FROM 9 PM TO 4 AM ET STARTING IN DECEMBER NASDAQ IS ALSO ENGAGING WITH REGULATORS TO OFFER NEARLY CONTINUOUS TRADING 23 HOURS A DAY, FIVE DAYS A WEEK
+@AIStockSavvy [Mon Aug 31 23:44:16 +0000 2026]: Jim Cramer on $BA Boeing: “When oil goes up, Boeing goes down. We need to be on the sidelines until it breaks $200, which it might because it is so despised.”
 
-@AIStockSavvy [Wed Aug 19 23:05:25 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $RGTI Rigetti Restructures Operations to Scale Quantum System Deployments 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗥𝗶𝗴𝗲𝘁𝘁𝗶 establishes dedicated 𝗦𝘆𝘀𝘁𝗲𝗺𝘀 𝗗𝗲𝗹𝗶𝘃𝗲𝗿𝘆 organization amid growing demand. ➤ Company creates new 𝗖𝗵𝗶𝗲𝗳 𝗢𝗽𝗲𝗿𝗮𝘁𝗶𝗻𝗴 𝗢𝗳𝗳𝗶𝗰𝗲𝗿 role. ➤ 𝗗𝗮𝘃𝗶𝗱 𝗥𝗶𝘃𝗮𝘀 moves from CTO to newly created COO position. ➤ 𝗔𝗻𝗱𝗿𝗲𝘄 𝗕𝗲𝘀𝘁𝘄𝗶𝗰𝗸, 𝗣𝗵.𝗗., becomes Chief Technology Officer. ➤ Rigetti reports increased demand for 𝗼𝗻-𝗽𝗿𝗲𝗺𝗶𝘀𝗲𝘀 quantum computing systems. ➤ Customer systems range from 𝟵-𝗾𝘂𝗯𝗶𝘁 Novera to 𝟭𝟬𝟴-𝗾𝘂𝗯𝗶𝘁 Cepheus-class systems. ➤ Technology teams will focus more heavily on 𝗾𝘂𝗮𝗻𝘁𝘂𝗺 𝗽𝗿𝗼𝗰𝗲𝘀𝘀𝗼𝗿 development. ➤ Rigetti targets 𝟵𝟵.𝟱% median two-qubit gate fidelity on Cepheus-1-108Q. ➤ Executive appointments became effective 𝗔𝘂𝗴𝘂𝘀𝘁 𝟭𝟴, 𝟮𝟬𝟮𝟲. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Restructuring signals Rigetti is preparing to 𝘀𝗰𝗮𝗹𝗲 customer quantum deployments. ➤ Dedicated delivery leadership could improve installation, support, and 𝗰𝘂𝘀𝘁𝗼𝗺𝗲𝗿 𝗲𝘅𝗲𝗰𝘂𝘁𝗶𝗼𝗻. ➤ Engineering specialization could accelerate progress toward Rigetti's 𝗾𝘂𝗮𝗻𝘁𝘂𝗺 𝗿𝗼𝗮𝗱𝗺𝗮𝗽. ➤ Growing 𝟭𝟬𝟴-𝗾𝘂𝗯𝗶𝘁 demand indicates expanding commercial interest in larger systems. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁: 𝗗𝗿. 𝗦𝘂𝗯𝗼𝗱𝗵 𝗞𝘂𝗹𝗸𝗮𝗿𝗻𝗶, President and Chief Executive Officer of Rigetti: "Rigetti’s growing deployment activity makes this the right time to establish a dedicated organization focused on delivering and supporting systems for customers," said Dr. Kulkarni. "This structure gives our commercial and operational teams clear, end-to-end accountability for scaling system delivery, while giving our technology organization even greater focus on quantum processor innovation and performance. David brings deep experience building the operational capabilities that support our systems and customers, and Andrew brings exceptional technical leadership to our chiplet-based architecture. Together, we believe these appointments position Rigetti to execute across both customer deployments and our technology roadmap."
+@AIStockSavvy [Mon Aug 31 23:43:53 +0000 2026]: Jim Cramer on $TER Teradyne: “I think Teradyne is right here. It’s cooled off. It’s got a great business, unassailable business, not a monopoly, but close to it.”
 
-@AIStockSavvy [Wed Aug 19 23:04:23 +0000 2026]: $GOOGL | Rosenblatt 𝗶𝗻𝗶𝘁𝗶𝗮𝘁𝗲𝘀 𝗕𝘂𝘆 on 𝗔𝗹𝗽𝗵𝗮𝗯𝗲𝘁, PT $𝟰𝟭𝟬 Analyst sees sustained Cloud momentum driving operating profit growth and multiple expansion as Alphabet monetizes AI capacity and TPUs. https://t.co/rpUnD5Xqm0
+@AIStockSavvy [Mon Aug 31 21:42:24 +0000 2026]: $EOSE | Eos Energy Enterprises (EOSE) filed a registration statement Monday covering the potential resale of up to 56.5 million shares by the selling securityholders issuable upon exercise of the Frontier Warrants, the exchange rights, the purchase agreement warrant and conversion of the series B preferred stock. Eos said it will not receive proceeds from the resale of the shares by selling securityholders.
 
-@AIStockSavvy [Wed Aug 19 23:03:24 +0000 2026]: $AMZN | Rosenblatt 𝗶𝗻𝗶𝘁𝗶𝗮𝘁𝗲𝘀 𝗕𝘂𝘆 on 𝗔𝗺𝗮𝘇𝗼𝗻.𝗰𝗼𝗺, PT $𝟯𝟯𝟱 Analyst sees Amazon’s AI leadership as underappreciated and expects AWS to exit 2026 at 45% growth, on a path to 335B+ by 2028. https://t.co/RbihX0YgJk
+@AIStockSavvy [Mon Aug 31 21:33:33 +0000 2026]: Correction: $DUOL | Evercore ISI 𝘂𝗽𝗴𝗿𝗮𝗱𝗲𝘀 from In Line to 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on 𝗗𝘂𝗼𝗹𝗶𝗻𝗴𝗼 𝗜𝗻𝗰., raises PT to $𝟮𝟭𝟬 from $𝟭𝟭𝟰 https://t.co/1ysjbpJ3ss
 
-@AIStockSavvy [Wed Aug 19 21:22:59 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: FDA Grants Accelerated Approval to $RARE Ultragenyx’s GENGLYCOS Gene Therapy for GSDIa 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗙𝗗𝗔 grants accelerated approval to 𝗚𝗘𝗡𝗚𝗟𝗬𝗖𝗢𝗦 for GSDIa. ➤ Approval covers patients aged 𝗲𝗶𝗴𝗵𝘁 𝘆𝗲𝗮𝗿𝘀 𝗮𝗻𝗱 𝗼𝗹𝗱𝗲𝗿. ➤ Therapy is approved to reduce patients’ 𝗱𝗮𝗶𝗹𝘆 𝗰𝗼𝗿𝗻𝘀𝘁𝗮𝗿𝗰𝗵 intake. ➤ Phase 3 study enrolled 𝟰𝟲 patients over 𝟰𝟴 weeks. ➤ GENGLYCOS significantly reduced cornstarch requirements versus placebo, with 𝗽<𝟬.𝟬𝟬𝟭. ➤ Ultragenyx must provide additional 𝘀𝗮𝗳𝗲𝘁𝘆 𝗮𝗻𝗱 𝗲𝗳𝗳𝗶𝗰𝗮𝗰𝘆 data. ➤ Patients will be monitored for up to 𝟭𝟬 𝘆𝗲𝗮𝗿𝘀. ➤ FDA approval also awarded Ultragenyx a 𝗣𝗿𝗶𝗼𝗿𝗶𝘁𝘆 𝗥𝗲𝘃𝗶𝗲𝘄 𝗩𝗼𝘂𝗰𝗵𝗲𝗿. ➤ GENGLYCOS becomes Ultragenyx’s 𝗳𝗶𝗿𝘀𝘁 𝗴𝗲𝗻𝗲 𝘁𝗵𝗲𝗿𝗮𝗽𝘆 approval and fifth FDA approval. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Approval introduces a 𝗴𝗲𝗻𝗲 𝘁𝗵𝗲𝗿𝗮𝗽𝘆 option for the rare metabolic disease. ➤ Reduced cornstarch dependence could meaningfully change 𝗚𝗦𝗗𝗜𝗮 disease management. ➤ Accelerated approval creates a new commercial opportunity for 𝗨𝗹𝘁𝗿𝗮𝗴𝗲𝗻𝘆𝘅. ➤ Long-term follow-up remains critical for confirming 𝗰𝗹𝗶𝗻𝗶𝗰𝗮𝗹 𝗯𝗲𝗻𝗲𝗳𝗶𝘁 and safety.
+@AIStockSavvy [Mon Aug 31 20:03:07 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: Planet Labs Sends Tanager-2 and 18 SuperDoves for Upcoming SpaceX Launch - $PL $SPCX 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗣𝗹𝗮𝗻𝗲𝘁 𝗟𝗮𝗯𝘀 ships 𝗧𝗮𝗻𝗮𝗴𝗲𝗿-𝟮 and 𝟭𝟴 SuperDoves to Vandenberg. ➤ Satellites will launch aboard 𝗦𝗽𝗮𝗰𝗲𝗫'𝘀 upcoming Transporter-18 rideshare mission. ➤ Tanager-2 is designed to 𝗱𝗼𝘂𝗯𝗹𝗲 Planet's hyperspectral capacity. ➤ Tanager-2 aims to 𝗵𝗮𝗹𝘃𝗲 revisit times for methane detection. ➤ Tanager captures imagery across 𝟰𝟮𝟲 contiguous spectral bands. ➤ Imaging provides approximately 𝟱𝗻𝗺 spectral and 𝟯𝟬-𝗺𝗲𝘁𝗲𝗿 spatial resolution. ➤ Planet plans at least 𝘁𝗵𝗿𝗲𝗲 additional Tanager satellites after Tanager-2. ➤ 𝟭𝟴 𝗦𝘂𝗽𝗲𝗿𝗗𝗼𝘃𝗲𝘀 will strengthen PlanetScope's daily global monitoring mission. ➤ Tanager supports methane detection plus 𝗺𝗶𝗻𝗶𝗻𝗴, agriculture, water, and coral monitoring. 👉 𝗪𝗵𝘆 𝗧𝗵𝗶𝘀 𝗠𝗮𝘁𝘁𝗲𝗿𝘀: ➤ Expanded hyperspectral capacity could improve detection of 𝗺𝗲𝘁𝗵𝗮𝗻𝗲 super-emitters. ➤ More SuperDoves strengthen Planet's 𝗱𝗮𝗶𝗹𝘆 𝗴𝗹𝗼𝗯𝗮𝗹 Earth-imaging capabilities. ➤ Greater satellite capacity supports commercial, government, defense, and climate applications. ➤ Expansion could broaden Planet's 𝗔𝗜-𝗽𝗼𝘄𝗲𝗿𝗲𝗱 geospatial data opportunities. 👉 𝗘𝘅𝗽𝗲𝗿𝘁 𝗦𝘁𝗮𝘁𝗲𝗺𝗲𝗻𝘁𝘀: 𝗪𝗶𝗹𝗹 𝗠𝗮𝗿𝘀𝗵𝗮𝗹𝗹, Co-Founder and CEO of Planet: “The growth of these constellations, and our third launch this year, are testaments to our satellite build velocity,” said Will Marshall, Co-Founder and CEO of Planet. “This launch includes 18 SuperDoves that enable Planet’s daily scan mission, which underpins the AI-powered broad area solutions that are core to unlocking new markets, as well as Tanager-2, which is designed to double our hyperspectral capacity and halve revisit times to detect methane super-emitters and more as part of our project with Carbon Mapper!” 𝗥𝗶𝗹𝗲𝘆 𝗗𝘂𝗿𝗲𝗻, CEO of Carbon Mapper: “Our public methane data and many partners are driving global emissions action, informing mitigation efforts and policy, and reducing harmful impacts on climate, public health and air quality,” said Riley Duren, CEO of Carbon Mapper. “This launch represents a major milestone as we continue to expand the capacity of the constellation and scale up data-driven climate action. Carbon Mapper’s methane detection and notification efforts have already enabled the mitigation of large methane sources in diverse regions, and we look forward to making even more impact with Tanager-2.”
 
-@AIStockSavvy [Wed Aug 19 20:25:16 +0000 2026]: $MRNA | Morgan Stanley 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗘𝗾𝘂𝗮𝗹𝘄𝗲𝗶𝗴𝗵𝘁 on 𝗠𝗼𝗱𝗲𝗿𝗻𝗮, raises PT to $𝟴𝟵 from $𝟯𝟵 Analyst sees long-term upside, but says the COVID-19 vaccine-driven valuation increase limits near-term upside. https://t.co/a3Ld29ktnt
+@StockMKTNewz [Mon Aug 31 23:31:29 +0000 2026]: ANTHROPIC JUST SIGNED A $35 BILLION CLOUD DEAL, AND NVIDIA IS THE LANDLORD The deal is with Lambda, an Nvidia-backed cloud provider, but Nvidia itself holds the lease on the actual data center The data center is being built by Hut 8 in Nueces County, Texas. Nvidia signed its own agreement with Hut 8 a few weeks ago to lock down the capacity. Lambda will use the space to plug in chips it bought from Nvidia, which is also its investor. - WSJ
 
-@AIStockSavvy [Wed Aug 19 20:23:38 +0000 2026]: $MRK | Morgan Stanley 𝘂𝗽𝗴𝗿𝗮𝗱𝗲𝘀 𝗠𝗲𝗿𝗰𝗸 from 𝗘𝗾𝘂𝗮𝗹𝘄𝗲𝗶𝗴𝗵𝘁 to 𝗢𝘃𝗲𝗿𝘄𝗲𝗶𝗴𝗵𝘁, raises PT to $𝟭𝟳𝟵 from $𝟭𝟭𝟲 Analyst sees new product cycles offsetting Keytruda and a robust catalyst path, supported by higher estimates and a 17x P/E multiple. https://t.co/MCZ0cPazar
+@KobeissiLetter [Mon Aug 31 21:56:44 +0000 2026]: US stocks have never been this disconnected from each other: The median 63-day correlation between individual S&P 500 stocks and the index itself is down to +0.10, the lowest on record. This measures how closely individual stocks move with the broader index, with a reading this low meaning the index is being driven by a small group of stocks while most move independently. This figure has dropped -71% over the last 5 months. By comparison, during the March 2025 selloff, the median 63-day correlation surged to as much as +0.76. To put this into perspective, the previous all-time low was +0.16 following the 2000 Dot-Com Bubble burst. The market is more concentrated than ever.
 
-@KobeissiLetter [Wed Aug 19 20:27:00 +0000 2026]: BREAKING: The Cass Freight Index fell -4.8% YoY in July, to 0.96, matching the lowest level since the 2020 pandemic. The index tracks freight shipment activity across North America and is a widely followed indicator of freight demand. This marks the 42nd consecutive monthly decline, the longest streak on record. Over this period, shipments have fallen -20%, with the index declining -7.0% in 2023, -5.8% in 2024, and -7.5% in 2025. MoM, shipments posted their 3rd consecutive monthly decline, reversing the brief rebound seen earlier this year. This decline reflects higher fuel prices, while a renewed driver shortage is reducing available trucking capacity and weighing on shipment volumes. The US freight market continues to weaken.
+@KobeissiLetter [Mon Aug 31 20:05:50 +0000 2026]: BREAKING: President Trump says he has ruled out using a nuclear weapon on Iran. “Iran is not a big war for us,” President Trump says.
 
-@KobeissiLetter [Wed Aug 19 19:11:00 +0000 2026]: BREAKING: The average price of US ground beef jumped +9% YoY in July, to a record $7.10 per pound. Ground beef prices have surged +65% since the end of 2019. Meanwhile, steak prices surged +10% YoY last month, to a record $13.10 per pound, up +70% since December 2019. As a result, beef sales volumes fell -0.3% YoY over the 13 weeks ending mid-July.. This is a sharp reversal from +5.4% YoY growth during the same period in 2025, and +4.6% YoY growth in 2024. Americans are reducing beef consumption amid rapidly surging prices.
+@gurgavin [Sun Aug 30 18:37:41 +0000 2026]: AFTER 15 YEARS TOMORROW IS TIM COOK’S LAST DAY AS APPLE CEO REVENUE WENT FROM $108 BILLION TO $416 BILLION SERVICES REVENUE WENT FROM $9 BILLION TO $109 BILLION A YEAR APPLE’S VALUATION WENT FROM $350 BILLION TO $5 TRILLION FIRST U.S. COMPANY EVER TO BE WORTH $1 TRILLION HE WILL BE MISSED
 
-@gurgavin [Wed Aug 19 00:12:39 +0000 2026]: THIS IS SOMETHING EVERYONE SHOULD BE LOOKING AT THE AVERAGE AI TOKEN PRICES ARE NOW DOWN OVER 50% OVER THE LAST 2 MONTHS WENT FROM NEARLY $2.10 PER MILLION TOKENS TO NOW JUST $1 https://t.co/5zPcShuAO0
+@gurgavin [Fri Aug 28 22:48:26 +0000 2026]: *TRUMP: ENTERED AGREEMENT WITH VENEZUELA ON BIGGEST OIL DEAL IN WORLD HISTORY *TRUMP: SECURED MAJORITY US CONTROL OVER 65 BILLION BARRELS OF PROVEN VENEZUELAN OIL RESERVES *TRUMP: HISTORIC TRANSACTION MORE THAN DOUBLES AMERICAN OIL RESERVES AND LOWERS GAS PRICES
 
-@AIStockSavvy [Thu Aug 20 03:13:36 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $NBIS Nebius Group announces pricing of upsized private offering of $5.0 billion of convertible senior notes
+@AIStockSavvy [Mon Aug 31 20:32:52 +0000 2026]: $DUOL | Evercore ISI 𝘂𝗽𝗴𝗿𝗮𝗱𝗲𝘀 from In Line to 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on 𝗗𝘂𝗼𝗹𝗶𝗻𝗴𝗼 𝗜𝗻𝗰., PT $𝟮𝟭𝟬 https://t.co/UKutaanbyx
 
-@AIStockSavvy [Wed Aug 19 20:30:38 +0000 2026]: $COTY | Coty Inc., Q4-2026 Earning Report https://t.co/RFwqnu3Aw8
+@AIStockSavvy [Mon Aug 31 20:10:57 +0000 2026]: $AKAM | Piper Sandler 𝘂𝗽𝗴𝗿𝗮𝗱𝗲𝘀 𝗔𝗸𝗮𝗺𝗮𝗶 𝗧𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝗶𝗲𝘀 from 𝗡𝗲𝘂𝘁𝗿𝗮𝗹 to 𝗢𝘃𝗲𝗿𝘄𝗲𝗶𝗴𝗵𝘁, cuts PT to $𝟭𝟮𝟱 from $𝟭𝟰𝟬 https://t.co/AvAHSpmQoR
 
-@gurgavin [Tue Aug 18 22:12:54 +0000 2026]: *TRUMP ORDERS ENVOYS TO HALT ALL NEGOTIATIONS WITH IRAN - CNN ?????
+@KobeissiLetter [Tue Sep 01 00:47:44 +0000 2026]: BREAKING: US Total Factor Productivity (TFP) rose +1.10% in the 12 months ending Q2 2026, the lowest growth rate since Q2 2025. TFP is a key measure of underlying economic productivity, capturing how efficiently labor and capital are used to produce goods and services. This follows +1.61% growth over the 12 months ending Q1 2026. Since ChatGPT's release, total factor productivity has increased +2.45%. By comparison, TFP over the same period following Netscape Navigator's 1994 release, one of the first widely adopted web browsers, grew +7.50%, more than 3x the current AI-era pace. Meanwhile, utilization-adjusted TFP, which removes the impact of changes in how intensively workers and machines are used, fell -0.42% in the 12 months ending Q2 2026, its weakest reading since Q1 2023. This may be a better measure of productivity because it shows whether output is rising from genuine efficiency gains, rather than simply from workers and machines being utilized more. The AI Revolution has yet to translate into a meaningful productivity boom. We are still early.
 
-@gurgavin [Mon Aug 17 18:07:25 +0000 2026]: THIS IS ACTUALLY SICK YOU CAN NOW TRADE DIRECTLY ON TWITTER OR ANY OTHER NEWS WEBSITE
+@KobeissiLetter [Mon Aug 31 19:28:49 +0000 2026]: BREAKING: Global technology equity funds have attracted +$195 billion in inflows over the last 12 months, the most of any major sector. This is more than the next 9 sectors combined. Inflows into tech funds have also doubled over the last 4 months. By comparison, industrials and materials funds, ranked 2nd and 3rd, have seen +$55 billion and +$45 billion in inflows, respectively, over the last 12 months. Energy funds have posted +$25 billion in inflows, while healthcare has attracted +$15 billion. Technology funds are dominating global investor demand.
 
-@gurgavin [Sun Aug 16 22:01:54 +0000 2026]: I THINK THIS IS GONNA HAPPEN SOONER THAN MOST PEOPLE THINK
+@gurgavin [Sun Aug 30 02:37:17 +0000 2026]: THE TESLA SPACEX MEGER IS GONNA HAPPEN MUCH EARLIER THAN MOST PEOPLE REALIZE
 
-@StockMKTNewz [Wed Aug 19 23:29:44 +0000 2026]: SAMSUNG JUST RAISED PRICES ON SOME ADVANCED CHIPMAKING SERVICES BY UP TO 15% FOR NEW ORDERS - Reuters https://t.co/OxbD2lT2dB
+@gurgavin [Sat Aug 29 21:02:11 +0000 2026]: GOOD MORNING FROM LAKE ONTARIO https://t.co/LseezkLldL
 
-@StockMKTNewz [Wed Aug 19 23:08:00 +0000 2026]: 🇺🇸 President Trump just posted this: "I am announcing the MOST CRUSHING ECONOMIC OPERATION EVER TAKEN AGAINST ANY COUNTRY! This will be Economic Warfare and Isolation on an unprecedented scale." https://t.co/QkNUAvHH65
+@gurgavin [Fri Aug 28 23:15:07 +0000 2026]: THERE IS NO WAY WE SEE A HIKE NEXT MONTH IMO
 
-@wallstengine [Wed Aug 19 23:00:55 +0000 2026]: TRUMP: ANNOUNCING THE MOST CRUSHING ECONOMIC OPERATION ON IRAN IRAN FAILED TO TAKE DEAL ECONOMIC WARFARE AND ISOLATION ON AN UNPRECEDENTED SCALE https://t.co/PQFCenI8do
+@wallstengine [Mon Aug 31 19:50:24 +0000 2026]: TRUMP ON FED'S WARSH: HE'LL DO WHAT HE HAS TO DO INTEREST RATES ARE TOO HIGH HAVE A LOT OF RESPECT FOR WARSH
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
