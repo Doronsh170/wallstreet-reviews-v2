@@ -29,6 +29,10 @@ class MockWorker(BaseHTTPRequestHandler):
 
     calls = []
     gather_polls = 0
+    publish_polls = 0
+    publish_fails = False
+    published = False
+    verdict = {}
 
     def log_message(self, *a):
         pass
@@ -59,10 +63,23 @@ class MockWorker(BaseHTTPRequestHandler):
         if not self._authed():
             return self._send(401, {"error": "unauthorized"})
         if self.path.startswith("/status"):
-            type(self).gather_polls += 1
-            # First poll still queued, then success — the real thing behaves this way.
-            state = "queued" if type(self).gather_polls == 1 else "success"
+            cls = type(self)
+            if "workflow=publish" in self.path:
+                cls.publish_polls += 1
+                if cls.publish_polls == 1:
+                    return self._send(200, {"state": "queued"})
+                state = "failure" if cls.publish_fails else "success"
+            else:
+                cls.gather_polls += 1
+                # First poll still queued, then success — the real thing behaves so.
+                state = "queued" if cls.gather_polls == 1 else "success"
             return self._send(200, {"state": state, "id": 99, "url": "http://run"})
+        if self.path == "/result":
+            cls = type(self)
+            if not cls.published:
+                return self._send(200, {"ok": True, "finishedAt": "2026-09-01T05:00:00+03:00",
+                                        "title": "סקירה קודמת"})
+            return self._send(200, dict(cls.verdict, finishedAt="2026-09-07T09:00:00+03:00"))
         if self.path == "/raw":
             return self._send(200, {"content": RAW_MATERIAL, "mode": "daily_prep",
                                     "title": TITLE, "generatedAt": "2026-09-07T06:00:00+03:00"})
@@ -77,6 +94,7 @@ class MockWorker(BaseHTTPRequestHandler):
         if self.path == "/gather":
             return self._send(200, {"ok": True, "mode": body.get("mode"), "after": 98})
         if self.path == "/publish":
+            type(self).published = True
             return self._send(200, {"ok": True, "after": 98})
         return self._send(404, {"error": "not found"})
 
@@ -130,6 +148,8 @@ def drive(servers, body, password=PASSWORD):
     site, worker = servers
     MockWorker.calls.clear()
     MockWorker.gather_polls = 0
+    MockWorker.publish_polls = 0
+    MockWorker.published = False
     box = {}
 
     def run():
@@ -245,3 +265,48 @@ def test_wrong_password_is_reported_in_hebrew(servers):
         page.wait_for_selector("#gatherStatus.bad", timeout=40000)
         assert "\u05e1\u05d9\u05e1\u05de\u05d4" in page.inner_text("#gatherStatus")
     drive(servers, body, password="wrong")
+
+
+GUARD_REASON = ("סתירת כיוון: הסקירה כותבת שמניית NVDA עלתה, "
+                "אבל בנתוני האיסוף היא ירדה ב-2.4%. בקש מהצ׳אט לתקן.")
+
+
+def test_guard_rejection_shows_its_hebrew_reason(servers):
+    """A rejected review must explain itself on screen, not in an Actions log."""
+    MockWorker.publish_fails = True
+    MockWorker.verdict = {"ok": False, "mode": "daily_summary", "error": GUARD_REASON}
+
+    def body(page):
+        page.click("#gatherBtn")
+        page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+        reply = '{"title":"x","sections":[]}'
+        page.fill("#paste", reply)
+        page.click("#publishBtn")
+        page.wait_for_selector("#pubStatus.bad", timeout=60000)
+        shown = page.inner_text("#pubStatus")
+        assert GUARD_REASON in shown, shown
+        # The pasted text stays put so it can be corrected and sent again.
+        assert page.input_value("#paste") == reply
+    try:
+        drive(servers, body)
+    finally:
+        MockWorker.publish_fails = False
+        MockWorker.verdict = {}
+
+
+def test_success_shows_the_published_title(servers):
+    MockWorker.publish_fails = False
+    MockWorker.verdict = {"ok": True, "mode": "daily_summary", "title": TITLE, "bullets": 6}
+
+    def body(page):
+        page.click("#gatherBtn")
+        page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+        page.fill("#paste", '{"title":"x","sections":[]}')
+        page.click("#publishBtn")
+        page.wait_for_selector("#pubStatus.ok", timeout=60000)
+        shown = page.inner_text("#pubStatus")
+        assert "באוויר" in shown and TITLE in shown, shown
+    try:
+        drive(servers, body)
+    finally:
+        MockWorker.verdict = {}

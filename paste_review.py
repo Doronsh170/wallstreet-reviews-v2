@@ -37,6 +37,10 @@ NY_TZ = ZoneInfo("America/New_York")
 DATA_JSON = Path("data.json")
 SNAPSHOT_FILE = Path("raw_review_input.json")
 DEFAULT_INPUT = Path("review_output.json")
+# Outcome of the last publish attempt, in Hebrew, as a file. Written on success AND on
+# failure so the admin screen can show what a guard rejected without anyone opening a
+# CI log. It records the outcome only — data.json is still never touched on a failure.
+STATUS_FILE = Path("publish_status.json")
 # Every published review is also appended to a monthly archive file
 # (archive/YYYY-MM.json) so the site can show past reviews, not just the latest.
 ARCHIVE_DIR = Path("archive")
@@ -815,7 +819,43 @@ def main() -> None:
     print(f"\n✅ data.json עודכן → {DATA_JSON_KEY[mode]} ({bullets} בולטים)")
     print(f"   הארכיון עודכן → {archive_path}")
     print("   כעת: git add data.json archive && git commit && git push (או שה-workflow עושה זאת אוטומטית)")
+    return {"mode": mode, "title": result.get("title", ""), "bullets": bullets}
+
+
+def write_status(payload: Dict[str, Any]) -> None:
+    payload["finishedAt"] = datetime.now(ISR_TZ).isoformat()
+    STATUS_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def snapshot_hint() -> Dict[str, str]:
+    """Mode/title of the run being published, for the status file — best effort, since
+    a missing or broken snapshot is itself one of the failures we need to report."""
+    try:
+        snap = json.loads(SNAPSHOT_FILE.read_text(encoding="utf-8"))
+        return {"mode": snap.get("mode", ""), "title": snap.get("expected_title", "")}
+    except Exception:
+        return {"mode": "", "title": ""}
+
+
+def cli() -> None:
+    """Runs the publish and always leaves publish_status.json describing the outcome.
+
+    Every guard in this file raises with a Hebrew message meant for the person who
+    pasted the review. Recording it here is what lets the admin screen show that
+    message instead of sending them into an Actions log to find it.
+    """
+    try:
+        summary = main()
+    except (ValueError, SystemExit) as err:
+        write_status({"ok": False, **snapshot_hint(),
+                      "error": str(err) or "הפרסום נכשל ללא הודעה."})
+        raise
+    except Exception as err:  # unexpected — still report something readable
+        write_status({"ok": False, **snapshot_hint(),
+                      "error": f"שגיאה לא צפויה בשלב הפרסום: {err}"})
+        raise
+    write_status({"ok": True, **summary})
 
 
 if __name__ == "__main__":
-    main()
+    cli()
