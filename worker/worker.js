@@ -14,6 +14,7 @@
  *   ALLOWED_ORIGIN  (var)    exact origin of the site, e.g. "https://user.github.io"
  *
  * Endpoints (all require Authorization: Bearer <ADMIN_PASSWORD>):
+ *   GET  /auth-check                 -> {ok:true}, only once the passphrase matches
  *   POST /gather   {mode}            -> dispatches "1 - Gather Review Input"
  *   GET  /status   ?workflow=&after= -> latest run newer than `after`
  *   GET  /raw                        -> raw_review_input.md + the run's snapshot
@@ -25,8 +26,9 @@ const GATHER_WORKFLOW = "gather_review.yml";
 const PUBLISH_WORKFLOW = "publish_review.yml";
 
 const VALID_MODES = [
-  "daily_prep", "daily_summary", "weekly_summary", "intraday_update",
-  "israel_prep", "israel_summary", "israel_weekly_summary",
+  "daily_prep", "daily_summary", "weekly_summary", "weekly_prep",
+  "intraday_update", "israel_prep", "israel_summary",
+  "israel_weekly_summary", "israel_weekly_prep",
 ];
 
 export default {
@@ -45,6 +47,9 @@ export default {
     try {
       switch (`${request.method} ${url.pathname}`) {
         case "POST /gather":  return await gather(request, env, origin);
+        // Reached only after authorized() passed, so a 200 here proves the whole chain:
+        // the URL resolves, CORS allows the origin, and the passphrase matches.
+        case "GET /auth-check": return json({ ok: true }, 200, origin);
         case "GET /status":   return await status(url, env, origin);
         case "GET /raw":      return await raw(env, origin);
         case "GET /result":   return await result(env, origin);
@@ -87,7 +92,14 @@ function safeEqual(a, b) {
 async function authorized(request, env) {
   const header = request.headers.get("Authorization") || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : "";
-  return Boolean(env.ADMIN_PASSWORD) && safeEqual(token, env.ADMIN_PASSWORD);
+  // Both sides are trimmed. A passphrase is typed or pasted by hand into a browser
+  // field, and stored with `wrangler secret put` which keeps whatever the shell fed
+  // it — so a trailing newline or a stray space on EITHER side is invisible and would
+  // fail a byte-exact compare with no way to tell it from a wrong passphrase.
+  // Surrounding whitespace carries no entropy, so trimming costs nothing; the
+  // comparison itself stays constant-time.
+  const secret = String(env.ADMIN_PASSWORD || "").trim();
+  return Boolean(secret) && safeEqual(token.trim(), secret);
 }
 
 async function gh(env, path, init = {}) {

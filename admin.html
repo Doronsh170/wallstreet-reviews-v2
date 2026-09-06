@@ -124,10 +124,11 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
   <section class="card setup" id="setupCard" hidden>
     <h2><span class="n">⚙</span> חיבור ראשוני</h2>
     <label for="wurl">כתובת השרת</label>
-    <input type="text" id="wurl" placeholder="https://market-desk-admin.workers.dev" autocomplete="off">
+    <input type="text" id="wurl" placeholder="https://market-desk-admin.sh6doron.workers.dev" autocomplete="off">
     <label for="wpass">סיסמה</label>
     <input type="password" id="wpass" placeholder="הסיסמה שהגדרת" autocomplete="current-password">
     <button class="go" id="saveSetup" type="button">שמור והתחל</button>
+    <div class="status" id="setupStatus"><span id="setupMsg"></span></div>
     <p class="note">נשמר במכשיר הזה בלבד. אין כאן טוקן של GitHub.</p>
   </section>
 
@@ -174,9 +175,14 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
 <script>
 // ── config kept on this device only ────────────────────────────────
 const CFG = {
-  get url(){ return (localStorage.getItem('md.url') || '').replace(/\/+$/,''); },
-  get pass(){ return localStorage.getItem('md.pass') || ''; },
-  set(url, pass){ localStorage.setItem('md.url', url); localStorage.setItem('md.pass', pass); },
+  get url(){ return (localStorage.getItem('md.url') || '').trim().replace(/\/+$/,''); },
+  // Trimmed on both write and read: a passphrase is pasted by hand, and a trailing
+  // space or newline is invisible in a password field. The Worker trims its side too.
+  get pass(){ return (localStorage.getItem('md.pass') || '').trim(); },
+  set(url, pass){
+    localStorage.setItem('md.url', String(url).trim());
+    localStorage.setItem('md.pass', String(pass).trim());
+  },
   clear(){ localStorage.removeItem('md.url'); localStorage.removeItem('md.pass'); },
   get ok(){ return Boolean(this.url && this.pass); }
 };
@@ -390,11 +396,54 @@ function showSetup(show){
   ['chooseCard','chatCard','publishCard'].forEach(id => { $(id).hidden = show; });
 }
 
-$('saveSetup').addEventListener('click', () => {
-  const url = $('wurl').value.trim(), pass = $('wpass').value;
-  if(!url || !pass) return;
+/** Proves the connection end to end before the setup card is dismissed.
+ *  Each failure mode gets its own message — "wrong password" used to be shown for
+ *  every one of them, including a bad URL and a stale Worker. */
+$('saveSetup').addEventListener('click', async () => {
+  const url = $('wurl').value.trim(), pass = $('wpass').value.trim();
+  const btn = $('saveSetup'), box = $('setupStatus'), msg = $('setupMsg');
+  if(!url){ setStatus(box, msg, 'bad', 'חסרה כתובת השרת.'); return; }
+  if(!pass){ setStatus(box, msg, 'bad', 'חסרה סיסמה.'); return; }
+  // The passphrase must never travel in the clear to a remote host. Plain http is
+  // allowed only for a local server, which is how the browser tests drive this page.
+  if(!/^https:\/\//.test(url) && !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/.test(url)){
+    setStatus(box, msg, 'bad', 'כתובת השרת חייבת להתחיל ב-https://');
+    return;
+  }
+
+  btn.disabled = true;
+  setStatus(box, msg, 'work', 'בודק חיבור<span class="spin"></span>');
   CFG.set(url, pass);
-  showSetup(false);
+
+  let r;
+  try {
+    r = await fetch(CFG.url + '/auth-check', {headers: {'Authorization': 'Bearer ' + CFG.pass}});
+  } catch (e) {
+    // fetch only throws for network-level failures: DNS, TLS, a blocked CORS
+    // preflight. An HTTP error status does NOT land here.
+    CFG.clear();
+    setStatus(box, msg, 'bad',
+      'לא הצלחתי להגיע לשרת. בדוק את הכתובת ושהיא נגישה.<span class="detail">'
+      + escapeHtml(String(e && e.message || e)) + '</span>');
+    btn.disabled = false;
+    return;
+  }
+
+  if(r.status === 401){
+    CFG.clear();
+    setStatus(box, msg, 'bad', 'השרת ענה, אבל הסיסמה נדחתה. ודא שהיא זהה ל-ADMIN_PASSWORD שהוגדר ב-Worker.');
+  } else if(r.status === 404){
+    CFG.clear();
+    setStatus(box, msg, 'bad',
+      'השרת ענה והסיסמה התקבלה, אבל אין בו נקודת /auth-check — הגרסה שפרוסה ישנה. הרץ שוב npx wrangler deploy.');
+  } else if(!r.ok){
+    CFG.clear();
+    setStatus(box, msg, 'bad', 'השרת החזיר שגיאה ' + r.status + '.');
+  } else {
+    clearStatus(box);
+    showSetup(false);
+  }
+  btn.disabled = false;
 });
 
 $('resetSetup').addEventListener('click', () => {
