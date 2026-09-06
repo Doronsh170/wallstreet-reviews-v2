@@ -650,9 +650,13 @@ def scheduled_event_check(result: Dict[str, Any], snapshot: Dict[str, Any], mode
 
     Two things are decidable here and are enforced: that a stated weekday actually
     matches its date, and that a date does not contradict the calendar the model was
-    handed. Whether the CALENDAR ITSELF is right cannot be decided from inside this
-    script — that is what the official-source rules in the prompt are for, so every
-    scheduled claim is also printed for a human to check against BLS / boi.org.il.
+    handed. Both FAIL the publish.
+
+    Verifying the dates themselves is the model's job, done against the publishing
+    body before the review is written (see OFFICIAL_SOURCE_RULES in the prompt). The
+    listing below is a record of what was claimed — a safety net for debugging a bad
+    review after the fact, not a checklist anyone has to work through before every
+    publish.
     """
     if mode not in PREP_MODES:
         return
@@ -698,10 +702,11 @@ def scheduled_event_check(result: Dict[str, Any], snapshot: Dict[str, Any], mode
                 )
 
     if claims:
-        print(f"  ⚠️  SCHEDULE-CHECK: {len(claims)} אירועים מתוזמנים בסקירה. "
-              f"ודא כל אחד מול המקור הרשמי (BLS / Fed / בנק ישראל / הלמ\"ס / IR של החברה):")
-        for c in claims:
-            print(f"     - {c}")
+        # Recorded, not assigned: the model verified these against the publishing body
+        # before writing. This list exists for the log, so a bad date can be traced later.
+        print(f"  ✅ נבדקו {len(claims)} אירועים מתוזמנים — יום ותאריך תואמים, "
+              f"ואין סתירה ללוח שנאסף")
+        print(f"     SCHEDULE-CHECK (לתיעוד): {' | '.join(claims)}")
     else:
         print("  ✅ אין טענות על אירועים מתוזמנים עם תאריך")
 

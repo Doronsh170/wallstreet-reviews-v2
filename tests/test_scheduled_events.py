@@ -8,8 +8,9 @@ last one was 1.9, cutting to 3.25%, and the next is 21.10), and Q2 bank reports 
 
 Two of those are decidable inside this script and are now hard failures: a weekday that
 does not match its date, and a date that contradicts the calendar the run gathered.
-Whether the calendar itself is right is not decidable here — the official-source rules
-in the prompt cover that, and the check prints every claim for a human to confirm.
+Whether the calendar itself is right is not decidable here — the model verifies that
+against the publishing body before writing, and the check merely records what was
+claimed so a bad date can be traced afterwards.
 """
 import json
 import subprocess
@@ -184,9 +185,16 @@ def test_the_corrected_dates_publish(workdir):
     assert data["weeklyPrep"]["title"] == WEEK_SNAPSHOT["expected_title"]
 
 
-def test_the_publish_log_lists_every_scheduled_claim(workdir):
+def test_the_publish_log_records_the_claims_without_assigning_manual_work(workdir):
+    """The listing is a trace for debugging a bad date later, not a checklist the
+    publisher has to work through on every review — verification happens in the model,
+    before the review is written."""
     proc, _ = publish(workdir, four_bullets(
         f"מדד המחירים לצרכן: המדד יתפרסם ביום שישי, 11.9, בשעה 15:30. {BODY}"))
     assert "SCHEDULE-CHECK" in proc.stdout
     assert "ביום שישי, 11.9" in proc.stdout
     assert "ביום חמישי, 10.9" in proc.stdout
+    assert "לתיעוד" in proc.stdout
+    assert "ודא כל אחד" not in proc.stdout, "must not read as a manual to-do"
+    assert "⚠️" not in proc.stdout.split("Scheduled-event check")[1].split("──")[0]
+

@@ -1431,7 +1431,13 @@ def get_self_verification(mode: str) -> str:
     if mode in PREP_MODES:
         horizon = ("HORIZON: every point has an UPCOMING event, decision or risk as its subject. No point "
                    "exists\n   only to report what already happened — past facts appear solely as background "
-                   "inside a\n   forward-looking point. Any point that is really a recap gets replaced.")
+                   "inside a\n   forward-looking point. Any point that is really a recap gets replaced."
+                   "\n    VERIFIED DATES: every scheduled date, day and time you wrote was confirmed against "
+                   "the\n   publishing body itself before you drafted the bullet. Any event you could not "
+                   "confirm was\n   left out — not written with an approximate date."
+                   "\n    SCOPED CLAIMS: no sentence asserts more than your sources support. Every "
+                   "\"אין\" / \"כל\" /\n   \"רק\" / \"היחיד\" is either backed by a source that says exactly "
+                   "that, or rewritten as what was\n   found in the calendars you checked.")
     elif mode in SUMMARY_MODES + WEEKLY_SUMMARY_MODES:
         horizon = ("HORIZON: every point except the closing bottom line describes what ALREADY happened in "
                    "the\n   session being reviewed. No point's subject is a future release, report or decision. "
@@ -1607,6 +1613,16 @@ SCHEDULED event you name must be verified against the body that actually publish
   - Company reports → the company's own filing or announcement (Maya / TASE). If a report's date
     is not verified, LEAVE IT OUT.
 
+VERIFY BEFORE YOU WRITE — this is your job, not the reader's. When web search is available, run it
+FIRST, before drafting a single bullet, for every event you intend to name:
+  - each macro release you will date → the publishing body's own schedule;
+  - each earnings report you will date → that company's IR announcement;
+  - each rate decision you will date → the central bank's own calendar.
+Only after those searches come back do you decide which events enter the review. Do NOT write the
+review first and leave the dates to be checked afterwards — an unverified date must never reach the
+page at all. If search is unavailable, say nothing you cannot support: fall back to the calendar
+block and to hedged wording, per the rules below.
+
 PRECEDENCE, highest first: the official source, then the verified calendar block in this prompt,
 then a source post. When they disagree, the official source WINS and the others are discarded —
 including a calendar row and including a confident-sounding post.
@@ -1615,7 +1631,16 @@ TWO RULES THAT OVERRIDE EVERYTHING ELSE:
 1. CANNOT VERIFY → OMIT. If you cannot confirm a date, a time or a figure against the sources above,
    leave the event out of the review entirely. Never write an approximate or assumed date. A short,
    correct briefing is the goal; a padded one with a wrong date is a failure.
-2. ALREADY PUBLISHED IS NOT UPCOMING. Before writing that anything is scheduled, check whether it has
+2. CLAIM ONLY WHAT YOUR SOURCES SUPPORT. Your calendar coverage is never complete, so an absolute or
+   universal statement is almost always wrong. Never write "there is no X", "nothing is scheduled",
+   "the entire calendar", "only", "all of" — unless a source states exactly that. Scope the sentence
+   to what you actually checked:
+     WRONG: "כל לוח האירועים נדחס לימים חמישי ושישי"   (there is also a Wednesday release)
+     RIGHT: "האירועים המרכזיים של השבוע מרוכזים בחמישי ושישי"
+     WRONG: "אין השבוע אף אירוע מאקרו מתוזמן"           (absence you cannot prove)
+     RIGHT: "לא זוהו אירועי מאקרו מהותיים בלוחות שאומתו לשבוע הקרוב"
+   An absence of evidence is not evidence of absence. Say what was found, not what does not exist.
+3. ALREADY PUBLISHED IS NOT UPCOMING. Before writing that anything is scheduled, check whether it has
    already happened: an interest-rate decision that was taken, a report already filed, a release
    already out. Check the reference period too — a Q2 report published in August is not "due" in
    September. If it has happened, it is not a scheduled event and does not belong here.

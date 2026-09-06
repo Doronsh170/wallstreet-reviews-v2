@@ -372,3 +372,33 @@ def test_the_weekly_prep_prompt_carries_the_earnings_calendar():
 def test_a_week_ahead_briefing_self_checks_the_prep_horizon(mode):
     checks = g.get_self_verification(mode)
     assert "HORIZON: every point has an UPCOMING event" in checks
+
+
+# ── claims stay inside what the sources support ──────────────────
+
+@pytest.mark.parametrize("mode", PREP + WEEKLY_PREP)
+def test_prep_prompts_forbid_claims_wider_than_the_sources(mode):
+    """Calendar coverage is never complete, so "there is no X" is a claim the review
+    cannot support. Both corrected phrasings are shown to the model verbatim."""
+    text = instructions(mode)
+    assert "CLAIM ONLY WHAT YOUR SOURCES SUPPORT" in text
+    assert "absence of evidence is not evidence of absence" in text
+    assert "האירועים המרכזיים של השבוע מרוכזים בחמישי ושישי" in text
+    assert "לא זוהו אירועי מאקרו מהותיים בלוחות שאומתו לשבוע הקרוב" in text
+
+
+@pytest.mark.parametrize("mode", PREP + WEEKLY_PREP)
+def test_prep_prompts_put_verification_before_writing(mode):
+    """Checking dates is the model's job, done up front — not work handed to the reader
+    after the review exists."""
+    text = instructions(mode)
+    assert "VERIFY BEFORE YOU WRITE" in text
+    assert "before drafting a single bullet" in text
+    assert "Do NOT write the\nreview first" in text
+
+
+@pytest.mark.parametrize("mode", PREP + WEEKLY_PREP)
+def test_prep_self_check_covers_dates_and_scope(mode):
+    checks = g.get_self_verification(mode)
+    assert "VERIFIED DATES:" in checks
+    assert "SCOPED CLAIMS:" in checks
