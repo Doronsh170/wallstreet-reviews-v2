@@ -33,6 +33,7 @@ class MockWorker(BaseHTTPRequestHandler):
     publish_fails = False
     published = False
     verdict = {}
+    has_auth_check = True     # False simulates an older deployed Worker
 
     def log_message(self, *a):
         pass
@@ -62,6 +63,10 @@ class MockWorker(BaseHTTPRequestHandler):
     def do_GET(self):
         if not self._authed():
             return self._send(401, {"error": "unauthorized"})
+        if self.path == "/auth-check":
+            if not type(self).has_auth_check:
+                return self._send(404, {"error": "not found"})
+            return self._send(200, {"ok": True})
         if self.path.startswith("/status"):
             cls = type(self)
             if "workflow=publish" in self.path:
@@ -132,19 +137,29 @@ def servers():
 
 
 def setup_page(page, site, worker, password=PASSWORD):
+    """Fills the setup card and waits for the connection test to actually pass."""
     page.goto(site)
     page.fill("#wurl", worker)
     page.fill("#wpass", password)
     page.click("#saveSetup")
-    page.wait_for_selector("#chooseCard:not([hidden])")
+    page.wait_for_selector("#chooseCard:not([hidden])", timeout=20000)
+
+
+def drive_raw(servers, body):
+    """Like drive(), but leaves the setup card alone for the tests that drive it."""
+    return _run(servers, body, setup=False)
 
 
 def drive(servers, body, password=PASSWORD):
-    """Runs body(page) against a fresh browser.
+    """Runs body(page) against a fresh browser, past a successful setup.
 
     In a worker thread on purpose: pytest 9 runs each test inside an asyncio loop and
     the Playwright sync API refuses to start there.
     """
+    return _run(servers, body, setup=True, password=password)
+
+
+def _run(servers, body, setup=True, password=PASSWORD):
     site, worker = servers
     MockWorker.calls.clear()
     MockWorker.gather_polls = 0
@@ -166,7 +181,8 @@ def drive(servers, body, password=PASSWORD):
                 ctx = browser.new_context(permissions=["clipboard-read", "clipboard-write"])
                 page = ctx.new_page()
                 try:
-                    setup_page(page, site, worker, password)
+                    if setup:
+                        setup_page(page, site, worker, password)
                     body(page)
                 finally:
                     ctx.close()
@@ -292,12 +308,96 @@ def test_publish_without_text_is_refused(servers):
     drive(servers, body)
 
 
-def test_wrong_password_is_reported_in_hebrew(servers):
+def open_setup(servers, body, url=None, password=PASSWORD):
+    """Drives the setup card without expecting the connection test to pass."""
+    site, worker = servers
+
+    def inner(page):
+        page.goto(site)
+        page.fill("#wurl", url if url is not None else worker)
+        page.fill("#wpass", password)
+        page.click("#saveSetup")
+        body(page)
+
+    drive_raw(servers, inner)
+
+
+def test_a_wrong_password_is_caught_at_setup_not_at_the_first_gather(servers):
+    """The setup card used to dismiss without checking anything, so the first sign of
+    trouble was a failed gather reported as "wrong password" whatever the cause."""
     def body(page):
-        page.click("#gatherBtn")
-        page.wait_for_selector("#gatherStatus.bad", timeout=40000)
-        assert "\u05e1\u05d9\u05e1\u05de\u05d4" in page.inner_text("#gatherStatus")
-    drive(servers, body, password="wrong")
+        page.wait_for_selector("#setupStatus.bad", timeout=20000)
+        text = page.inner_text("#setupStatus")
+        assert "הסיסמה נדחתה" in text, text
+        assert "ADMIN_PASSWORD" in text, "must point at the secret to compare against"
+        assert not page.is_hidden("#setupCard"), "setup must stay open on failure"
+        assert page.evaluate("localStorage.getItem('md.pass')") is None, \
+            "a rejected passphrase must not be left stored"
+    open_setup(servers, body, password="wrong")
+
+
+def test_an_unreachable_server_is_not_reported_as_a_password_problem(servers):
+    def body(page):
+        page.wait_for_selector("#setupStatus.bad", timeout=25000)
+        text = page.inner_text("#setupStatus")
+        assert "לא הצלחתי להגיע לשרת" in text, text
+        assert "סיסמה" not in text
+    open_setup(servers, body, url="https://127.0.0.1:9/nope")
+
+
+def test_a_stale_worker_deployment_says_so(servers):
+    """Auth passes but /auth-check is missing — the deployed Worker predates it."""
+    MockWorker.has_auth_check = False
+    try:
+        def body(page):
+            page.wait_for_selector("#setupStatus.bad", timeout=20000)
+            text = page.inner_text("#setupStatus")
+            assert "הגרסה שפרוסה ישנה" in text, text
+            assert "wrangler deploy" in text
+        open_setup(servers, body)
+    finally:
+        MockWorker.has_auth_check = True
+
+
+def test_a_url_without_https_is_refused_before_any_request(servers):
+    def body(page):
+        page.wait_for_selector("#setupStatus.bad", timeout=10000)
+        assert "https://" in page.inner_text("#setupStatus")
+        assert not any(c[0] == "/auth-check" for c in MockWorker.calls)
+    open_setup(servers, body, url="market-desk-admin.sh6doron.workers.dev")
+
+
+def test_plain_http_to_a_remote_host_is_refused(servers):
+    """The passphrase must not travel in the clear to anything but a local server."""
+    def body(page):
+        page.wait_for_selector("#setupStatus.bad", timeout=10000)
+        assert "https://" in page.inner_text("#setupStatus")
+    open_setup(servers, body, url="http://market-desk-admin.sh6doron.workers.dev")
+
+
+def test_a_pasted_passphrase_with_stray_whitespace_still_connects(servers):
+    """The reported failure: a byte-exact compare against a hand-pasted secret, where
+    an invisible trailing newline reads as a wrong password."""
+    def body(page):
+        page.wait_for_selector("#chooseCard:not([hidden])", timeout=20000)
+        assert page.evaluate("localStorage.getItem('md.pass')") == PASSWORD
+    open_setup(servers, body, password=f"  {PASSWORD}\n")
+
+
+def test_a_url_with_stray_whitespace_still_connects(servers):
+    site, worker = servers
+
+    def body(page):
+        page.wait_for_selector("#chooseCard:not([hidden])", timeout=20000)
+    open_setup(servers, body, url=f"  {worker}/  ")
+
+
+def test_a_successful_setup_leaves_no_error_showing(servers):
+    def body(page):
+        page.wait_for_selector("#chooseCard:not([hidden])", timeout=20000)
+        assert page.is_hidden("#setupCard")
+        assert "on" not in (page.get_attribute("#setupStatus", "class") or "")
+    open_setup(servers, body)
 
 
 GUARD_REASON = ("סתירת כיוון: הסקירה כותבת שמניית NVDA עלתה, "
