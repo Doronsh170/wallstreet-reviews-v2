@@ -588,11 +588,10 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
     dedup = {t["text"]: t for t in all_tweets}
     pool = list(dedup.values())
 
-    # Promotional posts (giveaways, webinars) carry no market news in ANY mode. This
-    # used to run only inside the intraday branch, so every daily and weekly review
-    # was fed engagement bait.
     in_window, too_old, too_new, unparsed, promo, naked = [], 0, 0, 0, 0, 0
     for t in pool:
+        # Giveaways and webinars carry no market news in ANY mode. This check used to
+        # sit inside the intraday-only branch, so dailies and weeklies got the bait.
         if PROMO_TWEET_RE.search(t["text"]):
             promo += 1
             continue
