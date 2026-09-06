@@ -132,6 +132,14 @@ def fake_api(tweets, per_account=False):
     return get
 
 
+def distinct_story(i):
+    """Six words shared with no other post, so the near-duplicate collapse leaves it
+    alone and the test measures only the per-mode cap."""
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    return " ".join("z" + letters[(i * 6 + j) // 26 % 26] + letters[(i * 6 + j) % 26] + "q"
+                    for j in range(6))
+
+
 _ids = iter(range(1, 100000))
 
 
@@ -206,11 +214,11 @@ def test_per_mode_cap_is_applied(monkeypatch, mode, expected):
     since, until = window_for(mode, now)
     inside = (since + timedelta(minutes=5)) if since else now
     stamp = inside.astimezone(g.timezone.utc).strftime("%a %b %d %H:%M:%S +0000 %Y")
-    many = [tweet(f"earnings beat number {i} for the market", stamp, likes=i) for i in range(25)]
-    # Three accounts: MAX_TWEETS_PER_ACCOUNT caps each one, so the pool has to come
-    # from several sources to exceed the widest per-mode cap.
-    blocks = run_filter(monkeypatch, many, mode, since, until, accounts=("a", "b", "c"),
-                        per_account=True)
+    # One account with a raised per-account slice: distinct stories only, so nothing
+    # is merged and the test measures the per-mode cap alone.
+    monkeypatch.setattr(g, "MAX_TWEETS_PER_ACCOUNT", 60)
+    many = [tweet(distinct_story(i), stamp, likes=i) for i in range(60)]
+    blocks = run_filter(monkeypatch, many, mode, since, until)
     assert blocks.count("\n\n") + 1 == expected
 
 
@@ -223,3 +231,87 @@ def test_no_key_is_still_a_clean_skip(monkeypatch):
     monkeypatch.setattr(g, "TWITTER_API_KEY", "")
     blocks, tags = g.fetch_and_select_tweets(il(2026, 9, 1), "daily_prep", None)
     assert blocks == "" and tags == []
+
+
+# ── P3: near-duplicate collapse and quality filters ──────────────
+
+def test_the_same_story_from_several_accounts_becomes_one_post(monkeypatch):
+    now = il(2026, 8, 20, 8, 30)
+    since, until = window_for("daily_prep", now)
+    recent = (now - timedelta(hours=1)).astimezone(g.timezone.utc).strftime(
+        "%a %b %d %H:%M:%S +0000 %Y")
+    # One story told four ways, plus one genuinely different story.
+    tweets = [
+        tweet("$NVDA beats earnings estimates, raises guidance for next quarter", recent),
+        tweet("NVDA beats earnings estimates and raises guidance for the next quarter", recent),
+        tweet("$NVDA earnings beat estimates, guidance raised for next quarter", recent),
+        tweet("Nvidia beats earnings estimates, raises its guidance for next quarter", recent),
+        tweet("Oil climbs above eighty dollars on renewed supply disruption worries", recent),
+    ]
+    blocks = run_filter(monkeypatch, tweets, "daily_prep", since, until)
+    posts = [b for b in blocks.split("\n\n") if b.strip()]
+    assert len(posts) == 2, f"expected one NVDA story + one oil story, got:\n{blocks}"
+    assert "Oil climbs" in blocks
+
+
+def test_distinct_stories_are_never_merged(monkeypatch):
+    now = il(2026, 8, 20, 8, 30)
+    since, until = window_for("daily_prep", now)
+    recent = (now - timedelta(hours=1)).astimezone(g.timezone.utc).strftime(
+        "%a %b %d %H:%M:%S +0000 %Y")
+    tweets = [
+        tweet("$NVDA beats earnings estimates and raises guidance for next quarter", recent),
+        tweet("Fed leaves rates unchanged, Powell signals patience at the press conference", recent),
+        tweet("Oil climbs above eighty dollars on renewed supply disruption worries", recent),
+        tweet("מדד תל אביב 35 עלה במסחר, מניות הבנקים הובילו את העליות", recent),
+    ]
+    blocks = run_filter(monkeypatch, tweets, "daily_prep", since, until)
+    posts = [b for b in blocks.split("\n\n") if b.strip()]
+    assert len(posts) == 4, f"distinct stories were merged:\n{blocks}"
+
+
+def test_a_corroborated_story_outranks_an_equally_scored_lone_one(monkeypatch):
+    now = il(2026, 8, 20, 8, 30)
+    since, until = window_for("daily_prep", now)
+    recent = (now - timedelta(hours=1)).astimezone(g.timezone.utc).strftime(
+        "%a %b %d %H:%M:%S +0000 %Y")
+    lone = "Bitcoin holds steady near its recent trading range today"
+    carried = "Regional bank discloses unexpected credit losses in commercial property"
+    assert g.tweet_score(g.normalize_tweet({"text": lone}, "a")) == \
+           g.tweet_score(g.normalize_tweet({"text": carried}, "a")), "fixture must be score-neutral"
+    tweets = [
+        tweet(lone, recent),
+        tweet(carried, recent),
+        tweet("A regional bank disclosed unexpected credit losses on commercial property", recent),
+        tweet("Regional bank discloses unexpected credit losses across commercial property", recent),
+    ]
+    blocks = run_filter(monkeypatch, tweets, "daily_prep", since, until)
+    posts = [b for b in blocks.split("\n\n") if b.strip()]
+    assert len(posts) == 2, f"the three retellings should be one story:\n{blocks}"
+    assert "credit losses" in posts[0], f"corroboration did not lift the story:\n{blocks}"
+
+
+def test_bare_ticker_lists_are_dropped(monkeypatch):
+    now = il(2026, 8, 20, 8, 30)
+    since, until = window_for("daily_prep", now)
+    recent = (now - timedelta(hours=1)).astimezone(g.timezone.utc).strftime(
+        "%a %b %d %H:%M:%S +0000 %Y")
+    tweets = [
+        tweet("$SPY $QQQ $NVDA $TSLA $AAPL $AMD watchlist today", recent),
+        tweet("$NVDA $AMD $AVGO $MU semiconductor stocks rally on strong AI demand outlook", recent),
+    ]
+    blocks = run_filter(monkeypatch, tweets, "daily_prep", since, until)
+    assert "watchlist today" not in blocks, "a bare watchlist reached the prompt"
+    assert "semiconductor stocks rally" in blocks, "a real chip story was dropped as a list"
+
+
+def test_very_long_posts_are_trimmed(monkeypatch):
+    now = il(2026, 8, 20, 8, 30)
+    since, until = window_for("daily_prep", now)
+    recent = (now - timedelta(hours=1)).astimezone(g.timezone.utc).strftime(
+        "%a %b %d %H:%M:%S +0000 %Y")
+    long_text = "The Federal Reserve released its statement and " + ("detail " * 200)
+    blocks = run_filter(monkeypatch, [tweet(long_text, recent)], "daily_prep", since, until)
+    assert len(blocks) < len(long_text)
+    assert blocks.rstrip().endswith("…")
+    assert "The Federal Reserve released its statement" in blocks

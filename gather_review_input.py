@@ -462,6 +462,70 @@ def normalize_tweet(tweet: Dict[str, Any], account: str) -> Dict[str, Any]:
     }
 
 
+# ── source-quality filters ────────────────────────────────────────
+# Several accounts reporting one story is still ONE story. Collapsing them stops the
+# prompt from spending a third of its posts retelling the same headline — and the
+# corroboration is itself evidence the story matters, so it lifts the survivor's rank.
+DUPLICATE_OVERLAP = 0.6      # word overlap above which two posts are the same story
+CORROBORATION_BONUS = 10.0   # score added per extra source that carried it
+MIN_TOKENS_TO_COMPARE = 4    # below this a post is too short to compare meaningfully
+MAX_POST_CHARS = 400         # a single post rarely needs more to carry its point
+
+_WORD_RE = re.compile(r"[A-Za-z֐-׿]{3,}")
+_STOPWORDS = {
+    "the", "and", "for", "are", "was", "were", "has", "have", "had", "with", "from",
+    "that", "this", "will", "its", "his", "her", "they", "their", "than", "then",
+    "after", "before", "you", "not", "but", "all", "new", "now", "via", "amp",
+    "על", "עם", "של", "את", "כי", "גם", "אבל", "לא", "כמו", "אחרי", "לפני", "יותר",
+}
+
+
+def content_tokens(text: str) -> set:
+    """The words that carry a post's meaning — used to tell two reports of the same
+    story apart from two different stories."""
+    return {w.lower() for w in _WORD_RE.findall(text)} - _STOPWORDS
+
+
+def is_naked_ticker_list(t: Dict[str, Any]) -> bool:
+    """A watchlist dump ($SPY $QQQ $NVDA $TSLA today's movers 👀) has no story in it.
+    CLAUDE.md already tells the model to ignore these; doing it here keeps them from
+    taking up room in the prompt at all."""
+    if len(t["cashtags"]) < 4:
+        return False
+    story_words = content_tokens(CASHTAG_RE.sub(" ", t["text"]))
+    return len(story_words) <= 4
+
+
+def collapse_duplicates(pool: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """One entry per story, keeping the highest-scoring telling of it.
+
+    The kept post carries `_corroborations` — how many other sources ran the same
+    story. That only affects ranking; it is never shown to the model, so it cannot
+    leak into the review as "לפי מספר מקורות"."""
+    kept: List[Dict[str, Any]] = []
+    for t in sorted(pool, key=tweet_score, reverse=True):
+        tokens = content_tokens(t["text"])
+        duplicate_of = None
+        if len(tokens) >= MIN_TOKENS_TO_COMPARE:
+            for k in kept:
+                other = k["_tokens"]
+                if len(other) < MIN_TOKENS_TO_COMPARE:
+                    continue
+                overlap = len(tokens & other) / len(tokens | other)
+                if overlap >= DUPLICATE_OVERLAP:
+                    duplicate_of = k
+                    break
+        if duplicate_of is not None:
+            duplicate_of["_corroborations"] += 1
+        else:
+            kept.append({**t, "_tokens": tokens, "_corroborations": 0})
+    return kept
+
+
+def ranked_score(t: Dict[str, Any]) -> float:
+    return tweet_score(t) + CORROBORATION_BONUS * t.get("_corroborations", 0)
+
+
 def tweet_score(t: Dict[str, Any]) -> float:
     text = t["text"].lower()
     score = 30.0 if t["cashtags"] else 0.0
@@ -527,10 +591,13 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
     # Promotional posts (giveaways, webinars) carry no market news in ANY mode. This
     # used to run only inside the intraday branch, so every daily and weekly review
     # was fed engagement bait.
-    in_window, too_old, too_new, unparsed, promo = [], 0, 0, 0, 0
+    in_window, too_old, too_new, unparsed, promo, naked = [], 0, 0, 0, 0, 0
     for t in pool:
         if PROMO_TWEET_RE.search(t["text"]):
             promo += 1
+            continue
+        if is_naked_ticker_list(t):
+            naked += 1
             continue
         ts = parse_tweet_time(t["createdAt"])
         if ts is None:
@@ -548,10 +615,15 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
     win += f" → {until.astimezone(ISR_TZ):%d/%m %H:%M}" if until else " → now"
     print(f"  Time-window filter ({win} Israel): kept {len(in_window)}, dropped "
           f"{too_old} older, {too_new} newer than the window, {promo} promotional, "
-          f"{unparsed} unparseable timestamps")
-    pool = in_window
+          f"{naked} bare ticker lists, {unparsed} unparseable timestamps")
 
-    selected = sorted(pool, key=tweet_score, reverse=True)[:max_tweets_for(mode)]
+    pool = collapse_duplicates(in_window)
+    merged = len(in_window) - len(pool)
+    if merged:
+        print(f"  Near-duplicate collapse: {len(pool)} distinct stories "
+              f"({merged} retellings merged into them)")
+
+    selected = sorted(pool, key=ranked_score, reverse=True)[:max_tweets_for(mode)]
     if not selected:
         print("  ⚠️  Zero usable tweets — continuing with market data only")
         return "", []
@@ -559,7 +631,12 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
     blocks = []
     for t in selected:
         ts = f" [{t['createdAt']}]" if t["createdAt"] else ""
-        blocks.append(f"@{t['account']}{ts}: {t['text']}")
+        text = t["text"]
+        # A long thread-dump adds length, not information. Cut at a word boundary so
+        # the tail never reads as a truncated number.
+        if len(text) > MAX_POST_CHARS:
+            text = text[:MAX_POST_CHARS].rsplit(" ", 1)[0] + " …"
+        blocks.append(f"@{t['account']}{ts}: {text}")
         for c in t["cashtags"]:
             if c not in NON_TICKER:
                 counts[c] = counts.get(c, 0) + 1
