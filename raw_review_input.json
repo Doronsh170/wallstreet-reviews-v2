@@ -1,12 +1,16 @@
 {
-  "mode": "israel_summary",
-  "generated_at": "2026-09-01T06:54:39.085301+03:00",
-  "expected_title": "סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום שני, 31.8.2026",
-  "first_heading": "סיכום המסחר",
-  "review_date": "2026-08-31",
-  "title_date_str": "2026-08-31",
+  "mode": "israel_weekly_prep",
+  "generated_at": "2026-09-06T22:09:08.075730+03:00",
+  "expected_title": "לקראת שבוע המסחר בבורסה בתל אביב 🇮🇱 – 07/09–11/09/2026",
+  "first_heading": "לקראת השבוע",
+  "review_date": "2026-09-07",
+  "title_date_str": "2026-09-07",
   "title_day_name": "שני",
-  "week_range": null,
+  "week_range": "07/09–11/09/2026",
   "etf_pcts": {},
-  "ticker_quotes": {}
+  "ticker_quotes": {},
+  "scheduled": {
+    "macro": [],
+    "earnings": []
+  }
 }
