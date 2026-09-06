@@ -25,7 +25,11 @@ ISR = ZoneInfo("Asia/Jerusalem")
 
 PREP = list(g.PREP_MODES)
 SUMMARY = list(g.SUMMARY_MODES)
-WEEKLY = list(g.WEEKLY_MODES)
+WEEKLY = list(g.WEEKLY_SUMMARY_MODES)
+WEEKLY_PREP = list(g.WEEKLY_PREP_MODES)
+# The daily briefings keep a "fresh tier" that lets recent news in unconditionally;
+# the week-ahead briefings deliberately do not (see prep_fresh_cutoff).
+DAILY_PREP = [m for m in PREP if m not in WEEKLY_PREP]
 
 FORWARD_POST = "CPI is due Monday at 15:30, consensus 2.4% — futures are pricing a soft print"
 BACKWARD_POST = "Stocks closed sharply lower; the S&P 500 finished down and the Dow tumbled"
@@ -153,7 +157,7 @@ def test_an_old_backward_looking_post_still_does_not_reach_a_prep(monkeypatch, m
     assert "closed sharply lower" not in blocks
 
 
-@pytest.mark.parametrize("mode", PREP)
+@pytest.mark.parametrize("mode", DAILY_PREP)
 def test_recent_material_needs_no_forward_signal(monkeypatch, mode):
     """Inside the fresh tier a post is current news and enters on its own merit."""
     now = il(2026, 9, 7, 8, 0)
@@ -164,7 +168,9 @@ def test_recent_material_needs_no_forward_signal(monkeypatch, mode):
 @pytest.mark.parametrize("mode", PREP)
 def test_a_prep_never_reaches_past_its_lookback(monkeypatch, mode):
     now = il(2026, 9, 7, 8, 0)
-    ancient = now - timedelta(hours=g.PREP_LOOKBACK_HOURS + 24)
+    lookback = (g.WEEKLY_PREP_LOOKBACK_HOURS if mode in WEEKLY_PREP
+                else g.PREP_LOOKBACK_HOURS)
+    ancient = now - timedelta(hours=lookback + 24)
     blocks = gather(monkeypatch, [post(FORWARD_POST, ancient)], mode, now)
     assert "CPI is due Monday" not in blocks, "a forward signal must not buy unlimited age"
 
@@ -201,6 +207,10 @@ def test_the_top_post_faces_the_right_way(monkeypatch, mode, expected, rejected)
 
 
 # ── the prompt says it too ───────────────────────────────────────
+
+def dates(mode, now):
+    return g.compute_dates(mode, now, g.FALLBACK_US_HOLIDAYS)
+
 
 def instructions(mode):
     now = il(2026, 9, 7, 8, 0)
@@ -265,3 +275,100 @@ def test_intraday_prompt_and_checklist_are_untouched():
     assert "FORWARD-LOOKING BRIEFING" not in text
     assert "REVIEW OF A SESSION THAT ENDED" not in text
     assert "HORIZON:" not in g.get_self_verification("intraday_update")
+
+
+# ── the week-ahead briefings ─────────────────────────────────────
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_demands_a_forward_signal_from_everything(monkeypatch, mode):
+    """There is no "today's news" on a quiet Sunday, so a week-ahead briefing has no
+    fresh tier: every post must point at the week ahead, however recent it is."""
+    sunday = il(2026, 9, 6, 9, 0)
+    assert g.prep_fresh_cutoff(mode, sunday) == sunday
+    recent_recap = post(BACKWARD_POST, sunday - timedelta(hours=2))
+    recent_ahead = post(FORWARD_POST, sunday - timedelta(hours=2))
+    blocks = gather(monkeypatch, [recent_recap, recent_ahead], mode, sunday)
+    assert "CPI is due Monday" in blocks
+    assert "closed sharply lower" not in blocks, "a recap reached a week-ahead briefing"
+
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_reaches_across_the_weekend(mode):
+    sunday = il(2026, 9, 6, 9, 0)
+    since, until = g.compute_tweet_window(mode, sunday, dates(mode, sunday))
+    assert since == sunday - timedelta(hours=g.WEEKLY_PREP_LOOKBACK_HOURS)
+    assert since < il(2026, 9, 2, 12, 0), "must reach back into the week that ended"
+    assert until is None
+
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_targets_the_COMING_week(mode):
+    """Run on a Sunday, the summary covers the week that ended and the prep the next
+    one. The two must never point at the same days."""
+    sunday = il(2026, 9, 6, 9, 0)
+    prep = dates(mode, sunday)
+    summary_mode = ("weekly_summary" if mode == "weekly_prep" else "israel_weekly_summary")
+    summary = dates(summary_mode, sunday)
+    assert prep["week_range"] == "07/09–11/09/2026"
+    assert summary["week_range"] == "31/08–04/09/2026"
+    assert prep["week_range"] != summary["week_range"]
+    assert prep["review_date"] > summary["review_date"]
+
+
+def test_the_coming_week_is_always_the_next_monday_to_friday():
+    # Sunday, Saturday, midweek and Monday itself all resolve to a full Mon-Fri ahead.
+    for day, expected_monday in [(il(2026, 9, 6), "2026-09-07"),    # Sunday
+                                 (il(2026, 9, 5), "2026-09-07"),    # Saturday
+                                 (il(2026, 9, 9), "2026-09-14"),    # Wednesday
+                                 (il(2026, 9, 7), "2026-09-14")]:   # Monday, week underway
+        monday, friday = g.get_next_week_range(day)
+        assert monday.strftime("%Y-%m-%d") == expected_monday
+        assert monday.weekday() == 0 and friday.weekday() == 4
+
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_is_titled_and_headed_as_a_prep(mode):
+    sunday = il(2026, 9, 6, 9, 0)
+    d = dates(mode, sunday)
+    title = g.build_expected_title(mode, d["title_day_name"], d["title_date_str"],
+                                   d["week_range"], d["time_str"])
+    assert title.startswith("לקראת שבוע המסחר")
+    assert "07/09–11/09/2026" in title
+    assert g.EXPECTED_FIRST_HEADING[mode] == "לקראת השבוע"
+
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_is_calendar_first(mode):
+    text = instructions(mode)
+    assert "CALENDAR-FIRST BRIEFING" in text
+    assert "not a precondition" in text
+    assert "FIVE STRONG POINTS BEAT EIGHT PADDED ONES" in text
+    # It must never become a forecast or a recap.
+    assert "Never predict an" in text
+    assert "Do NOT recap the week that ended" in text or "no recap of the week that ended" in text
+
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_survives_a_silent_sunday(mode):
+    """X is a complement, not a precondition: with zero posts the prompt must still tell
+    the model to build the briefing, not to bail out."""
+    sunday = il(2026, 9, 6, 9, 0)
+    d = dates(mode, sunday)
+    block = g.build_paste_block(mode, d, "t", "", "econ", "check", "", "", sunday, "earnings")
+    assert "calendar-first" in block
+    assert "Do NOT invent a narrative" in block
+    assert "אין מספיק חומר מהמקורות" not in block, "must not bail out like the Israeli dailies"
+
+
+def test_the_weekly_prep_prompt_carries_the_earnings_calendar():
+    sunday = il(2026, 9, 6, 9, 0)
+    d = dates("weekly_prep", sunday)
+    block = g.build_paste_block("weekly_prep", d, "t", "", "ECONBLOCK", "check", "", "",
+                                sunday, "EARNINGSBLOCK")
+    assert "EARNINGSBLOCK" in block and "ECONBLOCK" in block
+
+
+@pytest.mark.parametrize("mode", WEEKLY_PREP)
+def test_a_week_ahead_briefing_self_checks_the_prep_horizon(mode):
+    checks = g.get_self_verification(mode)
+    assert "HORIZON: every point has an UPCOMING event" in checks

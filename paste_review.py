@@ -53,6 +53,8 @@ DATA_JSON_KEY = {
     "israel_prep": "israelPrep",
     "israel_summary": "israelSummary",
     "israel_weekly_summary": "israelWeeklySummary",
+    "weekly_prep": "weeklyPrep",
+    "israel_weekly_prep": "israelWeeklyPrep",
 }
 
 # The intraday update summarizes the sources: bullet count is driven by the
@@ -61,14 +63,17 @@ DATA_JSON_KEY = {
 # chat skipped material and needs another round.
 # The Israeli reviews are tweet-only, so a thin source day may legitimately yield
 # a short review (or the single "not enough material" bullet) — floor of 1.
+# The week-ahead briefings are deliberately allowed to be short: a thin week gets
+# four strong points, never eight padded ones. BULLET_RANGE enforces the 4-8 band.
 MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
-               "israel_weekly_summary": 1}
+               "israel_weekly_summary": 1, "weekly_prep": 4, "israel_weekly_prep": 4}
 
 # Signature length (CLAUDE.md): the US daily reviews are EXACTLY 6 bullets
 # including the bottom line, each 4-5 lines; the weekly is 8-10 bullets.
 # Enforced here so an overgrown review never reaches the site.
 EXACT_BULLETS = {"daily_prep": 6, "daily_summary": 6}
-BULLET_RANGE = {"weekly_summary": (8, 10)}
+BULLET_RANGE = {"weekly_summary": (8, 10), "weekly_prep": (4, 8),
+                "israel_weekly_prep": (4, 8)}
 MAX_BULLET_WORDS = 80      # hard cap per daily bullet, headline included — dailies stay SHORT
 TARGET_BULLET_WORDS = 60   # above this → warning (the 3-4 line target is ~40-60)
 MAX_SUMMARY_ITEM_WORDS = 28  # a תקציר item should be ~20 words — warning only
@@ -687,7 +692,7 @@ def bullet_length_check(result: Dict[str, Any], mode: str) -> None:
     rng = BULLET_RANGE.get(mode)
     if rng and not (rng[0] <= len(bullets) <= rng[1]):
         raise ValueError(
-            f"בסקירה {len(bullets)} בולטים — הסקירה השבועית היא {rng[0]}-{rng[1]} נקודות. התאם את מספר הנקודות."
+            f"בסקירה {len(bullets)} בולטים — הסקירה הזו היא {rng[0]}-{rng[1]} נקודות. התאם את מספר הנקודות."
         )
     if exact is not None:
         for b in bullets:

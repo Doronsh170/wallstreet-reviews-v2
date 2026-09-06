@@ -360,21 +360,24 @@ const LABELS = {
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
-  weeklySummary:{he:'סיכום שבועי והכנה', en:'weekly summary', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'},
+  weeklySummary:{he:'סיכום שבוע', en:'weekly summary', empty:'הרץ את Gather Review Input במצב weekly_summary כדי ליצור אותו.'},
+  weeklyPrep:  {he:'הכנה לשבוע', en:'week ahead',       empty:'הרץ את Gather Review Input במצב weekly_prep כדי ליצור אותה.'},
   israelPrep:  {he:'הכנה ליום מסחר', en:'israel prep',      empty:'הרץ את Gather Review Input במצב israel_prep כדי ליצור אותה.'},
   israelSummary:{he:'סיכום יום מסחר', en:'israel summary',  empty:'הרץ את Gather Review Input במצב israel_summary כדי ליצור אותו.'},
-  israelWeeklySummary:{he:'סיכום שבועי והכנה', en:'israel weekly summary', empty:'הרץ את Gather Review Input במצב israel_weekly_summary כדי ליצור אותו.'},
+  israelWeeklySummary:{he:'סיכום שבוע', en:'israel weekly summary', empty:'הרץ את Gather Review Input במצב israel_weekly_summary כדי ליצור אותו.'},
+  israelWeeklyPrep:{he:'הכנה לשבוע', en:'israel week ahead', empty:'הרץ את Gather Review Input במצב israel_weekly_prep כדי ליצור אותה.'},
   archive:     {he:'ארכיון', en:'archive', empty:'עדיין לא פורסמו סקירות לארכיון.'}
 };
 const MARKETS = {
-  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary']},
-  il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary','israelWeeklySummary']}
+  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary','weeklyPrep']},
+  il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary','israelWeeklySummary','israelWeeklyPrep']}
 };
 /* Archive entries store the pipeline mode (snake_case) — map it to the site key. */
 const MODE_KEYS = {
   daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_summary:'dailySummary',
   weekly_summary:'weeklySummary', israel_prep:'israelPrep', israel_summary:'israelSummary',
-  israel_weekly_summary:'israelWeeklySummary'
+  israel_weekly_summary:'israelWeeklySummary', weekly_prep:'weeklyPrep',
+  israel_weekly_prep:'israelWeeklyPrep'
 };
 let data = null;
 let activeMarket = null;

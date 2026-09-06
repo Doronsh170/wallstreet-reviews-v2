@@ -192,12 +192,45 @@ def test_defaults_are_wall_street_morning(servers):
     drive(servers, body)
 
 
+def test_weekly_is_split_into_summary_and_prep(servers):
+    """Weekly summary and weekly prep are separate reviews, so they are separate
+    buttons — in both markets."""
+    def body(page):
+        for market, summary_mode, prep_mode in [("us", "weekly_summary", "weekly_prep"),
+                                                ("il", "israel_weekly_summary", "israel_weekly_prep")]:
+            page.click(f'[data-market="{market}"]')
+            assert page.is_enabled('[data-kind="weeklySummary"]')
+            assert page.is_enabled('[data-kind="weeklyPrep"]')
+            page.click('[data-kind="weeklyPrep"]')
+            page.click("#gatherBtn")
+            page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+            assert MockWorker.calls[-1] == ("/gather", {"mode": prep_mode})
+            page.click('[data-kind="weeklySummary"]')
+            page.click("#gatherBtn")
+            page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+            assert MockWorker.calls[-1] == ("/gather", {"mode": summary_mode})
+    drive(servers, body)
+
+
+def test_a_stored_pre_split_choice_does_not_break_the_screen(servers):
+    """"weekly" was a valid stored choice before the split; it must not leave the
+    screen with nothing selected and the gather button dead."""
+    def body(page):
+        page.evaluate("localStorage.setItem('md.kind','weekly')")
+        page.reload()
+        page.wait_for_selector("#chooseCard:not([hidden])")
+        assert page.get_attribute('[data-kind="prep"]', "aria-pressed") == "true"
+        assert page.is_enabled("#gatherBtn")
+    drive(servers, body)
+
+
 def test_israel_has_no_intraday_option(servers):
     def body(page):
         assert page.is_enabled('[data-kind="intraday"]')
         page.click('[data-market="il"]')
         assert page.is_disabled('[data-kind="intraday"]'), "Tel Aviv has no intraday mode"
-        assert page.is_enabled('[data-kind="weekly"]')
+        assert page.is_enabled('[data-kind="weeklySummary"]')
+        assert page.is_enabled('[data-kind="weeklyPrep"]')
     drive(servers, body)
 
 
@@ -212,11 +245,11 @@ def test_switching_to_israel_off_intraday_falls_back(servers):
 def test_last_choice_is_remembered(servers):
     def body(page):
         page.click('[data-market="il"]')
-        page.click('[data-kind="weekly"]')
+        page.click('[data-kind="weeklyPrep"]')
         page.reload()
         page.wait_for_selector("#chooseCard:not([hidden])")
         assert page.get_attribute('[data-market="il"]', "aria-pressed") == "true"
-        assert page.get_attribute('[data-kind="weekly"]', "aria-pressed") == "true"
+        assert page.get_attribute('[data-kind="weeklyPrep"]', "aria-pressed") == "true"
     drive(servers, body)
 
 

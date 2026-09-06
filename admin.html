@@ -45,7 +45,7 @@ body{
 /* ── choice rows ── */
 .row{display:grid;gap:8px;margin-bottom:12px}
 .row.two{grid-template-columns:1fr 1fr}
-.row.four{grid-template-columns:repeat(4,1fr)}
+.row.three{grid-template-columns:repeat(3,1fr)}
 .opt{
   appearance:none;border:1.5px solid var(--line);background:#fff;color:var(--ink);
   border-radius:11px;padding:13px 6px;font:inherit;font-weight:500;cursor:pointer;
@@ -55,7 +55,7 @@ body{
 .opt[aria-pressed="true"]{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
 .opt:disabled{opacity:.34;cursor:not-allowed}
 .opt .flag{display:block;font-size:20px;line-height:1.5}
-.row.four .opt{font-size:15.5px;padding:12px 4px}
+.row.three .opt{font-size:15.5px;padding:12px 4px}
 
 .go{
   width:100%;border:0;border-radius:11px;padding:15px;font:inherit;font-weight:700;
@@ -138,11 +138,12 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
       <button class="opt" type="button" data-market="us" aria-pressed="true"><span class="flag">🇺🇸</span>וול סטריט</button>
       <button class="opt" type="button" data-market="il" aria-pressed="false"><span class="flag">🇮🇱</span>ישראל</button>
     </div>
-    <div class="row four" id="kindRow">
+    <div class="row three" id="kindRow">
       <button class="opt" type="button" data-kind="prep" aria-pressed="true">בוקר</button>
       <button class="opt" type="button" data-kind="intraday" aria-pressed="false">תוך יומי</button>
       <button class="opt" type="button" data-kind="close" aria-pressed="false">סגירה</button>
-      <button class="opt" type="button" data-kind="weekly" aria-pressed="false">שבועי</button>
+      <button class="opt" type="button" data-kind="weeklySummary" aria-pressed="false">סיכום שבוע</button>
+      <button class="opt" type="button" data-kind="weeklyPrep" aria-pressed="false">הכנה לשבוע</button>
     </div>
     <button class="go" id="gatherBtn" type="button">אסוף חומר גלם</button>
     <div class="status" id="gatherStatus"><span id="gatherMsg"></span><div class="bar" id="gatherBar" hidden><i></i></div></div>
@@ -183,13 +184,17 @@ const CFG = {
 // The four buttons map onto the pipeline's mode names. Tel Aviv has no intraday
 // review, so that button is disabled rather than silently doing something else.
 const MODES = {
-  us: { prep:'daily_prep', intraday:'intraday_update', close:'daily_summary', weekly:'weekly_summary' },
-  il: { prep:'israel_prep', intraday:null,             close:'israel_summary', weekly:'israel_weekly_summary' }
+  us: { prep:'daily_prep',  intraday:'intraday_update', close:'daily_summary',
+        weeklySummary:'weekly_summary',        weeklyPrep:'weekly_prep' },
+  il: { prep:'israel_prep', intraday:null,              close:'israel_summary',
+        weeklySummary:'israel_weekly_summary', weeklyPrep:'israel_weekly_prep' }
 };
-const LABEL = {prep:'בוקר', intraday:'תוך יומי', close:'סגירה', weekly:'שבועי'};
+const LABEL = {prep:'בוקר', intraday:'תוך יומי', close:'סגירה',
+               weeklySummary:'סיכום שבוע', weeklyPrep:'הכנה לשבוע'};
 
 let market = localStorage.getItem('md.market') || 'us';
 let kind   = localStorage.getItem('md.kind')   || 'prep';
+if(!(kind in LABEL)) kind = 'prep';   // an old stored "weekly" predates the split
 let material = '';       // the gathered prompt, held in memory for the copy button
 let publishAfter = null; // run id that was newest before we committed
 
