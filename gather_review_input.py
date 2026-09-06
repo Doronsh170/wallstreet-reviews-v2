@@ -560,6 +560,10 @@ FORWARD_SIGNAL_RE = re.compile(
     r"consensus|scheduled|upcoming|reports? (?:before|after|on)|next week|tomorrow|"
     r"will (?:report|speak|release|decide|publish)|awaits?|awaiting|on tap|"
     r"preview|watch for|set to|slated|eyes on|on deck|to be released|"
+    # Natural ways a post flags something still ahead, which the list above missed:
+    # "week ahead", "CPI lands Friday", "reports Thursday", "due out", "before the FOMC".
+    r"week ahead|\bdue\b(?!\s+to)|lands? (?:on )?(?:mon|tues|wednes|thurs|fri)day|"
+    r"reports? (?:mon|tues|wednes|thurs|fri)day|before the (?:fomc|fed|open|bell|close)|"
     r"kicks off|guidance for|before the (?:open|bell)|after the close)\b|"
     + _heb("צפוי", "צפויה", "צפויים", "צפויות", "לקראת", "יתפרסם", "תתפרסם", "יפורסמו",
            "מחר", "תחזית", "תחזיות", "קונצנזוס", "יעקבו", "ימתינו", "בהמתנה", "אמורה",
@@ -1074,6 +1078,8 @@ def fetch_earnings_calendar(days_forward: int, tickers_in_sources: List[str]) ->
     for _, e in sorted(material, key=lambda x: (str(x[1].get("date")), -x[0])):
         day = date.fromisoformat(str(e["date"]))
         when = EARNINGS_HOUR_LABEL.get(str(e.get("hour") or "").lower(), "time not stated")
+        SCHEDULED_SNAPSHOT["earnings"].append(
+            {"event": str(e["symbol"]), "date": day.isoformat(), "time_il": ""})
         line = f"  {day:%a %d/%m} | ${e['symbol']} — {when}"
         if e.get("epsEstimate") is not None:
             line += f", EPS consensus {e['epsEstimate']}"
@@ -1100,6 +1106,9 @@ def parse_econ_time(s: str) -> Optional[datetime]:
         except ValueError:
             continue
     return None
+
+
+SCHEDULED_SNAPSHOT: Dict[str, List[Dict[str, str]]] = {"macro": [], "earnings": []}
 
 
 def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datetime] = None) -> str:
@@ -1131,6 +1140,13 @@ def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datet
             if e.get("actual") is None:
                 # Not released yet — a SCHEDULED event, relevant for the preparation part.
                 if days_forward > 0 and since is None:
+                    event_dt = parse_econ_time(e.get("time", ""))
+                    if event_dt:
+                        SCHEDULED_SNAPSHOT["macro"].append({
+                            "event": str(e.get("event", "")),
+                            "date": event_dt.astimezone(ISR_TZ).strftime("%Y-%m-%d"),
+                            "time_il": event_dt.astimezone(ISR_TZ).strftime("%H:%M"),
+                        })
                     line = f"  {e.get('time', '')[:16]} UTC | {e.get('event', '')}"
                     if e.get("estimate") is not None:
                         line += f": forecast={e['estimate']}{unit}"
@@ -1572,6 +1588,39 @@ ISRAEL_WEEKLY_RULES = """Rules:
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
 
+OFFICIAL_SOURCE_RULES = """══ SCHEDULED EVENTS — VERIFY AGAINST THE OFFICIAL SOURCE ══
+A prep review lives on dates and times. A wrong date is worse than a missing point, so every
+SCHEDULED event you name must be verified against the body that actually publishes it:
+
+  United States
+  - CPI, PPI, employment report / NFP, jobless claims, real earnings → the BLS release schedule
+    (bls.gov/schedule). BLS is the authority for its own releases.
+  - FOMC decisions, minutes, Fed speakers → federalreserve.gov.
+  - GDP, PCE / personal income → BEA (bea.gov). Retail sales → the Census Bureau.
+  - Company earnings → the company's own investor-relations announcement or its 8-K. A dated IR
+    press release BEATS any earnings-calendar row.
+
+  Israel
+  - Interest-rate decisions and Bank of Israel publications → boi.org.il. The Bank's published
+    decision calendar is the authority, including for the date of the NEXT decision.
+  - CPI and other national statistics → the Central Bureau of Statistics (cbs.gov.il).
+  - Company reports → the company's own filing or announcement (Maya / TASE). If a report's date
+    is not verified, LEAVE IT OUT.
+
+PRECEDENCE, highest first: the official source, then the verified calendar block in this prompt,
+then a source post. When they disagree, the official source WINS and the others are discarded —
+including a calendar row and including a confident-sounding post.
+
+TWO RULES THAT OVERRIDE EVERYTHING ELSE:
+1. CANNOT VERIFY → OMIT. If you cannot confirm a date, a time or a figure against the sources above,
+   leave the event out of the review entirely. Never write an approximate or assumed date. A short,
+   correct briefing is the goal; a padded one with a wrong date is a failure.
+2. ALREADY PUBLISHED IS NOT UPCOMING. Before writing that anything is scheduled, check whether it has
+   already happened: an interest-rate decision that was taken, a report already filed, a release
+   already out. Check the reference period too — a Q2 report published in August is not "due" in
+   September. If it has happened, it is not a scheduled event and does not belong here.
+══════════════════════════════════════════════════════"""
+
 PREP_HORIZON_RULES = """══ HORIZON — THIS IS A FORWARD-LOOKING BRIEFING ══
 The reader has not traded this session yet. Priority order for what earns a point, highest first:
 1. Scheduled macro releases that have NOT been published yet — with the Israel time, the consensus and the
@@ -1652,6 +1701,8 @@ Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date:
 
 {PREP_HORIZON_RULES}
 
+{OFFICIAL_SOURCE_RULES}
+
 This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
 no closing levels, and nothing that already appears in the prior-context block.
 KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
@@ -1725,6 +1776,8 @@ Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}). {sta
 
 {PREP_HORIZON_RULES}
 
+{OFFICIAL_SOURCE_RULES}
+
 THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
 - Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
   levels, percentages, movers or macro data that do not appear in a source. A figure enters ONLY if a source
@@ -1752,6 +1805,8 @@ Script run date: {d['date_str']} (יום {d['day_name']}). The week has NOT star
 {POINT_STYLE}
 
 {PREP_HORIZON_RULES}
+
+{OFFICIAL_SOURCE_RULES}
 
 {closed_note}THIS IS A CALENDAR-FIRST BRIEFING — a map of the week, deliberately NOT a narrative review:
 - It is built on the VERIFIED ECONOMIC and EARNINGS CALENDAR blocks above. The source posts complement it;
@@ -1794,6 +1849,8 @@ opens on {d['title_date_str']} (יום {d['title_day_name']}). Script run date: 
 {ISRAEL_POINT_STYLE}
 
 {PREP_HORIZON_RULES}
+
+{OFFICIAL_SOURCE_RULES}
 
 THIS IS A CALENDAR-FIRST BRIEFING — a map of the Tel Aviv week, deliberately NOT a narrative review:
 - The scheduled calendar (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) is the
@@ -2105,6 +2162,10 @@ def main() -> None:
         "week_range": d["week_range"],
         "etf_pcts": pcts,
         "ticker_quotes": ticker_quotes,
+        # What the gathered calendars actually said. paste_review.py compares the
+        # review's dates against these, so a date that contradicts the calendar the
+        # model was handed cannot reach the site.
+        "scheduled": SCHEDULED_SNAPSHOT,
     }
     OUT_JSON.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
 

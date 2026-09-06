@@ -26,7 +26,7 @@ Requires raw_review_input.json (created by gather_review_input.py) in the same f
 import json
 import re
 import sys
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 from zoneinfo import ZoneInfo
@@ -71,6 +71,7 @@ MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
 # Signature length (CLAUDE.md): the US daily reviews are EXACTLY 6 bullets
 # including the bottom line, each 4-5 lines; the weekly is 8-10 bullets.
 # Enforced here so an overgrown review never reaches the site.
+PREP_MODES = ("daily_prep", "israel_prep", "weekly_prep", "israel_weekly_prep")
 EXACT_BULLETS = {"daily_prep": 6, "daily_summary": 6}
 BULLET_RANGE = {"weekly_summary": (8, 10), "weekly_prep": (4, 8),
                 "israel_weekly_prep": (4, 8)}
@@ -594,6 +595,117 @@ def macro_schedule_check(result: Dict[str, Any]) -> None:
 # Tense guard, links, dedupe, validation
 # ══════════════════════════════════════════════════════════════
 
+# ══════════════════════════════════════════════════════════════
+# Scheduled-event verification (prep reviews)
+# ══════════════════════════════════════════════════════════════
+
+HEB_WEEKDAY = {"שני": 0, "שלישי": 1, "רביעי": 2, "חמישי": 3, "שישי": 4,
+               "שבת": 5, "ראשון": 6}
+
+# "ביום חמישי, 10.9" / "ביום שישי 11.9.2026" — the shape a scheduled event takes in
+# these reviews. The year is optional and defaults to the review's own year.
+DAY_AND_DATE_RE = re.compile(
+    r"ביום\s+(ראשון|שני|שלישי|רביעי|חמישי|שישי|שבת)\s*,?\s*(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?"
+)
+# A bare date, for matching an event against the gathered calendar.
+BARE_DATE_RE = re.compile(r"(?<!\d)(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?(?!\d)")
+
+# Hebrew/English names by which a gathered calendar row may be referred to in the text.
+EVENT_ALIASES = {
+    "CPI": ["מדד המחירים לצרכן", "מדד המחירים לצרכן", "CPI"],
+    "Core CPI": ["ליבה", "מדד הליבה", "Core CPI"],
+    "PPI": ["מדד המחירים ליצרן", "מדד היצרן", "PPI"],
+    "Jobless Claims": ["תביעות אבטלה", "תביעות האבטלה", "Jobless"],
+    "Nonfarm Payrolls": ["דוח התעסוקה", "NFP", "Nonfarm"],
+    "Retail Sales": ["מכירות קמעונאיות", "המכירות הקמעונאיות", "Retail Sales"],
+}
+
+
+def _parse_heb_date(day: str, month: str, year: Optional[str], default_year: int):
+    try:
+        return date(int(year) if year else default_year, int(month), int(day))
+    except ValueError:
+        return None
+
+
+def _calendar_dates_for(snapshot: Dict[str, Any], text: str) -> List[tuple]:
+    """(label, iso_date) rows from the gathered calendar that `text` refers to."""
+    scheduled = snapshot.get("scheduled") or {}
+    hits = []
+    for row in scheduled.get("macro", []) or []:
+        name = str(row.get("event", ""))
+        aliases = next((v for k, v in EVENT_ALIASES.items()
+                        if k.lower() in name.lower()), None)
+        if aliases and any(a in text for a in aliases):
+            hits.append((name, row.get("date", "")))
+    for row in scheduled.get("earnings", []) or []:
+        symbol = str(row.get("event", ""))
+        if symbol and re.search(rf"(?<![A-Za-z]){re.escape(symbol)}(?![A-Za-z])", text):
+            hits.append((symbol, row.get("date", "")))
+    return hits
+
+
+def scheduled_event_check(result: Dict[str, Any], snapshot: Dict[str, Any], mode: str) -> None:
+    """Verifies the dates a prep review states.
+
+    Two things are decidable here and are enforced: that a stated weekday actually
+    matches its date, and that a date does not contradict the calendar the model was
+    handed. Whether the CALENDAR ITSELF is right cannot be decided from inside this
+    script — that is what the official-source rules in the prompt are for, so every
+    scheduled claim is also printed for a human to check against BLS / boi.org.il.
+    """
+    if mode not in PREP_MODES:
+        return
+    content = str(result["sections"][0].get("content", ""))
+    try:
+        default_year = int(str(snapshot.get("review_date", ""))[:4])
+    except ValueError:
+        default_year = datetime.now(ISR_TZ).year
+
+    claims: List[str] = []
+    for bullet in (l for l in content.split("\n") if l.strip().startswith("* ")):
+        # 1. A stated weekday must match the date it is attached to.
+        for day_name, dd, mm, yy in DAY_AND_DATE_RE.findall(bullet):
+            when = _parse_heb_date(dd, mm, yy, default_year)
+            if when is None:
+                raise ValueError(
+                    f"תאריך לא תקין בסקירה: \"{dd}.{mm}\". תקן את התאריך או הסר את האירוע."
+                )
+            if when.weekday() != HEB_WEEKDAY[day_name]:
+                actual = [k for k, v in HEB_WEEKDAY.items() if v == when.weekday()][0]
+                raise ValueError(
+                    f"סתירה בין יום לתאריך: הסקירה כותבת \"ביום {day_name}, {int(dd)}.{int(mm)}\", "
+                    f"אבל {int(dd)}.{int(mm)}.{when.year} הוא יום {actual}. "
+                    f"אמת את מועד האירוע מול המקור הרשמי (BLS / בנק ישראל / IR של החברה) "
+                    f"ותקן את היום ואת התאריך, או הסר את האירוע אם אי אפשר לאמת."
+                )
+            claims.append(f"ביום {day_name}, {int(dd)}.{int(mm)}")
+
+        # 2. A date must not contradict the calendar this run actually gathered.
+        calendar_hits = _calendar_dates_for(snapshot, bullet)
+        stated = [_parse_heb_date(d, m, y, default_year)
+                  for d, m, y in BARE_DATE_RE.findall(bullet)]
+        stated = [d for d in stated if d]
+        if len(calendar_hits) == 1 and len(stated) == 1:
+            label, iso = calendar_hits[0]
+            if iso and stated[0].isoformat() != iso:
+                expected = date.fromisoformat(iso)
+                raise ValueError(
+                    f"תאריך סותר את לוח האירועים שנאסף: הסקירה מציבה את {label} ב-"
+                    f"{stated[0].day}.{stated[0].month}, אבל בלוח שנאסף הוא ב-"
+                    f"{expected.day}.{expected.month}. המקור הרשמי גובר על שניהם — אמת מולו "
+                    f"ותקן, או הסר את האירוע."
+                )
+
+    if claims:
+        print(f"  ⚠️  SCHEDULE-CHECK: {len(claims)} אירועים מתוזמנים בסקירה. "
+              f"ודא כל אחד מול המקור הרשמי (BLS / Fed / בנק ישראל / הלמ\"ס / IR של החברה):")
+        for c in claims:
+            print(f"     - {c}")
+    else:
+        print("  ✅ אין טענות על אירועים מתוזמנים עם תאריך")
+
+
 def is_before_us_market_open(now_il: datetime) -> bool:
     ny = now_il.astimezone(NY_TZ)
     if ny.weekday() >= 5:
@@ -794,6 +906,9 @@ def main() -> None:
 
     print("── Macro schedule check ──")
     macro_schedule_check(result)
+
+    print("── Scheduled-event check (prep reviews) ──")
+    scheduled_event_check(result, snapshot, mode)
 
     print("── Tense guard / links / dedupe ──")
     result = apply_pre_market_tense_guard(result, mode)
