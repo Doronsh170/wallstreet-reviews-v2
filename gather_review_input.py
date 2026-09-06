@@ -25,7 +25,7 @@ import os
 import re
 import sys
 import time
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time as clock_time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from zoneinfo import ZoneInfo
@@ -76,8 +76,30 @@ TASE_SOURCES_FILE = Path("sources/tase.txt")
 TASE_DEFAULT_ACCOUNTS = ["fundercoil", "SponserNews", "globesnews", "calcalist", "TheMarker",
                          "ynetmoney", "ModiShafrir", "matanshitrit", "CalcalistTech"]
 
-MAX_TWEETS_PER_ACCOUNT = int(os.environ.get("MAX_TWEETS_PER_ACCOUNT", "10"))
-MAX_TWEETS_FOR_REVIEW = int(os.environ.get("MAX_TWEETS_FOR_REVIEW", "40"))
+# The API returns a page of recent tweets per account and we slice it locally, so a
+# bigger per-account slice costs nothing extra. Keeping the pool wide lets the time
+# window and the score decide what survives, instead of an arbitrary "10 newest".
+MAX_TWEETS_PER_ACCOUNT = int(os.environ.get("MAX_TWEETS_PER_ACCOUNT", "25"))
+
+# How many posts reach the prompt, per mode. A daily review is exactly 6 bullets, so
+# 40 posts was ~7 posts per bullet — mostly the same story retold by several accounts,
+# diluting the prompt. The weekly covers 5 sessions and keeps a wider pool; intraday
+# is already narrowed by its 2-hour window.
+MODE_MAX_TWEETS = {
+    "daily_prep": 20, "daily_summary": 20,
+    "israel_prep": 20, "israel_summary": 20,
+    "weekly_summary": 30, "israel_weekly_summary": 30,
+    "intraday_update": 40,
+}
+MAX_TWEETS_FOR_REVIEW = 40  # fallback for an unlisted mode
+# An explicit env var still wins, for a one-off wider/narrower run.
+MAX_TWEETS_ENV_OVERRIDE = os.environ.get("MAX_TWEETS_FOR_REVIEW", "").strip()
+
+
+def max_tweets_for(mode: str) -> int:
+    if MAX_TWEETS_ENV_OVERRIDE:
+        return int(MAX_TWEETS_ENV_OVERRIDE)
+    return MODE_MAX_TWEETS.get(mode, MAX_TWEETS_FOR_REVIEW)
 
 PY_TO_HEB = {0: "שני", 1: "שלישי", 2: "רביעי", 3: "חמישי", 4: "שישי", 5: "שבת", 6: "ראשון"}
 
@@ -92,6 +114,21 @@ EXPECTED_FIRST_HEADING = {
 }
 
 INTRADAY_WINDOW_HOURS = 2
+
+# Source window per mode — which posts are even eligible for this review.
+# Before this existed, only intraday_update filtered by time: every other mode fed
+# the model "the account's latest tweets" regardless of age, so a summary of one
+# session could (and did) carry posts weeks old. That is the mechanism behind the
+# stale-macro incident the "אימות אירועי מאקרו" rules in CLAUDE.md were written for.
+# Filtering in code makes those prompt rules a safety net rather than the first line.
+PREP_WINDOW_HOURS = 18            # forward-looking reviews: last night + this morning
+# A summary covers exactly one session. The window opens on the review date at this
+# Israel-time hour and runs 24 hours, so it also captures the after-hours reaction
+# without letting the NEXT session's pre-market chatter in.
+SUMMARY_WINDOW_START_HOUR = {
+    "daily_summary": 9,    # 09:00 Israel = 02:00 NY — US overnight/pre-market onwards
+    "israel_summary": 6,   # TASE trades 09:30–17:30 Israel; open early for the run-up
+}
 
 FALLBACK_US_HOLIDAYS = [
     "2026-01-01", "2026-01-19", "2026-02-16", "2026-04-03", "2026-05-25",
@@ -309,6 +346,31 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
     }
 
 
+def compute_tweet_window(mode: str, now: datetime,
+                         d: Dict[str, Any]) -> Tuple[Optional[datetime], Optional[datetime]]:
+    """(since, until) — the createdAt range a source post must fall in to be eligible.
+    None on a side means unbounded there. Every mode is bounded on the `since` side;
+    only the summaries need an `until`, to keep the next session out of the review of
+    the one that just ended."""
+    if mode == "intraday_update":
+        return now - timedelta(hours=INTRADAY_WINDOW_HOURS), None
+    if mode in ("daily_prep", "israel_prep"):
+        return now - timedelta(hours=PREP_WINDOW_HOURS), None
+    try:
+        review_day = date.fromisoformat(str(d.get("review_date", "")))
+    except ValueError:
+        # No usable review date — fall back to a plain 24h window rather than no filter.
+        return now - timedelta(hours=24), None
+    if mode in ("weekly_summary", "israel_weekly_summary"):
+        # review_date is the Friday that closed the week. Open at that week's Monday and
+        # leave the end unbounded: the weekend commentary feeds the "coming week" half.
+        monday = review_day - timedelta(days=4)
+        return datetime.combine(monday, clock_time(0, 0), tzinfo=ISR_TZ), None
+    since = datetime.combine(review_day, clock_time(SUMMARY_WINDOW_START_HOUR[mode], 0),
+                             tzinfo=ISR_TZ)
+    return since, since + timedelta(hours=24)
+
+
 def get_time_conversion_block(now_il: datetime) -> str:
     ny = now_il.astimezone(NY_TZ)
     offset = int((now_il.utcoffset() - ny.utcoffset()).total_seconds() // 3600)
@@ -431,15 +493,15 @@ def tweet_score(t: Dict[str, Any]) -> float:
     return score
 
 
-def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "") -> Tuple[str, List[str]]:
+def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
+                            until: Optional[datetime] = None) -> Tuple[str, List[str]]:
     """Returns (formatted tweet blocks, top cashtags mentioned).
-    since — keep only tweets created at/after this moment (intraday window).
+    since/until — keep only posts created inside this window (see compute_tweet_window).
     mode — selects the source account list (Israeli modes read sources/tase.txt)."""
     if not TWITTER_API_KEY:
         print("  No TWITTER_API_KEY — skipping tweets (the review will rely on the chat model's web search)")
         return "", []
-    # With a time window most tweets get dropped, so take more per account.
-    per_account = MAX_TWEETS_PER_ACCOUNT * 2 if since is not None else MAX_TWEETS_PER_ACCOUNT
+    per_account = MAX_TWEETS_PER_ACCOUNT
     all_tweets: List[Dict[str, Any]] = []
     for acc in read_accounts(mode):
         try:
@@ -461,23 +523,35 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "") ->
             print(f"  Error fetching @{acc}: {e}")
     dedup = {t["text"]: t for t in all_tweets}
     pool = list(dedup.values())
-    if since is not None:
-        in_window, too_old, unparsed, promo = [], 0, 0, 0
-        for t in pool:
-            ts = parse_tweet_time(t["createdAt"])
-            if ts is None:
-                unparsed += 1
-            elif ts < since:
-                too_old += 1
-            elif PROMO_TWEET_RE.search(t["text"]):
-                promo += 1
-            else:
-                in_window.append(t)
-        print(f"  Time-window filter (since {since.astimezone(ISR_TZ):%H:%M} Israel): "
-              f"kept {len(in_window)}, dropped {too_old} older, {promo} promotional, "
-              f"{unparsed} unparseable timestamps")
-        pool = in_window
-    selected = sorted(pool, key=tweet_score, reverse=True)[:MAX_TWEETS_FOR_REVIEW]
+
+    # Promotional posts (giveaways, webinars) carry no market news in ANY mode. This
+    # used to run only inside the intraday branch, so every daily and weekly review
+    # was fed engagement bait.
+    in_window, too_old, too_new, unparsed, promo = [], 0, 0, 0, 0
+    for t in pool:
+        if PROMO_TWEET_RE.search(t["text"]):
+            promo += 1
+            continue
+        ts = parse_tweet_time(t["createdAt"])
+        if ts is None:
+            # An unparseable timestamp cannot be shown to be in-window. Dropping it is
+            # the safe call: a post of unknown age is exactly what caused stale content
+            # to be presented as current.
+            unparsed += 1
+        elif since is not None and ts < since:
+            too_old += 1
+        elif until is not None and ts >= until:
+            too_new += 1
+        else:
+            in_window.append(t)
+    win = (f"{since.astimezone(ISR_TZ):%d/%m %H:%M}" if since else "—")
+    win += f" → {until.astimezone(ISR_TZ):%d/%m %H:%M}" if until else " → now"
+    print(f"  Time-window filter ({win} Israel): kept {len(in_window)}, dropped "
+          f"{too_old} older, {too_new} newer than the window, {promo} promotional, "
+          f"{unparsed} unparseable timestamps")
+    pool = in_window
+
+    selected = sorted(pool, key=tweet_score, reverse=True)[:max_tweets_for(mode)]
     if not selected:
         print("  ⚠️  Zero usable tweets — continuing with market data only")
         return "", []
@@ -1455,8 +1529,8 @@ def main() -> None:
     print(f"  Expected title: {expected_title}")
 
     print("\n── Tweets ──")
-    since = now - timedelta(hours=INTRADAY_WINDOW_HOURS) if REVIEW_MODE == "intraday_update" else None
-    tweets, top_cashtags = fetch_and_select_tweets(since, REVIEW_MODE)
+    since, until = compute_tweet_window(REVIEW_MODE, now, d)
+    tweets, top_cashtags = fetch_and_select_tweets(since, REVIEW_MODE, until)
 
     # Tweet-only modes (intraday + Israeli reviews) carry no Finnhub layer.
     tweet_only = REVIEW_MODE in ("intraday_update",) + ISRAEL_MODES
@@ -1483,7 +1557,12 @@ def main() -> None:
         econ_days = {
             "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 7),
         }[REVIEW_MODE]
-        econ_block = fetch_economic_data(*econ_days, since=since)
+        # NOTE: fetch_economic_data uses `since is None` to mean "not an intraday run"
+        # — a non-None value suppresses the SCHEDULED-events block that the look-ahead
+        # bottom line depends on. The tweet window above must NOT be passed here. Only
+        # intraday_update wants a window, and it never reaches this branch (tweet-only).
+        econ_since = since if REVIEW_MODE == "intraday_update" else None
+        econ_block = fetch_economic_data(*econ_days, since=econ_since)
     checklist = get_macro_checklist(
         REVIEW_MODE, d["date_str"], d["week_range"], f"{d['window_from']}–{d['time_str']}",
     )
