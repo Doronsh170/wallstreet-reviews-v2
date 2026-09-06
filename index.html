@@ -161,14 +161,8 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 .archive-back{margin-bottom:14px}
 
 /* ── How-to strip ── */
-.howto{margin:0 0 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);font-size:14px}
-.howto summary{cursor:pointer;padding:10px 14px;color:var(--ink-soft);font-weight:500;list-style-position:inside}
-.howto summary:hover{color:var(--desk)}
-.howto ol{margin:0;padding:2px 30px 12px 14px;color:var(--ink-soft)}
-.howto li{margin:7px 0;line-height:1.55}
-.howto b{color:var(--ink)}
-.howto a{color:var(--desk);font-weight:500}
-.howto .note{margin:0;padding:0 14px 12px;color:var(--muted);font-size:12.5px}
+.adminlink{display:block;margin:0 0 14px;padding:11px 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);color:var(--ink-soft);font-size:14px;font-weight:500;text-align:center;text-decoration:none}
+.adminlink:hover{color:var(--desk);border-color:var(--desk)}
 
 .status{color:var(--muted);font-size:14px;margin:8px 0}
 .status.error{color:var(--danger)}
@@ -336,17 +330,7 @@ body.disclaimer-locked{overflow:hidden}
       </button>
     </div>
 
-    <details class="howto">
-      <summary>איך מפרסמים סקירה חדשה? (5 שלבים)</summary>
-      <ol>
-        <li><b>בוחרים סוג סקירה ומריצים איסוף</b> — <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/gather_review.yml" target="_blank" rel="noopener">Actions ‏← "1 - Gather Review Input"</a> ← Run workflow ← בוחרים מצב (וול סטריט: daily_prep / intraday_update / daily_summary / weekly_summary, תל אביב: israel_prep / israel_summary).</li>
-        <li><b>מעתיקים את חומר הגלם לצ'אט</b> — פותחים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/raw/main/raw_review_input.md" target="_blank" rel="noopener">raw_review_input.md</a> ומדביקים את <u>כל</u> התוכן ב-Claude או ChatGPT (עם חיפוש אינטרנט). הצ'אט מחזיר JSON.</li>
-        <li><b>מדביקים את ה-JSON</b> — עורכים את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/edit/main/review_output.json" target="_blank" rel="noopener">review_output.json</a>, מחליפים את התוכן בתשובת הצ'אט (מותר כולל ```json) ועושים Commit.</li>
-        <li><b>הפרסום רץ אוטומטית</b> — ה-Commit מפעיל את <a href="https://github.com/Doronsh170/wallstreet-reviews-v2/actions/workflows/publish_review.yml" target="_blank" rel="noopener">"2 - Publish Review"</a> שמאמת ומעדכן את data.json. אם הוא אדום — פותחים את הלוג, מתקנים בצ'אט ומדביקים שוב.</li>
-        <li><b>מרעננים את העמוד הזה</b> — הסקירה החדשה מופיעה תחת השוק והטאב שלה.</li>
-      </ol>
-      <p class="note">כל התהליך עובד גם מהטלפון, דרך אתר GitHub בלבד.</p>
-    </details>
+    <a class="adminlink" href="admin.html">⚙ פרסום סקירה חדשה</a>
   </section>
 
   <!-- Level 2 — review types for the chosen market -->

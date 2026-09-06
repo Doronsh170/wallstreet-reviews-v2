@@ -1,0 +1,13 @@
+name = "market-desk-admin"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# Fill these in for your own deployment.
+REPO = "Doronsh170/wallstreet-reviews-v2"
+BRANCH = "main"
+ALLOWED_ORIGIN = "https://doronsh170.github.io"
+
+# Secrets are NOT set here. Run once each:
+#   npx wrangler secret put GITHUB_TOKEN
+#   npx wrangler secret put ADMIN_PASSWORD
