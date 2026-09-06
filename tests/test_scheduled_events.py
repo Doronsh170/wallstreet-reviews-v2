@@ -185,16 +185,68 @@ def test_the_corrected_dates_publish(workdir):
     assert data["weeklyPrep"]["title"] == WEEK_SNAPSHOT["expected_title"]
 
 
-def test_the_publish_log_records_the_claims_without_assigning_manual_work(workdir):
-    """The listing is a trace for debugging a bad date later, not a checklist the
-    publisher has to work through on every review — verification happens in the model,
-    before the review is written."""
+def test_the_log_reports_only_what_it_actually_compared(workdir):
+    """The script can compare a weekday to its date, and a date to the calendar it
+    gathered. It cannot observe a search against BLS — so it must not report one."""
     proc, _ = publish(workdir, four_bullets(
         f"מדד המחירים לצרכן: המדד יתפרסם ביום שישי, 11.9, בשעה 15:30. {BODY}"))
-    assert "SCHEDULE-CHECK" in proc.stdout
-    assert "ביום שישי, 11.9" in proc.stdout
-    assert "ביום חמישי, 10.9" in proc.stdout
-    assert "לתיעוד" in proc.stdout
-    assert "ודא כל אחד" not in proc.stdout, "must not read as a manual to-do"
-    assert "⚠️" not in proc.stdout.split("Scheduled-event check")[1].split("──")[0]
+    out = proc.stdout
+    assert "יום ותאריך תואמים" in out
+    assert "הוצלבו מול הלוח שנאסף" in out
+    assert "אינו ניתן לאימות מכאן" in out, "official-source verification must be named as unproven"
+    assert "נבדקו 5 אירועים" not in out, "must not claim a verification it did not perform"
+    assert "ודא כל אחד" not in out, "must not read as a manual to-do"
+    assert "SCHEDULE-CHECK (לתיעוד)" in out
 
+
+def test_a_claim_with_no_calendar_row_is_reported_as_unproven(workdir):
+    proc, _ = publish(workdir, four_bullets(
+        f"נאום הפד: יו\"ר הפד ידבר ביום שישי, 11.9, בשעה 17:00. {BODY}"))
+    assert "ללא רשומה מתאימה בלוח שנאסף" in proc.stdout
+
+
+# ── an empty calendar is not an investment conclusion ────────────
+
+def test_a_position_conclusion_drawn_from_an_empty_calendar_is_rejected():
+    """A schedule can say what was not found. It cannot say the week is not worth
+    acting on."""
+    with pytest.raises(ValueError, match="מסקנה השקעתית שנשענת על היעדר אירועים"):
+        pr.absence_conclusion_check(
+            review("שורה תחתונה: בלוחות שנבדקו אין השבוע אירוע שמצדיק שינוי פוזיציה."),
+            "weekly_prep")
+
+
+@pytest.mark.parametrize("bullet", [
+    "שורה תחתונה: אין השבוע אירוע מהותי ולכן לא כדאי לשנות חשיפה.",
+    "מאקרו: לא זוהו אירועים מתוזמנים, ולכן מומלץ להמתין.",
+    "מאקרו: אין החלטת ריבית השבוע, ואין סיבה שמצדיקה שינוי פוזיציה.",
+])
+def test_other_shapes_of_the_same_inference_are_rejected(bullet):
+    with pytest.raises(ValueError, match="מסקנה השקעתית"):
+        pr.absence_conclusion_check(review(bullet), "weekly_prep")
+
+
+@pytest.mark.parametrize("bullet", [
+    "מאקרו: לא זוהו השבוע אירועי מאקרו מהותיים בלוחות שנבדקו.",
+    "שורה תחתונה: הזרז הבא שאותר הוא מדד המחירים לצרכן ב-15.9.",
+    "הריבית: אין שינוי בציפיות הריבית לאחר ההחלטה האחרונה.",
+    "דוחות: מניית אורקל (ORCL) מדווחת ב-10.9, וכדאי לעקוב אחר צבר ההזמנות שלה.",
+])
+def test_scoped_wording_and_unrelated_bullets_pass(bullet):
+    pr.absence_conclusion_check(review(bullet), "weekly_prep")
+
+
+@pytest.mark.parametrize("mode", ["daily_summary", "weekly_summary", "intraday_update"])
+def test_the_absence_rule_is_scoped_to_prep_reviews(mode):
+    pr.absence_conclusion_check(
+        review("שורה תחתונה: אין אירוע שמצדיק שינוי פוזיציה."), mode)
+
+
+def test_the_bad_wording_fails_the_whole_publish(workdir):
+    before = (workdir / "data.json").read_text(encoding="utf-8")
+    proc, status = publish(workdir, four_bullets(
+        f"מדד המחירים לצרכן: המדד יתפרסם ביום שישי, 11.9. אין אירוע שמצדיק שינוי פוזיציה. {BODY}"))
+    assert proc.returncode != 0
+    assert "מסקנה השקעתית" in status["error"]
+    assert "לא זוהו השבוע אירועי מאקרו מהותיים" in status["error"], "must offer the fix"
+    assert (workdir / "data.json").read_text(encoding="utf-8") == before
