@@ -65,11 +65,14 @@ def test_intraday_window_is_unchanged():
 
 
 @pytest.mark.parametrize("mode", ["daily_prep", "israel_prep"])
-def test_prep_modes_look_back_one_night(mode):
+def test_prep_modes_reach_back_several_days(mode):
+    """Prep reaches further back than a summary so a post about a still-upcoming event
+    survives; test_review_horizon.py covers the condition attached to that reach."""
     now = il(2026, 8, 20, 8, 30)
     since, until = window_for(mode, now)
-    assert since == now - timedelta(hours=g.PREP_WINDOW_HOURS)
+    assert since == now - timedelta(hours=g.PREP_LOOKBACK_HOURS)
     assert until is None, "a prep review wants the freshest posts, with no upper bound"
+    assert g.prep_fresh_cutoff(mode, now) == now - timedelta(hours=g.PREP_FRESH_HOURS)
 
 
 def test_daily_summary_covers_the_session_and_its_after_hours():

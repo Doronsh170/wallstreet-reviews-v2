@@ -121,7 +121,13 @@ INTRADAY_WINDOW_HOURS = 2
 # session could (and did) carry posts weeks old. That is the mechanism behind the
 # stale-macro incident the "אימות אירועי מאקרו" rules in CLAUDE.md were written for.
 # Filtering in code makes those prompt rules a safety net rather than the first line.
-PREP_WINDOW_HOURS = 18            # forward-looking reviews: last night + this morning
+# A prep review reaches further back than a summary, but on a condition. Anything from
+# the last PREP_FRESH_HOURS is eligible as current material; older than that, a post
+# survives ONLY if it points at something still ahead — a Friday post about a release
+# due Monday belongs in Monday's prep, a Friday post about Friday's close does not.
+# That keeps the reach the briefing needs without reopening the stale-content hole.
+PREP_FRESH_HOURS = 18             # last night + this morning: eligible either way
+PREP_LOOKBACK_HOURS = 96          # beyond this nothing enters a prep at all
 # A summary covers exactly one session. The window opens on the review date at this
 # Israel-time hour and runs 24 hours, so it also captures the after-hours reaction
 # without letting the NEXT session's pre-market chatter in.
@@ -354,8 +360,10 @@ def compute_tweet_window(mode: str, now: datetime,
     the one that just ended."""
     if mode == "intraday_update":
         return now - timedelta(hours=INTRADAY_WINDOW_HOURS), None
-    if mode in ("daily_prep", "israel_prep"):
-        return now - timedelta(hours=PREP_WINDOW_HOURS), None
+    if mode in PREP_MODES:
+        # Wide on purpose; prep_fresh_cutoff() below narrows the older tier to posts
+        # that actually point forward.
+        return now - timedelta(hours=PREP_LOOKBACK_HOURS), None
     try:
         review_day = date.fromisoformat(str(d.get("review_date", "")))
     except ValueError:
@@ -369,6 +377,12 @@ def compute_tweet_window(mode: str, now: datetime,
     since = datetime.combine(review_day, clock_time(SUMMARY_WINDOW_START_HOUR[mode], 0),
                              tzinfo=ISR_TZ)
     return since, since + timedelta(hours=24)
+
+
+def prep_fresh_cutoff(mode: str, now: datetime) -> Optional[datetime]:
+    """For a prep review, the moment before which a post must be forward-looking to
+    survive. None for every other mode, which apply no such condition."""
+    return now - timedelta(hours=PREP_FRESH_HOURS) if mode in PREP_MODES else None
 
 
 def get_time_conversion_block(now_il: datetime) -> str:
@@ -462,6 +476,73 @@ def normalize_tweet(tweet: Dict[str, Any], account: str) -> Dict[str, Any]:
     }
 
 
+# ── review horizon: what a mode is actually looking at ────────────
+# A prep review prepares the reader for a session that has NOT happened; a summary
+# explains one that has. The same post is worth opposite amounts to them — a post
+# about a release due Monday is the point of a Monday prep and noise in Friday's
+# summary. Window, ranking and prompt all follow this split.
+PREP_MODES = ("daily_prep", "israel_prep")
+SUMMARY_MODES = ("daily_summary", "israel_summary")
+WEEKLY_MODES = ("weekly_summary", "israel_weekly_summary")
+
+FORWARD_WEIGHT = 25.0    # a post pointing at something still ahead, in a prep
+BACKWARD_WEIGHT = 25.0   # a post reporting what happened, in a summary
+WRONG_HORIZON_PENALTY = 15.0  # a post facing the other way, with no signal for this one
+
+
+def _heb(*stems: str) -> str:
+    """Hebrew stems take single-letter prefixes (ו/ה/ב/ל/ש/מ/כ), so allow up to two —
+    while keeping the word boundary, so a stem never matches inside an unrelated word
+    (the documented "נפל inside אינפלציה" class of bug)."""
+    return "|".join(rf"\b[והבלשמכ]{{0,2}}{s}\b" for s in stems)
+
+
+# Deliberately excludes very short, ambiguous Hebrew verbs (עלה / ירד): with a prefix
+# they match unrelated words (מעלה), and the distinctive stems below carry the signal.
+FORWARD_SIGNAL_RE = re.compile(
+    r"\b(?:ahead of|due (?:out|today|tomorrow|this|next)|expected|expectations|forecast|"
+    r"consensus|scheduled|upcoming|reports? (?:before|after|on)|next week|tomorrow|"
+    r"will (?:report|speak|release|decide|publish)|awaits?|awaiting|on tap|"
+    r"preview|watch for|set to|slated|eyes on|on deck|to be released|"
+    r"kicks off|guidance for|before the (?:open|bell)|after the close)\b|"
+    + _heb("צפוי", "צפויה", "צפויים", "צפויות", "לקראת", "יתפרסם", "תתפרסם", "יפורסמו",
+           "מחר", "תחזית", "תחזיות", "קונצנזוס", "יעקבו", "ימתינו", "בהמתנה", "אמורה",
+           "אמור", "מתוכנן", "מתוכננת", "הקרוב", "הקרובה"),
+    re.IGNORECASE,
+)
+
+PAST_SIGNAL_RE = re.compile(
+    r"\b(?:closed|closing|finished|ended|beat|beats|missed|misses|reported|posted|"
+    r"surged|plunged|jumped|tumbled|rallied|slid|slumped|came in|printed|"
+    r"was released|today's (?:close|session)|session ended)\b|"
+    + _heb("נסגר", "נסגרה", "ננעל", "ננעלה", "זינק", "זינקה", "צנח", "צנחה", "פורסם",
+           "פורסמו", "דיווחה", "דיווח", "הכתה", "החטיאה", "סיכם", "סיכמה", "הסתיים",
+           "הסתיימה", "אמש", "אתמול"),
+    re.IGNORECASE,
+)
+
+
+def horizon_bonus(t: Dict[str, Any], mode: str) -> float:
+    """How much this post is worth to THIS review, given which way it faces.
+
+    The weeklies are deliberately asymmetric: they are combined reviews (the week that
+    ended plus the week ahead), so retrospective material is rewarded but forward
+    material is never penalised — their preparation block depends on it."""
+    forward = bool(FORWARD_SIGNAL_RE.search(t["text"]))
+    backward = bool(PAST_SIGNAL_RE.search(t["text"]))
+    if mode in PREP_MODES:
+        if forward:
+            return FORWARD_WEIGHT
+        return -WRONG_HORIZON_PENALTY if backward else 0.0
+    if mode in SUMMARY_MODES:
+        if backward:
+            return BACKWARD_WEIGHT
+        return -WRONG_HORIZON_PENALTY if forward else 0.0
+    if mode in WEEKLY_MODES:
+        return BACKWARD_WEIGHT if backward else 0.0
+    return 0.0   # intraday_update ranks purely on market materiality, as before
+
+
 # ── source-quality filters ────────────────────────────────────────
 # Several accounts reporting one story is still ONE story. Collapsing them stops the
 # prompt from spending a third of its posts retelling the same headline — and the
@@ -496,14 +577,16 @@ def is_naked_ticker_list(t: Dict[str, Any]) -> bool:
     return len(story_words) <= 4
 
 
-def collapse_duplicates(pool: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def collapse_duplicates(pool: List[Dict[str, Any]], mode: str = "") -> List[Dict[str, Any]]:
     """One entry per story, keeping the highest-scoring telling of it.
 
     The kept post carries `_corroborations` — how many other sources ran the same
     story. That only affects ranking; it is never shown to the model, so it cannot
     leak into the review as "לפי מספר מקורות"."""
     kept: List[Dict[str, Any]] = []
-    for t in sorted(pool, key=tweet_score, reverse=True):
+    # Sorted by the mode's own score, so the telling that survives is the one that
+    # faces the way this review needs — the prep keeps the forward-looking wording.
+    for t in sorted(pool, key=lambda x: tweet_score(x) + horizon_bonus(x, mode), reverse=True):
         tokens = content_tokens(t["text"])
         duplicate_of = None
         if len(tokens) >= MIN_TOKENS_TO_COMPARE:
@@ -522,8 +605,10 @@ def collapse_duplicates(pool: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return kept
 
 
-def ranked_score(t: Dict[str, Any]) -> float:
-    return tweet_score(t) + CORROBORATION_BONUS * t.get("_corroborations", 0)
+def ranked_score(t: Dict[str, Any], mode: str = "") -> float:
+    return (tweet_score(t)
+            + CORROBORATION_BONUS * t.get("_corroborations", 0)
+            + horizon_bonus(t, mode))
 
 
 def tweet_score(t: Dict[str, Any]) -> float:
@@ -558,9 +643,11 @@ def tweet_score(t: Dict[str, Any]) -> float:
 
 
 def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
-                            until: Optional[datetime] = None) -> Tuple[str, List[str]]:
+                            until: Optional[datetime] = None,
+                            fresh_cutoff: Optional[datetime] = None) -> Tuple[str, List[str]]:
     """Returns (formatted tweet blocks, top cashtags mentioned).
     since/until — keep only posts created inside this window (see compute_tweet_window).
+    fresh_cutoff — prep modes only: older than this, a post must point forward to survive.
     mode — selects the source account list (Israeli modes read sources/tase.txt)."""
     if not TWITTER_API_KEY:
         print("  No TWITTER_API_KEY — skipping tweets (the review will rely on the chat model's web search)")
@@ -588,7 +675,7 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
     dedup = {t["text"]: t for t in all_tweets}
     pool = list(dedup.values())
 
-    in_window, too_old, too_new, unparsed, promo, naked = [], 0, 0, 0, 0, 0
+    in_window, too_old, too_new, unparsed, promo, naked, backward = [], 0, 0, 0, 0, 0, 0
     for t in pool:
         # Giveaways and webinars carry no market news in ANY mode. This check used to
         # sit inside the intraday-only branch, so dailies and weeklies got the bait.
@@ -608,21 +695,28 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
             too_old += 1
         elif until is not None and ts >= until:
             too_new += 1
+        elif (fresh_cutoff is not None and ts < fresh_cutoff
+              and not FORWARD_SIGNAL_RE.search(t["text"])):
+            # Older material in a prep has to earn its place by pointing at something
+            # still ahead. Yesterday's closing report is not what a briefing is for.
+            backward += 1
         else:
             in_window.append(t)
     win = (f"{since.astimezone(ISR_TZ):%d/%m %H:%M}" if since else "—")
     win += f" → {until.astimezone(ISR_TZ):%d/%m %H:%M}" if until else " → now"
     print(f"  Time-window filter ({win} Israel): kept {len(in_window)}, dropped "
           f"{too_old} older, {too_new} newer than the window, {promo} promotional, "
-          f"{naked} bare ticker lists, {unparsed} unparseable timestamps")
+          f"{naked} bare ticker lists, {unparsed} unparseable timestamps"
+          + (f", {backward} older posts that look backwards" if fresh_cutoff else ""))
 
-    pool = collapse_duplicates(in_window)
+    pool = collapse_duplicates(in_window, mode)
     merged = len(in_window) - len(pool)
     if merged:
         print(f"  Near-duplicate collapse: {len(pool)} distinct stories "
               f"({merged} retellings merged into them)")
 
-    selected = sorted(pool, key=ranked_score, reverse=True)[:max_tweets_for(mode)]
+    selected = sorted(pool, key=lambda t: ranked_score(t, mode),
+                      reverse=True)[:max_tweets_for(mode)]
     if not selected:
         print("  ⚠️  Zero usable tweets — continuing with market data only")
         return "", []
@@ -1129,6 +1223,21 @@ BULLET_COUNT_NOTE = {
 def get_self_verification(mode: str) -> str:
     """The mandatory pre-output checklist appended to EVERY mode's prompt."""
     count_note = BULLET_COUNT_NOTE[mode]
+    # The horizon rule is only real if the model is made to check it before returning.
+    if mode in PREP_MODES:
+        horizon = ("HORIZON: every point has an UPCOMING event, decision or risk as its subject. No point "
+                   "exists\n   only to report what already happened — past facts appear solely as background "
+                   "inside a\n   forward-looking point. Any point that is really a recap gets replaced.")
+    elif mode in SUMMARY_MODES:
+        horizon = ("HORIZON: every point except the closing bottom line describes what ALREADY happened in "
+                   "the\n   session being reviewed. No point's subject is a future release, report or decision. "
+                   "Scheduled\n   events appear only inside the bottom-line point.")
+    elif mode in WEEKLY_MODES:
+        horizon = ("HORIZON: each summary point covers only what already happened this week, and each "
+                   "preparation\n   point only what is still scheduled. Nothing scheduled is written as though "
+                   "it occurred, and\n   nothing completed as though it is still ahead.")
+    else:
+        horizon = ""
     if mode in ("intraday_update",) + ISRAEL_MODES:
         carve_out = (" (the scheduled-calendar items verified for the preparation points excepted)"
                      if mode == "israel_weekly_summary" else "")
@@ -1145,6 +1254,8 @@ def get_self_verification(mode: str) -> str:
    number/direction in the summary passes checks 1-4 as well.
 7. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets rewritten."""
+        if horizon:
+            checks += f"\n8. {horizon}"
     else:
         if mode == "weekly_summary":
             timing_check = """2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
@@ -1170,6 +1281,8 @@ def get_self_verification(mode: str) -> str:
 9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
    rewritten.{length_check}"""
+        if horizon:
+            checks += f"\n10. {horizon}"
     return f"""══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
 Go over every bullet you wrote and check, one by one:
 {checks}
@@ -1272,6 +1385,31 @@ ISRAEL_WEEKLY_RULES = """Rules:
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
 
+PREP_HORIZON_RULES = """══ HORIZON — THIS IS A FORWARD-LOOKING BRIEFING ══
+The reader has not traded this session yet. Priority order for what earns a point, highest first:
+1. Scheduled macro releases that have NOT been published yet — with the Israel time, the consensus and the
+   previous reading, and what each number would mean for rates and equities.
+2. Company reports due in this session (before the open / after the close) and what the market will look for.
+3. Central-bank speakers, rate decisions and other events already on the calendar.
+4. What the market is currently PRICING IN ahead of those events — futures direction, rate-cut odds,
+   positioning, implied moves — as stated by a source or a permitted verification search.
+5. Risk and watch points: what could break the current setup, and the level or trigger to watch.
+Information about what ALREADY happened enters ONLY as the background a reader needs to understand what is
+about to happen, inside a point whose subject is the upcoming event. A past move, a closing level or an
+already-released number is NEVER the subject of a point on its own, and never the opening point.
+Some source posts are from earlier days: they are here ONLY because they point at something still ahead.
+Read them for the upcoming event they name, not as news of their own day."""
+
+SUMMARY_HORIZON_RULES = """══ HORIZON — THIS IS A REVIEW OF A SESSION THAT ENDED ══
+Every point covers what ACTUALLY happened in the session being reviewed: which data was released (actual vs
+forecast vs previous), what moved the market and through what mechanism, how the indices, sectors and leading
+stocks responded, and what those events mean for the investor.
+Do NOT turn this into a briefing for the next session. An event that has not happened yet belongs in ONE
+place only — the closing bottom-line point, and there only to name what the reader should watch next, with
+its day and Israel time. A point whose subject is a future release, a future report or a future decision
+does not belong in this review at all."""
+
+
 def mode_instructions(mode: str, d: Dict[str, Any], has_tweets: bool = True) -> str:
     if mode == "intraday_update":
         state_heb = {
@@ -1325,6 +1463,8 @@ Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date:
 
 {POINT_STYLE}
 
+{PREP_HORIZON_RULES}
+
 This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
 no closing levels, and nothing that already appears in the prior-context block.
 KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
@@ -1354,6 +1494,8 @@ No ETF proxies, no Finnhub, no ISO dates."""
 {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
 
 {POINT_STYLE}
+
+{SUMMARY_HORIZON_RULES}
 
 This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
 KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
@@ -1394,6 +1536,8 @@ Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}). {sta
 
 {ISRAEL_POINT_STYLE}
 
+{PREP_HORIZON_RULES}
+
 THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
 - Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
   levels, percentages, movers or macro data that do not appear in a source. A figure enters ONLY if a source
@@ -1411,6 +1555,8 @@ posts about US indices, US macro or US stocks entirely, even when they carry fig
 TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
 
 {ISRAEL_POINT_STYLE}
+
+{SUMMARY_HORIZON_RULES}
 
 THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that ended:
 - Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
@@ -1430,6 +1576,9 @@ posts about US indices, US macro or US stocks entirely, even when they carry fig
 TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. The review does
 BOTH: it sums up the Tel Aviv week that ended AND prepares the reader for the coming Tel Aviv trading week.
 PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the summary points.
+HORIZON — the two halves must not bleed into each other: a SUMMARY point covers ONLY what already
+happened this week, a PREPARATION point covers ONLY what is scheduled and has NOT happened yet. Never
+present a scheduled event as if it already occurred, or a completed event as if it is still ahead.
 
 {ISRAEL_POINT_STYLE}
 
@@ -1473,6 +1622,9 @@ posts about US indices, US macro or US stocks entirely, even when they carry fig
 trading week {d['week_range']}. The review does BOTH: sums up the week that ended AND prepares the reader for
 the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
 summary points. {weekly_num_rule}
+HORIZON — the two halves must not bleed into each other: a SUMMARY point covers ONLY what already
+happened this week, a PREPARATION point covers ONLY what is scheduled and has NOT happened yet. Never
+present a scheduled event as if it already occurred, or a completed event as if it is still ahead.
 
 {POINT_STYLE}
 
@@ -1606,7 +1758,8 @@ def main() -> None:
 
     print("\n── Tweets ──")
     since, until = compute_tweet_window(REVIEW_MODE, now, d)
-    tweets, top_cashtags = fetch_and_select_tweets(since, REVIEW_MODE, until)
+    tweets, top_cashtags = fetch_and_select_tweets(
+        since, REVIEW_MODE, until, prep_fresh_cutoff(REVIEW_MODE, now))
 
     # Tweet-only modes (intraday + Israeli reviews) carry no Finnhub layer.
     tweet_only = REVIEW_MODE in ("intraday_update",) + ISRAEL_MODES
