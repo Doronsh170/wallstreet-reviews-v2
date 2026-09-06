@@ -88,7 +88,7 @@ def test_prep_prefers_what_has_not_happened(mode):
     assert g.ranked_score(forward, mode) > g.ranked_score(backward, mode)
 
 
-@pytest.mark.parametrize("mode", SUMMARY)
+@pytest.mark.parametrize("mode", SUMMARY + WEEKLY)
 def test_summary_prefers_what_already_happened(mode):
     forward, backward = norm(FORWARD_POST), norm(BACKWARD_POST)
     assert g.horizon_bonus(backward, mode) > 0
@@ -97,11 +97,12 @@ def test_summary_prefers_what_already_happened(mode):
 
 
 @pytest.mark.parametrize("mode", WEEKLY)
-def test_weekly_rewards_the_past_without_punishing_the_future(mode):
-    """The weeklies are combined reviews — their preparation block needs forward
-    material, so it is never pushed down."""
-    assert g.horizon_bonus(norm(BACKWARD_POST), mode) > 0
-    assert g.horizon_bonus(norm(FORWARD_POST), mode) == 0
+def test_a_weekly_ranks_exactly_like_a_daily_summary(mode):
+    """A weekly review is a summary. It gets no exception: forward-looking material is
+    penalised there just as it is in a daily summary."""
+    for text in (FORWARD_POST, BACKWARD_POST, FORWARD_HEB, BACKWARD_HEB):
+        assert g.horizon_bonus(norm(text), mode) == g.horizon_bonus(norm(text), "daily_summary")
+    assert g.horizon_bonus(norm(FORWARD_POST), mode) < 0
 
 
 def test_intraday_ranking_is_unchanged():
@@ -182,13 +183,17 @@ def test_a_summary_window_did_not_widen(mode):
 
 @pytest.mark.parametrize("mode,expected,rejected", [
     ("daily_prep", "CPI is due Monday", "closed sharply lower"),
+    ("israel_prep", "CPI is due Monday", "closed sharply lower"),
     ("daily_summary", "closed sharply lower", "CPI is due Monday"),
+    ("israel_summary", "closed sharply lower", "CPI is due Monday"),
+    ("weekly_summary", "closed sharply lower", "CPI is due Monday"),
+    ("israel_weekly_summary", "closed sharply lower", "CPI is due Monday"),
 ])
 def test_the_top_post_faces_the_right_way(monkeypatch, mode, expected, rejected):
-    now = il(2026, 9, 7, 8, 0) if mode == "daily_prep" else il(2026, 9, 8, 7, 0)
+    now = il(2026, 9, 7, 8, 0) if mode in PREP else il(2026, 9, 8, 7, 0)
     d = g.compute_dates(mode, now, g.FALLBACK_US_HOLIDAYS)
-    since, _ = g.compute_tweet_window(mode, now, d)
-    when = since + timedelta(hours=2)
+    since, until = g.compute_tweet_window(mode, now, d)
+    when = (until - timedelta(hours=1)) if until else (now - timedelta(hours=1))
     blocks = gather(monkeypatch, [post(BACKWARD_POST, when), post(FORWARD_POST, when)], mode, now)
     first = blocks.split("\n\n")[0]
     assert expected in first, blocks
@@ -211,7 +216,7 @@ def test_prep_prompt_states_the_forward_priority(mode):
     assert "REVIEW OF A SESSION THAT ENDED" not in text
 
 
-@pytest.mark.parametrize("mode", SUMMARY)
+@pytest.mark.parametrize("mode", SUMMARY + WEEKLY)
 def test_summary_prompt_forbids_becoming_a_briefing(mode):
     text = instructions(mode)
     assert "REVIEW OF A SESSION THAT ENDED" in text
@@ -220,9 +225,33 @@ def test_summary_prompt_forbids_becoming_a_briefing(mode):
 
 
 @pytest.mark.parametrize("mode", WEEKLY)
-def test_weekly_prompt_keeps_the_two_halves_apart(mode):
+def test_weekly_prompt_has_no_preparation_block(mode):
+    """The combined weekly is gone: no 'coming week' block, and the only forward-looking
+    sentence allowed is inside the closing bottom line."""
     text = instructions(mode)
-    assert "the two halves must not bleed into each other" in text
+    for banned in ("PREPARATION points", "השבוע הקרוב במאקרו", "דוחות בשבוע הקרוב",
+                   "prepares the reader", "COMING week"):
+        assert banned not in text, f"{mode} still carries: {banned}"
+    assert "Do NOT write a preparation block" in text
+
+
+@pytest.mark.parametrize("mode", WEEKLY)
+def test_weekly_title_no_longer_promises_a_preparation_half(mode):
+    now = il(2026, 9, 6, 9, 0)
+    d = g.compute_dates(mode, now, g.FALLBACK_US_HOLIDAYS)
+    title = g.build_expected_title(mode, d["title_day_name"], d["title_date_str"],
+                                   d["week_range"], d["time_str"])
+    assert "הכנה" not in title, title
+    assert "סיכום שבוע המסחר" in title
+
+
+@pytest.mark.parametrize("mode", WEEKLY)
+def test_weekly_web_search_may_not_build_a_look_ahead(mode):
+    now = il(2026, 9, 6, 9, 0)
+    d = g.compute_dates(mode, now, g.FALLBACK_US_HOLIDAYS)
+    policy = g.get_macro_checklist(mode, d["date_str"], d["week_range"])
+    assert "no preparation part" in policy.lower() or "NO preparation part" in policy
+    assert "bottom-line point" in policy
 
 
 @pytest.mark.parametrize("mode", PREP + SUMMARY + WEEKLY)

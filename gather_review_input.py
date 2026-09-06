@@ -201,8 +201,8 @@ def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Op
     if mode == "israel_summary":
         return f"סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
     if mode == "israel_weekly_summary":
-        return f"סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – {week_range}"
-    return f"סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – {week_range}"
+        return f"סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – {week_range}"
+    return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
 
 
 # ══════════════════════════════════════════════════════════════
@@ -371,7 +371,8 @@ def compute_tweet_window(mode: str, now: datetime,
         return now - timedelta(hours=24), None
     if mode in ("weekly_summary", "israel_weekly_summary"):
         # review_date is the Friday that closed the week. Open at that week's Monday and
-        # leave the end unbounded: the weekend commentary feeds the "coming week" half.
+        # leave the end unbounded: weekend commentary about the week that ended is still
+        # material for the summary.
         monday = review_day - timedelta(days=4)
         return datetime.combine(monday, clock_time(0, 0), tzinfo=ISR_TZ), None
     since = datetime.combine(review_day, clock_time(SUMMARY_WINDOW_START_HOUR[mode], 0),
@@ -525,21 +526,18 @@ PAST_SIGNAL_RE = re.compile(
 def horizon_bonus(t: Dict[str, Any], mode: str) -> float:
     """How much this post is worth to THIS review, given which way it faces.
 
-    The weeklies are deliberately asymmetric: they are combined reviews (the week that
-    ended plus the week ahead), so retrospective material is rewarded but forward
-    material is never penalised — their preparation block depends on it."""
+    A weekly review is a summary and is treated as one: it explains the week that ended,
+    so it ranks material exactly as a daily summary does."""
     forward = bool(FORWARD_SIGNAL_RE.search(t["text"]))
     backward = bool(PAST_SIGNAL_RE.search(t["text"]))
     if mode in PREP_MODES:
         if forward:
             return FORWARD_WEIGHT
         return -WRONG_HORIZON_PENALTY if backward else 0.0
-    if mode in SUMMARY_MODES:
+    if mode in SUMMARY_MODES + WEEKLY_MODES:
         if backward:
             return BACKWARD_WEIGHT
         return -WRONG_HORIZON_PENALTY if forward else 0.0
-    if mode in WEEKLY_MODES:
-        return BACKWARD_WEIGHT if backward else 0.0
     return 0.0   # intraday_update ranks purely on market materiality, as before
 
 
@@ -1084,10 +1082,10 @@ prices or macro data. Content that is not present in the tweets does not enter t
 SUMMARY of the week that ended ({week_range or date_str}): the stories come EXCLUSIVELY from the source posts
 below. Web search is for VERIFICATION ONLY there — confirming a name or figure that already appears in a source
 post. Do NOT use it to add news, index levels, prices or macro data to the summary part.
-PREPARATION for the COMING Tel Aviv trading week: here you MAY use web search to confirm the SCHEDULED calendar
-only — Bank of Israel (בנק ישראל) rate decisions, Israeli macro releases (מדד המחירים לצרכן, אבטלה, צמיחה) and
-the notable Tel Aviv earnings reports due, with their dates and Israel times. Scheduled-calendar items only,
-never speculative news or invented figures.
+This is a SUMMARY of a week that ended — there is no preparation part. Do NOT use web search to build a
+look-ahead to the coming week. The one exception is the closing bottom-line point, where you may name the
+next scheduled Bank of Israel decision or Israeli macro release, with its date and Israel time, and nothing
+more.
 ══════════════════════════════════"""
     if mode in ISRAEL_MODES:
         return """══ WEB SEARCH POLICY ══
@@ -1111,9 +1109,10 @@ bottom-line point.
 The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
 they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
 the week of {week_range or date_str} was indeed released in that week (headline AND core where relevant),
-and that nothing already released is written as 'expected', and (2) the COMING week's schedule for the
-preparation points: economic releases and Fed events (with dates, Israel times and consensus where
-available) and the key earnings reports scheduled, and what the market will look for in each.
+and that nothing already released is written as 'expected'.
+This review has NO preparation part. Do NOT build a look-ahead to the coming week from search. The one
+exception is the closing bottom-line point, where you may name the next scheduled release or Fed event with
+its date, Israel time and consensus, and nothing more.
 Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
 actual/forecast/previous figures from memory or from search results.
 ══════════════════════════════════"""
@@ -1195,7 +1194,8 @@ def get_source_hierarchy(mode: str) -> str:
   a. Verifying a claim of an all-time high / 52-week high before writing it.
   b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-  c. Verifying the COMING week's schedule (macro releases, Fed events, key earnings) for the preparation points."""
+  c. Verifying the next scheduled release or Fed event (date, Israel time, consensus) for the closing
+     bottom-line point ONLY — this review has no preparation block."""
     else:
         return ""
     return f"""══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
@@ -1228,18 +1228,14 @@ def get_self_verification(mode: str) -> str:
         horizon = ("HORIZON: every point has an UPCOMING event, decision or risk as its subject. No point "
                    "exists\n   only to report what already happened — past facts appear solely as background "
                    "inside a\n   forward-looking point. Any point that is really a recap gets replaced.")
-    elif mode in SUMMARY_MODES:
+    elif mode in SUMMARY_MODES + WEEKLY_MODES:
         horizon = ("HORIZON: every point except the closing bottom line describes what ALREADY happened in "
                    "the\n   session being reviewed. No point's subject is a future release, report or decision. "
                    "Scheduled\n   events appear only inside the bottom-line point.")
-    elif mode in WEEKLY_MODES:
-        horizon = ("HORIZON: each summary point covers only what already happened this week, and each "
-                   "preparation\n   point only what is still scheduled. Nothing scheduled is written as though "
-                   "it occurred, and\n   nothing completed as though it is still ahead.")
     else:
         horizon = ""
     if mode in ("intraday_update",) + ISRAEL_MODES:
-        carve_out = (" (the scheduled-calendar items verified for the preparation points excepted)"
+        carve_out = (" (the next scheduled event named in the bottom-line point excepted)"
                      if mode == "israel_weekly_summary" else "")
         checks = f"""1. NUMBERS: every percentage, price and figure traces to a specific source post{carve_out}.
    Any number you cannot point to a source line for — DELETE it or the whole claim.
@@ -1365,14 +1361,13 @@ INTRADAY_RULES = """Rules:
 - NATURAL HEBREW: the update must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
-# The Israeli WEEKLY review is tweet-only like the other Israel modes, but its
-# preparation block looks ahead to the coming week, so it may cite SCHEDULED-calendar
-# figures (release dates/times) verified via web search — the one carve-out from the
-# strict "every number from a source" rule that governs the summary block.
+# The Israeli WEEKLY review is tweet-only like the other Israel modes. It is a pure
+# summary of the week that ended; the only figure it may take from web search is the
+# date/time of the next scheduled event, and only inside the closing bottom-line point.
 ISRAEL_WEEKLY_RULES = """Rules:
 - Write ONLY in Hebrew. English only for tickers, index names, and well-known financial terms in parentheses on first use.
 - SUMMARY of the week that ended: EVERY number must appear in a source post. NEVER invent, estimate, or recall numbers from memory. A story whose source carries no figures is summarized WITHOUT figures.
-- PREPARATION for the coming week: you MAY state SCHEDULED-calendar dates and Israel times (Bank of Israel decisions, Israeli macro releases, Tel Aviv earnings) verified via web search. Nothing else may be added from web search.
+- BOTTOM LINE ONLY: you MAY state the date and Israel time of the next scheduled event (Bank of Israel decision, Israeli macro release) verified via web search. Nothing else may be added from web search, and no other bullet may look ahead.
 - No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
 - No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
@@ -1573,35 +1568,28 @@ NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel A
 posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
     if mode == "israel_weekly_summary":
         return f"""You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
-TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. The review does
-BOTH: it sums up the Tel Aviv week that ended AND prepares the reader for the coming Tel Aviv trading week.
-PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the summary points.
-HORIZON — the two halves must not bleed into each other: a SUMMARY point covers ONLY what already
-happened this week, a PREPARATION point covers ONLY what is scheduled and has NOT happened yet. Never
-present a scheduled event as if it already occurred, or a completed event as if it is still ahead.
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. This review
+SUMS UP the Tel Aviv week that ended. PAST TENSE. ONLY events and moves from THIS specific week.
+
+{SUMMARY_HORIZON_RULES}
 
 {ISRAEL_POINT_STYLE}
 
-THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then looks ahead:
-- The SUMMARY stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
-  movers or macro data that do not appear in a source. A figure enters the summary ONLY if a source states it.
+THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended:
+- The stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
+  movers or macro data that do not appear in a source. A figure enters ONLY if a source states it.
 - Do NOT independently determine who rose or fell over the week. Direction and magnitude come from the sources.
-- For the PREPARATION points you MAY use web search to confirm the COMING week's SCHEDULED calendar only
-  (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) with dates and Israel times.
 6-9 STRONG points TOTAL in three blocks, in this order:
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the Tel Aviv week as one story, as the
   sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
   qualitatively, with only figures that appear in a source.
-* SUMMARY points (3-5) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
-  defense, notable companies, Bank of Israel), each with its own
-  specific headline. Pick the STRONGEST stories from the sources — do NOT force categories or pad.
-* PREPARATION points (1-2) — the COMING Tel Aviv week:
-  - "השבוע הקרוב במאקרו: ..." — the scheduled Bank of Israel decisions and Israeli macro releases with dates and
-    Israel times (from the sources, or verified via web search of the scheduled calendar).
-  - "דוחות בשבוע הקרוב: ..." — the notable Tel Aviv earnings reports due and what the market will watch in them
-    (merge into the macro point when the slate is thin).
-* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor
-  and the frame for the coming week.
+* SUMMARY points (4-7) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
+  defense, notable companies, Bank of Israel), each with its own specific headline. Pick the STRONGEST stories
+  from the sources — do NOT force categories or pad. Every one of these points covers something that ALREADY
+  happened this week.
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor.
+  This is the ONLY point that may look ahead, and only to name the next scheduled event with its date and
+  Israel time. Do NOT write a preparation block for the coming week.
 If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
 posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
@@ -1619,12 +1607,10 @@ posts about US indices, US macro or US stocks entirely, even when they carry fig
         weekly_arc_rule = ("describing the week's direction and drivers qualitatively (no invented weekly "
                            "percentages)")
     return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
-trading week {d['week_range']}. The review does BOTH: sums up the week that ended AND prepares the reader for
-the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
-summary points. {weekly_num_rule}
-HORIZON — the two halves must not bleed into each other: a SUMMARY point covers ONLY what already
-happened this week, a PREPARATION point covers ONLY what is scheduled and has NOT happened yet. Never
-present a scheduled event as if it already occurred, or a completed event as if it is still ahead.
+trading week {d['week_range']}. This review SUMS UP the week that ended. PAST TENSE. ONLY events and moves
+from THIS specific week. {weekly_num_rule}
+
+{SUMMARY_HORIZON_RULES}
 
 {POINT_STYLE}
 
@@ -1632,7 +1618,8 @@ present a scheduled event as if it already occurred, or a completed event as if 
 must still carry a fact, a number or a mechanism — no mood-only filler):
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
   what flipped the sentiment, how it closed, {weekly_arc_rule}.
-* SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
+* SUMMARY points (6-8) — ONE thematic point per major story of the week, each with its own specific headline.
+  Every one of these points covers something that ALREADY happened this week.
   Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
   outside the tweets:
   - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
@@ -1643,12 +1630,10 @@ must still carry a fact, a number or a mechanism — no mood-only filler):
   - The week's defining sector/technology story, with the transmission mechanism.
   - Notable company news: earnings, M&A, milestones — merged where related.
   - Commodities and the dollar with weekly context, or geopolitics with market impact.
-* PREPARATION points (1-2) — the COMING week (verify the schedule via web search — permitted use c):
-  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
-  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
-    (merge into the macro point when the earnings slate is thin).
 * CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
-  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified."""
+  and the opportunities. This is the ONLY point that may look ahead, and only to name the next scheduled
+  release or Fed event with its date and Israel time. Do NOT write a preparation block for the coming week.
+  Seasonal/historical context is welcome when verified."""
 
 
 def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_block: str,
@@ -1784,7 +1769,7 @@ def main() -> None:
         econ_block = ""
     else:
         econ_days = {
-            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 7),
+            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 0),
         }[REVIEW_MODE]
         # NOTE: fetch_economic_data uses `since is None` to mean "not an intraday run"
         # — a non-None value suppresses the SCHEDULED-events block that the look-ahead
