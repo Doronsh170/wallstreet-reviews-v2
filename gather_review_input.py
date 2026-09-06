@@ -25,7 +25,7 @@ import os
 import re
 import sys
 import time
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time as clock_time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from zoneinfo import ZoneInfo
@@ -39,13 +39,15 @@ import requests
 ISR_TZ = ZoneInfo("Asia/Jerusalem")
 NY_TZ = ZoneInfo("America/New_York")
 
-VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "intraday_update",
-               "israel_prep", "israel_summary", "israel_weekly_summary")
+VALID_MODES = ("daily_prep", "daily_summary", "weekly_summary", "weekly_prep",
+               "intraday_update", "israel_prep", "israel_summary",
+               "israel_weekly_summary", "israel_weekly_prep")
 # Israeli-market modes are tweet-only (no Finnhub layer), summarizing the curated
 # Hebrew X sources into the signature prep/summary format for the Tel Aviv exchange.
 # israel_weekly_summary is the combined weekly review: it sums up the week that ended
 # AND prepares the reader for the coming Tel Aviv trading week (macro, reports, events).
-ISRAEL_MODES = ("israel_prep", "israel_summary", "israel_weekly_summary")
+ISRAEL_MODES = ("israel_prep", "israel_summary", "israel_weekly_summary",
+                "israel_weekly_prep")
 REVIEW_MODE = (
     (sys.argv[1] if len(sys.argv) > 1 else "")
     or os.environ.get("REVIEW_MODE", "")
@@ -76,8 +78,33 @@ TASE_SOURCES_FILE = Path("sources/tase.txt")
 TASE_DEFAULT_ACCOUNTS = ["fundercoil", "SponserNews", "globesnews", "calcalist", "TheMarker",
                          "ynetmoney", "ModiShafrir", "matanshitrit", "CalcalistTech"]
 
-MAX_TWEETS_PER_ACCOUNT = int(os.environ.get("MAX_TWEETS_PER_ACCOUNT", "10"))
-MAX_TWEETS_FOR_REVIEW = int(os.environ.get("MAX_TWEETS_FOR_REVIEW", "40"))
+# The API returns a page of recent tweets per account and we slice it locally, so a
+# bigger per-account slice costs nothing extra. Keeping the pool wide lets the time
+# window and the score decide what survives, instead of an arbitrary "10 newest".
+MAX_TWEETS_PER_ACCOUNT = int(os.environ.get("MAX_TWEETS_PER_ACCOUNT", "25"))
+
+# How many posts reach the prompt, per mode. A daily review is exactly 6 bullets, so
+# 40 posts was ~7 posts per bullet — mostly the same story retold by several accounts,
+# diluting the prompt. The weekly covers 5 sessions and keeps a wider pool; intraday
+# is already narrowed by its 2-hour window.
+MODE_MAX_TWEETS = {
+    "daily_prep": 20, "daily_summary": 20,
+    "israel_prep": 20, "israel_summary": 20,
+    "weekly_summary": 30, "israel_weekly_summary": 30,
+    # The week-ahead briefings reach across a whole quiet weekend, and every post that
+    # survives already had to point forward — a wider pool costs nothing there.
+    "weekly_prep": 30, "israel_weekly_prep": 30,
+    "intraday_update": 40,
+}
+MAX_TWEETS_FOR_REVIEW = 40  # fallback for an unlisted mode
+# An explicit env var still wins, for a one-off wider/narrower run.
+MAX_TWEETS_ENV_OVERRIDE = os.environ.get("MAX_TWEETS_FOR_REVIEW", "").strip()
+
+
+def max_tweets_for(mode: str) -> int:
+    if MAX_TWEETS_ENV_OVERRIDE:
+        return int(MAX_TWEETS_ENV_OVERRIDE)
+    return MODE_MAX_TWEETS.get(mode, MAX_TWEETS_FOR_REVIEW)
 
 PY_TO_HEB = {0: "שני", 1: "שלישי", 2: "רביעי", 3: "חמישי", 4: "שישי", 5: "שבת", 6: "ראשון"}
 
@@ -89,9 +116,36 @@ EXPECTED_FIRST_HEADING = {
     "israel_prep": "לקראת יום המסחר",
     "israel_summary": "סיכום המסחר",
     "israel_weekly_summary": "סיכום השבוע",
+    "weekly_prep": "לקראת השבוע",
+    "israel_weekly_prep": "לקראת השבוע",
 }
 
 INTRADAY_WINDOW_HOURS = 2
+
+# Source window per mode — which posts are even eligible for this review.
+# Before this existed, only intraday_update filtered by time: every other mode fed
+# the model "the account's latest tweets" regardless of age, so a summary of one
+# session could (and did) carry posts weeks old. That is the mechanism behind the
+# stale-macro incident the "אימות אירועי מאקרו" rules in CLAUDE.md were written for.
+# Filtering in code makes those prompt rules a safety net rather than the first line.
+# A prep review reaches further back than a summary, but on a condition. Anything from
+# the last PREP_FRESH_HOURS is eligible as current material; older than that, a post
+# survives ONLY if it points at something still ahead — a Friday post about a release
+# due Monday belongs in Monday's prep, a Friday post about Friday's close does not.
+# That keeps the reach the briefing needs without reopening the stale-content hole.
+PREP_FRESH_HOURS = 18             # last night + this morning: eligible either way
+PREP_LOOKBACK_HOURS = 96          # beyond this nothing enters a prep at all
+# The week-ahead briefing runs on a Sunday, when there is no "today's news" to be
+# fresh about: it reaches across the whole quiet weekend and the week before it, and
+# every post has to point forward to get in (see prep_fresh_cutoff).
+WEEKLY_PREP_LOOKBACK_HOURS = 120
+# A summary covers exactly one session. The window opens on the review date at this
+# Israel-time hour and runs 24 hours, so it also captures the after-hours reaction
+# without letting the NEXT session's pre-market chatter in.
+SUMMARY_WINDOW_START_HOUR = {
+    "daily_summary": 9,    # 09:00 Israel = 02:00 NY — US overnight/pre-market onwards
+    "israel_summary": 6,   # TASE trades 09:30–17:30 Israel; open early for the run-up
+}
 
 FALLBACK_US_HOLIDAYS = [
     "2026-01-01", "2026-01-19", "2026-02-16", "2026-04-03", "2026-05-25",
@@ -158,8 +212,12 @@ def build_expected_title(mode: str, day_name: str, date_str: str, week_range: Op
     if mode == "israel_summary":
         return f"סיכום יום המסחר בבורסה בתל אביב 🇮🇱 – יום {day_name}, {heb_date(date_str)}"
     if mode == "israel_weekly_summary":
-        return f"סיכום שבועי והכנה לשבוע המסחר הבא בבורסה בתל אביב 🇮🇱 – {week_range}"
-    return f"סיכום שבועי והכנה לשבוע הבא בוול סטריט 🇺🇸 – {week_range}"
+        return f"סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – {week_range}"
+    if mode == "weekly_prep":
+        return f"לקראת שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
+    if mode == "israel_weekly_prep":
+        return f"לקראת שבוע המסחר בבורסה בתל אביב 🇮🇱 – {week_range}"
+    return f"סיכום שבוע המסחר בוול סטריט 🇺🇸 – {week_range}"
 
 
 # ══════════════════════════════════════════════════════════════
@@ -248,6 +306,19 @@ def get_market_state(now_il: datetime, holidays: List[str]) -> str:
     return "closed"
 
 
+def get_next_week_range(now: datetime) -> Tuple[datetime, datetime]:
+    """Monday-Friday of the COMING trading week. Run on the weekend that is the week
+    about to start; run midweek (or on a Monday, already underway) it is the next one."""
+    days_ahead = (7 - now.weekday()) % 7 or 7
+    monday = now + timedelta(days=days_ahead)
+    return monday, monday + timedelta(days=4)
+
+
+def get_next_week_range_str(now: datetime) -> str:
+    monday, friday = get_next_week_range(now)
+    return f"{monday.strftime('%d/%m')}–{friday.strftime('%d/%m/%Y')}"
+
+
 def get_prev_week_range_str(now: datetime) -> str:
     weekday = now.weekday()
     monday = now - timedelta(days=weekday) if weekday >= 5 else now - timedelta(days=weekday + 7)
@@ -258,6 +329,7 @@ def get_prev_week_range_str(now: datetime) -> str:
 def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, Any]:
     date_str = now.strftime("%Y-%m-%d")
     day_name = PY_TO_HEB[now.weekday()]
+    week_closed_days: List[str] = []
     title_date_str, title_day_name = date_str, day_name
     week_range: Optional[str] = None
     target_is_trading = is_trading_day(now, holidays)
@@ -284,6 +356,21 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
         target_is_trading = is_israel_trading_day(target)
         review_date = title_date_str
+    elif mode in WEEKLY_PREP_MODES:
+        monday, _ = get_next_week_range(now)
+        week_range = get_next_week_range_str(now)
+        # The review is dated to the first day of the week it prepares.
+        review_date = monday.strftime("%Y-%m-%d")
+        title_date_str, title_day_name = review_date, PY_TO_HEB[monday.weekday()]
+        target_is_trading = True
+        # A shortened week is exactly what a week-ahead briefing has to say out loud.
+        # Only the US calendar is known here; the Israeli modes carry no holiday list.
+        if mode == "weekly_prep":
+            week_closed_days = [
+                (monday + timedelta(days=i)).strftime("%Y-%m-%d")
+                for i in range(5)
+                if (monday + timedelta(days=i)).strftime("%Y-%m-%d") in holidays
+            ]
     elif mode == "israel_summary":
         target = get_last_israel_trading_day(now)
         title_date_str, title_day_name = target.strftime("%Y-%m-%d"), PY_TO_HEB[target.weekday()]
@@ -298,6 +385,7 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         review_date = (monday + timedelta(days=4)).strftime("%Y-%m-%d")
 
     return {
+        "closed_days": week_closed_days,
         "date_str": date_str, "day_name": day_name,
         "title_date_str": title_date_str, "title_day_name": title_day_name,
         "week_range": week_range, "target_is_trading": target_is_trading,
@@ -307,6 +395,47 @@ def compute_dates(mode: str, now: datetime, holidays: List[str]) -> Dict[str, An
         "window_from": (now - timedelta(hours=INTRADAY_WINDOW_HOURS)).strftime("%H:%M"),
         "market_state": get_market_state(now, holidays),
     }
+
+
+def compute_tweet_window(mode: str, now: datetime,
+                         d: Dict[str, Any]) -> Tuple[Optional[datetime], Optional[datetime]]:
+    """(since, until) — the createdAt range a source post must fall in to be eligible.
+    None on a side means unbounded there. Every mode is bounded on the `since` side;
+    only the summaries need an `until`, to keep the next session out of the review of
+    the one that just ended."""
+    if mode == "intraday_update":
+        return now - timedelta(hours=INTRADAY_WINDOW_HOURS), None
+    if mode in WEEKLY_PREP_MODES:
+        return now - timedelta(hours=WEEKLY_PREP_LOOKBACK_HOURS), None
+    if mode in PREP_MODES:
+        # Wide on purpose; prep_fresh_cutoff() below narrows the older tier to posts
+        # that actually point forward.
+        return now - timedelta(hours=PREP_LOOKBACK_HOURS), None
+    try:
+        review_day = date.fromisoformat(str(d.get("review_date", "")))
+    except ValueError:
+        # No usable review date — fall back to a plain 24h window rather than no filter.
+        return now - timedelta(hours=24), None
+    if mode in ("weekly_summary", "israel_weekly_summary"):
+        # review_date is the Friday that closed the week. Open at that week's Monday and
+        # leave the end unbounded: weekend commentary about the week that ended is still
+        # material for the summary.
+        monday = review_day - timedelta(days=4)
+        return datetime.combine(monday, clock_time(0, 0), tzinfo=ISR_TZ), None
+    since = datetime.combine(review_day, clock_time(SUMMARY_WINDOW_START_HOUR[mode], 0),
+                             tzinfo=ISR_TZ)
+    return since, since + timedelta(hours=24)
+
+
+def prep_fresh_cutoff(mode: str, now: datetime) -> Optional[datetime]:
+    """For a prep review, the moment before which a post must be forward-looking to
+    survive. None for every other mode, which apply no such condition.
+
+    The week-ahead briefings get `now` itself: they run on a quiet Sunday where nothing
+    counts as breaking news, so EVERY post has to point at the week ahead to get in."""
+    if mode in WEEKLY_PREP_MODES:
+        return now
+    return now - timedelta(hours=PREP_FRESH_HOURS) if mode in PREP_MODES else None
 
 
 def get_time_conversion_block(now_il: datetime) -> str:
@@ -400,6 +529,145 @@ def normalize_tweet(tweet: Dict[str, Any], account: str) -> Dict[str, Any]:
     }
 
 
+# ── review horizon: what a mode is actually looking at ────────────
+# A prep review prepares the reader for a session that has NOT happened; a summary
+# explains one that has. The same post is worth opposite amounts to them — a post
+# about a release due Monday is the point of a Monday prep and noise in Friday's
+# summary. Window, ranking and prompt all follow this split.
+PREP_MODES = ("daily_prep", "israel_prep", "weekly_prep", "israel_weekly_prep")
+SUMMARY_MODES = ("daily_summary", "israel_summary")
+WEEKLY_SUMMARY_MODES = ("weekly_summary", "israel_weekly_summary")
+# The week-ahead briefings: calendar-first, so the scheduled-event blocks carry them
+# and the X sources are a complement rather than a precondition.
+WEEKLY_PREP_MODES = ("weekly_prep", "israel_weekly_prep")
+
+FORWARD_WEIGHT = 25.0    # a post pointing at something still ahead, in a prep
+BACKWARD_WEIGHT = 25.0   # a post reporting what happened, in a summary
+WRONG_HORIZON_PENALTY = 15.0  # a post facing the other way, with no signal for this one
+
+
+def _heb(*stems: str) -> str:
+    """Hebrew stems take single-letter prefixes (ו/ה/ב/ל/ש/מ/כ), so allow up to two —
+    while keeping the word boundary, so a stem never matches inside an unrelated word
+    (the documented "נפל inside אינפלציה" class of bug)."""
+    return "|".join(rf"\b[והבלשמכ]{{0,2}}{s}\b" for s in stems)
+
+
+# Deliberately excludes very short, ambiguous Hebrew verbs (עלה / ירד): with a prefix
+# they match unrelated words (מעלה), and the distinctive stems below carry the signal.
+FORWARD_SIGNAL_RE = re.compile(
+    r"\b(?:ahead of|due (?:out|today|tomorrow|this|next)|expected|expectations|forecast|"
+    r"consensus|scheduled|upcoming|reports? (?:before|after|on)|next week|tomorrow|"
+    r"will (?:report|speak|release|decide|publish)|awaits?|awaiting|on tap|"
+    r"preview|watch for|set to|slated|eyes on|on deck|to be released|"
+    # Natural ways a post flags something still ahead, which the list above missed:
+    # "week ahead", "CPI lands Friday", "reports Thursday", "due out", "before the FOMC".
+    r"week ahead|\bdue\b(?!\s+to)|lands? (?:on )?(?:mon|tues|wednes|thurs|fri)day|"
+    r"reports? (?:mon|tues|wednes|thurs|fri)day|before the (?:fomc|fed|open|bell|close)|"
+    r"kicks off|guidance for|before the (?:open|bell)|after the close)\b|"
+    + _heb("צפוי", "צפויה", "צפויים", "צפויות", "לקראת", "יתפרסם", "תתפרסם", "יפורסמו",
+           "מחר", "תחזית", "תחזיות", "קונצנזוס", "יעקבו", "ימתינו", "בהמתנה", "אמורה",
+           "אמור", "מתוכנן", "מתוכננת", "הקרוב", "הקרובה"),
+    re.IGNORECASE,
+)
+
+PAST_SIGNAL_RE = re.compile(
+    r"\b(?:closed|closing|finished|ended|beat|beats|missed|misses|reported|posted|"
+    r"surged|plunged|jumped|tumbled|rallied|slid|slumped|came in|printed|"
+    r"was released|today's (?:close|session)|session ended)\b|"
+    + _heb("נסגר", "נסגרה", "ננעל", "ננעלה", "זינק", "זינקה", "צנח", "צנחה", "פורסם",
+           "פורסמו", "דיווחה", "דיווח", "הכתה", "החטיאה", "סיכם", "סיכמה", "הסתיים",
+           "הסתיימה", "אמש", "אתמול"),
+    re.IGNORECASE,
+)
+
+
+def horizon_bonus(t: Dict[str, Any], mode: str) -> float:
+    """How much this post is worth to THIS review, given which way it faces.
+
+    A weekly review is a summary and is treated as one: it explains the week that ended,
+    so it ranks material exactly as a daily summary does."""
+    forward = bool(FORWARD_SIGNAL_RE.search(t["text"]))
+    backward = bool(PAST_SIGNAL_RE.search(t["text"]))
+    if mode in PREP_MODES:
+        if forward:
+            return FORWARD_WEIGHT
+        return -WRONG_HORIZON_PENALTY if backward else 0.0
+    if mode in SUMMARY_MODES + WEEKLY_SUMMARY_MODES:
+        if backward:
+            return BACKWARD_WEIGHT
+        return -WRONG_HORIZON_PENALTY if forward else 0.0
+    return 0.0   # intraday_update ranks purely on market materiality, as before
+
+
+# ── source-quality filters ────────────────────────────────────────
+# Several accounts reporting one story is still ONE story. Collapsing them stops the
+# prompt from spending a third of its posts retelling the same headline — and the
+# corroboration is itself evidence the story matters, so it lifts the survivor's rank.
+DUPLICATE_OVERLAP = 0.6      # word overlap above which two posts are the same story
+CORROBORATION_BONUS = 10.0   # score added per extra source that carried it
+MIN_TOKENS_TO_COMPARE = 4    # below this a post is too short to compare meaningfully
+MAX_POST_CHARS = 400         # a single post rarely needs more to carry its point
+
+_WORD_RE = re.compile(r"[A-Za-z֐-׿]{3,}")
+_STOPWORDS = {
+    "the", "and", "for", "are", "was", "were", "has", "have", "had", "with", "from",
+    "that", "this", "will", "its", "his", "her", "they", "their", "than", "then",
+    "after", "before", "you", "not", "but", "all", "new", "now", "via", "amp",
+    "על", "עם", "של", "את", "כי", "גם", "אבל", "לא", "כמו", "אחרי", "לפני", "יותר",
+}
+
+
+def content_tokens(text: str) -> set:
+    """The words that carry a post's meaning — used to tell two reports of the same
+    story apart from two different stories."""
+    return {w.lower() for w in _WORD_RE.findall(text)} - _STOPWORDS
+
+
+def is_naked_ticker_list(t: Dict[str, Any]) -> bool:
+    """A watchlist dump ($SPY $QQQ $NVDA $TSLA today's movers 👀) has no story in it.
+    CLAUDE.md already tells the model to ignore these; doing it here keeps them from
+    taking up room in the prompt at all."""
+    if len(t["cashtags"]) < 4:
+        return False
+    story_words = content_tokens(CASHTAG_RE.sub(" ", t["text"]))
+    return len(story_words) <= 4
+
+
+def collapse_duplicates(pool: List[Dict[str, Any]], mode: str = "") -> List[Dict[str, Any]]:
+    """One entry per story, keeping the highest-scoring telling of it.
+
+    The kept post carries `_corroborations` — how many other sources ran the same
+    story. That only affects ranking; it is never shown to the model, so it cannot
+    leak into the review as "לפי מספר מקורות"."""
+    kept: List[Dict[str, Any]] = []
+    # Sorted by the mode's own score, so the telling that survives is the one that
+    # faces the way this review needs — the prep keeps the forward-looking wording.
+    for t in sorted(pool, key=lambda x: tweet_score(x) + horizon_bonus(x, mode), reverse=True):
+        tokens = content_tokens(t["text"])
+        duplicate_of = None
+        if len(tokens) >= MIN_TOKENS_TO_COMPARE:
+            for k in kept:
+                other = k["_tokens"]
+                if len(other) < MIN_TOKENS_TO_COMPARE:
+                    continue
+                overlap = len(tokens & other) / len(tokens | other)
+                if overlap >= DUPLICATE_OVERLAP:
+                    duplicate_of = k
+                    break
+        if duplicate_of is not None:
+            duplicate_of["_corroborations"] += 1
+        else:
+            kept.append({**t, "_tokens": tokens, "_corroborations": 0})
+    return kept
+
+
+def ranked_score(t: Dict[str, Any], mode: str = "") -> float:
+    return (tweet_score(t)
+            + CORROBORATION_BONUS * t.get("_corroborations", 0)
+            + horizon_bonus(t, mode))
+
+
 def tweet_score(t: Dict[str, Any]) -> float:
     text = t["text"].lower()
     score = 30.0 if t["cashtags"] else 0.0
@@ -431,15 +699,17 @@ def tweet_score(t: Dict[str, Any]) -> float:
     return score
 
 
-def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "") -> Tuple[str, List[str]]:
+def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "",
+                            until: Optional[datetime] = None,
+                            fresh_cutoff: Optional[datetime] = None) -> Tuple[str, List[str]]:
     """Returns (formatted tweet blocks, top cashtags mentioned).
-    since — keep only tweets created at/after this moment (intraday window).
+    since/until — keep only posts created inside this window (see compute_tweet_window).
+    fresh_cutoff — prep modes only: older than this, a post must point forward to survive.
     mode — selects the source account list (Israeli modes read sources/tase.txt)."""
     if not TWITTER_API_KEY:
         print("  No TWITTER_API_KEY — skipping tweets (the review will rely on the chat model's web search)")
         return "", []
-    # With a time window most tweets get dropped, so take more per account.
-    per_account = MAX_TWEETS_PER_ACCOUNT * 2 if since is not None else MAX_TWEETS_PER_ACCOUNT
+    per_account = MAX_TWEETS_PER_ACCOUNT
     all_tweets: List[Dict[str, Any]] = []
     for acc in read_accounts(mode):
         try:
@@ -461,23 +731,49 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "") ->
             print(f"  Error fetching @{acc}: {e}")
     dedup = {t["text"]: t for t in all_tweets}
     pool = list(dedup.values())
-    if since is not None:
-        in_window, too_old, unparsed, promo = [], 0, 0, 0
-        for t in pool:
-            ts = parse_tweet_time(t["createdAt"])
-            if ts is None:
-                unparsed += 1
-            elif ts < since:
-                too_old += 1
-            elif PROMO_TWEET_RE.search(t["text"]):
-                promo += 1
-            else:
-                in_window.append(t)
-        print(f"  Time-window filter (since {since.astimezone(ISR_TZ):%H:%M} Israel): "
-              f"kept {len(in_window)}, dropped {too_old} older, {promo} promotional, "
-              f"{unparsed} unparseable timestamps")
-        pool = in_window
-    selected = sorted(pool, key=tweet_score, reverse=True)[:MAX_TWEETS_FOR_REVIEW]
+
+    in_window, too_old, too_new, unparsed, promo, naked, backward = [], 0, 0, 0, 0, 0, 0
+    for t in pool:
+        # Giveaways and webinars carry no market news in ANY mode. This check used to
+        # sit inside the intraday-only branch, so dailies and weeklies got the bait.
+        if PROMO_TWEET_RE.search(t["text"]):
+            promo += 1
+            continue
+        if is_naked_ticker_list(t):
+            naked += 1
+            continue
+        ts = parse_tweet_time(t["createdAt"])
+        if ts is None:
+            # An unparseable timestamp cannot be shown to be in-window. Dropping it is
+            # the safe call: a post of unknown age is exactly what caused stale content
+            # to be presented as current.
+            unparsed += 1
+        elif since is not None and ts < since:
+            too_old += 1
+        elif until is not None and ts >= until:
+            too_new += 1
+        elif (fresh_cutoff is not None and ts < fresh_cutoff
+              and not FORWARD_SIGNAL_RE.search(t["text"])):
+            # Older material in a prep has to earn its place by pointing at something
+            # still ahead. Yesterday's closing report is not what a briefing is for.
+            backward += 1
+        else:
+            in_window.append(t)
+    win = (f"{since.astimezone(ISR_TZ):%d/%m %H:%M}" if since else "—")
+    win += f" → {until.astimezone(ISR_TZ):%d/%m %H:%M}" if until else " → now"
+    print(f"  Time-window filter ({win} Israel): kept {len(in_window)}, dropped "
+          f"{too_old} older, {too_new} newer than the window, {promo} promotional, "
+          f"{naked} bare ticker lists, {unparsed} unparseable timestamps"
+          + (f", {backward} older posts that look backwards" if fresh_cutoff else ""))
+
+    pool = collapse_duplicates(in_window, mode)
+    merged = len(in_window) - len(pool)
+    if merged:
+        print(f"  Near-duplicate collapse: {len(pool)} distinct stories "
+              f"({merged} retellings merged into them)")
+
+    selected = sorted(pool, key=lambda t: ranked_score(t, mode),
+                      reverse=True)[:max_tweets_for(mode)]
     if not selected:
         print("  ⚠️  Zero usable tweets — continuing with market data only")
         return "", []
@@ -485,7 +781,12 @@ def fetch_and_select_tweets(since: Optional[datetime] = None, mode: str = "") ->
     blocks = []
     for t in selected:
         ts = f" [{t['createdAt']}]" if t["createdAt"] else ""
-        blocks.append(f"@{t['account']}{ts}: {t['text']}")
+        text = t["text"]
+        # A long thread-dump adds length, not information. Cut at a word boundary so
+        # the tail never reads as a truncated number.
+        if len(text) > MAX_POST_CHARS:
+            text = text[:MAX_POST_CHARS].rsplit(" ", 1)[0] + " …"
+        blocks.append(f"@{t['account']}{ts}: {text}")
         for c in t["cashtags"]:
             if c not in NON_TICKER:
                 counts[c] = counts.get(c, 0) + 1
@@ -724,6 +1025,78 @@ def fetch_market_data(weekly: bool, top_cashtags: List[str], d: Dict[str, Any],
     return "\n".join(block), pcts, ticker_quotes, weekly_available
 
 
+# A week's US earnings calendar runs to hundreds of names, nearly all of them
+# irrelevant to a market briefing. Revenue estimate is the size proxy Finnhub gives us
+# on this endpoint, so it decides materiality; anything the source posts are already
+# talking about is kept regardless of size.
+EARNINGS_MIN_REVENUE = 2_000_000_000     # $2B — large enough to move a sector
+EARNINGS_MAX_ROWS = 18
+EARNINGS_HOUR_LABEL = {"bmo": "before the open", "amc": "after the close",
+                       "dmh": "during the session"}
+
+
+def fetch_earnings_calendar(days_forward: int, tickers_in_sources: List[str]) -> str:
+    """The coming week's notable US earnings, as a verified block for weekly_prep.
+
+    Returns "" when the key is missing or the week is empty — the prompt then simply
+    has no earnings point, which is the intended behaviour for a thin week."""
+    if not FINNHUB_API_KEY:
+        return ""
+    now = datetime.now(ISR_TZ)
+    try:
+        r = http_get(
+            f"{FINNHUB_BASE}/calendar/earnings",
+            params={"from": now.strftime("%Y-%m-%d"),
+                    "to": (now + timedelta(days=days_forward)).strftime("%Y-%m-%d"),
+                    "token": FINNHUB_API_KEY},
+            timeout=20, label="Finnhub earnings calendar",
+        )
+        if not r.ok:
+            print(f"  Finnhub earnings calendar: status {r.status_code}")
+            return ""
+        rows = r.json().get("earningsCalendar", []) or []
+    except Exception as e:
+        print(f"  Finnhub earnings calendar failed: {e}")
+        return ""
+
+    wanted = {t.upper() for t in tickers_in_sources}
+    material = []
+    for e in rows:
+        symbol = str(e.get("symbol") or "").upper()
+        revenue = e.get("revenueEstimate") or 0
+        if not symbol or not e.get("date"):
+            continue
+        if revenue >= EARNINGS_MIN_REVENUE or symbol in wanted:
+            material.append((revenue, e))
+    material.sort(key=lambda x: -x[0])
+    material = material[:EARNINGS_MAX_ROWS]
+    if not material:
+        print("  Earnings calendar: no material reports in the window")
+        return ""
+
+    lines = []
+    for _, e in sorted(material, key=lambda x: (str(x[1].get("date")), -x[0])):
+        day = date.fromisoformat(str(e["date"]))
+        when = EARNINGS_HOUR_LABEL.get(str(e.get("hour") or "").lower(), "time not stated")
+        SCHEDULED_SNAPSHOT["earnings"].append(
+            {"event": str(e["symbol"]), "date": day.isoformat(), "time_il": ""})
+        line = f"  {day:%a %d/%m} | ${e['symbol']} — {when}"
+        if e.get("epsEstimate") is not None:
+            line += f", EPS consensus {e['epsEstimate']}"
+        if e.get("revenueEstimate"):
+            line += f", revenue consensus ${e['revenueEstimate'] / 1e9:.1f}B"
+        lines.append(line)
+    print(f"  Earnings calendar: {len(lines)} material reports in the coming week")
+    return "\n".join([
+        "══ VERIFIED EARNINGS CALENDAR — the coming week (from Finnhub — these are FACTS) ══",
+        *lines,
+        "- Use these for the earnings point: name the day and whether the report lands before the open or",
+        "  after the close. Pick only the names that matter to the market or to a leading sector — this is a",
+        "  briefing, NOT a list. Never state an EPS/revenue figure that is not on a line above.",
+        "══════════════════════════════════════════════════════════════════════════════",
+    ])
+
+
 def parse_econ_time(s: str) -> Optional[datetime]:
     """Finnhub economic-calendar 'time' is UTC, e.g. '2026-07-03 12:30:00'."""
     s = str(s or "").strip()
@@ -733,6 +1106,9 @@ def parse_econ_time(s: str) -> Optional[datetime]:
         except ValueError:
             continue
     return None
+
+
+SCHEDULED_SNAPSHOT: Dict[str, List[Dict[str, str]]] = {"macro": [], "earnings": []}
 
 
 def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datetime] = None) -> str:
@@ -764,6 +1140,13 @@ def fetch_economic_data(days_back: int, days_forward: int, since: Optional[datet
             if e.get("actual") is None:
                 # Not released yet — a SCHEDULED event, relevant for the preparation part.
                 if days_forward > 0 and since is None:
+                    event_dt = parse_econ_time(e.get("time", ""))
+                    if event_dt:
+                        SCHEDULED_SNAPSHOT["macro"].append({
+                            "event": str(e.get("event", "")),
+                            "date": event_dt.astimezone(ISR_TZ).strftime("%Y-%m-%d"),
+                            "time_il": event_dt.astimezone(ISR_TZ).strftime("%H:%M"),
+                        })
                     line = f"  {e.get('time', '')[:16]} UTC | {e.get('event', '')}"
                     if e.get("estimate") is not None:
                         line += f": forecast={e['estimate']}{unit}"
@@ -840,16 +1223,35 @@ prices or macro data. Content that is not present in the tweets does not enter t
 SUMMARY of the week that ended ({week_range or date_str}): the stories come EXCLUSIVELY from the source posts
 below. Web search is for VERIFICATION ONLY there — confirming a name or figure that already appears in a source
 post. Do NOT use it to add news, index levels, prices or macro data to the summary part.
-PREPARATION for the COMING Tel Aviv trading week: here you MAY use web search to confirm the SCHEDULED calendar
-only — Bank of Israel (בנק ישראל) rate decisions, Israeli macro releases (מדד המחירים לצרכן, אבטלה, צמיחה) and
-the notable Tel Aviv earnings reports due, with their dates and Israel times. Scheduled-calendar items only,
-never speculative news or invented figures.
+This is a SUMMARY of a week that ended — there is no preparation part. Do NOT use web search to build a
+look-ahead to the coming week. The one exception is the closing bottom-line point, where you may name the
+next scheduled Bank of Israel decision or Israeli macro release, with its date and Israel time, and nothing
+more.
 ══════════════════════════════════"""
-    if mode in ISRAEL_MODES:
-        return """══ WEB SEARCH POLICY ══
+    if mode == "israel_weekly_prep":
+        return f"""══ WEB SEARCH POLICY (WEEK-AHEAD BRIEFING — CALENDAR VERIFICATION) ══
+This briefing maps the COMING Tel Aviv trading week ({week_range or date_str}). There is no Israeli calendar
+API here, so web search IS the calendar source for this mode — but for the SCHEDULED CALENDAR ONLY:
+Bank of Israel (בנק ישראל) rate decisions, Israeli macro releases (מדד המחירים לצרכן, אבטלה, צמיחה, ריבית)
+and the notable Tel Aviv earnings reports due, each with its DATE, DAY and Israel TIME, plus consensus and
+previous reading where published.
+Everything else still comes from the source posts. Do NOT use search to add stories, market commentary,
+price levels or predictions. A scheduled event you cannot verify does not enter the briefing.
+Cross-check every event against the source-post dates: anything already released is NOT upcoming.
+══════════════════════════════════
 Web search is for VERIFICATION ONLY — confirming a name or figure that already appears in the source posts.
 Do NOT use it to find additional news, index levels, prices or macro data. Content that is not present in the
 sources does not enter the review.
+══════════════════════════════════"""
+    if mode == "weekly_prep":
+        return f"""══ SCHEDULED CALENDAR CHECK (verification only) ══
+This briefing maps the COMING trading week ({week_range or date_str}). The scheduled events come from the
+VERIFIED ECONOMIC and EARNINGS blocks above. Use web search to VERIFY and complete them, never to invent:
+  (1) the Israel time of each release, its consensus and the previous reading;
+  (2) scheduled Fed / central-bank speakers and rate decisions for the week, which the economic block may miss;
+  (3) that nothing you present as upcoming was ALREADY released — cross-check against the source-post dates.
+Do NOT use search to import market commentary, predictions or price targets. An event you cannot verify does
+not enter the briefing.
 ══════════════════════════════════"""
     if mode == "daily_summary":
         return f"""══ MANDATORY MACRO TIMING CHECK (verification only) ══
@@ -867,9 +1269,10 @@ bottom-line point.
 The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
 they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
 the week of {week_range or date_str} was indeed released in that week (headline AND core where relevant),
-and that nothing already released is written as 'expected', and (2) the COMING week's schedule for the
-preparation points: economic releases and Fed events (with dates, Israel times and consensus where
-available) and the key earnings reports scheduled, and what the market will look for in each.
+and that nothing already released is written as 'expected'.
+This review has NO preparation part. Do NOT build a look-ahead to the coming week from search. The one
+exception is the closing bottom-line point, where you may name the next scheduled release or Fed event with
+its date, Israel time and consensus, and nothing more.
 Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
 actual/forecast/previous figures from memory or from search results.
 ══════════════════════════════════"""
@@ -881,11 +1284,28 @@ stories the source tweets did not cover.
 ══════════════════════════════════"""
 
 
+def _context_block(header: str, prior: Any) -> str:
+    if not (prior and isinstance(prior, dict) and prior.get("sections")):
+        return ""
+    body = "\n\n".join(f"[{s.get('heading', '')}]\n{s.get('content', '')}"
+                        for s in prior["sections"])
+    return f"{header}\n\n{body}\n══════════════════════════════════════════════════════════════"
+
+
 def get_prior_review_context(mode: str, data: Dict[str, Any]) -> str:
+    extra = ""
     if mode == "daily_prep":
         prior = data.get("dailySummary")
         header = ("══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══\n"
                   "Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.")
+        # The week-ahead briefing may already have introduced this week's calendar. This
+        # is an anti-repetition aid ONLY: today's session still gets its full treatment.
+        extra = "\n\n" + _context_block(
+            "══ CONTEXT: THE WEEK-AHEAD BRIEFING PUBLISHED ON SUNDAY ══\n"
+            "Already published. Do NOT restate it in the same words. This does NOT mean dropping an event: "
+            "anything happening in TODAY'S session belongs in this briefing in full, with its Israel time, "
+            "consensus and previous reading — write it fresh, from today's angle.",
+            data.get("weeklyPrep")) if data.get("weeklyPrep") else ""
     elif mode == "daily_summary":
         prior = data.get("dailyPrep")
         header = ("══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══\n"
@@ -899,11 +1319,26 @@ def get_prior_review_context(mode: str, data: Dict[str, Any]) -> str:
         header = ("══ CONTEXT: THE MOST RECENT PUBLISHED REVIEW — DO NOT REPEAT THIS CONTENT ══\n"
                   "Already published on the site. Your update covers ONLY the last two hours. Mention an item "
                   "below ONLY if there is a genuinely NEW development about it inside the two-hour window.")
+    elif mode == "weekly_prep":
+        prior = data.get("weeklySummary")
+        header = ("══ CONTEXT: THE WEEKLY SUMMARY OF THE WEEK THAT ENDED — DO NOT REPEAT THIS CONTENT ══\n"
+                  "Already published. Your briefing covers the week AHEAD. Use this only to know what is already "
+                  "said; never recap it.")
+    elif mode == "israel_weekly_prep":
+        prior = data.get("israelWeeklySummary")
+        header = ("══ CONTEXT: THE TEL AVIV WEEKLY SUMMARY OF THE WEEK THAT ENDED — DO NOT REPEAT THIS CONTENT ══\n"
+                  "Already published. Your briefing covers the week AHEAD. Use this only to know what is already "
+                  "said; never recap it.")
     elif mode == "israel_prep":
         prior = data.get("israelSummary")
         header = ("══ CONTEXT: THE PREVIOUS TEL AVIV DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══\n"
                   "Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a "
                   "genuinely NEW development about it.")
+        extra = "\n\n" + _context_block(
+            "══ CONTEXT: THE TEL AVIV WEEK-AHEAD BRIEFING PUBLISHED ON SUNDAY ══\n"
+            "Already published. Do NOT restate it in the same words. This does NOT mean dropping an event: "
+            "anything happening in TODAY'S session belongs in this briefing in full — write it fresh.",
+            data.get("israelWeeklyPrep")) if data.get("israelWeeklyPrep") else ""
     elif mode == "israel_summary":
         prior = data.get("israelPrep")
         header = ("══ CONTEXT: THIS SESSION'S TEL AVIV PRE-MARKET BRIEFING ══\n"
@@ -911,10 +1346,7 @@ def get_prior_review_context(mode: str, data: Dict[str, Any]) -> str:
                   "quote it verbatim.")
     else:
         return ""
-    if not (prior and prior.get("sections")):
-        return ""
-    content = "\n\n".join(f"[{s.get('heading', '')}]\n{s.get('content', '')}" for s in prior["sections"])
-    return f"{header}\n\n{content}\n══════════════════════════════════════════════════════════════"
+    return _context_block(header, prior) + extra
 
 
 # ══════════════════════════════════════════════════════════════
@@ -946,12 +1378,26 @@ def get_source_hierarchy(mode: str) -> str:
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
   c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
      and cross-checking that an event you present as upcoming was not already released."""
+    elif mode == "weekly_prep":
+        return f"""══ SOURCE HIERARCHY — A CALENDAR-FIRST BRIEFING ══
+This mode is deliberately different from the other Wall Street reviews:
+1. The VERIFIED ECONOMIC CALENDAR and EARNINGS CALENDAR blocks are the PRIMARY source. The briefing is built
+   on them: what is scheduled, on which day, at what Israel time.
+2. The source posts below are a COMPLEMENT, not a precondition. Use them for the theme carrying into the week
+   and for what the market is pricing. If they are thin — a Sunday is quiet — the briefing still stands on the
+   calendar alone. Do NOT pad it with weak narrative to make it look like the other reviews.
+3. Web search VERIFIES and completes the schedule (times, consensus, previous, Fed speakers) — see the
+   calendar-check block. It never supplies stories, commentary or predictions.
+FORBIDDEN: a market call, a price target, or a claim about what WILL happen. This briefing states what is
+scheduled and why it matters, never what the outcome will be.
+══════════════════════════════════════════════════════"""
     elif mode == "weekly_summary":
         purposes = """Web search is permitted for THREE narrow purposes ONLY:
   a. Verifying a claim of an all-time high / 52-week high before writing it.
   b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-  c. Verifying the COMING week's schedule (macro releases, Fed events, key earnings) for the preparation points."""
+  c. Verifying the next scheduled release or Fed event (date, Israel time, consensus) for the closing
+     bottom-line point ONLY — this review has no preparation block."""
     else:
         return ""
     return f"""══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
@@ -973,15 +1419,38 @@ BULLET_COUNT_NOTE = {
     "israel_summary": "6-9 bullets",
     "israel_weekly_summary": "6-9 bullets",
     "intraday_update": "one bullet per material topic, no minimum and no cap",
+    "weekly_prep": "4-8 bullets — only what the week actually holds, never padded to 8",
+    "israel_weekly_prep": "4-8 bullets — only what the week actually holds, never padded to 8",
 }
 
 
 def get_self_verification(mode: str) -> str:
     """The mandatory pre-output checklist appended to EVERY mode's prompt."""
     count_note = BULLET_COUNT_NOTE[mode]
+    # The horizon rule is only real if the model is made to check it before returning.
+    if mode in PREP_MODES:
+        horizon = ("HORIZON: every point has an UPCOMING event, decision or risk as its subject. No point "
+                   "exists\n   only to report what already happened — past facts appear solely as background "
+                   "inside a\n   forward-looking point. Any point that is really a recap gets replaced."
+                   "\n    VERIFIED DATES: every scheduled date, day and time you wrote was confirmed against "
+                   "the\n   publishing body itself before you drafted the bullet. Any event you could not "
+                   "confirm was\n   left out — not written with an approximate date."
+                   "\n    SCOPED CLAIMS: no sentence asserts more than your sources support. Every "
+                   "\"אין\" / \"כל\" /\n   \"רק\" / \"היחיד\" is either backed by a source that says exactly "
+                   "that, or rewritten as what was\n   found in the calendars you checked.")
+    elif mode in SUMMARY_MODES + WEEKLY_SUMMARY_MODES:
+        horizon = ("HORIZON: every point except the closing bottom line describes what ALREADY happened in "
+                   "the\n   session being reviewed. No point's subject is a future release, report or decision. "
+                   "Scheduled\n   events appear only inside the bottom-line point.")
+    else:
+        horizon = ""
     if mode in ("intraday_update",) + ISRAEL_MODES:
-        carve_out = (" (the scheduled-calendar items verified for the preparation points excepted)"
-                     if mode == "israel_weekly_summary" else "")
+        if mode == "israel_weekly_summary":
+            carve_out = " (the next scheduled event named in the bottom-line point excepted)"
+        elif mode == "israel_weekly_prep":
+            carve_out = " (the scheduled-calendar items verified by search excepted)"
+        else:
+            carve_out = ""
         checks = f"""1. NUMBERS: every percentage, price and figure traces to a specific source post{carve_out}.
    Any number you cannot point to a source line for — DELETE it or the whole claim.
 2. SCOPE: no story, price, index level or data point appears that is absent from the source posts{carve_out}.
@@ -995,6 +1464,8 @@ def get_self_verification(mode: str) -> str:
    number/direction in the summary passes checks 1-4 as well.
 7. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets rewritten."""
+        if horizon:
+            checks += f"\n8. {horizon}"
     else:
         if mode == "weekly_summary":
             timing_check = """2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
@@ -1020,6 +1491,8 @@ def get_self_verification(mode: str) -> str:
 9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
    rewritten.{length_check}"""
+        if horizon:
+            checks += f"\n10. {horizon}"
     return f"""══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
 Go over every bullet you wrote and check, one by one:
 {checks}
@@ -1102,14 +1575,13 @@ INTRADAY_RULES = """Rules:
 - NATURAL HEBREW: the update must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
 - Never mention in the review that the items came from tweets/posts/X accounts."""
 
-# The Israeli WEEKLY review is tweet-only like the other Israel modes, but its
-# preparation block looks ahead to the coming week, so it may cite SCHEDULED-calendar
-# figures (release dates/times) verified via web search — the one carve-out from the
-# strict "every number from a source" rule that governs the summary block.
+# The Israeli WEEKLY review is tweet-only like the other Israel modes. It is a pure
+# summary of the week that ended; the only figure it may take from web search is the
+# date/time of the next scheduled event, and only inside the closing bottom-line point.
 ISRAEL_WEEKLY_RULES = """Rules:
 - Write ONLY in Hebrew. English only for tickers, index names, and well-known financial terms in parentheses on first use.
 - SUMMARY of the week that ended: EVERY number must appear in a source post. NEVER invent, estimate, or recall numbers from memory. A story whose source carries no figures is summarized WITHOUT figures.
-- PREPARATION for the coming week: you MAY state SCHEDULED-calendar dates and Israel times (Bank of Israel decisions, Israeli macro releases, Tel Aviv earnings) verified via web search. Nothing else may be added from web search.
+- BOTTOM LINE ONLY: you MAY state the date and Israel time of the next scheduled event (Bank of Israel decision, Israeli macro release) verified via web search. Nothing else may be added from web search, and no other bullet may look ahead.
 - No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
 - No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
@@ -1120,6 +1592,83 @@ ISRAEL_WEEKLY_RULES = """Rules:
 - Never OPEN a bullet with a raw ticker. Open with the Hebrew company name.
 - NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
 - Never mention in the review that the items came from tweets/posts/X accounts."""
+
+
+OFFICIAL_SOURCE_RULES = """══ SCHEDULED EVENTS — VERIFY AGAINST THE OFFICIAL SOURCE ══
+A prep review lives on dates and times. A wrong date is worse than a missing point, so every
+SCHEDULED event you name must be verified against the body that actually publishes it:
+
+  United States
+  - CPI, PPI, employment report / NFP, jobless claims, real earnings → the BLS release schedule
+    (bls.gov/schedule). BLS is the authority for its own releases.
+  - FOMC decisions, minutes, Fed speakers → federalreserve.gov.
+  - GDP, PCE / personal income → BEA (bea.gov). Retail sales → the Census Bureau.
+  - Company earnings → the company's own investor-relations announcement or its 8-K. A dated IR
+    press release BEATS any earnings-calendar row.
+
+  Israel
+  - Interest-rate decisions and Bank of Israel publications → boi.org.il. The Bank's published
+    decision calendar is the authority, including for the date of the NEXT decision.
+  - CPI and other national statistics → the Central Bureau of Statistics (cbs.gov.il).
+  - Company reports → the company's own filing or announcement (Maya / TASE). If a report's date
+    is not verified, LEAVE IT OUT.
+
+VERIFY BEFORE YOU WRITE — this is your job, not the reader's. When web search is available, run it
+FIRST, before drafting a single bullet, for every event you intend to name:
+  - each macro release you will date → the publishing body's own schedule;
+  - each earnings report you will date → that company's IR announcement;
+  - each rate decision you will date → the central bank's own calendar.
+Only after those searches come back do you decide which events enter the review. Do NOT write the
+review first and leave the dates to be checked afterwards — an unverified date must never reach the
+page at all. If search is unavailable, say nothing you cannot support: fall back to the calendar
+block and to hedged wording, per the rules below.
+
+PRECEDENCE, highest first: the official source, then the verified calendar block in this prompt,
+then a source post. When they disagree, the official source WINS and the others are discarded —
+including a calendar row and including a confident-sounding post.
+
+TWO RULES THAT OVERRIDE EVERYTHING ELSE:
+1. CANNOT VERIFY → OMIT. If you cannot confirm a date, a time or a figure against the sources above,
+   leave the event out of the review entirely. Never write an approximate or assumed date. A short,
+   correct briefing is the goal; a padded one with a wrong date is a failure.
+2. CLAIM ONLY WHAT YOUR SOURCES SUPPORT. Your calendar coverage is never complete, so an absolute or
+   universal statement is almost always wrong. Never write "there is no X", "nothing is scheduled",
+   "the entire calendar", "only", "all of" — unless a source states exactly that. Scope the sentence
+   to what you actually checked:
+     WRONG: "כל לוח האירועים נדחס לימים חמישי ושישי"   (there is also a Wednesday release)
+     RIGHT: "האירועים המרכזיים של השבוע מרוכזים בחמישי ושישי"
+     WRONG: "אין השבוע אף אירוע מאקרו מתוזמן"           (absence you cannot prove)
+     RIGHT: "לא זוהו אירועי מאקרו מהותיים בלוחות שאומתו לשבוע הקרוב"
+   An absence of evidence is not evidence of absence. Say what was found, not what does not exist.
+3. ALREADY PUBLISHED IS NOT UPCOMING. Before writing that anything is scheduled, check whether it has
+   already happened: an interest-rate decision that was taken, a report already filed, a release
+   already out. Check the reference period too — a Q2 report published in August is not "due" in
+   September. If it has happened, it is not a scheduled event and does not belong here.
+══════════════════════════════════════════════════════"""
+
+PREP_HORIZON_RULES = """══ HORIZON — THIS IS A FORWARD-LOOKING BRIEFING ══
+The reader has not traded this session yet. Priority order for what earns a point, highest first:
+1. Scheduled macro releases that have NOT been published yet — with the Israel time, the consensus and the
+   previous reading, and what each number would mean for rates and equities.
+2. Company reports due in this session (before the open / after the close) and what the market will look for.
+3. Central-bank speakers, rate decisions and other events already on the calendar.
+4. What the market is currently PRICING IN ahead of those events — futures direction, rate-cut odds,
+   positioning, implied moves — as stated by a source or a permitted verification search.
+5. Risk and watch points: what could break the current setup, and the level or trigger to watch.
+Information about what ALREADY happened enters ONLY as the background a reader needs to understand what is
+about to happen, inside a point whose subject is the upcoming event. A past move, a closing level or an
+already-released number is NEVER the subject of a point on its own, and never the opening point.
+Some source posts are from earlier days: they are here ONLY because they point at something still ahead.
+Read them for the upcoming event they name, not as news of their own day."""
+
+SUMMARY_HORIZON_RULES = """══ HORIZON — THIS IS A REVIEW OF A SESSION THAT ENDED ══
+Every point covers what ACTUALLY happened in the session being reviewed: which data was released (actual vs
+forecast vs previous), what moved the market and through what mechanism, how the indices, sectors and leading
+stocks responded, and what those events mean for the investor.
+Do NOT turn this into a briefing for the next session. An event that has not happened yet belongs in ONE
+place only — the closing bottom-line point, and there only to name what the reader should watch next, with
+its day and Israel time. A point whose subject is a future release, a future report or a future decision
+does not belong in this review at all."""
 
 
 def mode_instructions(mode: str, d: Dict[str, Any], has_tweets: bool = True) -> str:
@@ -1175,6 +1724,10 @@ Script run date: {d['date_str']} (יום {d['day_name']}). Briefing target date:
 
 {POINT_STYLE}
 
+{PREP_HORIZON_RULES}
+
+{OFFICIAL_SOURCE_RULES}
+
 This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
 no closing levels, and nothing that already appears in the prior-context block.
 KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
@@ -1204,6 +1757,8 @@ No ETF proxies, no Finnhub, no ISO dates."""
 {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
 
 {POINT_STYLE}
+
+{SUMMARY_HORIZON_RULES}
 
 This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
 KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
@@ -1244,6 +1799,10 @@ Briefing target date: {d['title_date_str']} (יום {d['title_day_name']}). {sta
 
 {ISRAEL_POINT_STYLE}
 
+{PREP_HORIZON_RULES}
+
+{OFFICIAL_SOURCE_RULES}
+
 THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
 - Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
   levels, percentages, movers or macro data that do not appear in a source. A figure enters ONLY if a source
@@ -1256,11 +1815,109 @@ THIS BRIEFING SUMMARIZES THE CURATED HEBREW SOURCES — it is FORWARD-LOOKING:
 - If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
 posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
+    if mode == "weekly_prep":
+        closed_note = ""
+        if d.get("closed_days"):
+            days = ", ".join(f"{heb_date(x)} (יום {PY_TO_HEB[date.fromisoformat(x).weekday()]})"
+                             for x in d["closed_days"])
+            closed_note = (f"SHORTENED WEEK — the US market is CLOSED on: {days}. Say so explicitly in the "
+                           f"opening point: a holiday-shortened week concentrates the calendar into fewer "
+                           f"sessions and thins liquidity. Never place a scheduled event on a closed day.\n\n")
+        return f"""You are a senior Wall Street investment advisor writing the WEEK-AHEAD BRIEFING in Hebrew for the
+coming trading week {d['week_range']}, which opens on {d['title_date_str']} (יום {d['title_day_name']}).
+Script run date: {d['date_str']} (יום {d['day_name']}). The week has NOT started — everything here is ahead.
+
+{POINT_STYLE}
+
+{PREP_HORIZON_RULES}
+
+{OFFICIAL_SOURCE_RULES}
+
+{closed_note}THIS IS A CALENDAR-FIRST BRIEFING — a map of the week, deliberately NOT a narrative review:
+- It is built on the VERIFIED ECONOMIC and EARNINGS CALENDAR blocks above. The source posts complement it;
+  they are not a precondition. A quiet Sunday with thin posts still produces a full, useful briefing.
+- Do NOT stretch it into the style of the daily or weekly review. No index performance, no closing levels,
+  no recap of the week that ended — that is the weekly summary's job and it is already published.
+
+PRIORITY ORDER — take them in this order and stop when the week runs out of substance:
+1. THE WEEK'S MAIN MACRO EVENT — the single release or decision that matters most (CPI, NFP, PPI, PCE,
+   an interest-rate decision). Day, date, Israel time, consensus and previous where verified, and one
+   sentence on why it decides the week.
+2. THE REST OF THE MACRO CALENDAR — the other significant releases, grouped BY DAY, each with its Israel
+   time. One point, not one per release.
+3. THE WEEK'S EARNINGS — only names that matter to the market or to a leading sector, each with its day and
+   whether it reports before the open or after the close, and what the market will look for. A briefing,
+   NOT a list: three or four names beat twelve.
+4. RATE DECISIONS AND CENTRAL-BANK SPEAKERS scheduled for the week, when the calendar carries them.
+5. WHAT THE MARKET IS PRICING into those events — rate-cut odds, positioning, implied moves — ONLY when a
+   source post or a verification search gives a current, reliable figure. No figure, no point.
+6. THE THEME CARRYING INTO THE WEEK — the sector or story the sources are still on, ONLY if it is genuinely
+   live going into the week. A stale theme is not a point.
+7. THE MAIN RISK TO WATCH — a geopolitical event, a level, a trigger — ONLY if there is a concrete one.
+8. "בשורה התחתונה: ..." — what will decide the direction of the week. ALWAYS the last point.
+
+LENGTH: 4-8 points. Points 1, 2 and the bottom line are the spine; 3-7 enter ONLY when the week really holds
+them. FIVE STRONG POINTS BEAT EIGHT PADDED ONES. Never invent an event, a speaker or a theme to reach eight.
+
+EVERY SCHEDULED ITEM CARRIES, as far as it is verified: the DAY and DATE, the ISRAEL TIME, the CONSENSUS and
+PREVIOUS reading where they exist, and one short sentence on why the market cares. A figure you cannot verify
+is simply omitted — never guessed, and never presented as if it were confirmed.
+THIS IS A MAP OF THE WEEK, NOT A FORECAST: state what is scheduled and why it matters. Never predict an
+outcome, never give a price target, never recommend a position.
+No ETF proxies, no Finnhub, no ISO dates."""
+    if mode == "israel_weekly_prep":
+        return f"""You are a senior investment advisor writing the WEEK-AHEAD BRIEFING in Hebrew for the
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the coming trading week {d['week_range']}, which
+opens on {d['title_date_str']} (יום {d['title_day_name']}). Script run date: {d['date_str']}
+(יום {d['day_name']}). The week has NOT started — everything here is ahead.
+
+{ISRAEL_POINT_STYLE}
+
+{PREP_HORIZON_RULES}
+
+{OFFICIAL_SOURCE_RULES}
+
+THIS IS A CALENDAR-FIRST BRIEFING — a map of the Tel Aviv week, deliberately NOT a narrative review:
+- The scheduled calendar (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) is the
+  spine, verified via the web search permitted in the policy block above. The source posts complement it and
+  are not a precondition — a quiet Sunday still produces a useful briefing.
+- Every non-calendar figure (a price, an index level, a stock move) still enters ONLY if a source post states
+  it. Do NOT recap the week that ended — that is the weekly summary's job.
+
+PRIORITY ORDER — take them in this order and stop when the week runs out of substance:
+1. THE WEEK'S MAIN MACRO EVENT — the single release or decision that matters most (CPI, NFP, PPI, PCE,
+   an interest-rate decision). Day, date, Israel time, consensus and previous where verified, and one
+   sentence on why it decides the week.
+2. THE REST OF THE MACRO CALENDAR — the other significant releases, grouped BY DAY, each with its Israel
+   time. One point, not one per release.
+3. THE WEEK'S EARNINGS — only names that matter to the market or to a leading sector, each with its day and
+   whether it reports before the open or after the close, and what the market will look for. A briefing,
+   NOT a list: three or four names beat twelve.
+4. RATE DECISIONS AND CENTRAL-BANK SPEAKERS scheduled for the week, when the calendar carries them.
+5. WHAT THE MARKET IS PRICING into those events — rate-cut odds, positioning, implied moves — ONLY when a
+   source post or a verification search gives a current, reliable figure. No figure, no point.
+6. THE THEME CARRYING INTO THE WEEK — the sector or story the sources are still on, ONLY if it is genuinely
+   live going into the week. A stale theme is not a point.
+7. THE MAIN RISK TO WATCH — a geopolitical event, a level, a trigger — ONLY if there is a concrete one.
+8. "בשורה התחתונה: ..." — what will decide the direction of the week. ALWAYS the last point.
+
+LENGTH: 4-8 points. Points 1, 2 and the bottom line are the spine; 3-7 enter ONLY when the week really holds
+them. FIVE STRONG POINTS BEAT EIGHT PADDED ONES. Never invent an event, a speaker or a theme to reach eight.
+
+EVERY SCHEDULED ITEM CARRIES, as far as it is verified: the DAY and DATE, the ISRAEL TIME, the CONSENSUS and
+PREVIOUS reading where they exist, and one short sentence on why the market cares. A figure you cannot verify
+is simply omitted — never guessed, and never presented as if it were confirmed.
+THIS IS A MAP OF THE WEEK, NOT A FORECAST: state what is scheduled and why it matters. Never predict an
+outcome, never give a price target, never recommend a position.
+NO US market / Wall Street content AT ALL — skip source posts about US indices, US macro or US stocks
+entirely, even when they carry figures. Israeli macro and Bank of Israel only. No ISO dates."""
     if mode == "israel_summary":
         return f"""You are a senior investment advisor writing a signature END-OF-DAY review in Hebrew for the
 TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for {d['title_date_str']} (יום {d['title_day_name']}). PAST TENSE.
 
 {ISRAEL_POINT_STYLE}
+
+{SUMMARY_HORIZON_RULES}
 
 THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES — it explains the day that ended:
 - Content comes EXCLUSIVELY from the source posts at the bottom of this prompt. Do NOT add prices, index
@@ -1277,32 +1934,28 @@ NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel A
 posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
     if mode == "israel_weekly_summary":
         return f"""You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
-TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. The review does
-BOTH: it sums up the Tel Aviv week that ended AND prepares the reader for the coming Tel Aviv trading week.
-PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the summary points.
+TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week {d['week_range']}. This review
+SUMS UP the Tel Aviv week that ended. PAST TENSE. ONLY events and moves from THIS specific week.
+
+{SUMMARY_HORIZON_RULES}
 
 {ISRAEL_POINT_STYLE}
 
-THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended, then looks ahead:
-- The SUMMARY stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
-  movers or macro data that do not appear in a source. A figure enters the summary ONLY if a source states it.
+THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended:
+- The stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
+  movers or macro data that do not appear in a source. A figure enters ONLY if a source states it.
 - Do NOT independently determine who rose or fell over the week. Direction and magnitude come from the sources.
-- For the PREPARATION points you MAY use web search to confirm the COMING week's SCHEDULED calendar only
-  (Bank of Israel decisions, Israeli macro releases, notable Tel Aviv earnings) with dates and Israel times.
 6-9 STRONG points TOTAL in three blocks, in this order:
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the Tel Aviv week as one story, as the
   sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
   qualitatively, with only figures that appear in a source.
-* SUMMARY points (3-5) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
-  defense, notable companies, Bank of Israel), each with its own
-  specific headline. Pick the STRONGEST stories from the sources — do NOT force categories or pad.
-* PREPARATION points (1-2) — the COMING Tel Aviv week:
-  - "השבוע הקרוב במאקרו: ..." — the scheduled Bank of Israel decisions and Israeli macro releases with dates and
-    Israel times (from the sources, or verified via web search of the scheduled calendar).
-  - "דוחות בשבוע הקרוב: ..." — the notable Tel Aviv earnings reports due and what the market will watch in them
-    (merge into the macro point when the slate is thin).
-* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor
-  and the frame for the coming week.
+* SUMMARY points (4-7) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
+  defense, notable companies, Bank of Israel), each with its own specific headline. Pick the STRONGEST stories
+  from the sources — do NOT force categories or pad. Every one of these points covers something that ALREADY
+  happened this week.
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor.
+  This is the ONLY point that may look ahead, and only to name the next scheduled event with its date and
+  Israel time. Do NOT write a preparation block for the coming week.
 If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
 NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
 posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates."""
@@ -1320,9 +1973,10 @@ posts about US indices, US macro or US stocks entirely, even when they carry fig
         weekly_arc_rule = ("describing the week's direction and drivers qualitatively (no invented weekly "
                            "percentages)")
     return f"""You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
-trading week {d['week_range']}. The review does BOTH: sums up the week that ended AND prepares the reader for
-the coming week. PAST TENSE for the summary points. ONLY events and moves from THIS specific week in the
-summary points. {weekly_num_rule}
+trading week {d['week_range']}. This review SUMS UP the week that ended. PAST TENSE. ONLY events and moves
+from THIS specific week. {weekly_num_rule}
+
+{SUMMARY_HORIZON_RULES}
 
 {POINT_STYLE}
 
@@ -1330,7 +1984,8 @@ summary points. {weekly_num_rule}
 must still carry a fact, a number or a mechanism — no mood-only filler):
 * OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
   what flipped the sentiment, how it closed, {weekly_arc_rule}.
-* SUMMARY points (4-6) — ONE thematic point per major story of the week, each with its own specific headline.
+* SUMMARY points (6-8) — ONE thematic point per major story of the week, each with its own specific headline.
+  Every one of these points covers something that ALREADY happened this week.
   Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
   outside the tweets:
   - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
@@ -1341,17 +1996,15 @@ must still carry a fact, a number or a mechanism — no mood-only filler):
   - The week's defining sector/technology story, with the transmission mechanism.
   - Notable company news: earnings, M&A, milestones — merged where related.
   - Commodities and the dollar with weekly context, or geopolitics with market impact.
-* PREPARATION points (1-2) — the COMING week (verify the schedule via web search — permitted use c):
-  - "השבוע הקרוב במאקרו: ..." — the scheduled releases and Fed events with dates, Israel times and consensus.
-  - "דוחות בשבוע הקרוב: ..." — the key earnings reports scheduled and what the market will look for in them
-    (merge into the macro point when the earnings slate is thin).
 * CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
-  and the opportunities, and the frame for the coming week. Seasonal/historical context is welcome when verified."""
+  and the opportunities. This is the ONLY point that may look ahead, and only to name the next scheduled
+  release or Fed event with its date and Israel time. Do NOT write a preparation block for the coming week.
+  Seasonal/historical context is welcome when verified."""
 
 
 def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_block: str,
                       econ_block: str, checklist: str, prior_context: str, tweets: str,
-                      now_il: datetime) -> str:
+                      now_il: datetime, earnings_block: str = "") -> str:
     first_heading = EXPECTED_FIRST_HEADING[mode]
     example_content = (
         "* נושא ראשון: משפט אנליטי תמציתי עם מספרים.\\n* נושא שני: ...\\n* נושא שלישי: ..."
@@ -1406,7 +2059,7 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
     # The US time-conversion block is irrelevant to Tel Aviv reviews.
     if mode not in ISRAEL_MODES:
         parts += ["", get_time_conversion_block(now_il)]
-    for block in (market_block, econ_block, checklist, prior_context):
+    for block in (market_block, econ_block, earnings_block, checklist, prior_context):
         if block:
             parts += ["", block]
     if tweets:
@@ -1421,6 +2074,12 @@ def build_paste_block(mode: str, d: Dict[str, Any], expected_title: str, market_
                        f"gathered for this run. Per the rules above, return the single bullet "
                        f"\"* אין מספיק עדכונים משמעותיים מהמקורות בחלון הזמן הזה.\" — do NOT use web search to fill "
                        f"the update with news, and do NOT recycle older headlines or unrelated macro.")]
+    elif mode in WEEKLY_PREP_MODES:
+        parts += ["", ("NOTE: no source posts were gathered for this run — expected on a quiet Sunday. This "
+                       "briefing is calendar-first: build it from the verified scheduled blocks above (and, for "
+                       "the Tel Aviv briefing, the calendar you verify by search). Simply omit the points that "
+                       "depend on the sources (what the market is pricing, the theme carrying into the week). "
+                       "Do NOT invent a narrative to fill them.")]
     elif mode in ISRAEL_MODES:
         parts += ["", ("NOTE: no source posts were gathered for this run. These reviews are sourced ONLY from the "
                        "curated Hebrew X accounts, so do NOT fabricate a review from web search or memory. Return a "
@@ -1455,17 +2114,22 @@ def main() -> None:
     print(f"  Expected title: {expected_title}")
 
     print("\n── Tweets ──")
-    since = now - timedelta(hours=INTRADAY_WINDOW_HOURS) if REVIEW_MODE == "intraday_update" else None
-    tweets, top_cashtags = fetch_and_select_tweets(since, REVIEW_MODE)
+    since, until = compute_tweet_window(REVIEW_MODE, now, d)
+    tweets, top_cashtags = fetch_and_select_tweets(
+        since, REVIEW_MODE, until, prep_fresh_cutoff(REVIEW_MODE, now))
 
     # Tweet-only modes (intraday + Israeli reviews) carry no Finnhub layer.
     tweet_only = REVIEW_MODE in ("intraday_update",) + ISRAEL_MODES
+    # weekly_prep is calendar-first: it takes the scheduled blocks from Finnhub but no
+    # quotes at all. A week-ahead briefing has no prices in it, and pulling ~33 quotes
+    # it would be forbidden to use is waste.
+    no_quotes = tweet_only or REVIEW_MODE == "weekly_prep"
 
     print("\n── Finnhub market data ──")
-    if tweet_only:
-        # These modes only summarize the sources — no price data, no movers, no
-        # percentages. Nothing from Finnhub enters their prompt.
-        print(f"  {REVIEW_MODE} summarizes the sources only — skipping market data")
+    if no_quotes:
+        reason = ("summarizes the sources only" if tweet_only
+                  else "is a calendar-first briefing with no prices")
+        print(f"  {REVIEW_MODE} {reason} — skipping market data")
         market_block, pcts, ticker_quotes, weekly_available = "", {}, {}, False
     else:
         # Post-session modes carry a settled close; record it so weekly runs can
@@ -1481,9 +2145,23 @@ def main() -> None:
         econ_block = ""
     else:
         econ_days = {
-            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 7),
+            "daily_prep": (1, 1), "daily_summary": (1, 0), "weekly_summary": (7, 0),
+            # The week-ahead briefing looks only forward: the coming Mon-Fri plus slack.
+            "weekly_prep": (0, 8),
         }[REVIEW_MODE]
-        econ_block = fetch_economic_data(*econ_days, since=since)
+        # NOTE: fetch_economic_data uses `since is None` to mean "not an intraday run"
+        # — a non-None value suppresses the SCHEDULED-events block that the look-ahead
+        # bottom line depends on. The tweet window above must NOT be passed here. Only
+        # intraday_update wants a window, and it never reaches this branch (tweet-only).
+        econ_since = since if REVIEW_MODE == "intraday_update" else None
+        econ_block = fetch_economic_data(*econ_days, since=econ_since)
+    print("\n── Earnings calendar ──")
+    if REVIEW_MODE == "weekly_prep":
+        earnings_block = fetch_earnings_calendar(8, top_cashtags)
+    else:
+        print(f"  {REVIEW_MODE} does not use the earnings calendar — skipping")
+        earnings_block = ""
+
     checklist = get_macro_checklist(
         REVIEW_MODE, d["date_str"], d["week_range"], f"{d['window_from']}–{d['time_str']}",
     )
@@ -1494,7 +2172,7 @@ def main() -> None:
 
     paste_block = build_paste_block(
         REVIEW_MODE, d, expected_title, market_block, econ_block, checklist,
-        prior_context, tweets, now,
+        prior_context, tweets, now, earnings_block,
     )
     OUT_MD.write_text(paste_block, encoding="utf-8")
 
@@ -1509,6 +2187,10 @@ def main() -> None:
         "week_range": d["week_range"],
         "etf_pcts": pcts,
         "ticker_quotes": ticker_quotes,
+        # What the gathered calendars actually said. paste_review.py compares the
+        # review's dates against these, so a date that contradicts the calendar the
+        # model was handed cannot reach the site.
+        "scheduled": SCHEDULED_SNAPSHOT,
     }
     OUT_JSON.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
 

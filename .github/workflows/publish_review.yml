@@ -37,8 +37,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json archive
-          if git diff --cached --quiet; then
+          git add data.json archive publish_status.json
+          # Scope the check to data.json: publish_status.json changes on every run, so
+          # an unscoped check would no longer notice that the review never landed.
+          if git diff --cached --quiet -- data.json; then
             echo "::error::data.json unchanged — publish failed. Check the logs."
             exit 1
           fi
@@ -46,3 +48,19 @@ jobs:
           git pull --rebase origin ${{ github.ref_name }}
           git push
           echo "### ✅ data.json עודכן — הסקירה באוויר" >> $GITHUB_STEP_SUMMARY
+
+      # A rejected review leaves data.json alone but must still report WHY, in Hebrew,
+      # so the admin screen can show it without anyone opening this log.
+      - name: Publish the failure reason
+        if: failure()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ ! -f publish_status.json ]; then
+            printf '{"ok": false, "error": "%s"}\n' "הפרסום נעצר לפני שלב האימות." > publish_status.json
+          fi
+          git add publish_status.json
+          git diff --cached --quiet && exit 0
+          git commit -m "publish: rejected ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push

@@ -12,11 +12,12 @@ on:
           - daily_prep
           - daily_summary
           - weekly_summary
+          - weekly_prep
           - intraday_update
-          - daily_digest
           - israel_prep
           - israel_summary
           - israel_weekly_summary
+          - israel_weekly_prep
 
 # Same group as "2 - Publish Review": a gather and a publish must never push at
 # the same time, or one of them loses the race and fails after burning API calls.

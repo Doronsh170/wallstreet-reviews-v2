@@ -26,7 +26,7 @@ Requires raw_review_input.json (created by gather_review_input.py) in the same f
 import json
 import re
 import sys
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 from zoneinfo import ZoneInfo
@@ -37,6 +37,10 @@ NY_TZ = ZoneInfo("America/New_York")
 DATA_JSON = Path("data.json")
 SNAPSHOT_FILE = Path("raw_review_input.json")
 DEFAULT_INPUT = Path("review_output.json")
+# Outcome of the last publish attempt, in Hebrew, as a file. Written on success AND on
+# failure so the admin screen can show what a guard rejected without anyone opening a
+# CI log. It records the outcome only — data.json is still never touched on a failure.
+STATUS_FILE = Path("publish_status.json")
 # Every published review is also appended to a monthly archive file
 # (archive/YYYY-MM.json) so the site can show past reviews, not just the latest.
 ARCHIVE_DIR = Path("archive")
@@ -49,6 +53,8 @@ DATA_JSON_KEY = {
     "israel_prep": "israelPrep",
     "israel_summary": "israelSummary",
     "israel_weekly_summary": "israelWeeklySummary",
+    "weekly_prep": "weeklyPrep",
+    "israel_weekly_prep": "israelWeeklyPrep",
 }
 
 # The intraday update summarizes the sources: bullet count is driven by the
@@ -57,14 +63,18 @@ DATA_JSON_KEY = {
 # chat skipped material and needs another round.
 # The Israeli reviews are tweet-only, so a thin source day may legitimately yield
 # a short review (or the single "not enough material" bullet) — floor of 1.
+# The week-ahead briefings are deliberately allowed to be short: a thin week gets
+# four strong points, never eight padded ones. BULLET_RANGE enforces the 4-8 band.
 MIN_BULLETS = {"intraday_update": 1, "israel_prep": 1, "israel_summary": 1,
-               "israel_weekly_summary": 1}
+               "israel_weekly_summary": 1, "weekly_prep": 4, "israel_weekly_prep": 4}
 
 # Signature length (CLAUDE.md): the US daily reviews are EXACTLY 6 bullets
 # including the bottom line, each 4-5 lines; the weekly is 8-10 bullets.
 # Enforced here so an overgrown review never reaches the site.
+PREP_MODES = ("daily_prep", "israel_prep", "weekly_prep", "israel_weekly_prep")
 EXACT_BULLETS = {"daily_prep": 6, "daily_summary": 6}
-BULLET_RANGE = {"weekly_summary": (8, 10)}
+BULLET_RANGE = {"weekly_summary": (8, 10), "weekly_prep": (4, 8),
+                "israel_weekly_prep": (4, 8)}
 MAX_BULLET_WORDS = 80      # hard cap per daily bullet, headline included — dailies stay SHORT
 TARGET_BULLET_WORDS = 60   # above this → warning (the 3-4 line target is ~40-60)
 MAX_SUMMARY_ITEM_WORDS = 28  # a תקציר item should be ~20 words — warning only
@@ -585,6 +595,170 @@ def macro_schedule_check(result: Dict[str, Any]) -> None:
 # Tense guard, links, dedupe, validation
 # ══════════════════════════════════════════════════════════════
 
+# ══════════════════════════════════════════════════════════════
+# Scheduled-event verification (prep reviews)
+# ══════════════════════════════════════════════════════════════
+
+HEB_WEEKDAY = {"שני": 0, "שלישי": 1, "רביעי": 2, "חמישי": 3, "שישי": 4,
+               "שבת": 5, "ראשון": 6}
+
+# "ביום חמישי, 10.9" / "ביום שישי 11.9.2026" — the shape a scheduled event takes in
+# these reviews. The year is optional and defaults to the review's own year.
+DAY_AND_DATE_RE = re.compile(
+    r"ביום\s+(ראשון|שני|שלישי|רביעי|חמישי|שישי|שבת)\s*,?\s*(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?"
+)
+# A bare date, for matching an event against the gathered calendar.
+BARE_DATE_RE = re.compile(r"(?<!\d)(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?(?!\d)")
+
+# Hebrew/English names by which a gathered calendar row may be referred to in the text.
+EVENT_ALIASES = {
+    "CPI": ["מדד המחירים לצרכן", "מדד המחירים לצרכן", "CPI"],
+    "Core CPI": ["ליבה", "מדד הליבה", "Core CPI"],
+    "PPI": ["מדד המחירים ליצרן", "מדד היצרן", "PPI"],
+    "Jobless Claims": ["תביעות אבטלה", "תביעות האבטלה", "Jobless"],
+    "Nonfarm Payrolls": ["דוח התעסוקה", "NFP", "Nonfarm"],
+    "Retail Sales": ["מכירות קמעונאיות", "המכירות הקמעונאיות", "Retail Sales"],
+}
+
+
+# An empty calendar says nothing about whether the week is worth acting on. Inferring
+# "no event justifies a position change" from "no event was found" is a conclusion the
+# calendar cannot carry, so the two may not appear in the same bullet.
+ABSENCE_RE = re.compile(
+    r"(?<!\w)(?:אין|אף\s+אירוע|שום\s+אירוע|ללא\s+אירוע|לא\s+זוהו|לא\s+נמצאו?|לא\s+אותרו?)(?!\w)"
+)
+POSITION_CONCLUSION_RE = re.compile(
+    r"(?<!\w)(?:מצדיקים?|מצדיקה?|שינוי\s+פוזיציה|לשנות\s+פוזיציה|שינוי\s+בפוזיצי\w*|"
+    r"להגדיל\s+חשיפה|להקטין\s+חשיפה|כדאי|מומלץ)(?!\w)"
+)
+
+
+def absence_conclusion_check(result: Dict[str, Any], mode: str) -> None:
+    """Blocks an investment conclusion drawn from an empty calendar.
+
+    "לא זוהו אירועי מאקרו מהותיים" is what a calendar can support. "אין אירוע שמצדיק
+    שינוי פוזיציה" is not — it is a claim about what the week is worth, and no schedule
+    can establish it. State what was found, and keep any view on the market separate.
+    """
+    if mode not in PREP_MODES:
+        return
+    content = str(result["sections"][0].get("content", ""))
+    for bullet in (l for l in content.split("\n") if l.strip().startswith("* ")):
+        if ABSENCE_RE.search(bullet) and POSITION_CONCLUSION_RE.search(bullet):
+            raise ValueError(
+                "מסקנה השקעתית שנשענת על היעדר אירועים בלוח: "
+                f"\"{bullet.strip()[:90]}...\". "
+                "מלוח אירועים אפשר לומר רק מה לא זוהה, לא מה מצדיק פעולה. "
+                "כתוב \"לא זוהו השבוע אירועי מאקרו מהותיים בלוחות שנבדקו\", "
+                "ואם צריך, ציין בנפרד מה כן צפוי לעמוד במוקד המסחר."
+            )
+
+
+def _parse_heb_date(day: str, month: str, year: Optional[str], default_year: int):
+    try:
+        return date(int(year) if year else default_year, int(month), int(day))
+    except ValueError:
+        return None
+
+
+def _calendar_dates_for(snapshot: Dict[str, Any], text: str) -> List[tuple]:
+    """(label, iso_date) rows from the gathered calendar that `text` refers to."""
+    scheduled = snapshot.get("scheduled") or {}
+    hits = []
+    for row in scheduled.get("macro", []) or []:
+        name = str(row.get("event", ""))
+        aliases = next((v for k, v in EVENT_ALIASES.items()
+                        if k.lower() in name.lower()), None)
+        if aliases and any(a in text for a in aliases):
+            hits.append((name, row.get("date", "")))
+    for row in scheduled.get("earnings", []) or []:
+        symbol = str(row.get("event", ""))
+        if symbol and re.search(rf"(?<![A-Za-z]){re.escape(symbol)}(?![A-Za-z])", text):
+            hits.append((symbol, row.get("date", "")))
+    return hits
+
+
+def scheduled_event_check(result: Dict[str, Any], snapshot: Dict[str, Any], mode: str) -> None:
+    """Verifies the dates a prep review states.
+
+    Two things are decidable here and are enforced: that a stated weekday actually
+    matches its date, and that a date does not contradict the calendar the model was
+    handed. Both FAIL the publish.
+
+    Verifying the dates themselves is the model's job, done against the publishing
+    body before the review is written (see OFFICIAL_SOURCE_RULES in the prompt). The
+    listing below is a record of what was claimed — a safety net for debugging a bad
+    review after the fact, not a checklist anyone has to work through before every
+    publish.
+    """
+    if mode not in PREP_MODES:
+        return
+    content = str(result["sections"][0].get("content", ""))
+    try:
+        default_year = int(str(snapshot.get("review_date", ""))[:4])
+    except ValueError:
+        default_year = datetime.now(ISR_TZ).year
+
+    # (claim text, whether THIS claim's bullet was cross-checked against a gathered
+    # calendar row). Provenance is tracked per claim: counting matched bullets and dated
+    # bullets separately would let one bullet's cross-check vouch for another's date.
+    claims: List[tuple] = []
+    for bullet in (l for l in content.split("\n") if l.strip().startswith("* ")):
+        bullet_claims: List[str] = []
+        # 1. A stated weekday must match the date it is attached to.
+        for day_name, dd, mm, yy in DAY_AND_DATE_RE.findall(bullet):
+            when = _parse_heb_date(dd, mm, yy, default_year)
+            if when is None:
+                raise ValueError(
+                    f"תאריך לא תקין בסקירה: \"{dd}.{mm}\". תקן את התאריך או הסר את האירוע."
+                )
+            if when.weekday() != HEB_WEEKDAY[day_name]:
+                actual = [k for k, v in HEB_WEEKDAY.items() if v == when.weekday()][0]
+                raise ValueError(
+                    f"סתירה בין יום לתאריך: הסקירה כותבת \"ביום {day_name}, {int(dd)}.{int(mm)}\", "
+                    f"אבל {int(dd)}.{int(mm)}.{when.year} הוא יום {actual}. "
+                    f"אמת את מועד האירוע מול המקור הרשמי (BLS / בנק ישראל / IR של החברה) "
+                    f"ותקן את היום ואת התאריך, או הסר את האירוע אם אי אפשר לאמת."
+                )
+            bullet_claims.append(f"ביום {day_name}, {int(dd)}.{int(mm)}")
+
+        # 2. A date must not contradict the calendar this run actually gathered.
+        calendar_hits = _calendar_dates_for(snapshot, bullet)
+        stated = [_parse_heb_date(d, m, y, default_year)
+                  for d, m, y in BARE_DATE_RE.findall(bullet)]
+        stated = [d for d in stated if d]
+        cross_checked = False
+        if len(calendar_hits) == 1 and len(stated) == 1:
+            label, iso = calendar_hits[0]
+            cross_checked = bool(iso) and stated[0].isoformat() == iso
+            if iso and stated[0].isoformat() != iso:
+                expected = date.fromisoformat(iso)
+                raise ValueError(
+                    f"תאריך סותר את לוח האירועים שנאסף: הסקירה מציבה את {label} ב-"
+                    f"{stated[0].day}.{stated[0].month}, אבל בלוח שנאסף הוא ב-"
+                    f"{expected.day}.{expected.month}. המקור הרשמי גובר על שניהם — אמת מולו "
+                    f"ותקן, או הסר את האירוע."
+                )
+        claims.extend((c, cross_checked) for c in bullet_claims)
+
+    # Report ONLY what this script actually compared. Verification against BLS / the Fed
+    # / boi.org.il / a company's IR happens in the model before the review is written and
+    # leaves no artifact here — so it is named as unproven, never reported as done.
+    if claims:
+        matched = sum(1 for _, ok in claims if ok)
+        print(f"  ✅ {len(claims)} אירועים מתוזמנים: יום ותאריך תואמים בכולם")
+        if matched:
+            print(f"     {matched} מתוכם הוצלבו מול הלוח שנאסף בהרצה הזו והתאימו")
+        unproven = len(claims) - matched
+        if unproven:
+            print(f"     {unproven} ללא רשומה מתאימה בלוח שנאסף — נבדקה רק התאמת יום לתאריך")
+        print("     אימות מול המקור הרשמי (BLS / Fed / בנק ישראל / הלמ\"ס / IR) נעשה בשלב "
+              "הכתיבה ואינו ניתן לאימות מכאן")
+        print(f"     SCHEDULE-CHECK (לתיעוד): {' | '.join(c for c, _ in claims)}")
+    else:
+        print("  ✅ אין טענות על אירועים מתוזמנים עם תאריך")
+
+
 def is_before_us_market_open(now_il: datetime) -> bool:
     ny = now_il.astimezone(NY_TZ)
     if ny.weekday() >= 5:
@@ -683,7 +857,7 @@ def bullet_length_check(result: Dict[str, Any], mode: str) -> None:
     rng = BULLET_RANGE.get(mode)
     if rng and not (rng[0] <= len(bullets) <= rng[1]):
         raise ValueError(
-            f"בסקירה {len(bullets)} בולטים — הסקירה השבועית היא {rng[0]}-{rng[1]} נקודות. התאם את מספר הנקודות."
+            f"בסקירה {len(bullets)} בולטים — הסקירה הזו היא {rng[0]}-{rng[1]} נקודות. התאם את מספר הנקודות."
         )
     if exact is not None:
         for b in bullets:
@@ -786,6 +960,10 @@ def main() -> None:
     print("── Macro schedule check ──")
     macro_schedule_check(result)
 
+    print("── Scheduled-event check (prep reviews) ──")
+    scheduled_event_check(result, snapshot, mode)
+    absence_conclusion_check(result, mode)
+
     print("── Tense guard / links / dedupe ──")
     result = apply_pre_market_tense_guard(result, mode)
     result = strip_links_from_result(result)
@@ -815,7 +993,43 @@ def main() -> None:
     print(f"\n✅ data.json עודכן → {DATA_JSON_KEY[mode]} ({bullets} בולטים)")
     print(f"   הארכיון עודכן → {archive_path}")
     print("   כעת: git add data.json archive && git commit && git push (או שה-workflow עושה זאת אוטומטית)")
+    return {"mode": mode, "title": result.get("title", ""), "bullets": bullets}
+
+
+def write_status(payload: Dict[str, Any]) -> None:
+    payload["finishedAt"] = datetime.now(ISR_TZ).isoformat()
+    STATUS_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def snapshot_hint() -> Dict[str, str]:
+    """Mode/title of the run being published, for the status file — best effort, since
+    a missing or broken snapshot is itself one of the failures we need to report."""
+    try:
+        snap = json.loads(SNAPSHOT_FILE.read_text(encoding="utf-8"))
+        return {"mode": snap.get("mode", ""), "title": snap.get("expected_title", "")}
+    except Exception:
+        return {"mode": "", "title": ""}
+
+
+def cli() -> None:
+    """Runs the publish and always leaves publish_status.json describing the outcome.
+
+    Every guard in this file raises with a Hebrew message meant for the person who
+    pasted the review. Recording it here is what lets the admin screen show that
+    message instead of sending them into an Actions log to find it.
+    """
+    try:
+        summary = main()
+    except (ValueError, SystemExit) as err:
+        write_status({"ok": False, **snapshot_hint(),
+                      "error": str(err) or "הפרסום נכשל ללא הודעה."})
+        raise
+    except Exception as err:  # unexpected — still report something readable
+        write_status({"ok": False, **snapshot_hint(),
+                      "error": f"שגיאה לא צפויה בשלב הפרסום: {err}"})
+        raise
+    write_status({"ok": True, **summary})
 
 
 if __name__ == "__main__":
-    main()
+    cli()
