@@ -385,3 +385,34 @@ def test_archive_falls_back_to_publish_month_when_date_missing(tmp_path, monkeyp
     review = {"title": "א", "sections": [{"heading": "h", "content": "* א: ב"}]}
     path = pr.archive_review("daily_prep", review, "2026-07-12T10:00:00+03:00")
     assert path.name == "2026-07.json"
+
+
+def test_market_direction_check_share_of_reserves_is_not_a_dollar_price_claim():
+    # 7.9.2026: a correct bullet ("הדולר התחזק 0.21%") was rejected because a later
+    # sentence said the dollar's SHARE of global reserves fell to 57%, and another
+    # mentioned foreign DEMAND for Treasuries. Neither is a price-direction claim.
+    result = make_result(
+        '* שוק האג"ח לפני האינפלציה: הדולר התחזק 0.21% והאג"ח הארוכות עלו 0.20%. '
+        'לפי דיווחים, חלקו של הדולר ברזרבות העולמיות ירד ל-57%, השפל ב-30 שנה לפחות, '
+        'כך שגם הביקוש הזר לאג"ח אמריקאי הוא סימן שאלה.',
+        summary=['שוק האג"ח לפני האינפלציה: ירידת חלקו של הדולר ברזרבות מציבה את האינפלציה כטריגר.'])
+    pr.market_direction_check(result, {"UUP": 0.21, "TLT": 0.20})
+
+
+def test_market_direction_check_still_judges_the_asset_next_to_a_demand_phrase():
+    # The non-price phrase is stripped, not the whole sentence: "הביקוש לזהב זינק"
+    # is ignored but "והזהב ירד" in the same sentence is still a (wrong) claim.
+    with pytest.raises(ValueError):
+        pr.market_direction_check(make_result("* הזהב: הביקוש לזהב זינק, אבל מחיר הזהב ירד 1.5% היום."),
+                                  {"GLD": 2.0})
+
+
+def test_strip_non_price_context_keeps_price_phrases():
+    terms = pr.DIRECTION_ASSETS["gold"]["terms"]
+    assert pr.strip_non_price_context("מחיר הזהב ירד 1%.", terms) == "מחיר הזהב ירד 1%."
+    assert pr.strip_non_price_context("המחיר של הזהב ירד 1%.", terms) == "המחיר של הזהב ירד 1%."
+    # A direction verb between the noun and the asset ends the phrase: "הביקוש ירד והנפט ירד"
+    # is still an oil-price claim.
+    oil = pr.DIRECTION_ASSETS["oil"]["terms"]
+    assert "הנפט ירד" in pr.strip_non_price_context("הביקוש ירד והנפט ירד", oil)
+    assert "הזהב" not in pr.strip_non_price_context("משקלו של הזהב בתיקים ירד", terms)
