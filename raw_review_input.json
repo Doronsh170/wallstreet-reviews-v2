@@ -1,102 +1,14 @@
 {
-  "mode": "daily_prep",
-  "generated_at": "2026-09-07T20:13:46.116320+03:00",
-  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שלישי, 8.9.2026",
-  "first_heading": "נקודות מרכזיות",
-  "review_date": "2026-09-08",
-  "title_date_str": "2026-09-08",
-  "title_day_name": "שלישי",
+  "mode": "israel_prep",
+  "generated_at": "2026-09-07T23:03:11.205104+03:00",
+  "expected_title": "נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום שני, 7.9.2026",
+  "first_heading": "לקראת יום המסחר",
+  "review_date": "2026-09-07",
+  "title_date_str": "2026-09-07",
+  "title_day_name": "שני",
   "week_range": null,
-  "etf_pcts": {
-    "SPY": -0.3803,
-    "QQQ": 0.1853,
-    "DIA": -0.5233,
-    "IWM": 0.2913,
-    "XLE": -0.8357,
-    "XLK": 0.7205,
-    "XLF": -0.7514,
-    "XLY": -1.3052,
-    "XLV": -1.0274,
-    "XLI": 0.4239,
-    "XLP": -0.7741,
-    "XLU": 0.1394,
-    "USO": -0.0704,
-    "BNO": 0.4114,
-    "GLD": -0.8313,
-    "SLV": -1.1726,
-    "IBIT": -2.3732,
-    "TLT": 0.195,
-    "UUP": 0.2142,
-    "VIXY": 0.354
-  },
-  "ticker_quotes": {
-    "NVDA": {
-      "price": 230.4,
-      "pct": 0.8536,
-      "prev_close": 228.45,
-      "ts": 1788552000
-    },
-    "AAPL": {
-      "price": 320.01,
-      "pct": -2.4984,
-      "prev_close": 328.21,
-      "ts": 1788552000
-    },
-    "AMZN": {
-      "price": 258.55,
-      "pct": -0.1352,
-      "prev_close": 258.9,
-      "ts": 1788552000
-    },
-    "GOOGL": {
-      "price": 338.5,
-      "pct": -1.1621,
-      "prev_close": 342.48,
-      "ts": 1788552000
-    },
-    "META": {
-      "price": 616.81,
-      "pct": 1.0038,
-      "prev_close": 610.68,
-      "ts": 1788552000
-    },
-    "MSFT": {
-      "price": 499.74,
-      "pct": -2.0348,
-      "prev_close": 510.12,
-      "ts": 1788552000
-    },
-    "SNDK": {
-      "price": 1739.96,
-      "pct": 11.8953,
-      "prev_close": 1554.99,
-      "ts": 1788552000
-    },
-    "DELL": {
-      "price": 524.18,
-      "pct": 1.5085,
-      "prev_close": 516.39,
-      "ts": 1788552000
-    },
-    "MU": {
-      "price": 1016.63,
-      "pct": 6.1023,
-      "prev_close": 958.16,
-      "ts": 1788552000
-    },
-    "NFLX": {
-      "price": 78.27,
-      "pct": -5.3224,
-      "prev_close": 82.67,
-      "ts": 1788552000
-    },
-    "QQQ": {
-      "price": 719.0,
-      "pct": 0.1853,
-      "prev_close": 717.67,
-      "ts": 1788552000
-    }
-  },
+  "etf_pcts": {},
+  "ticker_quotes": {},
   "scheduled": {
     "macro": [],
     "earnings": []
