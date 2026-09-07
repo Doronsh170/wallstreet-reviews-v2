@@ -1,87 +1,110 @@
 {
-  "mode": "weekly_prep",
-  "generated_at": "2026-09-06T23:17:07.097998+03:00",
-  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 07/09–11/09/2026",
-  "first_heading": "לקראת השבוע",
-  "review_date": "2026-09-07",
-  "title_date_str": "2026-09-07",
-  "title_day_name": "שני",
-  "week_range": "07/09–11/09/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "mode": "daily_prep",
+  "generated_at": "2026-09-07T15:29:56.054720+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שלישי, 8.9.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-09-08",
+  "title_date_str": "2026-09-08",
+  "title_day_name": "שלישי",
+  "week_range": null,
+  "etf_pcts": {
+    "SPY": -0.3854,
+    "QQQ": 0.1797,
+    "DIA": -0.5308,
+    "IWM": 0.2778,
+    "XLE": -0.8666,
+    "XLK": 0.7044,
+    "XLF": -0.7855,
+    "XLY": -1.3309,
+    "XLV": -1.0447,
+    "XLI": 0.4067,
+    "XLP": -0.7976,
+    "XLU": 0.1162,
+    "USO": -0.0915,
+    "BNO": 0.3757,
+    "GLD": -0.841,
+    "SLV": -1.2056,
+    "IBIT": -2.4164,
+    "TLT": 0.1706,
+    "UUP": 0.2499,
+    "VIXY": 0.295
+  },
+  "ticker_quotes": {
+    "NVDA": {
+      "price": 230.36,
+      "pct": 0.8361,
+      "prev_close": 228.45,
+      "ts": 1788552000
+    },
+    "AAPL": {
+      "price": 319.97,
+      "pct": -2.5106,
+      "prev_close": 328.21,
+      "ts": 1788552000
+    },
+    "AMZN": {
+      "price": 258.51,
+      "pct": -0.1506,
+      "prev_close": 258.9,
+      "ts": 1788552000
+    },
+    "GOOGL": {
+      "price": 338.46,
+      "pct": -1.1738,
+      "prev_close": 342.48,
+      "ts": 1788552000
+    },
+    "META": {
+      "price": 616.77,
+      "pct": 0.9972,
+      "prev_close": 610.68,
+      "ts": 1788552000
+    },
+    "MSFT": {
+      "price": 499.7,
+      "pct": -2.0427,
+      "prev_close": 510.12,
+      "ts": 1788552000
+    },
+    "HOOD": {
+      "price": 122.11,
+      "pct": -2.0927,
+      "prev_close": 124.72,
+      "ts": 1788552000
+    },
+    "BE": {
+      "price": 252.87,
+      "pct": 7.353,
+      "prev_close": 235.55,
+      "ts": 1788552000
+    },
+    "DELL": {
+      "price": 524.14,
+      "pct": 1.5008,
+      "prev_close": 516.39,
+      "ts": 1788552000
+    },
+    "ILMN": {
+      "price": 218.22,
+      "pct": -1.5519,
+      "prev_close": 221.66,
+      "ts": 1788552000
+    },
+    "P": {
+      "price": 99.51,
+      "pct": 1.3856,
+      "prev_close": 98.15,
+      "ts": 1788552000
+    },
+    "SNDK": {
+      "price": 1740.0,
+      "pct": 11.8978,
+      "prev_close": 1554.99,
+      "ts": 1788552000
+    }
+  },
   "scheduled": {
     "macro": [],
-    "earnings": [
-      {
-        "event": "DBI",
-        "date": "2026-09-07",
-        "time_il": ""
-      },
-      {
-        "event": "UNFI",
-        "date": "2026-09-08",
-        "time_il": ""
-      },
-      {
-        "event": "CASY",
-        "date": "2026-09-08",
-        "time_il": ""
-      },
-      {
-        "event": "ABM",
-        "date": "2026-09-08",
-        "time_il": ""
-      },
-      {
-        "event": "BRZE",
-        "date": "2026-09-08",
-        "time_il": ""
-      },
-      {
-        "event": "KR",
-        "date": "2026-09-09",
-        "time_il": ""
-      },
-      {
-        "event": "CHWY",
-        "date": "2026-09-09",
-        "time_il": ""
-      },
-      {
-        "event": "SUNB",
-        "date": "2026-09-09",
-        "time_il": ""
-      },
-      {
-        "event": "CNM",
-        "date": "2026-09-09",
-        "time_il": ""
-      },
-      {
-        "event": "AEO",
-        "date": "2026-09-09",
-        "time_il": ""
-      },
-      {
-        "event": "AVAV",
-        "date": "2026-09-09",
-        "time_il": ""
-      },
-      {
-        "event": "ORCL",
-        "date": "2026-09-10",
-        "time_il": ""
-      },
-      {
-        "event": "ADBE",
-        "date": "2026-09-10",
-        "time_il": ""
-      },
-      {
-        "event": "CPRT",
-        "date": "2026-09-10",
-        "time_il": ""
-      }
-    ]
+    "earnings": []
   }
 }
