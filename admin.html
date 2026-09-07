@@ -158,15 +158,17 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
       <button class="go" id="copyBtn" type="button">העתק חומר</button>
       <button class="go ghost" id="openBtn" type="button">פתח את Claude</button>
     </div>
-    <p class="note">מדביקים בצ'אט, ומעתיקים משם את התשובה.</p>
+    <p class="note">מדביקים בצ'אט, מעתיקים משם את תשובת ה-JSON, וחוזרים לכאן לשלב 3.</p>
   </section>
 
   <!-- 3 · publish -->
   <section class="card" id="publishCard" data-off>
     <h2><span class="n">3</span> פרסום</h2>
-    <textarea id="paste" placeholder="הדבק כאן את תשובת הצ'אט" spellcheck="false"></textarea>
-    <button class="go" id="publishBtn" type="button" style="margin-top:11px">פרסם</button>
+    <textarea id="paste" placeholder="הדבק כאן את תשובת ה-JSON של Claude" spellcheck="false"
+              autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+    <button class="go" id="publishBtn" type="button" style="margin-top:11px" disabled>פרסם</button>
     <div class="status" id="pubStatus"><span id="pubMsg"></span></div>
+    <p class="note">רק תשובת ה-JSON של הצ'אט נכנסת לכאן — לא חומר הגלם. הכפתור נפתח כשהתוכן תקין.</p>
   </section>
 
   <div class="foot"><button class="linkbtn" id="resetSetup" type="button">החלפת חיבור</button></div>
@@ -302,6 +304,7 @@ $('gatherBtn').addEventListener('click', async () => {
     setStatus(box, msg, 'ok', 'החומר מוכן ✓');
     $('readyBox').innerHTML = `<b>${escapeHtml(data.title || 'החומר מוכן')}</b>
       <span>${LABEL[kind]} · ${market === 'us' ? 'וול סטריט' : 'תל אביב'}</span>`;
+    resetPasteBox();   // fresh material — whatever was in step 3 belongs to a past cycle
     $('chatCard').removeAttribute('data-off');
     $('publishCard').removeAttribute('data-off');
     $('chatCard').scrollIntoView({behavior:'smooth', block:'center'});
@@ -341,6 +344,91 @@ $('copyBtn').addEventListener('click', async () => {
 
 $('openBtn').addEventListener('click', () => window.open('https://claude.ai/new', '_blank', 'noopener'));
 
+// ── 3 · what may be published ──────────────────────────────────────
+/* The gathered prompt carries a JSON *template* of its own (its "OUTPUT FORMAT"
+   block), so raw material dropped into this box used to parse fine, reach
+   paste_review.py, and come back judged as a two-bullet review. Nothing here ever
+   fills this box: it holds the chat answer and nothing else, and only a paste that
+   is shaped like a review is allowed as far as the guards.
+   Kept in step with PROMPT_MARKERS / basic_payload_check in paste_review.py. */
+const PASTE_HINT = 'יש להדביק כאן את תשובת ה-JSON המלאה של Claude.';
+const PROMPT_MARKERS = [
+  'אתה כותב סקירה פיננסית בעברית לאתר',
+  'החזר עכשיו אך ורק את ה-JSON',
+  'CRITICAL — OUTPUT FORMAT (MANDATORY)'
+];
+
+/** The first balanced {...}, mirroring paste_review.extract_first_json_object. */
+function firstJsonObject(text){
+  const s = text.replace(/```(?:json)?/g, '');
+  const start = s.indexOf('{');
+  if(start < 0) return null;
+  let depth = 0, inStr = false, esc = false;
+  for(let i = start; i < s.length; i++){
+    const ch = s[i];
+    if(inStr){
+      if(esc) esc = false;
+      else if(ch === '\\') esc = true;
+      else if(ch === '"') inStr = false;
+      continue;
+    }
+    if(ch === '"') inStr = true;
+    else if(ch === '{') depth++;
+    else if(ch === '}' && --depth === 0){
+      try { return JSON.parse(s.slice(start, i + 1)); } catch { return null; }
+    }
+  }
+  return null;   // never closed — a truncated answer
+}
+
+/** Basic shape check. Only what passes here is sent on to the guards. */
+function checkPayload(text){
+  const t = String(text).trim();
+  if(!t) return {ok:false, detail:''};
+  const isMaterial = PROMPT_MARKERS.some(m => t.includes(m))
+    || (material && t.length > 300 && material.includes(t.slice(0, 300)));
+  if(isMaterial) return {ok:false, detail:'זה חומר הגלם עצמו, לא תשובת הצ׳אט.'};
+  const obj = firstJsonObject(t);
+  if(!obj || typeof obj !== 'object' || Array.isArray(obj))
+    return {ok:false, detail:'לא נמצא כאן אובייקט JSON שלם.'};
+  if(!Array.isArray(obj.sections))
+    return {ok:false, detail:'ה-JSON אינו נראה כמו סקירה — אין בו sections.'};
+  return {ok:true, detail:''};
+}
+
+let pasteHintShown = false;   // the status box is showing the hint, not a verdict
+
+function clearPasteHint(){
+  if(pasteHintShown){ clearStatus($('pubStatus')); pasteHintShown = false; }
+}
+
+/** Enables "פרסם" only for a payload that looks like the chat's answer.
+ *  `announce` also puts the one-line instruction on screen for a bad paste. */
+function gatePublish(announce){
+  const text = $('paste').value;
+  const verdict = checkPayload(text);
+  $('publishBtn').disabled = !verdict.ok;
+  if(verdict.ok || !text.trim()){
+    clearPasteHint();
+  } else if(announce){
+    setStatus($('pubStatus'), $('pubMsg'), 'bad',
+      PASTE_HINT + (verdict.detail ? '<span class="detail">' + escapeHtml(verdict.detail) + '</span>' : ''));
+    pasteHintShown = true;
+  }
+  return verdict;
+}
+
+/** Step 3 starts every cycle empty — including after a reload, where the browser
+ *  would otherwise restore whatever was in the box last time. */
+function resetPasteBox(){
+  $('paste').value = '';
+  clearStatus($('pubStatus'));
+  pasteHintShown = false;
+  gatePublish(false);
+}
+
+$('paste').addEventListener('input', () => gatePublish(true));
+
 // ── 3 · publish ────────────────────────────────────────────────────
 /** The publish verdict paste_review.py wrote, once it is newer than `before`. */
 async function freshResult(before){
@@ -357,7 +445,9 @@ async function freshResult(before){
 $('publishBtn').addEventListener('click', async () => {
   const text = $('paste').value.trim();
   const btn = $('publishBtn'), box = $('pubStatus'), msg = $('pubMsg');
-  if(!text){ setStatus(box, msg, 'bad', 'אין מה לפרסם — הדבק קודם את תשובת הצ׳אט.'); return; }
+  // The button is disabled for anything that fails this, so it is a second line of
+  // defense: nothing reaches the server, and no guard runs, until the paste is sound.
+  if(!gatePublish(true).ok) return;
   btn.disabled = true;
   setStatus(box, msg, 'work', 'מאמת ומפרסם<span class="spin"></span>');
 
@@ -373,6 +463,7 @@ $('publishBtn').addEventListener('click', async () => {
     }, 6*60*1000);
     const verdict = await freshResult(before);
     const title = verdict && verdict.title ? '<span class="detail">' + escapeHtml(verdict.title) + '</span>' : '';
+    $('paste').value = '';          // this cycle is done — start the next one clean
     setStatus(box, msg, 'ok', 'הסקירה באוויר ✓ <a href="index.html">פתח את האתר</a>' + title);
   } catch(err){
     // A guard rejection has a Hebrew explanation of what to fix; show that, not the
@@ -382,7 +473,7 @@ $('publishBtn').addEventListener('click', async () => {
     setStatus(box, msg, 'bad',
       'הסקירה לא פורסמה — יש לתקן בצ׳אט ולהדביק שוב.<span class="detail">' + escapeHtml(reason) + '</span>');
   } finally {
-    btn.disabled = false;
+    gatePublish(false);   // the failed text is still there to be corrected
   }
 });
 
@@ -454,6 +545,11 @@ $('resetSetup').addEventListener('click', () => {
 
 paintChoices();
 showSetup(!CFG.ok);
+resetPasteBox();
+// A normal load (not a back/forward restore, where the box holds what the user just
+// typed): Safari and Chrome restore textarea values across a reload, which is how a
+// dead paste from a previous cycle kept reappearing in step 3.
+window.addEventListener('pageshow', e => { if(!e.persisted) resetPasteBox(); });
 </script>
 </body>
 </html>

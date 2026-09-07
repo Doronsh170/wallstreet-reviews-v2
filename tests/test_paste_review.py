@@ -7,6 +7,7 @@ guard behaviors so new modes and rules can't quietly break the existing ones.
 """
 import json
 import re
+from pathlib import Path
 
 import pytest
 
@@ -43,6 +44,59 @@ def test_extract_json_fails_on_truncated_object():
 def test_extract_json_fails_when_no_object():
     with pytest.raises(ValueError):
         pr.extract_first_json_object("אין כאן שום JSON")
+
+
+# ── Basic payload check (runs before any guard) ──────────────────
+
+# The shape of what gather_review_input.build_paste_block writes: instructions, an
+# OUTPUT FORMAT block holding a JSON *template* with two placeholder bullets, and
+# the closing line. Pasted here by mistake, it used to parse and be judged as a
+# two-bullet review — "רק 2 בולטים בסקירה" — which explains nothing.
+RAW_PROMPT = """אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה.
+
+CRITICAL — OUTPUT FORMAT (MANDATORY):
+{
+  "title": "נקודות חשובות לקראת פתיחת המסחר",
+  "sections": [{"heading": "נקודות מרכזיות", "content": "* כותרת: ...\n* כותרת נוספת: ..."}]
+}
+
+@StockMKTNewz [Mon Sep 07 12:14:27 +0000 2026]: Tim Cook will reportedly not appear
+
+החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."""
+
+
+def test_basic_payload_check_names_the_raw_material():
+    with pytest.raises(ValueError) as e:
+        pr.basic_payload_check(RAW_PROMPT)
+    assert "חומר הגלם" in str(e.value)
+    assert pr.PASTE_HINT in str(e.value)
+
+
+def test_basic_payload_check_rejects_the_real_gathered_prompt():
+    """Belt and braces: the file the pipeline actually produces, not a stand-in."""
+    raw = Path(pr.__file__).resolve().parent / "raw_review_input.md"
+    if not raw.exists():
+        pytest.skip("no gathered material in the tree")
+    with pytest.raises(ValueError) as e:
+        pr.basic_payload_check(raw.read_text(encoding="utf-8"))
+    assert "חומר הגלם" in str(e.value)
+
+
+def test_basic_payload_check_rejects_json_that_is_not_a_review():
+    with pytest.raises(ValueError) as e:
+        pr.basic_payload_check('{"title": "כותרת", "text": "בלי sections"}')
+    assert "sections" in str(e.value)
+
+
+def test_basic_payload_check_rejects_plain_text():
+    with pytest.raises(ValueError):
+        pr.basic_payload_check("סתם טקסט בלי JSON")
+
+
+def test_basic_payload_check_passes_a_real_answer():
+    answer = 'הנה הסקירה:\n```json\n' + json.dumps(
+        make_result("* כותרת: משפט.\n* שורה תחתונה: משפט."), ensure_ascii=False) + '\n```'
+    assert pr.basic_payload_check(answer)["sections"][0]["heading"] == "סיכום המסחר"
 
 
 # ── Structure enforcement ────────────────────────────────────────

@@ -206,6 +206,40 @@ def extract_first_json_object(text: str) -> Dict[str, Any]:
     raise ValueError("אובייקט ה-JSON לא נסגר — כנראה שהתשובה נקטעה. בקש מהצ'אט להחזיר את ה-JSON שוב במלואו.")
 
 
+# The gathered prompt carries a JSON *template* of its own — the
+# "CRITICAL — OUTPUT FORMAT" block written by gather_review_input.build_paste_block.
+# So raw material pasted in place of the chat answer parses cleanly, and the guards
+# end up judging the two placeholder bullets of that template and answering
+# "רק 2 בולטים בסקירה — נדרשים לפחות 5", which says nothing about what actually
+# went wrong. These markers appear in every mode's prompt and never in a review,
+# so an obviously-wrong paste is named as such before a single guard runs.
+PASTE_HINT = "יש להדביק כאן את תשובת ה-JSON המלאה של Claude."
+
+PROMPT_MARKERS = (
+    "אתה כותב סקירה פיננסית בעברית לאתר",
+    "החזר עכשיו אך ורק את ה-JSON",
+    "CRITICAL — OUTPUT FORMAT (MANDATORY)",
+)
+
+
+def basic_payload_check(text: str) -> Dict[str, Any]:
+    """Parses the paste and proves it is shaped like a review, before any guard runs.
+
+    Returns the parsed object; raises ValueError with a plain instruction otherwise.
+    """
+    for marker in PROMPT_MARKERS:
+        if marker in text:
+            raise ValueError(f"הודבק חומר הגלם (הפרומפט) ולא תשובת הצ'אט. {PASTE_HINT}")
+    result = extract_first_json_object(text)
+    if not isinstance(result, dict):
+        raise ValueError(f"מה שהודבק אינו אובייקט JSON. {PASTE_HINT}")
+    # Deliberately loose: "sections" is the one field every review payload has, and
+    # enforce_structure below owns the precise complaints about what is inside it.
+    if not isinstance(result.get("sections"), list):
+        raise ValueError(f"ה-JSON שהודבק אינו נראה כמו סקירה — אין בו sections. {PASTE_HINT}")
+    return result
+
+
 def apply_to_result_texts(result: Dict[str, Any], fn) -> Dict[str, Any]:
     if isinstance(result.get("title"), str):
         result["title"] = fn(result["title"])
@@ -929,7 +963,8 @@ def main() -> None:
         )
 
     print(f"Publishing {mode} (gathered {snapshot.get('generated_at', '')[:16]})")
-    result = extract_first_json_object(input_file.read_text(encoding="utf-8"))
+    print("── Basic payload check ──")
+    result = basic_payload_check(input_file.read_text(encoding="utf-8"))
 
     print("\n── Structure enforcement ──")
     result = enforce_structure(result, first_heading, expected_title)

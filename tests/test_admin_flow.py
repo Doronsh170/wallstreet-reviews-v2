@@ -20,7 +20,18 @@ CHROMIUM_PATHS = [
     "/opt/pw-browsers/chromium/chrome-linux/chrome",
 ]
 PASSWORD = "correct-horse-battery-staple"
-RAW_MATERIAL = "אתה כותב סקירה פיננסית בעברית.\n\n@acct: $NVDA beats\n"
+# Shaped like gather_review_input.build_paste_block: instructions, an OUTPUT FORMAT
+# block carrying a JSON template, sources, and the closing line.
+RAW_MATERIAL = (
+    "אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות למטה.\n\n"
+    "CRITICAL — OUTPUT FORMAT (MANDATORY):\n"
+    '{\n  "title": "כותרת",\n  "sections": [{"heading": "נקודות מרכזיות", '
+    '"content": "* כותרת: ...\\n* כותרת נוספת: ..."}]\n}\n\n'
+    "@acct: $NVDA beats\n\n"
+    "החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."
+)
+REVIEW_JSON = '{"title":"x","sections":[]}'
+PASTE_HINT = "יש להדביק כאן את תשובת ה-JSON המלאה של Claude."
 TITLE = "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 7.9.2026"
 
 
@@ -298,13 +309,72 @@ def test_full_flow_gather_copy_publish(servers):
     drive(servers, body)
 
 
-def test_publish_without_text_is_refused(servers):
+def test_publish_is_locked_until_something_is_pasted(servers):
+    """An empty box cannot publish, and a click on the dead button reaches nobody."""
     def body(page):
         page.eval_on_selector("#publishCard", "el => el.removeAttribute('data-off')")
-        page.click("#publishBtn")
-        page.wait_for_selector("#pubStatus.bad")
-        assert "\u05d4\u05d3\u05d1\u05e7" in page.inner_text("#pubStatus")
+        assert page.is_disabled("#publishBtn")
+        page.eval_on_selector("#publishBtn", "b => b.click()")
         assert not any(c[0] == "/publish" for c in MockWorker.calls)
+    drive(servers, body)
+
+
+def test_raw_material_is_refused_on_the_screen_not_by_the_guards(servers):
+    """The reported bug: the gathered prompt pasted into step 3 travelled all the way
+    to paste_review.py, which read the JSON template inside it and answered
+    "רק 2 בולטים בסקירה". It must not leave the browser at all."""
+    def body(page):
+        page.click("#gatherBtn")
+        page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+        page.fill("#paste", RAW_MATERIAL)
+        page.wait_for_selector("#pubStatus.bad")
+        shown = page.inner_text("#pubStatus")
+        assert PASTE_HINT in shown, shown
+        assert "חומר הגלם" in shown, shown
+        assert page.is_disabled("#publishBtn")
+        page.eval_on_selector("#publishBtn", "b => b.click()")
+        assert not any(c[0] == "/publish" for c in MockWorker.calls)
+    drive(servers, body)
+
+
+def test_the_hint_appears_for_anything_that_is_not_a_review_payload(servers):
+    def body(page):
+        page.eval_on_selector("#publishCard", "el => el.removeAttribute('data-off')")
+        for junk in ["הנה הסקירה שביקשת", '{"title":"x"}', '{"title":"x","sections":[']:
+            page.fill("#paste", junk)
+            page.wait_for_selector("#pubStatus.bad")
+            assert PASTE_HINT in page.inner_text("#pubStatus")
+            assert page.is_disabled("#publishBtn"), junk
+        # ...and clears itself the moment a real answer lands in the box.
+        page.fill("#paste", REVIEW_JSON)
+        page.wait_for_selector("#publishBtn:not([disabled])")
+        assert "on" not in (page.get_attribute("#pubStatus", "class") or "")
+        assert not any(c[0] == "/publish" for c in MockWorker.calls)
+    drive(servers, body)
+
+
+def test_gather_leaves_step_three_empty(servers):
+    """A new cycle never starts with the previous cycle's paste still sitting there."""
+    def body(page):
+        page.eval_on_selector("#publishCard", "el => el.removeAttribute('data-off')")
+        page.fill("#paste", REVIEW_JSON)
+        page.click("#gatherBtn")
+        page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+        assert page.input_value("#paste") == ""
+        assert page.is_disabled("#publishBtn")
+    drive(servers, body)
+
+
+def test_a_reload_does_not_bring_back_a_stale_paste(servers):
+    """Browsers restore textarea values across a reload — this box must not keep a
+    dead paste from a previous cycle."""
+    def body(page):
+        page.eval_on_selector("#publishCard", "el => el.removeAttribute('data-off')")
+        page.fill("#paste", RAW_MATERIAL)
+        page.reload()
+        page.wait_for_selector("#chooseCard:not([hidden])")
+        assert page.input_value("#paste") == ""
+        assert page.is_disabled("#publishBtn")
     drive(servers, body)
 
 
@@ -412,7 +482,7 @@ def test_guard_rejection_shows_its_hebrew_reason(servers):
     def body(page):
         page.click("#gatherBtn")
         page.wait_for_selector("#gatherStatus.ok", timeout=40000)
-        reply = '{"title":"x","sections":[]}'
+        reply = REVIEW_JSON
         page.fill("#paste", reply)
         page.click("#publishBtn")
         page.wait_for_selector("#pubStatus.bad", timeout=60000)
@@ -434,11 +504,14 @@ def test_success_shows_the_published_title(servers):
     def body(page):
         page.click("#gatherBtn")
         page.wait_for_selector("#gatherStatus.ok", timeout=40000)
-        page.fill("#paste", '{"title":"x","sections":[]}')
+        page.fill("#paste", REVIEW_JSON)
         page.click("#publishBtn")
         page.wait_for_selector("#pubStatus.ok", timeout=60000)
         shown = page.inner_text("#pubStatus")
         assert "באוויר" in shown and TITLE in shown, shown
+        # The cycle is over — the box is empty and locked for the next one.
+        assert page.input_value("#paste") == ""
+        assert page.is_disabled("#publishBtn")
     try:
         drive(servers, body)
     finally:

@@ -18,7 +18,8 @@
  *   POST /gather   {mode}            -> dispatches "1 - Gather Review Input"
  *   GET  /status   ?workflow=&after= -> latest run newer than `after`
  *   GET  /raw                        -> raw_review_input.md + the run's snapshot
- *   POST /publish  {content}         -> commits review_output.json (fires publish)
+ *   POST /publish  {content}         -> commits review_output.json (fires publish);
+ *                                     refuses anything not shaped like a review
  */
 
 const GH = "https://api.github.com";
@@ -206,10 +207,56 @@ async function result(env, origin) {
   }
 }
 
+/* The gathered prompt embeds a JSON template of its own, so raw material pasted in
+   place of the chat answer parses as a two-bullet review. admin.html refuses it
+   before it gets here; this is the same check on the only path that can write
+   review_output.json, so a stale page or a stray client cannot spend a commit and a
+   CI run on something that was never a review.
+   Kept in step with checkPayload() in admin.html and basic_payload_check() in
+   paste_review.py. */
+const PASTE_HINT = "יש להדביק כאן את תשובת ה-JSON המלאה של Claude.";
+const PROMPT_MARKERS = [
+  "אתה כותב סקירה פיננסית בעברית לאתר",
+  "החזר עכשיו אך ורק את ה-JSON",
+  "CRITICAL — OUTPUT FORMAT (MANDATORY)",
+];
+
+/** null when the content may go to the guards; a Hebrew reason when it may not. */
+function payloadProblem(content) {
+  if (PROMPT_MARKERS.some((m) => content.includes(m)))
+    return `הודבק חומר הגלם (הפרומפט) ולא תשובת הצ'אט. ${PASTE_HINT}`;
+  const text = content.replace(/```(?:json)?/g, "");
+  const start = text.indexOf("{");
+  if (start < 0) return `לא נמצא אובייקט JSON. ${PASTE_HINT}`;
+  let depth = 0, inStr = false, esc = false, parsed = null;
+  for (let i = start; i < text.length; i++) {
+    const ch = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (ch === "\\") esc = true;
+      else if (ch === '"') inStr = false;
+      continue;
+    }
+    if (ch === '"') inStr = true;
+    else if (ch === "{") depth++;
+    else if (ch === "}" && --depth === 0) {
+      try { parsed = JSON.parse(text.slice(start, i + 1)); } catch { parsed = null; }
+      break;
+    }
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+    return `לא נמצא אובייקט JSON שלם. ${PASTE_HINT}`;
+  if (!Array.isArray(parsed.sections))
+    return `ה-JSON אינו נראה כמו סקירה — אין בו sections. ${PASTE_HINT}`;
+  return null;
+}
+
 async function publish(request, env, origin) {
   const body = await request.json();
   const content = String(body.content || "").trim();
   if (!content) return json({ error: "empty content" }, 400, origin);
+  const problem = payloadProblem(content);
+  if (problem) return json({ error: problem }, 400, origin);
 
   const before = await latestRun(env, PUBLISH_WORKFLOW);
   const existing = await file(env, "review_output.json");
