@@ -315,16 +315,16 @@ Source tweets/posts from X (Twitter) — gathered 2026-09-07. Never mention in t
 
 @gurgavin [Fri Sep 04 21:17:01 +0000 2026]: CANADA’S ECONOMY LOST 41,700 JOBS LAST MONTH ECONOMISTS EXPECTED CANADA TO ADD 15,000 JOBS INSTEAD 🇨🇦🇨🇦🇨🇦
 
+@StockMKTNewz [Mon Sep 07 12:14:27 +0000 2026]: Tim Cook will reportedly not appear in Apple’s $AAPL new iPhone releases event on Wednesday - Mac Rumors John Ternus will be in full control of the event https://t.co/j7a4PQHSOB
+
 @StockMKTNewz [Mon Sep 07 12:42:42 +0000 2026]: Dell Technologies is currently the 3rd best performing stock in the S&amp;P 500 so far in 2026 🥉 $DELL: +316%🟢 https://t.co/wp7qNq9AS0
 
 @StockMKTNewz [Mon Sep 07 12:30:04 +0000 2026]: Moderna is currently the 2nd best performing stock in the S&amp;P 500 so far in 2026 🥈 Moderna $MRNA: +394%🟢 https://t.co/CgsW3nYPph
 
+@KobeissiLetter [Mon Sep 07 15:52:00 +0000 2026]: The current decline in US bonds is unprecedented: 15+ year Treasuries have returned -2% per year on average over the last 10 years, their worst performance in history. This is also only the 2nd period in data going back to 1936 where Treasuries have posted negative 10-year annualized returns. By comparison, US stocks have returned +15% per year on average, while commodities have returned +11% per …
+
 @KobeissiLetter [Mon Sep 07 13:35:32 +0000 2026]: The de-dollarization trend appears to be far from global: The US Dollar’s proportion of official global FX reserves is down to 57%, its lowest in at least 30 years. This percentage has declined -20 points since 1999, with China and, to a lesser extent, Russia driving much of the decline. Over the same period, the combined proportion of the 4 major reserve currencies, the US Dollar, Yen, Euro and …
 
 @StockMKTNewz [Mon Sep 07 11:59:01 +0000 2026]: Sandisk $SNDK is also currently the best performing stock in the S&amp;P 500 so far in 2026
-
-@StockMKTNewz [Mon Sep 07 12:14:27 +0000 2026]: Tim Cook will reportedly not appear in Apple’s $AAPL new iPhone releases event on Wednesday - Mac Rumors John Ternus will be in full control of the event https://t.co/j7a4PQHSOB
-
-@wallstengine [Fri Sep 04 15:26:38 +0000 2026]: JAPAN TO DEVELOP AI SATELLITES FOR MISSILE TARGETING Japan’s Defense Ministry plans to develop AI-equipped satellites that can process surveillance data in orbit, identify enemy positions and predict the movement of targets such as ships. The satellites won’t conduct surveillance themselves. Instead, they’ll receive data from other satellites, analyze it in space and send processed targeting …
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
