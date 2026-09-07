@@ -240,16 +240,15 @@ DAILY PERFORMANCE:
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $NVDA: $230.40 (daily: +0.85%), prev close: $228.45
   $AAPL: $320.01 (daily: -2.50%), prev close: $328.21
-  $DELL: $524.18 (daily: +1.51%), prev close: $516.39
-  $SNDK: $1739.96 (daily: +11.90%), prev close: $1554.99
   $AMZN: $258.55 (daily: -0.14%), prev close: $258.90
   $GOOGL: $338.50 (daily: -1.16%), prev close: $342.48
   $META: $616.81 (daily: +1.00%), prev close: $610.68
   $MSFT: $499.74 (daily: -2.03%), prev close: $510.12
-  $BE: $252.91 (daily: +7.37%), prev close: $235.55
-  $ILMN: $218.26 (daily: -1.53%), prev close: $221.66
-  $P: $99.53 (daily: +1.41%), prev close: $98.15
-  $IBM: $234.93 (daily: +0.09%), prev close: $234.71
+  $SNDK: $1739.96 (daily: +11.90%), prev close: $1554.99
+  $DELL: $524.18 (daily: +1.51%), prev close: $516.39
+  $MU: $1016.63 (daily: +6.10%), prev close: $958.16
+  $NFLX: $78.27 (daily: -5.32%), prev close: $82.67
+  $QQQ: $719.00 (daily: +0.19%), prev close: $717.67
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: -0.07%, BNO: +0.41%)
@@ -293,9 +292,9 @@ Source tweets/posts from X (Twitter) — gathered 2026-09-07. Never mention in t
 
 @KobeissiLetter [Sun Sep 06 23:09:10 +0000 2026]: The US AI infrastructure boom is making history. There are now ~90 US data centers with more than 100 megawatts (MW) of power in operation, the highest count on record. This figure is set to more than triple by 2030, to ~280, if all currently planned projects are completed. Over the same period, tech companies are expected to spend ~$7.0 trillion on data centers. Meanwhile, Amazon, $AMZN, …
 
-@KobeissiLetter [Sun Sep 06 14:49:00 +0000 2026]: Key Events This Week: 1. US Markets Closed, Labor Day - Monday 2. US 10Y Note Auction - Wednesday 3. August PPI Inflation data - Thursday 4. August Existing Home Sales data - Thursday 5. August CPI Inflation data - Friday 6. September MI Inflation Expectations data - Friday 7. September MI Consumer Sentiment data - Friday This marks the final week of inflation data before the September Fed …
+@StockMKTNewz [Mon Sep 07 17:10:51 +0000 2026]: The 🇺🇸 bought the Louisiana Purchase from France for $15 Million in 1803 For anyone curious $15M in 2026 is enough to buy - 19.8 shares of Berkshire Hathaway $BRK.A stock - 8,620 shares of Sandisk $SNDK - 14,763 shares of Micron $MU - 19,480 shares of the S&P 500 ETF $SPY - 20,862 shares of the Nasdaq 100 ETF $QQQ - 24,320 shares of Meta Platforms $META - 30,000 shares of Microsoft $MSFT - 42,372 …
 
-@KobeissiLetter [Sat Sep 05 17:17:00 +0000 2026]: We believe the AI debt boom is now driving Treasury yields higher. Combined bond issuance from Big Tech firms, including their Special Purpose Vehicles (SPVs), is expected to surge to a record $320 billion this year. This would mark a +$120 billion YoY increase, or +60%. As a % of Treasury bond issuance, this is estimated to rise to a record ~70%. This would be more than double the 30% recorded …
+@KobeissiLetter [Sun Sep 06 14:49:00 +0000 2026]: Key Events This Week: 1. US Markets Closed, Labor Day - Monday 2. US 10Y Note Auction - Wednesday 3. August PPI Inflation data - Thursday 4. August Existing Home Sales data - Thursday 5. August CPI Inflation data - Friday 6. September MI Inflation Expectations data - Friday 7. September MI Consumer Sentiment data - Friday This marks the final week of inflation data before the September Fed …
 
 @KobeissiLetter [Sun Sep 06 23:22:38 +0000 2026]: BREAKING: Nvidia, $NVDA, CEO Jensen Huang says Artificial General Intelligence (AGI) has arrived. https://t.co/CeczoPrHeI
 
@@ -315,16 +314,16 @@ Source tweets/posts from X (Twitter) — gathered 2026-09-07. Never mention in t
 
 @gurgavin [Fri Sep 04 21:17:01 +0000 2026]: CANADA’S ECONOMY LOST 41,700 JOBS LAST MONTH ECONOMISTS EXPECTED CANADA TO ADD 15,000 JOBS INSTEAD 🇨🇦🇨🇦🇨🇦
 
+@KobeissiLetter [Mon Sep 07 15:52:00 +0000 2026]: The current decline in US bonds is unprecedented: 15+ year Treasuries have returned -2% per year on average over the last 10 years, their worst performance in history. This is also only the 2nd period in data going back to 1936 where Treasuries have posted negative 10-year annualized returns. By comparison, US stocks have returned +15% per year on average, while commodities have returned +11% per …
+
 @StockMKTNewz [Mon Sep 07 12:14:27 +0000 2026]: Tim Cook will reportedly not appear in Apple’s $AAPL new iPhone releases event on Wednesday - Mac Rumors John Ternus will be in full control of the event https://t.co/j7a4PQHSOB
+
+@StockMKTNewz [Mon Sep 07 15:01:20 +0000 2026]: Caterpillar stock is currently the 2nd BEST performing stock in the Dow Jones so far in 2026 🥈 Caterpillar $CAT: +42%🟢 https://t.co/MezJT5h6W8
 
 @StockMKTNewz [Mon Sep 07 12:42:42 +0000 2026]: Dell Technologies is currently the 3rd best performing stock in the S&amp;P 500 so far in 2026 🥉 $DELL: +316%🟢 https://t.co/wp7qNq9AS0
 
 @StockMKTNewz [Mon Sep 07 12:30:04 +0000 2026]: Moderna is currently the 2nd best performing stock in the S&amp;P 500 so far in 2026 🥈 Moderna $MRNA: +394%🟢 https://t.co/CgsW3nYPph
 
-@KobeissiLetter [Mon Sep 07 15:52:00 +0000 2026]: The current decline in US bonds is unprecedented: 15+ year Treasuries have returned -2% per year on average over the last 10 years, their worst performance in history. This is also only the 2nd period in data going back to 1936 where Treasuries have posted negative 10-year annualized returns. By comparison, US stocks have returned +15% per year on average, while commodities have returned +11% per …
-
 @KobeissiLetter [Mon Sep 07 13:35:32 +0000 2026]: The de-dollarization trend appears to be far from global: The US Dollar’s proportion of official global FX reserves is down to 57%, its lowest in at least 30 years. This percentage has declined -20 points since 1999, with China and, to a lesser extent, Russia driving much of the decline. Over the same period, the combined proportion of the 4 major reserve currencies, the US Dollar, Yen, Euro and …
-
-@StockMKTNewz [Mon Sep 07 11:59:01 +0000 2026]: Sandisk $SNDK is also currently the best performing stock in the S&amp;P 500 so far in 2026
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
