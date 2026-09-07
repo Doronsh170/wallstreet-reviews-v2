@@ -45,6 +45,9 @@ class MockWorker(BaseHTTPRequestHandler):
     published = False
     verdict = {}
     has_auth_check = True     # False simulates an older deployed Worker
+    last_content = None       # what review_output.json holds, as the real Worker sees it
+    publishes = 0             # each one gets its own verdict timestamp
+    run_never_starts = False  # /status keeps answering "queued": no run was created
 
     def log_message(self, *a):
         pass
@@ -82,6 +85,9 @@ class MockWorker(BaseHTTPRequestHandler):
             cls = type(self)
             if "workflow=publish" in self.path:
                 cls.publish_polls += 1
+                # "queued" means one thing only: no run newer than `after` exists yet.
+                if cls.run_never_starts:
+                    return self._send(200, {"state": "queued"})
                 if cls.publish_polls == 1:
                     return self._send(200, {"state": "queued"})
                 state = "failure" if cls.publish_fails else "success"
@@ -95,7 +101,10 @@ class MockWorker(BaseHTTPRequestHandler):
             if not cls.published:
                 return self._send(200, {"ok": True, "finishedAt": "2026-09-01T05:00:00+03:00",
                                         "title": "סקירה קודמת"})
-            return self._send(200, dict(cls.verdict, finishedAt="2026-09-07T09:00:00+03:00"))
+            # Every run writes its own verdict, so a second publish is never read back
+            # as the first one's — that is what freshResult() tells apart.
+            return self._send(200, dict(cls.verdict,
+                                        finishedAt=f"2026-09-07T09:0{cls.publishes}:00+03:00"))
         if self.path == "/raw":
             return self._send(200, {"content": RAW_MATERIAL, "mode": "daily_prep",
                                     "title": TITLE, "generatedAt": "2026-09-07T06:00:00+03:00"})
@@ -110,8 +119,15 @@ class MockWorker(BaseHTTPRequestHandler):
         if self.path == "/gather":
             return self._send(200, {"ok": True, "mode": body.get("mode"), "after": 98})
         if self.path == "/publish":
-            type(self).published = True
-            return self._send(200, {"ok": True, "after": 98})
+            cls = type(self)
+            cls.published = True
+            cls.publishes += 1
+            # The real Worker: identical content writes no commit (an empty one would
+            # create no run at all) and dispatches the workflow instead. Either way a
+            # run follows, so the screen gets a verdict.
+            unchanged = (cls.last_content or "").strip() == (body.get("content") or "").strip()
+            cls.last_content = body.get("content")
+            return self._send(200, {"ok": True, "after": 98, "unchanged": unchanged})
         return self._send(404, {"error": "not found"})
 
 
@@ -176,6 +192,8 @@ def _run(servers, body, setup=True, password=PASSWORD):
     MockWorker.gather_polls = 0
     MockWorker.publish_polls = 0
     MockWorker.published = False
+    MockWorker.publishes = 0
+    MockWorker.last_content = None
     box = {}
 
     def run():
@@ -495,6 +513,55 @@ def test_guard_rejection_shows_its_hebrew_reason(servers):
     finally:
         MockWorker.publish_fails = False
         MockWorker.verdict = {}
+
+
+def test_publishing_the_same_json_twice_still_reaches_a_verdict(servers):
+    """The reported hang: pressing פרסם again on unchanged text. The Worker dispatches
+    the run instead of writing an empty commit, so the second press ends in a verdict
+    exactly like the first — it must not sit on the spinner."""
+    MockWorker.publish_fails = False
+    MockWorker.verdict = {"ok": True, "mode": "daily_prep", "title": TITLE, "bullets": 6}
+
+    def body(page):
+        page.click("#gatherBtn")
+        page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+        for attempt in (1, 2):
+            page.fill("#paste", REVIEW_JSON)
+            page.click("#publishBtn")
+            page.wait_for_selector("#pubStatus.ok", timeout=60000)
+            assert "באוויר" in page.inner_text("#pubStatus"), f"attempt {attempt}"
+        sent = [c for c in MockWorker.calls if c[0] == "/publish"]
+        assert len(sent) == 2, sent
+        assert sent[0][1] == sent[1][1] == {"content": REVIEW_JSON}
+        # The second one is the repeat the Worker answers by dispatching.
+        assert MockWorker.publishes == 2
+    try:
+        drive(servers, body)
+    finally:
+        MockWorker.verdict = {}
+
+
+def test_a_publish_whose_run_never_starts_stops_instead_of_hanging(servers):
+    """Belt and braces for anything else that leaves no run behind (Actions disabled,
+    a quota stop): the screen must say so in about a minute, not wait out six."""
+    import time
+    MockWorker.run_never_starts = True
+
+    def body(page):
+        page.eval_on_selector("#publishCard", "el => el.removeAttribute('data-off')")
+        page.fill("#paste", REVIEW_JSON)
+        started = time.time()
+        page.click("#publishBtn")
+        page.wait_for_selector("#pubStatus.bad", timeout=150000)
+        elapsed = time.time() - started
+        shown = page.inner_text("#pubStatus")
+        assert "לא נוצרה ריצת פרסום" in shown, shown
+        # Well inside the six-minute budget, and never before the run had a fair chance.
+        assert 60 < elapsed < 150, elapsed
+    try:
+        drive(servers, body)
+    finally:
+        MockWorker.run_never_starts = False
 
 
 def test_success_shows_the_published_title(servers):

@@ -225,9 +225,18 @@ async function api(path, options = {}){
 
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
-/** Polls a workflow until it finishes. Returns 'success' or throws. */
-async function awaitRun(workflow, after, onTick, budgetMs){
+// How long to keep waiting for a run to APPEAR. The Worker answers 'queued' for
+// exactly one thing: no run newer than `after` exists yet. A run that exists but has
+// not started yet answers 'running', so this window never cuts a live run short —
+// it only ends the wait for a run that was never created. Runs are created within
+// seconds of a commit or a dispatch, so a minute and a quarter is already generous.
+const NO_RUN_MS = 75000;
+
+/** Polls a workflow until it finishes. Returns 'success' or throws.
+ *  `noRunMs` (optional) gives up early while nothing has been created at all. */
+async function awaitRun(workflow, after, onTick, budgetMs, noRunMs){
   const started = Date.now();
+  let seenRun = false;
   while(Date.now() - started < budgetMs){
     await wait(5000);
     onTick(Math.round((Date.now() - started)/1000));
@@ -237,8 +246,11 @@ async function awaitRun(workflow, after, onTick, budgetMs){
     } catch(e){
       continue;  // a transient blip should not abort a run that is still going
     }
+    if(s.state !== 'queued') seenRun = true;
     if(s.state === 'success') return s;
     if(s.state === 'failure') throw new Error('הריצה נכשלה בשרת.');
+    if(!seenRun && noRunMs && Date.now() - started > noRunMs)
+      throw new Error('לא נוצרה ריצת פרסום בשרת. בדוק שה-Actions מופעל בריפו, ונסה שוב.');
   }
   throw new Error('הפעולה לוקחת יותר מדי זמן. נסה שוב בעוד רגע.');
 }
@@ -460,7 +472,7 @@ $('publishBtn').addEventListener('click', async () => {
     publishAfter = after;
     await awaitRun('publish', after, secs => {
       setStatus(box, msg, 'work', `מאמת ומפרסם — ${secs} שניות<span class="spin"></span>`);
-    }, 6*60*1000);
+    }, 6*60*1000, NO_RUN_MS);
     const verdict = await freshResult(before);
     const title = verdict && verdict.title ? '<span class="detail">' + escapeHtml(verdict.title) + '</span>' : '';
     $('paste').value = '';          // this cycle is done — start the next one clean

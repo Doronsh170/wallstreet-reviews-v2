@@ -18,8 +18,9 @@
  *   POST /gather   {mode}            -> dispatches "1 - Gather Review Input"
  *   GET  /status   ?workflow=&after= -> latest run newer than `after`
  *   GET  /raw                        -> raw_review_input.md + the run's snapshot
- *   POST /publish  {content}         -> commits review_output.json (fires publish);
- *                                     refuses anything not shaped like a review
+ *   POST /publish  {content}         -> commits review_output.json (fires publish), or
+ *                                     dispatches the workflow when the content is
+ *                                     unchanged; refuses anything not shaped like a review
  */
 
 const GH = "https://api.github.com";
@@ -260,6 +261,23 @@ async function publish(request, env, origin) {
 
   const before = await latestRun(env, PUBLISH_WORKFLOW);
   const existing = await file(env, "review_output.json");
+  const after = before && before.id ? before.id : null;
+
+  // Re-publishing the very same text: the Contents API still writes a commit, but it
+  // is an EMPTY one, and the workflow only fires `on: push: paths: [review_output.json]`
+  // — so no run is ever created and the screen waits out its whole budget for a run
+  // that cannot arrive. Dispatch the workflow directly instead: the file on the branch
+  // already holds this content, so the guards run over exactly what was pasted.
+  if (existing && existing.text.trim() === content) {
+    const d = await gh(env, `/repos/${env.REPO}/actions/workflows/${PUBLISH_WORKFLOW}/dispatches`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ref: env.BRANCH }),
+    });
+    if (!d.ok) return json({ error: `dispatch failed: ${await d.text()}` }, 502, origin);
+    return json({ ok: true, after, unchanged: true }, 200, origin);
+  }
+
   const bytes = new TextEncoder().encode(content);
   let binary = "";
   for (const b of bytes) binary += String.fromCharCode(b);
@@ -275,5 +293,5 @@ async function publish(request, env, origin) {
     }),
   });
   if (!r.ok) return json({ error: `commit failed: ${await r.text()}` }, 502, origin);
-  return json({ ok: true, after: before && before.id ? before.id : null }, 200, origin);
+  return json({ ok: true, after, unchanged: false }, 200, origin);
 }
