@@ -23,12 +23,13 @@ Usage:
 Requires raw_review_input.json (created by gather_review_input.py) in the same folder.
 """
 
+import functools
 import json
 import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
 from zoneinfo import ZoneInfo
 
 ISR_TZ = ZoneInfo("Asia/Jerusalem")
@@ -162,6 +163,33 @@ DIRECTION_ASSETS = {
     "long_bonds": {"symbols": ["TLT"], "label": "אג\"ח ארוכות", "terms": ["TLT", "אג\"ח", "אגח"]},
     "yields": {"symbols": ["TLT"], "label": "תשואות", "terms": ["תשואות", "התשואה", "Treasury"], "invert": True},
 }
+
+# A direction verb whose subject is the asset's share, weight, demand, supply or
+# holdings is NOT a claim about its price: "חלקו של הדולר ברזרבות ירד ל-57%" says
+# the dollar's reserve share fell while the dollar itself rose, and "הביקוש הזר
+# לאג\"ח" carries no bond-price direction at all. The guard used to fail a correct
+# bullet on exactly these two phrases (7.9.2026), so an asset term that appears
+# only inside such a phrase is removed before the fragment is judged.
+NON_PRICE_HEADS = ["חלק", "משקל", "נתח", "שיעור", "מעמד", "ביקוש", "היצע", "הנפק",
+                   "אחזק", "החזק", "חשיפ", "רזרב", "יתר", "כמות", "ייצור", "תפוק"]
+_DIRECTION_WORD_ALT = "|".join(re.escape(w) for w in UP_WORDS + DOWN_WORDS)
+
+
+@functools.lru_cache(maxsize=None)
+def _non_price_context_re(terms: Tuple[str, ...]) -> "re.Pattern[str]":
+    term_alt = "|".join(re.escape(t) for t in terms)
+    return re.compile(
+        r'(?<!\w)ה?(?:' + "|".join(NON_PRICE_HEADS) + r')\w*'              # the real subject noun
+        r'(?:\s+(?!(?:' + _DIRECTION_WORD_ALT + r')(?!\w))\S+){0,3}?'         # up to 3 words, no verb
+        r'\s+(?:של\s+)?\S*(?:' + term_alt + r')\S*',                          # "של הדולר" / "לאג\"ח"
+        re.IGNORECASE)
+
+
+def strip_non_price_context(frag: str, terms: List[str]) -> str:
+    """Remove "<share/demand noun> ... של <asset>" phrases so the asset term left
+    behind, if any, is one that can actually carry a price-direction claim."""
+    return _non_price_context_re(tuple(terms)).sub("", frag)
+
 
 TICKER_UP_TOKENS = UP_WORDS + ["עלתה", "מטפסת", "מזנקת", "זינקה", "קופצת", "קפץ", "קפצה", "קפצו",
                                "מתחזקת", "התחזקה", "ירוק", "בירוק", "מוסיפה", "מוסיף", "הוסיפה", "הוסיף",
@@ -480,6 +508,9 @@ def market_direction_check(result: Dict[str, Any], pcts: Dict[str, float]) -> No
         return any(t.lower() in text.lower() for t in terms)
 
     def check_fragment(frag: str, info: Dict[str, Any]) -> None:
+        # "חלקו של הדולר ברזרבות ירד" / "הביקוש לאג"ח": not price claims — see NON_PRICE_HEADS.
+        if not term_in(strip_non_price_context(frag, info["meta"]["terms"]), info["meta"]["terms"]):
+            return
         has_up = _has_direction_word(frag, UP_WORDS)
         has_down = _has_direction_word(frag, DOWN_WORDS)
         if has_up == has_down:  # neither, or both even inside one clause — ambiguous, skip
