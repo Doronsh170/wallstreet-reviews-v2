@@ -216,48 +216,48 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $770.19 (daily: -0.39%), prev close: $773.17
-  Nasdaq 100 (QQQ ETF): $718.96 (daily: +0.18%), prev close: $717.67
-  Dow Jones (DIA ETF): $534.08 (daily: -0.53%), prev close: $536.93
-  Russell 2000 (IWM ETF): $296.01 (daily: +0.28%), prev close: $295.19
-  Energy Sector (XLE ETF): $64.06 (daily: -0.87%), prev close: $64.62
-  Technology Sector (XLK ETF): $187.28 (daily: +0.70%), prev close: $185.97
-  Financials Sector (XLF ETF): $58.10 (daily: -0.79%), prev close: $58.56
-  Consumer Discretionary Sector (XLY ETF): $114.91 (daily: -1.33%), prev close: $116.46
-  Healthcare Sector (XLV ETF): $171.45 (daily: -1.04%), prev close: $173.26
-  Industrials Sector (XLI ETF): $175.27 (daily: +0.41%), prev close: $174.56
-  Consumer Staples Sector (XLP ETF): $84.58 (daily: -0.80%), prev close: $85.26
-  Utilities Sector (XLU ETF): $43.08 (daily: +0.12%), prev close: $43.03
-  WTI Crude Oil (USO ETF): $141.96 (daily: -0.09%), prev close: $142.09
-  Brent Crude Oil (BNO ETF): $56.11 (daily: +0.38%), prev close: $55.90
-  Gold (GLD ETF): $406.77 (daily: -0.84%), prev close: $410.22
-  Silver (SLV ETF): $59.82 (daily: -1.21%), prev close: $60.55
-  Bitcoin (IBIT ETF): $45.23 (daily: -2.42%), prev close: $46.35
-  US 20Y+ Bonds (TLT ETF): $82.21 (daily: +0.17%), prev close: $82.07
-  US Dollar (UUP ETF): $28.08 (daily: +0.25%), prev close: $28.01
-  VIX Volatility (VIXY ETF): $17.00 (daily: +0.29%), prev close: $16.95
+  S&P 500 (SPY ETF): $770.23 (daily: -0.38%), prev close: $773.17
+  Nasdaq 100 (QQQ ETF): $719.00 (daily: +0.19%), prev close: $717.67
+  Dow Jones (DIA ETF): $534.12 (daily: -0.52%), prev close: $536.93
+  Russell 2000 (IWM ETF): $296.05 (daily: +0.29%), prev close: $295.19
+  Energy Sector (XLE ETF): $64.08 (daily: -0.84%), prev close: $64.62
+  Technology Sector (XLK ETF): $187.31 (daily: +0.72%), prev close: $185.97
+  Financials Sector (XLF ETF): $58.12 (daily: -0.75%), prev close: $58.56
+  Consumer Discretionary Sector (XLY ETF): $114.94 (daily: -1.31%), prev close: $116.46
+  Healthcare Sector (XLV ETF): $171.48 (daily: -1.03%), prev close: $173.26
+  Industrials Sector (XLI ETF): $175.30 (daily: +0.42%), prev close: $174.56
+  Consumer Staples Sector (XLP ETF): $84.60 (daily: -0.77%), prev close: $85.26
+  Utilities Sector (XLU ETF): $43.09 (daily: +0.14%), prev close: $43.03
+  WTI Crude Oil (USO ETF): $141.99 (daily: -0.07%), prev close: $142.09
+  Brent Crude Oil (BNO ETF): $56.13 (daily: +0.41%), prev close: $55.90
+  Gold (GLD ETF): $406.81 (daily: -0.83%), prev close: $410.22
+  Silver (SLV ETF): $59.84 (daily: -1.17%), prev close: $60.55
+  Bitcoin (IBIT ETF): $45.25 (daily: -2.37%), prev close: $46.35
+  US 20Y+ Bonds (TLT ETF): $82.23 (daily: +0.20%), prev close: $82.07
+  US Dollar (UUP ETF): $28.07 (daily: +0.21%), prev close: $28.01
+  VIX Volatility (VIXY ETF): $17.01 (daily: +0.35%), prev close: $16.95
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $NVDA: $230.36 (daily: +0.84%), prev close: $228.45
-  $AAPL: $319.97 (daily: -2.51%), prev close: $328.21
-  $AMZN: $258.51 (daily: -0.15%), prev close: $258.90
-  $GOOGL: $338.46 (daily: -1.17%), prev close: $342.48
-  $META: $616.77 (daily: +1.00%), prev close: $610.68
-  $MSFT: $499.70 (daily: -2.04%), prev close: $510.12
-  $HOOD: $122.11 (daily: -2.09%), prev close: $124.72
-  $BE: $252.87 (daily: +7.35%), prev close: $235.55
-  $DELL: $524.14 (daily: +1.50%), prev close: $516.39
-  $ILMN: $218.22 (daily: -1.55%), prev close: $221.66
-  $P: $99.51 (daily: +1.39%), prev close: $98.15
-  $SNDK: $1740.00 (daily: +11.90%), prev close: $1554.99
+  $NVDA: $230.40 (daily: +0.85%), prev close: $228.45
+  $AAPL: $320.01 (daily: -2.50%), prev close: $328.21
+  $DELL: $524.18 (daily: +1.51%), prev close: $516.39
+  $SNDK: $1739.96 (daily: +11.90%), prev close: $1554.99
+  $AMZN: $258.55 (daily: -0.14%), prev close: $258.90
+  $GOOGL: $338.50 (daily: -1.16%), prev close: $342.48
+  $META: $616.81 (daily: +1.00%), prev close: $610.68
+  $MSFT: $499.74 (daily: -2.03%), prev close: $510.12
+  $BE: $252.91 (daily: +7.37%), prev close: $235.55
+  $ILMN: $218.26 (daily: -1.53%), prev close: $221.66
+  $P: $99.53 (daily: +1.41%), prev close: $98.15
+  $IBM: $234.93 (daily: +0.09%), prev close: $234.71
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: -0.09%, BNO: +0.38%)
-  זהב: יורד (GLD: -0.84%)
-  ביטקוין: יורד (IBIT: -2.42%)
-  דולר: עולה (UUP: +0.25%)
-  תנודתיות / VIX: עולה (VIXY: +0.29%)
-  אג"ח ארוכות / TLT: עולה (TLT: +0.17%)
+  נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: -0.07%, BNO: +0.41%)
+  זהב: יורד (GLD: -0.83%)
+  ביטקוין: יורד (IBIT: -2.37%)
+  דולר: עולה (UUP: +0.21%)
+  תנודתיות / VIX: עולה (VIXY: +0.35%)
+  אג"ח ארוכות / TLT: עולה (TLT: +0.20%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -297,34 +297,34 @@ Source tweets/posts from X (Twitter) — gathered 2026-09-07. Never mention in t
 
 @KobeissiLetter [Sat Sep 05 17:17:00 +0000 2026]: We believe the AI debt boom is now driving Treasury yields higher. Combined bond issuance from Big Tech firms, including their Special Purpose Vehicles (SPVs), is expected to surge to a record $320 billion this year. This would mark a +$120 billion YoY increase, or +60%. As a % of Treasury bond issuance, this is estimated to rise to a record ~70%. This would be more than double the 30% recorded …
 
-@StockMKTNewz [Sun Sep 06 20:43:30 +0000 2026]: Nvidia $NVDA CEO Jensen Huang just said: “AGI has arrived.” https://t.co/VQ3V6CM1CJ
-
 @KobeissiLetter [Sun Sep 06 23:22:38 +0000 2026]: BREAKING: Nvidia, $NVDA, CEO Jensen Huang says Artificial General Intelligence (AGI) has arrived. https://t.co/CeczoPrHeI
 
 @wallstengine [Fri Sep 04 19:51:36 +0000 2026]: ANTHROPIC COULD FILE FOR $2T+ IPO AS SOON AS NEXT WEEK Morgan Stanley is in pole position for the lead-left role, while Goldman Sachs is expected to serve as stabilization agent, per FT. JPMorgan, Citi and Barclays are also expected to receive leading roles. Anthropic is preparing for a roadshow near the end of September, potentially putting trading on track for late September or early October. …
 
-@wallstengine [Sun Sep 06 20:46:18 +0000 2026]: $NVDA CEO Jensen Huang just said “AGI has arrived” and that GPT-6 Astra was trained on ~100K+ NVIDIA Grace Blackwell NVLink72 GPUs. He also says another 400K GPUs are coming online next. https://t.co/A4IiR0Kwbr
-
 @wallstengine [Fri Sep 04 23:13:18 +0000 2026]: Anthropic is now expected to begin marketing its IPO in mid-October at the earliest, with the listing targeted for days before the U.S. midterm elections in November, per Reuters. Its public prospectus, previously expected as soon as next week, is now likely to come in late September. Anthropic is also working to finalize a $15B revolving credit facility ahead of the offering. Morgan Stanley, …
-
-@StockMKTNewz [Sun Sep 06 21:54:28 +0000 2026]: Robinhood Chain $HOOD generated more than $8 Million in fees on Friday
-
-@StockMKTNewz [Sun Sep 06 19:19:32 +0000 2026]: Nvidia $NVDA stock is up by more than 15,000% over the last decade 🤯 https://t.co/70yOI9LAqr
 
 @AIStockSavvy [Fri Sep 04 21:24:25 +0000 2026]: Bloom Energy, Illumina, and Everpure Set to Join S&amp;P 500; Others to Join S&amp;P 100, S&amp;P MidCap 400, and S&amp;P SmallCap 600 - $BE $ILMN $P $DELL https://t.co/Oytq9K0Yl5
 
-@StockMKTNewz [Sun Sep 06 20:17:09 +0000 2026]: An Amazon $AMZN cargo plane overshot the runway at Miami international airport and crashed into nearby vehicles https://t.co/MKcQFvErof
+@StockMKTNewz [Mon Sep 07 14:13:19 +0000 2026]: IBM stock is currently the 2nd worst performing stock in the Dow Jones so far in 2026 🥈 $IBM: -21%🔴 https://t.co/PqywBvlPMj
 
-@StockMKTNewz [Sun Sep 06 19:20:22 +0000 2026]: Apple $AAPL stock is up by more than 10x over the last decade 🟢 https://t.co/EFgaFLKtIL
-
-@gurgavin [Fri Sep 04 21:17:01 +0000 2026]: CANADA’S ECONOMY LOST 41,700 JOBS LAST MONTH ECONOMISTS EXPECTED CANADA TO ADD 15,000 JOBS INSTEAD 🇨🇦🇨🇦🇨🇦
-
-@AIStockSavvy [Sun Sep 06 21:23:51 +0000 2026]: Jensen Huang: GPT-6 Astra, trained on ~100K+ $NVDA NVIDIA Grace Blackwell NVLink72. From ChatGPT to o1 to Astra in 4 years. AGI has arrived.
+@StockMKTNewz [Mon Sep 07 13:18:09 +0000 2026]: Nvidia $NVDA now generates $7.8 Million of annual revenue per employee, a new high for the company https://t.co/xTVVsvIIGz
 
 @StockMKTNewz [Mon Sep 07 11:51:33 +0000 2026]: Sandisk $SNDK is currently the best performing stock in the NASDAQ 100 so far in 2026 👑 Sandisk: +633%🟢 https://t.co/1pbrN0zBVy
 
-@StockMKTNewz [Sun Sep 06 11:59:16 +0000 2026]: REMINDER The 🇺🇸 stock market will be closed tomorrow (Monday) for Labor Day
+@StockMKTNewz [Mon Sep 07 11:40:28 +0000 2026]: Applovin $APP is currently the worst performing stock in the NASDAQ 100 so far in 2026 💩 Applovin: -52%🔴 https://t.co/aFQEEt4V64
+
+@gurgavin [Fri Sep 04 21:17:01 +0000 2026]: CANADA’S ECONOMY LOST 41,700 JOBS LAST MONTH ECONOMISTS EXPECTED CANADA TO ADD 15,000 JOBS INSTEAD 🇨🇦🇨🇦🇨🇦
+
+@StockMKTNewz [Mon Sep 07 12:42:42 +0000 2026]: Dell Technologies is currently the 3rd best performing stock in the S&amp;P 500 so far in 2026 🥉 $DELL: +316%🟢 https://t.co/wp7qNq9AS0
+
+@StockMKTNewz [Mon Sep 07 12:30:04 +0000 2026]: Moderna is currently the 2nd best performing stock in the S&amp;P 500 so far in 2026 🥈 Moderna $MRNA: +394%🟢 https://t.co/CgsW3nYPph
+
+@KobeissiLetter [Mon Sep 07 13:35:32 +0000 2026]: The de-dollarization trend appears to be far from global: The US Dollar’s proportion of official global FX reserves is down to 57%, its lowest in at least 30 years. This percentage has declined -20 points since 1999, with China and, to a lesser extent, Russia driving much of the decline. Over the same period, the combined proportion of the 4 major reserve currencies, the US Dollar, Yen, Euro and …
+
+@StockMKTNewz [Mon Sep 07 11:59:01 +0000 2026]: Sandisk $SNDK is also currently the best performing stock in the S&amp;P 500 so far in 2026
 
 @StockMKTNewz [Mon Sep 07 12:14:27 +0000 2026]: Tim Cook will reportedly not appear in Apple’s $AAPL new iPhone releases event on Wednesday - Mac Rumors John Ternus will be in full control of the event https://t.co/j7a4PQHSOB
+
+@wallstengine [Fri Sep 04 15:26:38 +0000 2026]: JAPAN TO DEVELOP AI SATELLITES FOR MISSILE TARGETING Japan’s Defense Ministry plans to develop AI-equipped satellites that can process surveillance data in orbit, identify enemy positions and predict the movement of targets such as ships. The satellites won’t conduct surveillance themselves. Instead, they’ll receive data from other satellites, analyze it in space and send processed targeting …
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
