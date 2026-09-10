@@ -1,14 +1,78 @@
 {
-  "mode": "israel_prep",
-  "generated_at": "2026-09-07T23:03:11.205104+03:00",
-  "expected_title": "נקודות חשובות לקראת יום המסחר בבורסה בתל אביב 🇮🇱 – יום שני, 7.9.2026",
-  "first_heading": "לקראת יום המסחר",
-  "review_date": "2026-09-07",
-  "title_date_str": "2026-09-07",
-  "title_day_name": "שני",
+  "mode": "daily_prep",
+  "generated_at": "2026-09-10T15:16:43.248653+03:00",
+  "expected_title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 10.9.2026",
+  "first_heading": "נקודות מרכזיות",
+  "review_date": "2026-09-10",
+  "title_date_str": "2026-09-10",
+  "title_day_name": "חמישי",
   "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "etf_pcts": {
+    "SPY": -0.4648,
+    "QQQ": -0.2854,
+    "DIA": -0.75,
+    "IWM": -1.3676,
+    "XLE": 0.8337,
+    "XLK": 0.0,
+    "XLF": -0.4188,
+    "XLY": -1.3422,
+    "XLV": -0.3291,
+    "XLI": -1.5079,
+    "XLP": -1.1545,
+    "XLU": -1.1738,
+    "USO": 2.6981,
+    "BNO": 2.7542,
+    "GLD": 0.9081,
+    "SLV": 2.2739,
+    "IBIT": -0.2253,
+    "TLT": -0.5718,
+    "UUP": -0.0357,
+    "VIXY": 1.5029
+  },
+  "ticker_quotes": {
+    "NVDA": {
+      "price": 223.67,
+      "pct": -0.9126,
+      "prev_close": 225.73,
+      "ts": 1788984000
+    },
+    "PLTR": {
+      "price": 169.53,
+      "pct": -0.4521,
+      "prev_close": 170.3,
+      "ts": 1788984000
+    },
+    "M": {
+      "price": 21.51,
+      "pct": -4.1871,
+      "prev_close": 22.45,
+      "ts": 1788984000
+    },
+    "META": {
+      "price": 653.69,
+      "pct": 6.5544,
+      "prev_close": 613.48,
+      "ts": 1788984000
+    },
+    "DBI": {
+      "price": 5.22,
+      "pct": 0.3846,
+      "prev_close": 5.2,
+      "ts": 1788984000
+    },
+    "LMT": {
+      "price": 524.46,
+      "pct": -2.1804,
+      "prev_close": 536.15,
+      "ts": 1788984000
+    },
+    "AAPL": {
+      "price": 315.34,
+      "pct": -0.2783,
+      "prev_close": 316.22,
+      "ts": 1788984000
+    }
+  },
   "scheduled": {
     "macro": [],
     "earnings": []
