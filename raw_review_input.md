@@ -1,7 +1,7 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
 You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
-Script run date: 2026-09-10 (יום חמישי). Briefing target date: 2026-09-10 (יום חמישי).
+Script run date: 2026-09-11 (יום שישי). Briefing target date: 2026-09-11 (יום שישי).
 The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
@@ -187,8 +187,8 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום חמישי, 10.9.2026",
-  "date": "2026-09-10",
+  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שישי, 11.9.2026",
+  "date": "2026-09-11",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
@@ -216,43 +216,45 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $762.40 (daily: -0.46%), prev close: $765.96
-  Nasdaq 100 (QQQ ETF): $716.31 (daily: -0.29%), prev close: $718.36
-  Dow Jones (DIA ETF): $524.07 (daily: -0.75%), prev close: $528.03
-  Russell 2000 (IWM ETF): $290.64 (daily: -1.37%), prev close: $294.67
-  Energy Sector (XLE ETF): $65.31 (daily: +0.83%), prev close: $64.77
-  Technology Sector (XLK ETF): $187.87 (daily: +0.00%), prev close: $187.87
-  Financials Sector (XLF ETF): $57.06 (daily: -0.42%), prev close: $57.30
-  Consumer Discretionary Sector (XLY ETF): $112.46 (daily: -1.34%), prev close: $113.99
-  Healthcare Sector (XLV ETF): $166.58 (daily: -0.33%), prev close: $167.13
-  Industrials Sector (XLI ETF): $171.79 (daily: -1.51%), prev close: $174.42
-  Consumer Staples Sector (XLP ETF): $83.05 (daily: -1.15%), prev close: $84.02
-  Utilities Sector (XLU ETF): $42.94 (daily: -1.17%), prev close: $43.45
-  WTI Crude Oil (USO ETF): $149.97 (daily: +2.70%), prev close: $146.03
-  Brent Crude Oil (BNO ETF): $59.32 (daily: +2.75%), prev close: $57.73
-  Gold (GLD ETF): $403.35 (daily: +0.91%), prev close: $399.72
-  Silver (SLV ETF): $60.72 (daily: +2.27%), prev close: $59.37
-  Bitcoin (IBIT ETF): $44.29 (daily: -0.23%), prev close: $44.39
-  US 20Y+ Bonds (TLT ETF): $81.73 (daily: -0.57%), prev close: $82.20
-  US Dollar (UUP ETF): $27.98 (daily: -0.04%), prev close: $27.99
-  VIX Volatility (VIXY ETF): $17.56 (daily: +1.50%), prev close: $17.30
+  S&P 500 (SPY ETF): $757.83 (daily: -0.60%), prev close: $762.40
+  Nasdaq 100 (QQQ ETF): $708.69 (daily: -1.06%), prev close: $716.31
+  Dow Jones (DIA ETF): $520.75 (daily: -0.63%), prev close: $524.07
+  Russell 2000 (IWM ETF): $287.70 (daily: -1.01%), prev close: $290.64
+  Energy Sector (XLE ETF): $64.93 (daily: -0.58%), prev close: $65.31
+  Technology Sector (XLK ETF): $185.22 (daily: -1.41%), prev close: $187.87
+  Financials Sector (XLF ETF): $56.87 (daily: -0.33%), prev close: $57.06
+  Consumer Discretionary Sector (XLY ETF): $111.96 (daily: -0.44%), prev close: $112.46
+  Healthcare Sector (XLV ETF): $165.66 (daily: -0.55%), prev close: $166.58
+  Industrials Sector (XLI ETF): $170.55 (daily: -0.72%), prev close: $171.79
+  Consumer Staples Sector (XLP ETF): $83.09 (daily: +0.05%), prev close: $83.05
+  Utilities Sector (XLU ETF): $42.52 (daily: -0.98%), prev close: $42.94
+  WTI Crude Oil (USO ETF): $158.38 (daily: +5.61%), prev close: $149.97
+  Brent Crude Oil (BNO ETF): $63.13 (daily: +6.42%), prev close: $59.32
+  Gold (GLD ETF): $396.36 (daily: -1.73%), prev close: $403.35
+  Silver (SLV ETF): $57.50 (daily: -5.30%), prev close: $60.72
+  Bitcoin (IBIT ETF): $43.68 (daily: -1.38%), prev close: $44.29
+  US 20Y+ Bonds (TLT ETF): $80.78 (daily: -1.16%), prev close: $81.73
+  US Dollar (UUP ETF): $28.03 (daily: +0.18%), prev close: $27.98
+  VIX Volatility (VIXY ETF): $18.16 (daily: +3.42%), prev close: $17.56
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $NVDA: $223.67 (daily: -0.91%), prev close: $225.73
-  $PLTR: $169.53 (daily: -0.45%), prev close: $170.30
-  $M: $21.51 (daily: -4.19%), prev close: $22.45
-  $META: $653.69 (daily: +6.55%), prev close: $613.48
-  $DBI: $5.22 (daily: +0.38%), prev close: $5.20
-  $LMT: $524.46 (daily: -2.18%), prev close: $536.15
-  $AAPL: $315.34 (daily: -0.28%), prev close: $316.22
+  $ORCL: $152.94 (daily: -5.38%), prev close: $161.63
+  $SPCX: $148.18 (daily: +0.43%), prev close: $147.55
+  $NVDA: $218.36 (daily: -2.37%), prev close: $223.67
+  $TIP: $106.33 (daily: -0.44%), prev close: $106.80
+  $MSFT: $492.44 (daily: +0.16%), prev close: $491.65
+  $INTC: $100.32 (daily: -5.57%), prev close: $106.24
+  $AAPL: $326.57 (daily: +3.56%), prev close: $315.34
+  $TSLA: $363.56 (daily: -1.16%), prev close: $367.81
+  $ADBE: $248.83 (daily: -2.37%), prev close: $254.86
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +2.70%, BNO: +2.75%)
-  זהב: עולה (GLD: +0.91%)
-  ביטקוין: יורד (IBIT: -0.23%)
-  דולר: יציב/כמעט ללא שינוי (UUP: -0.04%)
-  תנודתיות / VIX: עולה (VIXY: +1.50%)
-  אג"ח ארוכות / TLT: יורד (TLT: -0.57%)
+  נפט (WTI/ברנט): עולה (USO: +5.61%, BNO: +6.42%)
+  זהב: יורד (GLD: -1.73%)
+  ביטקוין: יורד (IBIT: -1.38%)
+  דולר: עולה (UUP: +0.18%)
+  תנודתיות / VIX: עולה (VIXY: +3.42%)
+  אג"ח ארוכות / TLT: יורד (TLT: -1.16%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -262,7 +264,7 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ SCHEDULED DATA CHECK (verification only) ══
-Use web search to verify what US economic data is scheduled for release on 2026-09-10 — release time in
+Use web search to verify what US economic data is scheduled for release on 2026-09-11 — release time in
 Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
 upcoming was already released. This is schedule verification only: do NOT use the search to import news
 stories the source tweets did not cover.
@@ -280,46 +282,46 @@ Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY 
 * שורה תחתונה למחר: מדד מנהלי הרכש בתעשייה של ISM ונתוני המשרות הפנויות (JOLTS) יתפרסמו מחר, יום שלישי, ב-17:00 שעון ישראל, והם המבחן המרכזי בלוח. לפי דיווחים, תשואות האג"ח ל-10 שנים עלו לשיא של 19 חודשים, ולכן נתון תעשייה חזק עלול לדחוף אותן גבוה יותר וללחוץ שוב על מגזר התשתיות שהוביל את הירידות. ביום חמישי ייערך אירוע הסייברקאב.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-09-10. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-09-11. Never mention in the review that these came from tweets/posts:
 
-@wallstengine [Thu Sep 10 08:18:57 +0000 2026]: JPMORGAN UPGRADES $META TO OVERWEIGHT, RAISES PT TO $820 FROM $640 JPM sees Meta’s AI upside moving well beyond ads, with Muse, Model API and Business Agents opening new revenue streams, while its ~4B-user distribution gives it a major scaling advantage. It also sees further upside to Meta’s core ad business from AI-driven recommendations, engagement and better targeting. JPM expects the upcoming …
+@KobeissiLetter [Thu Sep 10 20:17:00 +0000 2026]: Investors are increasingly bearish on inflation-protected Treasuries: Short interest on the TIPS ETF, $TIP, is up to ~6% of shares outstanding, triple the levels seen in late 2025. The fund tracks an index of inflation-protected Treasury bonds, whose prices generally fall when real yields rise. This figure is now in-line with the highest levels recorded in December 2021, just 3 months before the …
 
-@KobeissiLetter [Wed Sep 09 17:00:01 +0000 2026]: In all fairness, US Treasury Secretary Bessent was already behind the 8-ball before he started. The US is now running $2+ trillion deficits, spending over $1.2 trillion on annual interest expense, and fighting 60 consecutive months of 2%+ inflation. On top of this, oil prices have nearly doubled since the Iran War began, inflation expectations are surging, and the Fed went from rate cuts to …
+@KobeissiLetter [Thu Sep 10 20:41:40 +0000 2026]: BREAKING: Oracle stock, $ORCL, rises over +8% after the company posts stronger than expected earnings due to AI demand. https://t.co/ITZJBkPhQW
 
-@KobeissiLetter [Wed Sep 09 18:00:00 +0000 2026]: BREAKING: US diesel prices rise to a record $5.94/gallon, now up +72% over the last 9 months. This comes as the US has targeted several Iranian crude oil tankers near the Strait of Hormuz and Iran vows to retaliate. US diesel peak demand season has officially begun and is expected to last through November, with global daily diesel consumption rising by 2 million barrels. Shipping costs continue …
+@wallstengine [Thu Sep 10 21:07:54 +0000 2026]: MICROSOFT PLANS 3X DATA CENTER EXPANSION $MSFT plans to expand its global data center capacity from roughly 12 GW today to more than 38 GW by 2032, adding about 26 GW of capacity. AI-specific compute is expected to grow from around 2 GW today to roughly one-third of total capacity by 2032, or about 13 GW. The 38 GW target excludes compute rented from neoclouds such as CoreWeave. The expansion …
 
-@KobeissiLetter [Wed Sep 09 16:10:49 +0000 2026]: You can't make this up. The US Treasury just announced it is tripling long-term buybacks to $6 billion and yields STILL rallied on the news. That means the US Treasury went from doubling, to "at least doubling," to tripling long-term bond buybacks and yields are still rising. This puts the 10Y Note Yield above 4.85% for the first time since November 2023, up +15 basis points from pre-announcement …
+@wallstengine [Thu Sep 10 19:51:28 +0000 2026]: ALTERA PREPS $2B+ IPO AS EARLY AS THIS YEAR Silver Lake and $INTC-backed chipmaker Altera is preparing an IPO that could raise more than $2B, with a confidential filing expected in the coming weeks and a listing possible as early as this year. Barclays, Citi, JPMorgan and Morgan Stanley have been tapped as underwriters. Intel acquired Altera for $16.7B in 2015, then sold a 51% stake to Silver …
 
-@KobeissiLetter [Wed Sep 09 13:11:04 +0000 2026]: Former and current Anthropic employees are now posting that they “earnestly believe AI could kill all humans.” This company is expected to hit $2.5 trillion in market cap in its upcoming IPO. What part of the cycle is this? https://t.co/O36ooqHlz8
+@StockMKTNewz [Thu Sep 10 22:19:16 +0000 2026]: SpaceX's $SPCX CFO said the company signed an AI hosting agreement worth about $1.11 billion a month SpaceX signed the hosting agreement earlier this month and the contract is scheduled to begin December 1st https://t.co/xLVr72jo3R
 
-@KobeissiLetter [Wed Sep 09 01:24:00 +0000 2026]: BREAKING: US oil prices surge toward $95/barrel, now up +41% since July 2nd. At the current pace, US oil prices will be above $100 by Friday. Something has to give or inflation is set to get much worse. https://t.co/jRZOkSWzm5
+@KobeissiLetter [Thu Sep 10 13:03:00 +0000 2026]: BREAKING: The US 10Y Note Yield officially rises above 4.90% for the first time since November 2023, now up +95 basis points since the Iran War began. This puts the 10Y Note Yield up another +10 basis points since the US Treasury said it was TRIPLING long-term buybacks to $6 billion. As we wrote in our below post yesterday, we are on track to see 5.00%+ by next week. As a result, borrowing costs …
 
-@KobeissiLetter [Tue Sep 08 19:42:53 +0000 2026]: Gold-mining margins are surging well ahead of gold prices: Average all-in sustaining cost (AISC) margins surged +134% YoY in Q1 2026, to a record $3,076 per ounce. AISC margin is the amount miners earn per ounce of gold after covering the costs of sustaining their mining operations. This is far above the +70% YoY increase in gold prices over the same period. Furthermore, AISC margins among the …
+@KobeissiLetter [Thu Sep 10 22:58:19 +0000 2026]: That was fast. Another 8 hours later and the 10Y Note Yield is now pushing into 5.00% with US oil prices above $104/barrel. If US CPI inflation comes in hot tomorrow, things are going to get very ugly. The US economy cannot afford higher rates. Something has to give. https://t.co/GBAya9Yn7C
 
-@wallstengine [Thu Sep 10 10:46:52 +0000 2026]: DESIGNER BRANDS $DBI Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $730.6M (Est. $745M) 🔴; -1.2% YoY 🔹 Adj. EPS: $0.34 (Est. $0.26) 🟢 🔹 Adjusted Gross Margin: 47.9%; +430 bps YoY 🔹 Brand Portfolio: $86.3M; +17.9% YoY Raises FY26 Guide: 🔹 Adj. EPS: $0.47-$0.52 (Est. $0.39) 🟢 🔹 Revenue Growth: Flat to +1% Segment Net Revenue: 🔹 Retail: $671.1M; -2.2% YoY 🔹 Brand Portfolio: $86.3M; +17.9% YoY Other Q2 …
+@KobeissiLetter [Thu Sep 10 15:12:09 +0000 2026]: BREAKING: The market now sees a new high 71% chance of the Fed hiking interest rates by October. There is also now a 62% chance of a rate hike at next week's meeting. Markets think Fed Chair Warsh's first rate move is a HIKE. Talk about a turn of events. https://t.co/QEkG8fBUlA
 
-@wallstengine [Thu Sep 10 09:40:39 +0000 2026]: $NVDA & $PLTR LAUNCH SOVEREIGN AI STACK FOR SUPPLY CHAINS Nvidia is deploying Palantir Foundry/AIP with customized Nemotron models across its own supply chain, spanning thousands of suppliers and 1.3M parts per Vera Rubin rack. The system is designed to identify constraints, optimize materials allocation and help coordinate the path from wafer to first token. Enterprises will also be able to …
+@wallstengine [Thu Sep 10 22:25:49 +0000 2026]: SpaceX CFO Bret Johnsen says the company signed an AI compute hosting deal expected to generate $1.11B/month starting Dec. 1, or ~$13.3B annualized. AI compute deals are expected to exceed $3.4B/month by December, with $SPCX targeting a $100B ARR by year-end. https://t.co/BQirwoTmm8
 
-@KobeissiLetter [Tue Sep 08 22:11:59 +0000 2026]: The AI Revolution is fueling a record financing boom in the US: US high-grade corporate bond issuance is expected to surge to ~$215 billion in September, the largest September issuance on record. This is set to surpass the previous September high of ~$205 billion, posted in 2025. The current estimate is also more than triple the ~$70 billion issued in September 2022. This follows $145.2 billion …
+@wallstengine [Thu Sep 10 20:11:17 +0000 2026]: ORACLE $ORCL Q1’27 EARNINGS HIGHLIGHTS 🔹 Revenue: $19.3B (Est. $19.14B) 🟢; +30% YoY 🔹 Adj. EPS: $1.92 (Est. $1.74) 🟢; +30% YoY 🔹 RPO: $664B; +$209B YoY FY Guide: 🔹 Revenue: At least $90B (Est. $89.79B) 🟢 🔹 Adj. EPS: $8.10 (Est. $8.07) 🟢 Q2 Guide: 🔹 Adj. EPS: $1.85-$1.93 USD (Est. $1.89) 🟡 🔹 Revenue Growth: 30% to 34% USD/CC 🔹 Cloud Revenue Growth: 65% to 71% USD; 64% to 70% CC Segment Net …
 
-@StockMKTNewz [Wed Sep 09 21:44:09 +0000 2026]: Lockheed Martin $LMT today was awarded a $826 Million modification to a contract with the 🇺🇸 Air Force for the "Joint Air-to-Surface Standoff Missile and Long Range Anti-Ship Missile Large Lot procurement." https://t.co/wnixi8e7mg
+@KobeissiLetter [Thu Sep 10 23:44:40 +0000 2026]: BREAKING: US diesel prices officially rise above $6.00/gallon for the first time in history, now up +74% over the last 9 months. Diesel prices in some states are now pushing above $8.00/gallon as the US faces a massive shortage of supply. The move comes as US oil prices near $105/barrel and the Iran War continues to escalate. Inflation expectations are pushing higher as a result.
 
-@AIStockSavvy [Thu Sep 10 11:01:19 +0000 2026]: $NVDA | Piper Sandler 𝗶𝗻𝗶𝘁𝗶𝗮𝘁𝗲𝘀 𝗢𝘃𝗲𝗿𝘄𝗲𝗶𝗴𝗵𝘁 on 𝗡𝗩𝗜𝗗𝗜𝗔, PT $𝟯𝟬𝟬 Analyst sees NVIDIA leading AI compute as favorable demand and constrained supply support strong revenue and earnings growth. https://t.co/Z4TunXFFIu
+@KobeissiLetter [Thu Sep 10 12:32:40 +0000 2026]: BREAKING: August PPI Inflation rises to 5.4%, above expectations of 5.3%. Core PPI Inflation rose to 4.6%, the highest since June 2026. July's headline and core PPI inflation numbers were also revised higher. The odds of rate hikes are rising further on the news.
 
-@wallstengine [Thu Sep 10 10:57:35 +0000 2026]: MACY'S $M Q2’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $4.9B (Est. $4.83B) 🟢; +1.1% YoY 🔹 Adj. EPS: $0.63; incl. $0.23 tariff refunds 🔹 Adj. EPS ex-Refund: $0.40 (Est. $0.37) 🟢 🔹 GAAP EPS: $0.62; +100% YoY; incl. refunds 🔹 Adj. EBITDA: $457M; incl. tariff refunds Raises FY26 Guide: 🔹 Revenue: $21.7B-$21.8B (Est. $21.91B) 🔴; from $21.5B-$21.75B 🔹 Adj. EBITDA Margin: 7.8%-8.0% (Est. 8.1%) 🔴; from 7.7%-7.9% …
+@AIStockSavvy [Fri Sep 11 00:49:32 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Kalshi Planning to Seek Regulatory Nod to Offer Regulated Perpetual Futures Tied to Single Stocks Including Tesla, Apple and Nvidia - WSJ - $TSLA $AAPL $NVDA
 
-@wallstengine [Thu Sep 10 08:42:59 +0000 2026]: HUAWEI HIKES TOP AI CHIP PRICE 60% AS DEMAND OUTSTRIPS SUPPLY Huawei has raised the suggested price of its Ascend 950DT to about 250,000 yuan, or $37,300, over the past three months, putting it roughly in line with NVIDIA’s $NVDA B200. The increase comes as demand for Chinese AI compute surges. DeepSeek plans to deploy at least 160,000 Ascend 950DT chips in a major Inner Mongolia data center. …
+@wallstengine [Thu Sep 10 20:05:49 +0000 2026]: ADOBE $ADBE Q3’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $6.8B (Est. $6.69B) 🟢; +13% YoY 🔹 Adj. EPS: $6.13 (Est. $6.09) 🟢; +15% YoY 🔹 GAAP EPS: $4.62; +11% YoY 🔹 ARR: $27.5B Raises FY26 Guide: 🔹 Revenue: $26.58B-$26.63B (Est. $26.51B) 🟢 🔹 EPS: $24.45-$24.50 (Est. $24.36) 🟢 🔹 ARR Growth: 10.2% YoY Q4 Guide: 🔹 Revenue: $6.80B-$6.85B (Est. $6.84B) 🟡 🔹 EPS: $6.30-$6.35 (Est. $6.32) 🟡 Segment Net Revenue: 🔹 …
 
-@StockMKTNewz [Wed Sep 09 23:46:15 +0000 2026]: ZYN IS EXPANDING ITS LINEUP Philip Morris $PM owned Zyn announced today it will begin selling its flagship Zyn dry pouches in 1.5mg and 8mg strengths, adding to existing offerings at 3mg and 6mg It is also launching Zyn Ultra, a pouch with a higher moisture content than the flagship product, at 9mg and 11mg. Philip Morris also said that it will transition to having 20 pouches per can for its 3mg …
+@wallstengine [Thu Sep 10 19:46:31 +0000 2026]: Anthropic researcher Jacob Coxon, who said AI labs are “racing to self-improving superintelligence &amp; gambling with our lives,” drew a sharp response from $NVDA CEO Jensen Huang called the claims outlandish, deeply untrue, arrogant and ignorant of the industry’s safety work https://t.co/M5n4kfCHOb
 
-@StockMKTNewz [Thu Sep 10 11:22:08 +0000 2026]: NVIDIA AND PALANTIR PARTNERSHIP Palantir $PLTR and Nvidia $NVDA just announced a new partnership to "bring sovereign AI to critical supply chains, starting with NVIDIA’s own operations." The two companies built an AI stack combining NVIDIA's open Nemotron models with Palantir's Foundry, AIP, and Ontology, aimed at giving NVIDIA's supply chain teams real-time visibility into constraints and faster …
+@wallstengine [Thu Sep 10 18:24:50 +0000 2026]: $NVDA CEO JENSEN HUANG ON CYBERSECURITY AS THE NEXT MAJOR AI USE CASE: “Coding is an important part of it. A derivative of coding is, of course, bug finding. A derivative of that, which is a very large market, is called cybersecurity.” “If you can code well, you must be able to debug well. Red teaming is finding a bug. Blue teaming is patching a bug.” “The fact of the matter is cybersecurity will …
 
-@KobeissiLetter [Thu Sep 10 03:20:50 +0000 2026]: We now have: 1. President Trump offering $5,000 “dividend” checks to all American adults 2. Oil prices officially back above $100 per barrel 3. Total US debt above a record $40 trillion 4. Inflation above 2% for 60 consecutive months 5. One of the biggest technological revolutions in modern history 6. The Fed facing pressure to cut rates while inflation remains above target This is your advance …
+@KobeissiLetter [Thu Sep 10 18:33:50 +0000 2026]: Enterprise agentic AI is seeing massive growth. The enterprise agentic AI market is now expected to grow from $2.6 billion to $24.5 billion by 2030, increasing more than 9x. These systems can effectively reason and execute with minimal human oversight. By 2028, 30% of enterprise applications are expected to embed autonomous agents, per Gartner forecasts. Adoption is expected to expand across …
 
-@KobeissiLetter [Wed Sep 09 19:00:01 +0000 2026]: BREAKING: President Trump says the US is not looking for a deal with Iran and oil prices will not fall until "right after" midterm elections. "Oil prices are going to be tumbling downward," Trump said. Brent crude oil prices extend gains above $101/barrel on the news.
+@StockMKTNewz [Thu Sep 10 19:42:48 +0000 2026]: SPACEX $SPCX JUST SAID ITS NEXT STARSHIP FLIGHT WILL BE REVENUE GENERATING
 
-@StockMKTNewz [Thu Sep 10 10:59:12 +0000 2026]: Macy's $M stock is up by 5% in pre market trading after reporting earnings 🟢🟢🟢🟢🟢 https://t.co/eriQWyJnII
+@gurgavin [Fri Sep 11 02:40:10 +0000 2026]: 🇺🇸 CPI ESTIMATES FOR TOMORROW MOODY'S 3.2% NOMURA 3.3% KALSHI 3.3% BANK OF AMERICA 3.4% BARCLAYS 3.4% CITADEL 3.4% DEUTSCHE 3.4% GOLDMAN 3.4% JP MORGAN 3.4% MORGAN STANLEY 3.4% TD 3.4% UBS 3.4% VANGUARD 3.4% WELLS FARGO 3.4% MEDIAN 3.4%
 
-@StockMKTNewz [Wed Sep 09 21:02:21 +0000 2026]: The highest end configuration of Apple's $AAPL new foldable iPhone Duo costs $3,199 - Bloomberg https://t.co/Wb153bsrEL
+@StockMKTNewz [Thu Sep 10 20:31:04 +0000 2026]: Oracle $ORCL now has a AI backlog of $664 Billion up from $455.3B in the same quarter last year https://t.co/TxbuH77HCg
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
