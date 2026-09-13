@@ -160,6 +160,32 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 .archive-item .adate{font-size:13px;color:var(--muted)}
 .archive-back{margin-bottom:14px}
 
+/* ── AI notice modal (shown on entering a market) ── */
+.modal-backdrop{
+  position:fixed;inset:0;z-index:1000;background:rgba(18,32,47,.55);
+  display:flex;align-items:center;justify-content:center;padding:18px;
+}
+.modal-backdrop[hidden]{display:none}
+.ai-modal{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 22px 54px rgba(18,32,47,.28);
+  max-width:470px;width:100%;padding:26px 24px 20px;text-align:right;
+}
+.ai-modal .mark{font-size:32px;line-height:1}
+.ai-modal h3{
+  font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:20px;
+  margin:8px 0 10px;color:var(--ink);line-height:1.4;
+}
+.ai-modal p{margin:0 0 10px;color:var(--ink-soft);font-size:15.5px;line-height:1.65}
+.ai-modal p:last-of-type{margin-bottom:0}
+.ai-modal .ok{
+  appearance:none;cursor:pointer;font:inherit;font-weight:700;font-size:15.5px;
+  width:100%;margin-top:18px;border:1px solid var(--desk);background:var(--desk);color:#fff;
+  border-radius:10px;padding:12px 18px;transition:background .15s;
+}
+.ai-modal .ok:hover{background:#0b2f39}
+.ai-modal .ok:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+
 /* ── How-to strip ── */
 .adminlink{display:block;margin:0 0 14px;padding:11px 14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);color:var(--ink-soft);font-size:14px;font-weight:500;text-align:center;text-decoration:none}
 .adminlink:hover{color:var(--desk);border-color:var(--desk)}
@@ -186,7 +212,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 @media print{
-  .tabs,.actions,.status,.updated,.reveal{display:none!important}
+  .tabs,.actions,.status,.updated,.reveal,.modal-backdrop{display:none!important}
   /* The full review is collapsed on screen but must always print in full. */
   #fullReview{display:block!important}
   body{background:#fff;font-size:14.5px}
@@ -243,6 +269,19 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
     <div class="credit">פותח ע"י דורון שרייבמן</div>
   </footer>
 </main>
+
+<!-- AI notice — shown once per visit, when a market is first opened -->
+<div class="modal-backdrop" id="aiNotice" hidden>
+  <div class="ai-modal" role="dialog" aria-modal="true" aria-labelledby="aiNoticeTitle" aria-describedby="aiNoticeBody">
+    <div class="mark" aria-hidden="true">🤖</div>
+    <h3 id="aiNoticeTitle">הסקירות נכתבות בסיוע בינה מלאכותית</h3>
+    <div id="aiNoticeBody">
+      <p>הסקירות באתר נאספות, נכתבות ונערכות באמצעות כלי בינה מלאכותית, ולכן ייתכנו בהן אי דיוקים או טעויות בנתונים, בשמות ובתאריכים.</p>
+      <p>המידע כללי בלבד, אינו מהווה ייעוץ השקעות ואינו תחליף לייעוץ המתחשב בצרכים האישיים. לפני קבלת החלטה מומלץ לאמת את הנתונים במקור רשמי.</p>
+    </div>
+    <button class="ok" id="aiNoticeOk" type="button">הבנתי, כניסה לסקירות</button>
+  </div>
+</div>
 
 <script>
 const DATA_PATH = 'data.json';
@@ -627,7 +666,39 @@ function isEmptyIntraday(review){
   return b.length === 1 && b[0].includes('אין מספיק עדכונים משמעותיים');
 }
 
-document.querySelectorAll('.market-card').forEach(c => c.addEventListener('click', () => selectMarket(c.dataset.market)));
+/* ── AI notice ──
+   Opening a market shows the AI-authorship notice once per visit. Dismissing it
+   (button, Esc or backdrop) always continues into the market that was clicked —
+   it is an informational notice, not a consent gate that can strand the reader. */
+let aiNoticeSeen = false;    // per page load: one notice per visit, not per click
+let aiNoticeMarket = null;   // the market to open once the notice is dismissed
+let aiNoticeReturnTo = null; // element to restore focus to after closing
+
+function closeAiNotice(){
+  const box = document.getElementById('aiNotice');
+  if(box.hidden) return;
+  box.hidden = true;
+  const market = aiNoticeMarket;
+  aiNoticeMarket = null;
+  if(aiNoticeReturnTo && document.body.contains(aiNoticeReturnTo)) aiNoticeReturnTo.focus();
+  aiNoticeReturnTo = null;
+  if(market) selectMarket(market);
+}
+
+function openMarket(market, trigger){
+  if(aiNoticeSeen){ selectMarket(market); return; }
+  aiNoticeSeen = true;
+  aiNoticeMarket = market;
+  aiNoticeReturnTo = trigger || null;
+  document.getElementById('aiNotice').hidden = false;
+  document.getElementById('aiNoticeOk').focus();
+}
+
+document.getElementById('aiNoticeOk').addEventListener('click', closeAiNotice);
+document.getElementById('aiNotice').addEventListener('click', e => { if(e.target.id === 'aiNotice') closeAiNotice(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeAiNotice(); });
+
+document.querySelectorAll('.market-card').forEach(c => c.addEventListener('click', () => openMarket(c.dataset.market, c)));
 document.getElementById('backBtn').addEventListener('click', showMarkets);
 
 (async function load(){
