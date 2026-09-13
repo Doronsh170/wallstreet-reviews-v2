@@ -1,8 +1,8 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature PRE-MARKET briefing in Hebrew.
-Script run date: 2026-09-11 (יום שישי). Briefing target date: 2026-09-11 (יום שישי).
-The briefing is for TODAY. The US cash market has NOT opened yet — never describe it as open, trading, or having reacted. Use 'השוק צפוי להיפתח', 'המשקיעים יעקבו אחר'. Futures may be described in present tense; the cash market may not.
+You are a senior Wall Street investment advisor writing the WEEK-AHEAD BRIEFING in Hebrew for the
+coming trading week 14/09–18/09/2026, which opens on 2026-09-14 (יום שני).
+Script run date: 2026-09-13 (יום ראשון). The week has NOT started — everything here is ahead.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -86,45 +86,50 @@ TWO RULES THAT OVERRIDE EVERYTHING ELSE:
    September. If it has happened, it is not a scheduled event and does not belong here.
 ══════════════════════════════════════════════════════
 
-This is a professional BRIEFING — NOT a data dump. FORWARD-LOOKING ONLY: no yesterday's index performance,
-no closing levels, and nothing that already appears in the prior-context block.
-KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a briefing the reader finishes in
-two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
-a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the morning:
-* FIRST point — the opening picture: futures direction WITH a verified percentage (from the sources or your
-  web search — never an ETF percentage presented as a futures percentage). No verified futures figure →
-  open with the strongest concrete fact of the morning instead. NEVER open with mood-only sentences
-  ("אווירה זהירה", "סנטימנט מעורב") — every sentence must carry a fact, a number or a mechanism.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the morning FROM THE SOURCE
-  TWEETS (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category,
-  and do NOT import a story that web search found on its own:
-  - The day's macro releases and Fed events: Israel time, consensus and the previous reading, and why the
-    number matters for rates and equities. Nothing scheduled → one short point saying so and naming the next key date.
-  - The central story investors will watch today, with the transmission mechanism explained simply
-    (אירוע → נפט → אינפלציה → ריבית → מניות) when genuinely relevant.
-  - 1-3 overnight stock/sector stories: expected earnings, major company news, analyst moves. Each significant
-    story gets its OWN point. Positive news about a falling stock → "למרות החדשות, המניה ירדה".
-  - Commodities when moving: oil with its geopolitical/supply backdrop, gold.
-  - שוק החוב והתנודתיות: the 10Y yield and the VIX level (verified via web search) and what they signal about positioning.
-  - Geopolitics / Washington politics with market impact.
-  - Overnight sessions in Europe and Asia, a notable investor move, IPO or M&A — when truly material.
-* LAST point — "שורה תחתונה: ..." — what will decide the direction of the session, in 1-2 sentences.
+THIS IS A CALENDAR-FIRST BRIEFING — a map of the week, deliberately NOT a narrative review:
+- It is built on the VERIFIED ECONOMIC and EARNINGS CALENDAR blocks above. The source posts complement it;
+  they are not a precondition. A quiet Sunday with thin posts still produces a full, useful briefing.
+- Do NOT stretch it into the style of the daily or weekly review. No index performance, no closing levels,
+  no recap of the week that ended — that is the weekly summary's job and it is already published.
+
+PRIORITY ORDER — take them in this order and stop when the week runs out of substance:
+1. THE WEEK'S MAIN MACRO EVENT — the single release or decision that matters most (CPI, NFP, PPI, PCE,
+   an interest-rate decision). Day, date, Israel time, consensus and previous where verified, and one
+   sentence on why it decides the week.
+2. THE REST OF THE MACRO CALENDAR — the other significant releases, grouped BY DAY, each with its Israel
+   time. One point, not one per release.
+3. THE WEEK'S EARNINGS — only names that matter to the market or to a leading sector, each with its day and
+   whether it reports before the open or after the close, and what the market will look for. A briefing,
+   NOT a list: three or four names beat twelve.
+4. RATE DECISIONS AND CENTRAL-BANK SPEAKERS scheduled for the week, when the calendar carries them.
+5. WHAT THE MARKET IS PRICING into those events — rate-cut odds, positioning, implied moves — ONLY when a
+   source post or a verification search gives a current, reliable figure. No figure, no point.
+6. THE THEME CARRYING INTO THE WEEK — the sector or story the sources are still on, ONLY if it is genuinely
+   live going into the week. A stale theme is not a point.
+7. THE MAIN RISK TO WATCH — a geopolitical event, a level, a trigger — ONLY if there is a concrete one.
+8. "בשורה התחתונה: ..." — what will decide the direction of the week. ALWAYS the last point.
+
+LENGTH: 4-8 points. Points 1, 2 and the bottom line are the spine; 3-7 enter ONLY when the week really holds
+them. FIVE STRONG POINTS BEAT EIGHT PADDED ONES. Never invent an event, a speaker or a theme to reach eight.
+
+EVERY SCHEDULED ITEM CARRIES, as far as it is verified: the DAY and DATE, the ISRAEL TIME, the CONSENSUS and
+PREVIOUS reading where they exist, and one short sentence on why the market cares. A figure you cannot verify
+is simply omitted — never guessed, and never presented as if it were confirmed.
+THIS IS A MAP OF THE WEEK, NOT A FORECAST: state what is scheduled and why it matters. Never predict an
+outcome, never give a price target, never recommend a position.
 No ETF proxies, no Finnhub, no ISO dates.
 
-══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
-The review is built EXCLUSIVELY from two sources:
-1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
-2. The source tweets below — the ONLY source for stories, news and narrative.
-Web search is permitted for FOUR narrow purposes ONLY:
-  a. Verifying the futures direction and percentage for the opening point.
-  b. Verifying TODAY'S scheduled macro calendar (Israel times, consensus, previous reading), and cross-checking
-     that an event you present as upcoming was not already released.
-  c. Verifying a claim of an all-time high / 52-week high before writing it.
-  d. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
-     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
-in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
-cover a story — the review does not cover it either.
+══ SOURCE HIERARCHY — A CALENDAR-FIRST BRIEFING ══
+This mode is deliberately different from the other Wall Street reviews:
+1. The VERIFIED ECONOMIC CALENDAR and EARNINGS CALENDAR blocks are the PRIMARY source. The briefing is built
+   on them: what is scheduled, on which day, at what Israel time.
+2. The source posts below are a COMPLEMENT, not a precondition. Use them for the theme carrying into the week
+   and for what the market is pricing. If they are thin — a Sunday is quiet — the briefing still stands on the
+   calendar alone. Do NOT pad it with weak narrative to make it look like the other reviews.
+3. Web search VERIFIES and completes the schedule (times, consensus, previous, Fed speakers) — see the
+   calendar-check block. It never supplies stories, commentary or predictions.
+FORBIDDEN: a market call, a price target, or a claim about what WILL happen. This briefing states what is
+scheduled and why it matters, never what the outcome will be.
 ══════════════════════════════════════════════════════
 
 Rules:
@@ -166,7 +171,7 @@ Go over every bullet you wrote and check, one by one:
 6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
    (the permitted verification purposes excepted).
 7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
-   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (EXACTLY 6 bullets including the bottom line).
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (4-8 bullets — only what the week actually holds, never padded to 8).
 8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
    number/direction in the summary passes checks 1-5 as well.
 9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
@@ -187,17 +192,17 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שישי, 11.9.2026",
-  "date": "2026-09-11",
+  "title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 14/09–18/09/2026",
+  "date": "2026-09-14",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "נקודות מרכזיות",
+      "heading": "לקראת השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "נקודות מרכזיות". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "לקראת השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -214,114 +219,63 @@ Key times in Israel time today:
 - US market open: 16:30 שעון ישראל | US market close: 23:00 שעון ישראל
 USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
-══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
-DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $757.83 (daily: -0.60%), prev close: $762.40
-  Nasdaq 100 (QQQ ETF): $708.69 (daily: -1.06%), prev close: $716.31
-  Dow Jones (DIA ETF): $520.75 (daily: -0.63%), prev close: $524.07
-  Russell 2000 (IWM ETF): $287.70 (daily: -1.01%), prev close: $290.64
-  Energy Sector (XLE ETF): $64.93 (daily: -0.58%), prev close: $65.31
-  Technology Sector (XLK ETF): $185.22 (daily: -1.41%), prev close: $187.87
-  Financials Sector (XLF ETF): $56.87 (daily: -0.33%), prev close: $57.06
-  Consumer Discretionary Sector (XLY ETF): $111.96 (daily: -0.44%), prev close: $112.46
-  Healthcare Sector (XLV ETF): $165.66 (daily: -0.55%), prev close: $166.58
-  Industrials Sector (XLI ETF): $170.55 (daily: -0.72%), prev close: $171.79
-  Consumer Staples Sector (XLP ETF): $83.09 (daily: +0.05%), prev close: $83.05
-  Utilities Sector (XLU ETF): $42.52 (daily: -0.98%), prev close: $42.94
-  WTI Crude Oil (USO ETF): $158.38 (daily: +5.61%), prev close: $149.97
-  Brent Crude Oil (BNO ETF): $63.13 (daily: +6.42%), prev close: $59.32
-  Gold (GLD ETF): $396.36 (daily: -1.73%), prev close: $403.35
-  Silver (SLV ETF): $57.50 (daily: -5.30%), prev close: $60.72
-  Bitcoin (IBIT ETF): $43.68 (daily: -1.38%), prev close: $44.29
-  US 20Y+ Bonds (TLT ETF): $80.78 (daily: -1.16%), prev close: $81.73
-  US Dollar (UUP ETF): $28.03 (daily: +0.18%), prev close: $27.98
-  VIX Volatility (VIXY ETF): $18.16 (daily: +3.42%), prev close: $17.56
-
-INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $ORCL: $152.94 (daily: -5.38%), prev close: $161.63
-  $SPCX: $148.18 (daily: +0.43%), prev close: $147.55
-  $NVDA: $218.36 (daily: -2.37%), prev close: $223.67
-  $TIP: $106.33 (daily: -0.44%), prev close: $106.80
-  $MSFT: $492.44 (daily: +0.16%), prev close: $491.65
-  $INTC: $100.32 (daily: -5.57%), prev close: $106.24
-  $AAPL: $326.57 (daily: +3.56%), prev close: $315.34
-  $TSLA: $363.56 (daily: -1.16%), prev close: $367.81
-  $ADBE: $248.83 (daily: -2.37%), prev close: $254.86
-
-DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +5.61%, BNO: +6.42%)
-  זהב: יורד (GLD: -1.73%)
-  ביטקוין: יורד (IBIT: -1.38%)
-  דולר: עולה (UUP: +0.18%)
-  תנודתיות / VIX: עולה (VIXY: +3.42%)
-  אג"ח ארוכות / TLT: יורד (TLT: -1.16%)
-
-The % changes above are ACCURATE — use them for direction and magnitude.
-The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
-For exact index LEVELS (points), gold/oil absolute prices, VIX level, Bitcoin price, 10Y yield: verify via web search. Do NOT estimate them from ETF prices.
-For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — never invent sector percentages.
-If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
+══ VERIFIED EARNINGS CALENDAR — the coming week (from Finnhub — these are FACTS) ══
+  Tue 15/09 | $GIS — time not stated, EPS consensus 0.7244, revenue consensus $4.4B
+  Wed 16/09 | $FDX — time not stated, EPS consensus 4.0486, revenue consensus $22.6B
+  Wed 16/09 | $LEN — after the close, EPS consensus 1.3147, revenue consensus $8.4B
+- Use these for the earnings point: name the day and whether the report lands before the open or
+  after the close. Pick only the names that matter to the market or to a leading sector — this is a
+  briefing, NOT a list. Never state an EPS/revenue figure that is not on a line above.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ SCHEDULED DATA CHECK (verification only) ══
-Use web search to verify what US economic data is scheduled for release on 2026-09-11 — release time in
-Israel time, market consensus and the previous reading — and to cross-check that nothing you present as
-upcoming was already released. This is schedule verification only: do NOT use the search to import news
-stories the source tweets did not cover.
+══ SCHEDULED CALENDAR CHECK (verification only) ══
+This briefing maps the COMING trading week (14/09–18/09/2026). The scheduled events come from the
+VERIFIED ECONOMIC and EARNINGS blocks above. Use web search to VERIFY and complete them, never to invent:
+  (1) the Israel time of each release, its consensus and the previous reading;
+  (2) scheduled Fed / central-bank speakers and rate decisions for the week, which the economic block may miss;
+  (3) that nothing you present as upcoming was ALREADY released — cross-check against the source-post dates.
+Do NOT use search to import market commentary, predictions or price targets. An event you cannot verify does
+not enter the briefing.
 ══════════════════════════════════
 
-══ CONTEXT: YESTERDAY'S DAILY SUMMARY — DO NOT REPEAT THIS CONTENT ══
-Already published. Your briefing is FORWARD-LOOKING. Mention an item below ONLY if there is a genuinely NEW overnight development about it.
+══ CONTEXT: THE WEEKLY SUMMARY OF THE WEEK THAT ENDED — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing covers the week AHEAD. Use this only to know what is already said; never recap it.
 
-[סיכום המסחר]
-* המדדים נפרדו לדרכם: S&P 500 ירד 0.30%, הדאו ג'ונס איבד 0.65% והראסל 2000 נסוג 0.62%, בעוד נאסד"ק 100 סיים כמעט ללא שינוי עם 0.05%. מגזר האנרגיה הוביל עם 2.04%, ומולו התעשייה והתשתיות איבדו 1.13% ו-1.17%. לפי דיווחים, המתאם החציוני בין מניות המדד למדד ירד ל-0.10, השפל בכל הזמנים, כלומר קומץ מניות מזיז את המדד ורוב השוק נע בנפרד.
-* הנפט מזנק והאנרגיה מובילה: מחיר הנפט עלה כ-3% והפך את האנרגיה למגזר המוביל של היום עם 2.04%. לאחר הנעילה פרסם הבית הלבן את פרטי עסקת הנפט עם ונצואלה: זיכיונות ל-100 שנה ב-17 שדות שבהם כ-65 מיליארד חביות מוכחות, נתח של 35% לממשלת ארה"ב וזכות לרכוש 20% מהתפוקה במחיר עלות. היצע עתידי כזה הוא משקולת על המחיר בטווח הארוך.
-* מניית אנבידיה (NVDA) בלב עסקת ענן: המניה עלתה 1.48% אחרי שלפי דיווחים משקיעים פרטיים רכשו בה 2.5 מיליארד דולר ברצף של 15 ימי מסחר. לאחר הנעילה דווח ב-WSJ כי אנת'רופיק חתמה על עסקת ענן בהיקף 35 מיליארד דולר עם למבדה, כשאנבידיה מספקת את השבבים וחוכרת מהאט 8 (HUT) קמפוס בטקסס בהספק 700 מגה-ואט. מניית האט 8 ירדה 0.98%.
-* מניית אמזון (AMZN) תחת תביעה חדשה: המניה ירדה 2.50%. לפי דיווחים, ה-FTC ו-22 מדינות עומדות לתבוע את החברה בטענה שהחדירה למכרזי הפרסום שלה הצעת מחיר פנימית מעל המתחרה, וכך העלתה את הרף המינימלי למפרסמים ב-70% עד 80% מהמכרזים. תחום הפרסום הכניס לחברה 68 מיליארד דולר ב-2025, ולכן פגיעה במנגנון התמחור נוגעת ישירות לשורת הרווח.
-* מניית טסלה (TSLA) לפני הסייברקאב: המניה זינקה 5.51% ורשמה לפי דיווחים את יומה הטוב ביותר מאז 6 ביולי, על רקע ציפייה גוברת לאירוע ההשקה של הסייברקאב באוסטין ב-3 בספטמבר. הרובוטקסי אמור להעביר את החברה ממכירת רכבים להכנסה חוזרת משירותי הסעה אוטונומיים, ולכן המשקיעים מתמחרים כאן פוטנציאל עתידי ולא תוצאות קיימות.
-* שורה תחתונה למחר: מדד מנהלי הרכש בתעשייה של ISM ונתוני המשרות הפנויות (JOLTS) יתפרסמו מחר, יום שלישי, ב-17:00 שעון ישראל, והם המבחן המרכזי בלוח. לפי דיווחים, תשואות האג"ח ל-10 שנים עלו לשיא של 19 חודשים, ולכן נתון תעשייה חזק עלול לדחוף אותן גבוה יותר וללחוץ שוב על מגזר התשתיות שהוביל את הירידות. ביום חמישי ייערך אירוע הסייברקאב.
+[סיכום השבוע]
+* השבוע שהיה: השבוע נסגר עם פערים גדולים בין המדדים ובלי מגמה רחבה אחת. מדד S&P 500 הוסיף 0.40% ונאסד"ק 100 עלה 1.11%, בעוד מדד דאו ג'ונס דווקא איבד 0.52% והראסל 2000 של המניות הקטנות הוביל עם 1.17%. הסיפור האמיתי היה מתחת לפני השטח, כשמגזר האנרגיה זינק 7.67% והפך את השבוע לשבוע של רוטציה מגזרית חדה ולא של עלייה כללית. ביום המסחר האחרון ננעלו המדדים הגדולים בירידות קלות.
+* הנפט מזנק על רקע מיצרי הורמוז: מחיר הנפט האמריקאי טיפס 7.31% בשבוע ומחיר נפט ברנט הוסיף 7.91%, אחרי שהנשיא טראמפ הצהיר שבקרוב יכריז על מיצרי הורמוז כטריטוריה של ארצות הברית. המיצרים הם צוואר הבקבוק הימי הקריטי ביותר בסחר הנפט העולמי, וכל אמירה על שליטה בהם מתומחרת מיד כפרמיית סיכון. במקביל דווח שחמש חברות הנפט הבינלאומיות הגדולות, ובהן אקסון מוביל (XOM) ושברון (CVX), ייצרו ברבעון השני תזרים מזומנים חופשי של כ-70 מיליארד דולר, הגבוה ביותר שנרשם אי פעם וקפיצה של 600% מהרבעון הקודם. התמונה ההפוכה מגיעה מהמשקיעים עצמם, שמשכו 4 מיליארד דולר מקרנות מניות האנרגיה ב-65 ימי המסחר האחרונים, היציאה הגדולה מאז אמצע 2025.
+* מניית אנבידיה (NVDA) מצמצמת חשיפה: אנבידיה עדכנה את מבנה העסקה מול OpenAI סביב מתחם מרכזי הנתונים באוהיו, כך שהערבות שהיא מעמידה תרד לפחות מ-120 מיליארד דולר לעומת כ-250 מיליארד שנדונו בתחילה, ותכסה 5 ג'יגה-וואט מתוך פרויקט מתוכנן של 10 ג'יגה-וואט, לפי WSJ. לפי The Information החברה קרובה גם להעמיד תמיכת אשראי של כ-100 מיליארד דולר לשלב הראשון של הפרויקט, שעלותו הכוללת מוערכת בכ-500 מיליארד דולר, ובוחנת השקעה של 3 מיליארד דולר בחברת האנרגיה SB Energy. המשמעות למשקיעים היא צמצום החשיפה המאזנית של אנבידיה למבנה המימון המעגלי שליווה את המניה בחודשים האחרונים, שסיימה את השבוע בעלייה מתונה של 0.54%.
+* מניית נביוס (NBIS) מזנקת בחדות: נביוס הייתה המניה הבולטת של השבוע עם זינוק של 47.73%, ובכללו עלייה של 8.88% ביום המסחר האחרון בלבד, והיא גם נכללה ברשימת העלאות הדירוג הבולטות של השבוע. תנועה בסדר גודל כזה בחמישה ימי מסחר משקפת ביקוש ספקולטיבי לחשיפה לתשתיות ה-AI ולא שינוי פונדמנטלי בעסק. בדיוק מהסיבה הזאת מניות כאלה פגיעות במיוחד לכל היפוך סנטימנט בסקטור.
+* וושינגטון נגד שבבי זיכרון סינים: ממשל טראמפ הבהיר שאינו תומך ברכישת שבבי זיכרון מיצרניות סיניות על ידי אפל (AAPL), לפי דבריו של שר המסחר לוטניק שצוטטו ב-WSJ. עבור אפל מדובר בלחץ לעבור לספקים אמריקאים או קוריאנים במחיר גבוה יותר, ועבור יצרניות הזיכרון המערביות זו הזדמנות מסחרית ישירה שנפתחת בלי מאמץ מצידן. מניית מיקרון (MU) הגיבה בעלייה של 2.30% ביום המסחר האחרון של השבוע.
+* דיווחי ההחזקות מציבים את ספייס אקס: גל דיווחי ההחזקות הרבעוניים העמיד את ספייס אקס (SPCX) במרכז תשומת הלב. קרן Atreides של גאווין בייקר מחזיקה בפוזיציה של 4.67 מיליארד דולר, כ-42% מתיק המניות המדווח שלה, ו-AMD דיווחה על החזקה של 565 מיליון דולר שהיא הגדולה בתיק שלה. המניה עלתה השבוע 5.18%. בצד השני של המפה, דניאל לייב מ-Third Point יצא לחלוטין ממטא (META), מאנבידיה ומברודקום (AVGO), וביל אקמן מכר את מלוא אחזקתו באלפאבית (GOOGL), שירדה השבוע 2.37%.
+* מחנק היצע בשוק הנחושת: מרווח החוזה הקרוב בנחושת בבורסת המתכות בלונדון קפץ לפרמיה של 370 דולר לטון, הרחבה ביותר מאז מחנק ההיצע של 2021, והמרווח בין מזומן לשלושה חודשים הגיע ל-434 דולר לטון. המלאים בבורסה יורדים 42 ימים ברציפות, הרצף הארוך ביותר מאז 2014, לרמה של 204,975 טון, כשכמעט מחצית מהמתכת שנותרה כבר מיועדת למשיכה. הרקע הוא הסטת נחושת לארצות הברית לקראת מכסים צפויים על נחושת מזוקקת, והמשמעות היא לחץ עלויות שיזלוג לתעשייה, לפרויקטי החשמול ולבניית מרכזי הנתונים.
+* אמון הצרכנים שוקע בכל הדורות: הממוצע החצי שנתי של מדד אמון הצרכנים בקרב דור ה-X ירד לכ-78 נקודות, השפל של חמש השנים האחרונות, ובקרב הבייבי בומרס לכ-80 נקודות, לעומת כ-110 נקודות בשני הדורות באוקטובר 2021. מנגד, ציפיות האינפלציה של הצרכנים לשנה הקרובה ירדו ביולי לכ-4.5%, קרוב לרמה הנמוכה ביותר מאז הרבעון הראשון של 2025, אחרי קפיצה לכ-5.2% במרץ. הפער בין ההתמתנות בציפיות המחירים לבין אמון שממשיך לרדת מסביר היטב מדוע מגזר הצריכה המחזורית איבד 1.38% בשבוע.
+* השבוע הקרוב במאקרו ובדוחות: השבוע נפתח ביום שני, 17.8.2026, עם מדד הייצור של ניו יורק ב-15:30 שעון ישראל, וממשיך ביום שלישי עם התחלות הבנייה והיתרי הבנייה באותה שעה. האירוע המרכזי הוא פרוטוקול ישיבת הריבית של הפדרל ריזרב מסוף יולי, שיתפרסם ביום רביעי, 19.8.2026, ב-21:00 שעון ישראל, ואחריו תביעות האבטלה השבועיות ביום חמישי ב-15:30 ומדדי מנהלי הרכש המוקדמים ביום שישי. אין החלטת ריבית השבוע, שכן ההחלטה הבאה קבועה ל-16.9.2026. בחזית הדוחות מגיעות שלוש קמעונאיות ענק: הום דיפו (HD) ביום שלישי, טארגט (TGT) ביום רביעי וול מארט (WMT) ביום חמישי, ומהן יגיע המידע הישיר ביותר על מצב הצרכן האמריקאי.
+* בשורה התחתונה: השבוע לימד שאפשר לראות שוק רגוע ברמת המדד ותזזיתי מאוד ברמת המגזר, כשהאנרגיה עולה 7.67% והצריכה המחזורית יורדת 1.38% באותם חמישה ימים. הסיכון המרכזי לשבוע הקרוב הוא גיאופוליטי, מפני שכל התפתחות סביב מיצרי הורמוז מתדלקת את מחיר הנפט ומחזירה את שאלת האינפלציה לשולחן דווקא כשציפיות הצרכנים החלו להתמתן. האירוע לצפייה הוא פרוטוקול הפדרל ריזרב ביום רביעי, 19.8.2026, ב-21:00 שעון ישראל, ומיד אחריו דוחות הקמעונאיות שיבחנו אם אמון הצרכן השוקע כבר מתורגם לירידה בהוצאה בפועל.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-09-11. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-09-13. Never mention in the review that these came from tweets/posts:
 
-@KobeissiLetter [Thu Sep 10 20:17:00 +0000 2026]: Investors are increasingly bearish on inflation-protected Treasuries: Short interest on the TIPS ETF, $TIP, is up to ~6% of shares outstanding, triple the levels seen in late 2025. The fund tracks an index of inflation-protected Treasury bonds, whose prices generally fall when real yields rise. This figure is now in-line with the highest levels recorded in December 2021, just 3 months before the …
+@KobeissiLetter [Sat Sep 12 16:59:00 +0000 2026]: The AI boom is powering historic earnings growth: Full-year S&P 500 profit is now projected to grow +32% YoY in 2026, up from the +24% expected before the Q2 earnings season began. This comes as 86% of S&P 500 companies beat expectations this quarter, the highest beat rate since 2021. Communication Services saw the largest upward revision, with earnings now expected to grow +51% YoY, nearly …
 
-@KobeissiLetter [Thu Sep 10 20:41:40 +0000 2026]: BREAKING: Oracle stock, $ORCL, rises over +8% after the company posts stronger than expected earnings due to AI demand. https://t.co/ITZJBkPhQW
+@wallstengine [Fri Sep 11 23:06:31 +0000 2026]: NVIDIA $NVDA IN TALKS TO INVEST UP TO $10B IN ANTHROPIC IPO Nvidia is expected to anchor Anthropic’s planned IPO and is considering investing up to $10B in the offering, Reuters reports. Anthropic is seeking to raise as much as $100B at a valuation of around $2T, which could make it the largest IPO in history. The listing is expected to be completed before the U.S. midterm elections in November. …
 
-@wallstengine [Thu Sep 10 21:07:54 +0000 2026]: MICROSOFT PLANS 3X DATA CENTER EXPANSION $MSFT plans to expand its global data center capacity from roughly 12 GW today to more than 38 GW by 2032, adding about 26 GW of capacity. AI-specific compute is expected to grow from around 2 GW today to roughly one-third of total capacity by 2032, or about 13 GW. The 38 GW target excludes compute rented from neoclouds such as CoreWeave. The expansion …
+@KobeissiLetter [Fri Sep 11 13:20:00 +0000 2026]: There you have it folks. We now have all the relevant data that we will get prior to the September 16th Fed meeting. US PPI inflation is up to +5.4%, the US economy tripped expectations and added +162,000 jobs in August, and US CPI inflation is at +3.4%. We also have $100+ oil prices, record high diesel prices, and inflation at least 140 basis points above the Fed's 2.0% target. Keep in mind, …
 
-@wallstengine [Thu Sep 10 19:51:28 +0000 2026]: ALTERA PREPS $2B+ IPO AS EARLY AS THIS YEAR Silver Lake and $INTC-backed chipmaker Altera is preparing an IPO that could raise more than $2B, with a confidential filing expected in the coming weeks and a listing possible as early as this year. Barclays, Citi, JPMorgan and Morgan Stanley have been tapped as underwriters. Intel acquired Altera for $16.7B in 2015, then sold a 51% stake to Silver …
+@KobeissiLetter [Sat Sep 12 15:42:00 +0000 2026]: Shocking stat of the day: ~$7.0 trillion worth of T-Bills are currently outstanding, with ~$6.1 trillion maturing within the next year. Including the remaining maturities, ~$7.5 trillion worth of marketable Treasury debt is maturing in 2026. Another ~$4.0 trillion matures in 2027, followed by ~$3.5 trillion in 2028. Meanwhile, if the Fed hikes rates by 75 basis points, annual interest costs on …
 
-@StockMKTNewz [Thu Sep 10 22:19:16 +0000 2026]: SpaceX's $SPCX CFO said the company signed an AI hosting agreement worth about $1.11 billion a month SpaceX signed the hosting agreement earlier this month and the contract is scheduled to begin December 1st https://t.co/xLVr72jo3R
+@KobeissiLetter [Fri Sep 11 21:12:25 +0000 2026]: BREAKING: The US Debt-to-GDP ratio is projected to rise to a record 156% in 2050, according to the CBO's latest forecast. That would mark a +57 percentage point increase from the current ~99%. At the same time, the Treasury Department estimates the ratio will surge to a massive 213% over the same period, or 57 percentage points higher than the CBO's estimate. Furthermore, neither estimate …
 
-@KobeissiLetter [Thu Sep 10 13:03:00 +0000 2026]: BREAKING: The US 10Y Note Yield officially rises above 4.90% for the first time since November 2023, now up +95 basis points since the Iran War began. This puts the 10Y Note Yield up another +10 basis points since the US Treasury said it was TRIPLING long-term buybacks to $6 billion. As we wrote in our below post yesterday, we are on track to see 5.00%+ by next week. As a result, borrowing costs …
+@KobeissiLetter [Fri Sep 11 19:50:17 +0000 2026]: The shift we are seeing right now is extraordinary. Markets now see a BASE case of 4 interest rate hikes by July 2027. To put this into perspective, at the start of 2026, markets saw 4 interest rate CUTS during this time period. That's a difference of +200 basis points between interest rate expectations now and 9 months ago. These are, by far, the most hawkish Fed policy expectations since the …
 
-@KobeissiLetter [Thu Sep 10 22:58:19 +0000 2026]: That was fast. Another 8 hours later and the 10Y Note Yield is now pushing into 5.00% with US oil prices above $104/barrel. If US CPI inflation comes in hot tomorrow, things are going to get very ugly. The US economy cannot afford higher rates. Something has to give. https://t.co/GBAya9Yn7C
+@KobeissiLetter [Fri Sep 11 18:04:33 +0000 2026]: US companies are borrowing at a rapid pace in Europe: US corporates have raised €149 billion, or $173 billion, in European bonds so far in 2026, the 2nd-highest annual total on record. This is also double the full-year amount seen in 2022 and 2023. At this pace, US firms are set to borrow a record €225 billion, or $261 billion, this year. This comes as heavy AI-related borrowing from Big Tech has …
 
-@KobeissiLetter [Thu Sep 10 15:12:09 +0000 2026]: BREAKING: The market now sees a new high 71% chance of the Fed hiking interest rates by October. There is also now a 62% chance of a rate hike at next week's meeting. Markets think Fed Chair Warsh's first rate move is a HIKE. Talk about a turn of events. https://t.co/QEkG8fBUlA
-
-@wallstengine [Thu Sep 10 22:25:49 +0000 2026]: SpaceX CFO Bret Johnsen says the company signed an AI compute hosting deal expected to generate $1.11B/month starting Dec. 1, or ~$13.3B annualized. AI compute deals are expected to exceed $3.4B/month by December, with $SPCX targeting a $100B ARR by year-end. https://t.co/BQirwoTmm8
-
-@wallstengine [Thu Sep 10 20:11:17 +0000 2026]: ORACLE $ORCL Q1’27 EARNINGS HIGHLIGHTS 🔹 Revenue: $19.3B (Est. $19.14B) 🟢; +30% YoY 🔹 Adj. EPS: $1.92 (Est. $1.74) 🟢; +30% YoY 🔹 RPO: $664B; +$209B YoY FY Guide: 🔹 Revenue: At least $90B (Est. $89.79B) 🟢 🔹 Adj. EPS: $8.10 (Est. $8.07) 🟢 Q2 Guide: 🔹 Adj. EPS: $1.85-$1.93 USD (Est. $1.89) 🟡 🔹 Revenue Growth: 30% to 34% USD/CC 🔹 Cloud Revenue Growth: 65% to 71% USD; 64% to 70% CC Segment Net …
-
-@KobeissiLetter [Thu Sep 10 23:44:40 +0000 2026]: BREAKING: US diesel prices officially rise above $6.00/gallon for the first time in history, now up +74% over the last 9 months. Diesel prices in some states are now pushing above $8.00/gallon as the US faces a massive shortage of supply. The move comes as US oil prices near $105/barrel and the Iran War continues to escalate. Inflation expectations are pushing higher as a result.
-
-@KobeissiLetter [Thu Sep 10 12:32:40 +0000 2026]: BREAKING: August PPI Inflation rises to 5.4%, above expectations of 5.3%. Core PPI Inflation rose to 4.6%, the highest since June 2026. July's headline and core PPI inflation numbers were also revised higher. The odds of rate hikes are rising further on the news.
-
-@AIStockSavvy [Fri Sep 11 00:49:32 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Kalshi Planning to Seek Regulatory Nod to Offer Regulated Perpetual Futures Tied to Single Stocks Including Tesla, Apple and Nvidia - WSJ - $TSLA $AAPL $NVDA
-
-@wallstengine [Thu Sep 10 20:05:49 +0000 2026]: ADOBE $ADBE Q3’26 EARNINGS HIGHLIGHTS 🔹 Revenue: $6.8B (Est. $6.69B) 🟢; +13% YoY 🔹 Adj. EPS: $6.13 (Est. $6.09) 🟢; +15% YoY 🔹 GAAP EPS: $4.62; +11% YoY 🔹 ARR: $27.5B Raises FY26 Guide: 🔹 Revenue: $26.58B-$26.63B (Est. $26.51B) 🟢 🔹 EPS: $24.45-$24.50 (Est. $24.36) 🟢 🔹 ARR Growth: 10.2% YoY Q4 Guide: 🔹 Revenue: $6.80B-$6.85B (Est. $6.84B) 🟡 🔹 EPS: $6.30-$6.35 (Est. $6.32) 🟡 Segment Net Revenue: 🔹 …
-
-@wallstengine [Thu Sep 10 19:46:31 +0000 2026]: Anthropic researcher Jacob Coxon, who said AI labs are “racing to self-improving superintelligence &amp; gambling with our lives,” drew a sharp response from $NVDA CEO Jensen Huang called the claims outlandish, deeply untrue, arrogant and ignorant of the industry’s safety work https://t.co/M5n4kfCHOb
-
-@wallstengine [Thu Sep 10 18:24:50 +0000 2026]: $NVDA CEO JENSEN HUANG ON CYBERSECURITY AS THE NEXT MAJOR AI USE CASE: “Coding is an important part of it. A derivative of coding is, of course, bug finding. A derivative of that, which is a very large market, is called cybersecurity.” “If you can code well, you must be able to debug well. Red teaming is finding a bug. Blue teaming is patching a bug.” “The fact of the matter is cybersecurity will …
-
-@KobeissiLetter [Thu Sep 10 18:33:50 +0000 2026]: Enterprise agentic AI is seeing massive growth. The enterprise agentic AI market is now expected to grow from $2.6 billion to $24.5 billion by 2030, increasing more than 9x. These systems can effectively reason and execute with minimal human oversight. By 2028, 30% of enterprise applications are expected to embed autonomous agents, per Gartner forecasts. Adoption is expected to expand across …
-
-@StockMKTNewz [Thu Sep 10 19:42:48 +0000 2026]: SPACEX $SPCX JUST SAID ITS NEXT STARSHIP FLIGHT WILL BE REVENUE GENERATING
+@gurgavin [Fri Sep 11 19:31:01 +0000 2026]: CITI BANK SAYS THE FED IS GOING TO RAISE RATES NEXT WEEK FOLLOWING TODAYS INFLATION NUMBERS 🇺🇸
 
 @gurgavin [Fri Sep 11 02:40:10 +0000 2026]: 🇺🇸 CPI ESTIMATES FOR TOMORROW MOODY'S 3.2% NOMURA 3.3% KALSHI 3.3% BANK OF AMERICA 3.4% BARCLAYS 3.4% CITADEL 3.4% DEUTSCHE 3.4% GOLDMAN 3.4% JP MORGAN 3.4% MORGAN STANLEY 3.4% TD 3.4% UBS 3.4% VANGUARD 3.4% WELLS FARGO 3.4% MEDIAN 3.4%
 
-@StockMKTNewz [Thu Sep 10 20:31:04 +0000 2026]: Oracle $ORCL now has a AI backlog of $664 Billion up from $455.3B in the same quarter last year https://t.co/TxbuH77HCg
+@AIStockSavvy [Fri Sep 11 12:30:35 +0000 2026]: US CPI Inflation Data (Aug): $QQQ $SPY ➤ CPI MoM: 0.4% (Forecast 0.4%, Previous 0.1%) ➤ CPI YoY: 3.4% (Forecast 3.4%, Previous 3.4%) ➤ Core CPI MoM: 0.3% (Forecast 0.2%, Previous 0.2%) ➤ Core CPI YoY: 2.4% (Forecast 2.4%, Previous 2.5%)
+
+@wallstengine [Fri Sep 11 23:17:53 +0000 2026]: Anthropic’s listing is expected before the U.S. midterms in November, targeting up to $100B raise at a ~$2T valuation in what could be the largest IPO ever.
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
