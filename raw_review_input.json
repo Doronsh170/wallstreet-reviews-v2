@@ -1,32 +1,110 @@
 {
-  "mode": "weekly_prep",
-  "generated_at": "2026-09-13T13:50:16.788835+03:00",
-  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 14/09–18/09/2026",
-  "first_heading": "לקראת השבוע",
-  "review_date": "2026-09-14",
-  "title_date_str": "2026-09-14",
-  "title_day_name": "שני",
-  "week_range": "14/09–18/09/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "mode": "weekly_summary",
+  "generated_at": "2026-09-26T15:09:53.829056+03:00",
+  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 21/09–25/09/2026",
+  "first_heading": "סיכום השבוע",
+  "review_date": "2026-09-25",
+  "title_date_str": "2026-09-26",
+  "title_day_name": "שבת",
+  "week_range": "21/09–25/09/2026",
+  "etf_pcts": {
+    "SPY": 0.5435,
+    "QQQ": 0.4588,
+    "DIA": 0.9382,
+    "IWM": 0.1101,
+    "XLE": -0.8946,
+    "XLK": 0.8012,
+    "XLF": 0.5685,
+    "XLY": 0.2175,
+    "XLV": 0.4886,
+    "XLI": 0.9477,
+    "XLP": 0.4406,
+    "XLU": 0.3811,
+    "USO": -3.1093,
+    "BNO": -3.5414,
+    "GLD": 0.4391,
+    "SLV": 0.9025,
+    "IBIT": -0.502,
+    "TLT": -0.1259,
+    "UUP": -0.244,
+    "VIXY": -1.716
+  },
+  "ticker_quotes": {
+    "META": {
+      "price": 751.66,
+      "pct": -3.3347,
+      "prev_close": 777.59,
+      "ts": 1790366400
+    },
+    "NVDA": {
+      "price": 225.07,
+      "pct": 0.2182,
+      "prev_close": 224.58,
+      "ts": 1790366400
+    },
+    "NKE": {
+      "price": 35.75,
+      "pct": -0.6669,
+      "prev_close": 35.99,
+      "ts": 1790366400
+    },
+    "DKNG": {
+      "price": 22.02,
+      "pct": 3.5261,
+      "prev_close": 21.27,
+      "ts": 1790366400
+    },
+    "QQQ": {
+      "price": 744.5,
+      "pct": 0.4588,
+      "prev_close": 741.1,
+      "ts": 1790366400
+    },
+    "SOXX": {
+      "price": 572.68,
+      "pct": 1.1677,
+      "prev_close": 566.07,
+      "ts": 1790366400
+    },
+    "ARM": {
+      "price": 310.32,
+      "pct": 1.2992,
+      "prev_close": 306.34,
+      "ts": 1790366400
+    },
+    "CBRS": {
+      "price": 206.75,
+      "pct": 0.1647,
+      "prev_close": 206.41,
+      "ts": 1790366400
+    },
+    "MU": {
+      "price": 1082.28,
+      "pct": 0.162,
+      "prev_close": 1080.53,
+      "ts": 1790366400
+    },
+    "SKHY": {
+      "price": 191.56,
+      "pct": 2.7848,
+      "prev_close": 186.37,
+      "ts": 1790366400
+    },
+    "TSLA": {
+      "price": 372.11,
+      "pct": -1.5426,
+      "prev_close": 377.94,
+      "ts": 1790366400
+    },
+    "AAPL": {
+      "price": 341.07,
+      "pct": 1.5331,
+      "prev_close": 335.92,
+      "ts": 1790366400
+    }
+  },
   "scheduled": {
     "macro": [],
-    "earnings": [
-      {
-        "event": "GIS",
-        "date": "2026-09-15",
-        "time_il": ""
-      },
-      {
-        "event": "FDX",
-        "date": "2026-09-16",
-        "time_il": ""
-      },
-      {
-        "event": "LEN",
-        "date": "2026-09-16",
-        "time_il": ""
-      }
-    ]
+    "earnings": []
   }
 }
