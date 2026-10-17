@@ -1,102 +1,14 @@
 {
-  "mode": "weekly_summary",
-  "generated_at": "2026-10-17T11:17:54.539272+03:00",
-  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 12/10–16/10/2026",
+  "mode": "israel_weekly_summary",
+  "generated_at": "2026-10-17T11:21:01.562406+03:00",
+  "expected_title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 12/10–16/10/2026",
   "first_heading": "סיכום השבוע",
   "review_date": "2026-10-16",
   "title_date_str": "2026-10-17",
   "title_day_name": "שבת",
   "week_range": "12/10–16/10/2026",
-  "etf_pcts": {
-    "SPY": -1.1065,
-    "QQQ": -2.5,
-    "DIA": -0.3991,
-    "IWM": -1.6868,
-    "XLE": 2.524,
-    "XLK": -3.0234,
-    "XLF": 0.4523,
-    "XLY": -0.8377,
-    "XLV": -0.2709,
-    "XLI": -0.0774,
-    "XLP": 1.0844,
-    "XLU": 1.3445,
-    "USO": 2.8288,
-    "BNO": 3.5924,
-    "GLD": -0.1829,
-    "SLV": -0.7897,
-    "IBIT": -0.9444,
-    "TLT": 0.1,
-    "UUP": -0.2759,
-    "VIXY": 8.1098
-  },
-  "ticker_quotes": {
-    "TSLA": {
-      "price": 354.72,
-      "pct": -2.13,
-      "prev_close": 362.44,
-      "ts": 1792180800
-    },
-    "NVDA": {
-      "price": 214.13,
-      "pct": -1.4271,
-      "prev_close": 217.23,
-      "ts": 1792180800
-    },
-    "SPCX": {
-      "price": 146.03,
-      "pct": -1.7427,
-      "prev_close": 148.62,
-      "ts": 1792180800
-    },
-    "SMH": {
-      "price": 539.79,
-      "pct": -3.4088,
-      "prev_close": 558.84,
-      "ts": 1792180800
-    },
-    "SOXL": {
-      "price": 93.67,
-      "pct": -12.7434,
-      "prev_close": 107.35,
-      "ts": 1792180800
-    },
-    "SOXX": {
-      "price": 493.39,
-      "pct": -4.1421,
-      "prev_close": 514.71,
-      "ts": 1792180800
-    },
-    "TSM": {
-      "price": 412.61,
-      "pct": -2.283,
-      "prev_close": 422.25,
-      "ts": 1792180800
-    },
-    "JPM": {
-      "price": 339.72,
-      "pct": 1.2488,
-      "prev_close": 335.53,
-      "ts": 1792180800
-    },
-    "IBKR": {
-      "price": 82.69,
-      "pct": -3.8824,
-      "prev_close": 86.03,
-      "ts": 1792180800
-    },
-    "V": {
-      "price": 402.61,
-      "pct": 0.7154,
-      "prev_close": 399.75,
-      "ts": 1792180800
-    },
-    "QQQ": {
-      "price": 709.8,
-      "pct": -2.5,
-      "prev_close": 728.0,
-      "ts": 1792180800
-    }
-  },
+  "etf_pcts": {},
+  "ticker_quotes": {},
   "scheduled": {
     "macro": [],
     "earnings": []
