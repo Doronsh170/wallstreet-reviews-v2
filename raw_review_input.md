@@ -172,14 +172,14 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $TSLA: $354.72 (daily: -2.13%), prev close: $362.44
   $NVDA: $214.13 (daily: -1.43%), prev close: $217.23
   $SPCX: $146.03 (daily: -1.74%), prev close: $148.62
-  $V: $402.61 (daily: +0.72%), prev close: $399.75
-  $MA: $617.42 (daily: +0.18%), prev close: $616.32
   $SMH: $539.79 (daily: -3.41%), prev close: $558.84
   $SOXL: $93.67 (daily: -12.74%), prev close: $107.35
   $SOXX: $493.39 (daily: -4.14%), prev close: $514.71
   $TSM: $412.61 (daily: -2.28%), prev close: $422.25
   $JPM: $339.72 (daily: +1.25%), prev close: $335.53
   $IBKR: $82.69 (daily: -3.88%), prev close: $86.03
+  $V: $402.61 (daily: +0.72%), prev close: $399.75
+  $QQQ: $709.80 (daily: -2.50%), prev close: $728.00
 
 ⚠️ WEEKLY PERFORMANCE DATA UNAVAILABLE this run (the close history is still being built up). Do NOT state ANY weekly percentage and do NOT present a daily change as a weekly change. Tell the week's arc qualitatively (direction and drivers). If you cite a specific percentage, make explicit that it is the last trading day's move, not the weekly change.
 
@@ -268,8 +268,8 @@ Source tweets/posts from X (Twitter) — gathered 2026-10-17. Never mention in t
 
 @StockMKTNewz [Fri Oct 16 19:54:47 +0000 2026]: Draftkings $DKNG stock hit new 52 WEEK LOWS again today 🔴 https://t.co/ifzZEX05dz
 
-@wallstengine [Fri Oct 16 10:36:29 +0000 2026]: TRUIST $TFC Q3’26 EARNINGS HIGHLIGHTS 🔹 Adj. Revenue: $5.3B (Est. $5.36B) 🔴 🔹 Adj. EPS: $1.16 (Est. $1.11) 🟢; +12% YoY 🔹 GAAP EPS: $0.56 🔹 TE Revenue: $3.79B 🔹 Net Interest Income (TE): $3.71B; +0.7% YoY 🔹 Noninterest Income: $84M 🔹 GAAP Net Income to Common: $0.68B Fee Income: 🔹 Investment Banking & Trading: $324M; +0.3% YoY 🔹 Wealth Management: $407M; +8.8% YoY 🔹 Card & Treasury Mgmt Fees: …
+@wallstengine [Fri Oct 16 07:15:49 +0000 2026]: Tesla $TSLA just showed its new Roadster driving up a curved ramp and staying attached while fully inverted. https://t.co/zXpYDMQrvH
 
-@StockMKTNewz [Fri Oct 16 19:23:06 +0000 2026]: All these stocks hit new 52 WEEK HIGHS at some point today Visa $V Mastercard $MA Petrobras $PBR BP $BP Zeta Global $ZETA Petrobras $PBR.A Keurig Dr Pepper $KDP Canadian Natural $CNQ Viatris $VTRS Chevron $CVX Shell $SHEL ConocoPhillips $COP APA $APA Etsy $ETSY Suncor Energy $SU Equinor $EQNR Ovintiv $OVV EOG Resources $EOG Atlassian $TEAM Box $BOX Centene $CNC Sasol $SSL Exelixis $EXEL MetLife …
+@wallstengine [Fri Oct 16 10:36:29 +0000 2026]: TRUIST $TFC Q3’26 EARNINGS HIGHLIGHTS 🔹 Adj. Revenue: $5.3B (Est. $5.36B) 🔴 🔹 Adj. EPS: $1.16 (Est. $1.11) 🟢; +12% YoY 🔹 GAAP EPS: $0.56 🔹 TE Revenue: $3.79B 🔹 Net Interest Income (TE): $3.71B; +0.7% YoY 🔹 Noninterest Income: $84M 🔹 GAAP Net Income to Common: $0.68B Fee Income: 🔹 Investment Banking & Trading: $324M; +0.3% YoY 🔹 Wealth Management: $407M; +8.8% YoY 🔹 Card & Treasury Mgmt Fees: …
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
