@@ -1,14 +1,108 @@
 {
-  "mode": "israel_weekly_summary",
-  "generated_at": "2026-10-17T11:21:01.562406+03:00",
-  "expected_title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 12/10–16/10/2026",
+  "mode": "weekly_summary",
+  "generated_at": "2026-10-24T16:01:26.385836+03:00",
+  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 19/10–23/10/2026",
   "first_heading": "סיכום השבוע",
-  "review_date": "2026-10-16",
-  "title_date_str": "2026-10-17",
+  "review_date": "2026-10-23",
+  "title_date_str": "2026-10-24",
   "title_day_name": "שבת",
-  "week_range": "12/10–16/10/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "week_range": "19/10–23/10/2026",
+  "etf_pcts": {
+    "SPY": -0.5223,
+    "QQQ": -0.0099,
+    "DIA": -1.2351,
+    "IWM": -0.3325,
+    "XLE": 2.6047,
+    "XLK": 0.4881,
+    "XLF": -1.3239,
+    "XLY": -1.6607,
+    "XLV": -1.1142,
+    "XLI": -1.2655,
+    "XLP": -1.9224,
+    "XLU": -0.7231,
+    "USO": 4.3197,
+    "BNO": 3.0184,
+    "GLD": -0.6477,
+    "SLV": -1.2566,
+    "IBIT": -0.2171,
+    "TLT": -0.4894,
+    "UUP": 0.2076,
+    "VIXY": 1.2429
+  },
+  "ticker_quotes": {
+    "SPCX": {
+      "price": 147.49,
+      "pct": 1.8929,
+      "prev_close": 144.75,
+      "ts": 1792785600
+    },
+    "TSLA": {
+      "price": 372.22,
+      "pct": -0.63,
+      "prev_close": 374.58,
+      "ts": 1792785600
+    },
+    "META": {
+      "price": 642.62,
+      "pct": -0.9602,
+      "prev_close": 648.85,
+      "ts": 1792785600
+    },
+    "NFLX": {
+      "price": 65.85,
+      "pct": -1.7897,
+      "prev_close": 67.05,
+      "ts": 1792785600
+    },
+    "AXP": {
+      "price": 313.22,
+      "pct": -3.675,
+      "prev_close": 325.17,
+      "ts": 1792785600
+    },
+    "NVDA": {
+      "price": 210.96,
+      "pct": -0.589,
+      "prev_close": 212.21,
+      "ts": 1792785600
+    },
+    "SMCI": {
+      "price": 32.94,
+      "pct": -2.3132,
+      "prev_close": 33.72,
+      "ts": 1792785600
+    },
+    "CART": {
+      "price": 56.44,
+      "pct": 9.2105,
+      "prev_close": 51.68,
+      "ts": 1792785600
+    },
+    "DASH": {
+      "price": 179.38,
+      "pct": -3.528,
+      "prev_close": 185.94,
+      "ts": 1792785600
+    },
+    "UBER": {
+      "price": 66.7,
+      "pct": -3.4313,
+      "prev_close": 69.07,
+      "ts": 1792785600
+    },
+    "AAON": {
+      "price": 68.85,
+      "pct": -1.106,
+      "prev_close": 69.62,
+      "ts": 1792785600
+    },
+    "APP": {
+      "price": 260.25,
+      "pct": -1.5249,
+      "prev_close": 264.28,
+      "ts": 1792785600
+    }
+  },
   "scheduled": {
     "macro": [],
     "earnings": []
