@@ -50,3 +50,18 @@ def test_invalid_second_market_does_not_publish_first(tmp_path, monkeypatch):
         pr.main()
     assert Path("data.json").read_text(encoding="utf-8") == '{"lastUpdated":"original"}'
     assert not Path("archive").exists()
+
+
+def test_direct_publication_without_separate_audit(tmp_path, monkeypatch):
+    _, snapshot, review = setup()
+    monkeypatch.chdir(tmp_path)
+    from pathlib import Path
+    Path('raw_review_input.json').write_text(json.dumps(snapshot), encoding='utf-8')
+    Path('review_output.json').write_text(json.dumps(review), encoding='utf-8')
+    Path('data.json').write_text('{}', encoding='utf-8')
+    monkeypatch.setattr(pr.sys, 'argv', ['paste_review.py'])
+    result = pr.main()
+    assert result['mode'] == 'wallstreet_weekly_review'
+    published = json.loads(Path('data.json').read_text(encoding='utf-8'))['wallstreetWeeklyReview']
+    assert len(published['sections']) == 2
+    assert '_audit' not in published
