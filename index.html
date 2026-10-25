@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירות וול סטריט | Market Desk</title>
-<meta name="description" content="סקירות וול סטריט בעברית: הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי">
+<meta name="description" content="שתי סקירות משולבות לישראל ולוול סטריט: סיכום שבועי והכנה לשבוע הקרוב">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -237,19 +237,6 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 <main class="wrap">
   <!-- Level 1 — market chooser -->
   <section id="marketScreen">
-    <div class="markets">
-      <button class="market-card" type="button" data-market="us">
-        <span class="flag">🇺🇸</span>
-        <span class="mname">וול סטריט</span>
-        <small>Wall Street</small>
-      </button>
-      <button class="market-card" type="button" data-market="il">
-        <span class="flag">🇮🇱</span>
-        <span class="mname">הבורסה בתל אביב</span>
-        <small>Tel Aviv</small>
-      </button>
-    </div>
-
     <a class="adminlink" href="admin.html">⚙ פרסום סקירה חדשה</a>
   </section>
 
@@ -290,6 +277,8 @@ const DATA_PATH = 'data.json';
    blocked for anyone who receives the shared message. */
 const SITE_URL = 'https://doronsh170.github.io/wallstreet-reviews-v2/';
 const LABELS = {
+ combinedWeeklySummary:{he:"סיכום שבועי", en:"weekly summary", empty:"טרם פורסם סיכום שבועי משולב."},
+ combinedWeeklyPrep:{he:"הכנה לשבוע הקרוב", en:"week ahead", empty:"טרם פורסמה הכנה משולבת לשבוע הקרוב."},
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
@@ -301,12 +290,10 @@ const LABELS = {
   israelWeeklyPrep:{he:'הכנה לשבוע', en:'israel week ahead', empty:'הרץ את Gather Review Input במצב israel_weekly_prep כדי ליצור אותה.'},
   archive:     {he:'ארכיון', en:'archive', empty:'עדיין לא פורסמו סקירות לארכיון.'}
 };
-const MARKETS = {
-  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary','weeklyPrep']},
-  il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary','israelWeeklySummary','israelWeeklyPrep']}
-};
+const MARKETS = {combined:{he:"ישראל וול סטריט", flag:"🇮🇱 🇺🇸", tabs:["combinedWeeklySummary","combinedWeeklyPrep"]}};
 /* Archive entries store the pipeline mode (snake_case) — map it to the site key. */
 const MODE_KEYS = {
+ combined_weekly_summary:"combinedWeeklySummary", combined_weekly_prep:"combinedWeeklyPrep",
   daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_summary:'dailySummary',
   weekly_summary:'weeklySummary', israel_prep:'israelPrep', israel_summary:'israelSummary',
   israel_weekly_summary:'israelWeeklySummary', weekly_prep:'weeklyPrep',
@@ -340,8 +327,7 @@ function fmtDate(ymd){
 }
 
 function bulletsOf(review){
-  const section = (review.sections && review.sections[0]) || {};
-  let content = section.content ?? '';
+  let content = (review.sections || []).map(section => section.content || "").flat().join("\n");
   if(Array.isArray(content)) content = content.join('\n');
   return String(content).split('\n')
     .map(l => stripCtl(l).trim().replace(/^\*\s+/,'').replace(/^[•■\-–—]\s+/,''))
@@ -408,7 +394,7 @@ function renderReview(review, key){
   }
   if(bullets.length){
     html += `<button class="reveal" id="fullReviewBtn" onclick="toggleFullReview(this)" aria-expanded="false" aria-controls="fullReview">הצג את הסקירה המלאה</button>`;
-    html += `<ul class="bullets" id="fullReview" hidden>${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`;
+    html += `<ul class="bullets" id="fullReview" hidden>${(review.sections || []).map(section => `<li><h3>${esc(section.heading)}</h3><ul>${bulletsOf({sections:[section]}).map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul></li>`).join('')}</ul>`;
   }else{
     html += `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
   }
@@ -459,7 +445,7 @@ function monthLabel(m){
 function entriesForMarket(entries){
   return (entries || []).filter(e => {
     const key = MODE_KEYS[e.mode];
-    return key && e.review && MARKETS[activeMarket].tabs.includes(key);
+    return key && e.review;
   });
 }
 
@@ -699,7 +685,7 @@ document.getElementById('aiNotice').addEventListener('click', e => { if(e.target
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeAiNotice(); });
 
 document.querySelectorAll('.market-card').forEach(c => c.addEventListener('click', () => openMarket(c.dataset.market, c)));
-document.getElementById('backBtn').addEventListener('click', showMarkets);
+document.getElementById('backBtn').hidden = true;
 
 (async function load(){
   try{
@@ -711,7 +697,7 @@ document.getElementById('backBtn').addEventListener('click', showMarkets);
     document.getElementById('updatedLine').textContent = 'שגיאה בטעינת data.json — ' + (e.message || e);
   }
   // The landing view is always the market chooser (level 1).
-  showMarkets();
+  openMarket("combined");
 })();
 </script>
 </body>

@@ -135,14 +135,9 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
   <!-- 1 · choose -->
   <section class="card" id="chooseCard">
     <h2><span class="n">1</span> בחירת סקירה</h2>
-    <div class="row two" id="marketRow">
-      <button class="opt" type="button" data-market="us" aria-pressed="true"><span class="flag">🇺🇸</span>וול סטריט</button>
-      <button class="opt" type="button" data-market="il" aria-pressed="false"><span class="flag">🇮🇱</span>ישראל</button>
-    </div>
-    <div class="row three" id="kindRow">
-      <button class="opt" type="button" data-kind="prep" aria-pressed="true">בוקר</button>
-      <button class="opt" type="button" data-kind="intraday" aria-pressed="false">תוך יומי</button>
-      <button class="opt" type="button" data-kind="close" aria-pressed="false">סגירה</button>
+    <p>כל סקירה כוללת את ישראל ואת וול סטריט.</p>
+    <div id="marketRow" hidden></div>
+    <div class="row two" id="kindRow">
       <button class="opt" type="button" data-kind="weeklySummary" aria-pressed="false">סיכום שבוע</button>
       <button class="opt" type="button" data-kind="weeklyPrep" aria-pressed="false">הכנה לשבוע</button>
     </div>
@@ -189,20 +184,13 @@ const CFG = {
   get ok(){ return Boolean(this.url && this.pass); }
 };
 
-// The four buttons map onto the pipeline's mode names. Tel Aviv has no intraday
-// review, so that button is disabled rather than silently doing something else.
-const MODES = {
-  us: { prep:'daily_prep',  intraday:'intraday_update', close:'daily_summary',
-        weeklySummary:'weekly_summary',        weeklyPrep:'weekly_prep' },
-  il: { prep:'israel_prep', intraday:null,              close:'israel_summary',
-        weeklySummary:'israel_weekly_summary', weeklyPrep:'israel_weekly_prep' }
-};
-const LABEL = {prep:'בוקר', intraday:'תוך יומי', close:'סגירה',
-               weeklySummary:'סיכום שבוע', weeklyPrep:'הכנה לשבוע'};
+// Both weekly choices gather and publish Israel and Wall Street together.
+const MODES = {combined:{weeklySummary:"combined_weekly_summary", weeklyPrep:"combined_weekly_prep"}};
+const LABEL = {weeklySummary:"סיכום שבועי", weeklyPrep:"הכנה לשבוע הקרוב"};
 
-let market = localStorage.getItem('md.market') || 'us';
-let kind   = localStorage.getItem('md.kind')   || 'prep';
-if(!(kind in LABEL)) kind = 'prep';   // an old stored "weekly" predates the split
+let market = 'combined';
+let kind   = localStorage.getItem('md.kind')   || 'weeklySummary';
+if(!(kind in LABEL)) kind = 'weeklySummary';   // migrate retired daily choices
 let material = '';       // the gathered prompt, held in memory for the copy button
 let publishAfter = null; // run id that was newest before we committed
 
@@ -280,7 +268,7 @@ function paintChoices(){
 $('marketRow').addEventListener('click', e => {
   const b = e.target.closest('[data-market]'); if(!b) return;
   market = b.dataset.market;
-  if(!MODES[market][kind]) kind = 'prep';   // Israel has no intraday — fall back
+  if(!MODES[market][kind]) kind = 'weeklySummary';   // Israel has no intraday — fall back
   localStorage.setItem('md.market', market);
   localStorage.setItem('md.kind', kind);
   paintChoices();
@@ -315,7 +303,7 @@ $('gatherBtn').addEventListener('click', async () => {
     bar.firstElementChild.style.width = '100%';
     setStatus(box, msg, 'ok', 'החומר מוכן ✓');
     $('readyBox').innerHTML = `<b>${escapeHtml(data.title || 'החומר מוכן')}</b>
-      <span>${LABEL[kind]} · ${market === 'us' ? 'וול סטריט' : 'תל אביב'}</span>`;
+      <span>${LABEL[kind]} · ישראל וול סטריט</span>`;
     resetPasteBox();   // fresh material — whatever was in step 3 belongs to a past cycle
     $('chatCard').removeAttribute('data-off');
     $('publishCard').removeAttribute('data-off');
