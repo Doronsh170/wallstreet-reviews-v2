@@ -127,6 +127,8 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
     <input type="text" id="wurl" placeholder="https://market-desk-admin.sh6doron.workers.dev" autocomplete="off">
     <label for="wpass">סיסמה</label>
     <input type="password" id="wpass" placeholder="הסיסמה שהגדרת" autocomplete="current-password">
+    <button class="linkbtn" id="togglePassword" type="button" aria-controls="wpass" aria-pressed="false">הצג סיסמה</button>
+    <button class="go" id="cancelSetup" type="button" hidden>חזרה להפקת סקירה</button>
     <button class="go" id="saveSetup" type="button">שמור והתחל</button>
     <div class="status" id="setupStatus"><span id="setupMsg"></span></div>
     <p class="note">נשמר במכשיר הזה בלבד. אין כאן טוקן של GitHub.</p>
@@ -176,7 +178,7 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
     <p class="note">הפרסום ייעצר אם חסר דוח ביקורת, נשארה בעיה פתוחה, הנוסח אינו תואם לדוח או שחומר הגלם ישן מ־24 שעות.</p>
   </section>
 
-  <div class="foot"><button class="linkbtn" id="resetSetup" type="button">החלפת חיבור</button></div>
+  <div class="foot"><button class="linkbtn" id="resetSetup" type="button">פרטי חיבור וסיסמה שמורה</button></div>
 </div>
 
 <script>
@@ -540,6 +542,10 @@ function escapeHtml(s){
 
 function showSetup(show){
   $('setupCard').hidden = !show;
+  $('cancelSetup').hidden = !CFG.ok;
+  $('wpass').type = 'password';
+  $('togglePassword').textContent = 'הצג סיסמה';
+  $('togglePassword').setAttribute('aria-pressed','false');
   ['chooseCard','chatCard','auditCard','publishCard'].forEach(id => { $(id).hidden = show; });
 }
 
@@ -560,15 +566,12 @@ $('saveSetup').addEventListener('click', async () => {
 
   btn.disabled = true;
   setStatus(box, msg, 'work', 'בודק חיבור<span class="spin"></span>');
-  CFG.set(url, pass);
-
   let r;
   try {
-    r = await fetch(CFG.url + '/auth-check', {headers: {'Authorization': 'Bearer ' + CFG.pass}});
+    r = await fetch(url.replace(/\/+$/,'') + '/auth-check', {headers: {'Authorization': 'Bearer ' + pass}});
   } catch (e) {
     // fetch only throws for network-level failures: DNS, TLS, a blocked CORS
     // preflight. An HTTP error status does NOT land here.
-    CFG.clear();
     setStatus(box, msg, 'bad',
       'לא הצלחתי להגיע לשרת. בדוק את הכתובת ושהיא נגישה.<span class="detail">'
       + escapeHtml(String(e && e.message || e)) + '</span>');
@@ -577,16 +580,14 @@ $('saveSetup').addEventListener('click', async () => {
   }
 
   if(r.status === 401){
-    CFG.clear();
     setStatus(box, msg, 'bad', 'השרת ענה, אבל הסיסמה נדחתה. ודא שהיא זהה ל-ADMIN_PASSWORD שהוגדר ב-Worker.');
   } else if(r.status === 404){
-    CFG.clear();
     setStatus(box, msg, 'bad',
       'השרת ענה והסיסמה התקבלה, אבל אין בו נקודת /auth-check — הגרסה שפרוסה ישנה. הרץ שוב npx wrangler deploy.');
   } else if(!r.ok){
-    CFG.clear();
     setStatus(box, msg, 'bad', 'השרת החזיר שגיאה ' + r.status + '.');
   } else {
+    CFG.set(url, pass);
     clearStatus(box);
     showSetup(false);
   }
@@ -594,10 +595,18 @@ $('saveSetup').addEventListener('click', async () => {
 });
 
 $('resetSetup').addEventListener('click', () => {
-  CFG.clear();
-  $('wurl').value = ''; $('wpass').value = '';
+  $('wurl').value = CFG.url; $('wpass').value = CFG.pass;
+  clearStatus($('setupStatus'));
   showSetup(true);
 });
+
+$('togglePassword').addEventListener('click', () => {
+  const visible = $('wpass').type === 'password';
+  $('wpass').type = visible ? 'text' : 'password';
+  $('togglePassword').textContent = visible ? 'הסתר סיסמה' : 'הצג סיסמה';
+  $('togglePassword').setAttribute('aria-pressed', String(visible));
+});
+$('cancelSetup').addEventListener('click', () => showSetup(false));
 
 paintChoices();
 showSetup(!CFG.ok);
