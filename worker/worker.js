@@ -27,7 +27,11 @@ const GH = "https://api.github.com";
 const GATHER_WORKFLOW = "gather_review.yml";
 const PUBLISH_WORKFLOW = "publish_review.yml";
 
-const VALID_MODES = ["weekly_summary", "israel_weekly_summary"];
+const VALID_MODES = [
+  "daily_prep", "daily_summary", "weekly_summary", "weekly_prep",
+  "intraday_update", "israel_prep", "israel_summary",
+  "israel_weekly_summary", "israel_weekly_prep",
+];
 
 export default {
   async fetch(request, env) {
