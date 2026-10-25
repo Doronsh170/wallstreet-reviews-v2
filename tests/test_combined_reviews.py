@@ -9,24 +9,23 @@ def child(mode):
     return {"mode": mode, "expected_title": "כותרת", "first_heading": "נקודות מרכזיות", "review_date": "2026-10-25", "week_range": "26–30.10.2026", "generated_at": "2026-10-25T10:00:00+02:00"}
 
 
-def setup(mode="combined_weekly_prep"):
-    suffix = "prep" if mode.endswith("prep") else "summary"
-    children = [child("israel_weekly_" + suffix), child("weekly_" + suffix)]
-    prompt, snapshot = combine(mode, ["Israel material", "US material"], children)
-    n = 4 if suffix == "prep" else 8
+def setup(mode="wallstreet_weekly_review"):
+    prefix = "israel_" if mode == "israel_weekly_review" else ""
+    children = [child(prefix + "weekly_summary"), child(prefix + "weekly_prep")]
+    prompt, snapshot = combine(mode, ["Summary material", "Preparation material"], children)
     review = {"title": "model title", "sections": [
         {"heading": heading, "summary": [heading + ": תקציר"], "content": "\n".join(f"* נושא מספר {i}: הסבר ממוקד על השוק והמשמעות למשקיעים." for i in range(n))}
-        for heading in ("ישראל", "וול סטריט")]}
+        for heading, n in (("סיכום שבועי", 8), ("הכנה לשבוע הקרוב", 4))]}
     return prompt, snapshot, review
 
 
-@pytest.mark.parametrize("mode", ["combined_weekly_prep", "combined_weekly_summary"])
+@pytest.mark.parametrize("mode", ["wallstreet_weekly_review", "israel_weekly_review"])
 def test_combined_retains_both_markets_and_validates_each(mode):
     prompt, snapshot, review = setup(mode)
     result = pr.validate_review(review, snapshot)
-    assert "Israel material" in prompt and "US material" in prompt
+    assert "Summary material" in prompt and "Preparation material" in prompt
     assert result["title"] == snapshot["expected_title"]
-    assert [s["heading"] for s in result["sections"]] == ["ישראל", "וול סטריט"]
+    assert [s["heading"] for s in result["sections"]] == ["סיכום שבועי", "הכנה לשבוע הקרוב"]
     assert len(result["summary"]) == 2
     assert result["date"] == "2026-10-25"
 

@@ -135,11 +135,11 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
   <!-- 1 · choose -->
   <section class="card" id="chooseCard">
     <h2><span class="n">1</span> בחירת סקירה</h2>
-    <p>כל סקירה כוללת את ישראל ואת וול סטריט.</p>
+    <p>בחר שוק. כל סקירה כוללת סיכום שבועי והכנה לשבוע הקרוב.</p>
     <div id="marketRow" hidden></div>
     <div class="row two" id="kindRow">
-      <button class="opt" type="button" data-kind="weeklySummary" aria-pressed="false">סיכום שבוע</button>
-      <button class="opt" type="button" data-kind="weeklyPrep" aria-pressed="false">הכנה לשבוע</button>
+      <button class="opt" type="button" data-kind="weeklySummary" aria-pressed="false">וול סטריט</button>
+      <button class="opt" type="button" data-kind="weeklyPrep" aria-pressed="false">ישראל</button>
     </div>
     <button class="go" id="gatherBtn" type="button">אסוף חומר גלם</button>
     <div class="status" id="gatherStatus"><span id="gatherMsg"></span><div class="bar" id="gatherBar" hidden><i></i></div></div>
@@ -185,8 +185,8 @@ const CFG = {
 };
 
 // Both weekly choices gather and publish Israel and Wall Street together.
-const MODES = {combined:{weeklySummary:"weekly_summary", weeklyPrep:"weekly_prep"}};
-const LABEL = {weeklySummary:"סיכום שבועי", weeklyPrep:"הכנה לשבוע הקרוב"};
+const MODES = {combined:{weeklySummary:"weekly_summary", weeklyPrep:"israel_weekly_summary"}};
+const LABEL = {weeklySummary:"וול סטריט", weeklyPrep:"ישראל"};
 
 let market = 'combined';
 let kind   = localStorage.getItem('md.kind')   || 'weeklySummary';
@@ -303,7 +303,7 @@ $('gatherBtn').addEventListener('click', async () => {
     bar.firstElementChild.style.width = '100%';
     setStatus(box, msg, 'ok', 'החומר מוכן ✓');
     $('readyBox').innerHTML = `<b>${escapeHtml(data.title || 'החומר מוכן')}</b>
-      <span>${LABEL[kind]} · ישראל וול סטריט</span>`;
+      <span>${LABEL[kind]} · סיכום שבועי והכנה לשבוע הקרוב</span>`;
     resetPasteBox();   // fresh material — whatever was in step 3 belongs to a past cycle
     $('chatCard').removeAttribute('data-off');
     $('publishCard').removeAttribute('data-off');
