@@ -212,7 +212,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 @media print{
-  .tabs,.actions,.status,.updated,.reveal,.modal-backdrop{display:none!important}
+  .tabs,.actions,.status,.updated,.reveal,.modal-backdrop,.adminlink{display:none!important}
   /* The full review is collapsed on screen but must always print in full. */
   #fullReview{display:block!important}
   body{background:#fff;font-size:14.5px}
@@ -235,10 +235,10 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 </header>
 
 <main class="wrap">
-  <!-- Level 1 — market chooser -->
-  <section id="marketScreen">
-    <a class="adminlink" href="admin.html">⚙ פרסום סקירה חדשה</a>
-  </section>
+  <a class="adminlink" id="createReviewBtn" href="admin.html">✍ יצירת סקירה חדשה</a>
+
+  <!-- Reserved market chooser; publishing navigation stays outside hidden views. -->
+  <section id="marketScreen" hidden></section>
 
   <!-- Level 2 — review types for the chosen market -->
   <section id="reviewScreen" hidden>

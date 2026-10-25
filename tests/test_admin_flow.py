@@ -546,3 +546,21 @@ def test_success_shows_the_published_title(servers):
         drive(servers, body)
     finally:
         MockWorker.verdict = {}
+
+
+def test_saved_password_can_be_viewed_without_clearing_connection(servers):
+    def body(page):
+        page.click('#resetSetup')
+        assert page.input_value('#wpass') == PASSWORD
+        assert page.get_attribute('#wpass', 'type') == 'password'
+        page.click('#togglePassword')
+        assert page.get_attribute('#wpass', 'type') == 'text'
+        page.click('#cancelSetup')
+        assert page.is_visible('#gatherBtn')
+        assert page.evaluate("localStorage.getItem('md.pass')") == PASSWORD
+        page.click('#resetSetup')
+        page.fill('#wpass', 'incorrect-replacement')
+        page.click('#saveSetup')
+        page.wait_for_selector('#setupStatus.bad')
+        assert page.evaluate("localStorage.getItem('md.pass')") == PASSWORD
+    drive(servers, body)
