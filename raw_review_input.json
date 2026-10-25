@@ -1,16 +1,227 @@
 {
-  "mode": "israel_weekly_summary",
-  "generated_at": "2026-10-24T16:10:48.337590+03:00",
-  "expected_title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 19/10–23/10/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-10-23",
-  "title_date_str": "2026-10-24",
-  "title_day_name": "שבת",
-  "week_range": "19/10–23/10/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {},
-  "scheduled": {
-    "macro": [],
-    "earnings": []
-  }
+  "mode": "wallstreet_weekly_review",
+  "expected_title": "סקירה שבועית | וול סטריט | סיכום 19/10–23/10/2026 | הכנה 26/10–30/10/2026",
+  "first_heading": "סיכום שבועי",
+  "review_date": "2026-10-26",
+  "generated_at": "2026-10-25T10:01:58.879524+02:00",
+  "parts": [
+    {
+      "mode": "weekly_summary",
+      "generated_at": "2026-10-25T10:01:49.881649+02:00",
+      "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 19/10–23/10/2026",
+      "first_heading": "סיכום השבוע",
+      "review_date": "2026-10-23",
+      "title_date_str": "2026-10-25",
+      "title_day_name": "ראשון",
+      "week_range": "19/10–23/10/2026",
+      "etf_pcts": {
+        "SPY": -0.5223,
+        "QQQ": -0.0099,
+        "DIA": -1.2351,
+        "IWM": -0.3325,
+        "XLE": 2.6047,
+        "XLK": 0.4881,
+        "XLF": -1.3239,
+        "XLY": -1.6607,
+        "XLV": -1.1142,
+        "XLI": -1.2655,
+        "XLP": -1.9224,
+        "XLU": -0.7231,
+        "USO": 4.3197,
+        "BNO": 3.0184,
+        "GLD": -0.6477,
+        "SLV": -1.2566,
+        "IBIT": -0.2171,
+        "TLT": -0.4894,
+        "UUP": 0.2076,
+        "VIXY": 1.2429
+      },
+      "ticker_quotes": {
+        "SPCX": {
+          "price": 147.49,
+          "pct": 1.8929,
+          "prev_close": 144.75,
+          "ts": 1792785600
+        },
+        "TSLA": {
+          "price": 372.22,
+          "pct": -0.63,
+          "prev_close": 374.58,
+          "ts": 1792785600
+        },
+        "META": {
+          "price": 642.62,
+          "pct": -0.9602,
+          "prev_close": 648.85,
+          "ts": 1792785600
+        },
+        "NVDA": {
+          "price": 210.96,
+          "pct": -0.589,
+          "prev_close": 212.21,
+          "ts": 1792785600
+        },
+        "NFLX": {
+          "price": 65.85,
+          "pct": -1.7897,
+          "prev_close": 67.05,
+          "ts": 1792785600
+        },
+        "AXP": {
+          "price": 313.22,
+          "pct": -3.675,
+          "prev_close": 325.17,
+          "ts": 1792785600
+        },
+        "SMCI": {
+          "price": 32.94,
+          "pct": -2.3132,
+          "prev_close": 33.72,
+          "ts": 1792785600
+        },
+        "CART": {
+          "price": 56.44,
+          "pct": 9.2105,
+          "prev_close": 51.68,
+          "ts": 1792785600
+        },
+        "DASH": {
+          "price": 179.38,
+          "pct": -3.528,
+          "prev_close": 185.94,
+          "ts": 1792785600
+        },
+        "UBER": {
+          "price": 66.7,
+          "pct": -3.4313,
+          "prev_close": 69.07,
+          "ts": 1792785600
+        },
+        "SLB": {
+          "price": 53.06,
+          "pct": 7.0838,
+          "prev_close": 49.55,
+          "ts": 1792785600
+        },
+        "BE": {
+          "price": 193.3,
+          "pct": -11.2366,
+          "prev_close": 217.77,
+          "ts": 1792785600
+        }
+      },
+      "scheduled": {
+        "macro": [],
+        "earnings": []
+      }
+    },
+    {
+      "mode": "weekly_prep",
+      "generated_at": "2026-10-25T10:01:58.879524+02:00",
+      "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 26/10–30/10/2026",
+      "first_heading": "לקראת השבוע",
+      "review_date": "2026-10-26",
+      "title_date_str": "2026-10-26",
+      "title_day_name": "שני",
+      "week_range": "26/10–30/10/2026",
+      "etf_pcts": {},
+      "ticker_quotes": {},
+      "scheduled": {
+        "macro": [],
+        "earnings": [
+          {
+            "event": "VZ",
+            "date": "2026-10-26",
+            "time_il": ""
+          },
+          {
+            "event": "CNC",
+            "date": "2026-10-27",
+            "time_il": ""
+          },
+          {
+            "event": "BA",
+            "date": "2026-10-27",
+            "time_il": ""
+          },
+          {
+            "event": "UPS",
+            "date": "2026-10-27",
+            "time_il": ""
+          },
+          {
+            "event": "GOOGL",
+            "date": "2026-10-28",
+            "time_il": ""
+          },
+          {
+            "event": "MSFT",
+            "date": "2026-10-28",
+            "time_il": ""
+          },
+          {
+            "event": "F",
+            "date": "2026-10-28",
+            "time_il": ""
+          },
+          {
+            "event": "PSX",
+            "date": "2026-10-28",
+            "time_il": ""
+          },
+          {
+            "event": "TMUS",
+            "date": "2026-10-28",
+            "time_il": ""
+          },
+          {
+            "event": "FDX",
+            "date": "2026-10-28",
+            "time_il": ""
+          },
+          {
+            "event": "AMZN",
+            "date": "2026-10-29",
+            "time_il": ""
+          },
+          {
+            "event": "LLY",
+            "date": "2026-10-29",
+            "time_il": ""
+          },
+          {
+            "event": "CAT",
+            "date": "2026-10-29",
+            "time_il": ""
+          },
+          {
+            "event": "XOM",
+            "date": "2026-10-30",
+            "time_il": ""
+          },
+          {
+            "event": "CVX",
+            "date": "2026-10-30",
+            "time_il": ""
+          },
+          {
+            "event": "AAPL",
+            "date": "2026-11-02",
+            "time_il": ""
+          },
+          {
+            "event": "BRK.A",
+            "date": "2026-11-02",
+            "time_il": ""
+          },
+          {
+            "event": "TBBB",
+            "date": "2026-11-02",
+            "time_il": ""
+          }
+        ]
+      }
+    }
+  ],
+  "audit_id": "5ff41cb947bb04fd2f5bc922"
 }
