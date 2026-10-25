@@ -106,7 +106,7 @@ class MockWorker(BaseHTTPRequestHandler):
             return self._send(200, dict(cls.verdict,
                                         finishedAt=f"2026-09-07T09:0{cls.publishes}:00+03:00"))
         if self.path == "/raw":
-            return self._send(200, {"content": RAW_MATERIAL, "mode": "combined_weekly_summary",
+            return self._send(200, {"content": RAW_MATERIAL, "mode": "weekly_summary",
                                     "title": TITLE, "generatedAt": "2026-09-07T06:00:00+03:00"})
         return self._send(404, {"error": "not found"})
 
@@ -244,7 +244,7 @@ def test_combined_defaults_and_legacy_choice_migration(servers):
 
 def test_combined_modes_dispatch(servers):
     def body(page):
-        for kind, mode in [("weeklySummary", "combined_weekly_summary"), ("weeklyPrep", "combined_weekly_prep")]:
+        for kind, mode in [("weeklySummary", "weekly_summary"), ("weeklyPrep", "weekly_prep")]:
             page.click(f'[data-kind="{kind}"]')
             page.click("#gatherBtn")
             page.wait_for_selector("#gatherStatus.ok", timeout=40000)
@@ -271,7 +271,7 @@ def test_full_flow_gather_copy_publish(servers):
         page.click("#gatherBtn")
         page.wait_for_selector("#gatherStatus.ok", timeout=40000)
 
-        assert MockWorker.calls[0] == ("/gather", {"mode": "combined_weekly_summary"})
+        assert MockWorker.calls[0] == ("/gather", {"mode": "weekly_summary"})
         assert TITLE in page.inner_text("#readyBox")
         assert page.get_attribute("#chatCard", "data-off") is None
         assert page.get_attribute("#publishCard", "data-off") is None
@@ -458,7 +458,7 @@ GUARD_REASON = ("סתירת כיוון: הסקירה כותבת שמניית NVD
 def test_guard_rejection_shows_its_hebrew_reason(servers):
     """A rejected review must explain itself on screen, not in an Actions log."""
     MockWorker.publish_fails = True
-    MockWorker.verdict = {"ok": False, "mode": "combined_weekly_summary", "error": GUARD_REASON}
+    MockWorker.verdict = {"ok": False, "mode": "weekly_summary", "error": GUARD_REASON}
 
     def body(page):
         page.click("#gatherBtn")
@@ -483,7 +483,7 @@ def test_publishing_the_same_json_twice_still_reaches_a_verdict(servers):
     the run instead of writing an empty commit, so the second press ends in a verdict
     exactly like the first — it must not sit on the spinner."""
     MockWorker.publish_fails = False
-    MockWorker.verdict = {"ok": True, "mode": "combined_weekly_summary", "title": TITLE, "bullets": 6}
+    MockWorker.verdict = {"ok": True, "mode": "weekly_summary", "title": TITLE, "bullets": 6}
 
     def body(page):
         page.click("#gatherBtn")
@@ -529,7 +529,7 @@ def test_a_publish_whose_run_never_starts_stops_instead_of_hanging(servers):
 
 def test_success_shows_the_published_title(servers):
     MockWorker.publish_fails = False
-    MockWorker.verdict = {"ok": True, "mode": "combined_weekly_summary", "title": TITLE, "bullets": 6}
+    MockWorker.verdict = {"ok": True, "mode": "weekly_summary", "title": TITLE, "bullets": 6}
 
     def body(page):
         page.click("#gatherBtn")
