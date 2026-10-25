@@ -28,6 +28,7 @@ def combine(mode, materials, snapshots):
 
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "combined_weekly_summary"
+    mode = {"weekly_summary": "combined_weekly_summary", "weekly_prep": "combined_weekly_prep"}.get(mode, mode)
     if mode not in MODES:
         raise SystemExit("Choose combined_weekly_summary or combined_weekly_prep")
     # Child gathers write to a private directory. Publish the combined files only
