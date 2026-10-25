@@ -382,7 +382,7 @@ function renderReview(review, key){
   const heading = stripCtl((review.sections && review.sections[0] && review.sections[0].heading) || LABELS[key].he);
   let html = `<div class="review-head">
       <h2>${esc(stripCtl(review.title || heading))}</h2>
-      <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}</div>
+      <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}${review.asOf ? ' · חומר הגלם עודכן: ' + esc(fmtDateTime(review.asOf)) : ''}</div>
     </div>`;
   const summaries = summariesOf(review);
   // The summary opens the review. The full points sit below it, collapsed behind
