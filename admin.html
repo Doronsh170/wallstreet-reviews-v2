@@ -155,27 +155,17 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
       <button class="go" id="copyBtn" type="button">העתק חומר</button>
       <button class="go ghost" id="openBtn" type="button">פתח את Claude</button>
     </div>
-    <p class="note">מדביקים בצ׳אט לכתיבה, ומחזירים את הטיוטה לשלב הביקורת. עדיין לא מפרסמים.</p>
-  </section>
-
-  <section class="card" id="auditCard" data-off>
-    <h2><span class="n">3</span> בדיקה עובדתית והגהה</h2>
-    <p class="note">הדבק את טיוטת ה-JSON. העתק את חבילת הביקורת לצ׳אט חדש עם חיפוש פעיל. הבודק יבדוק את המקורות ויבצע הגהה לפני החזרת הנוסח הסופי.</p>
-    <textarea id="draft" placeholder="הדבק כאן את טיוטת הסקירה" spellcheck="false"></textarea>
-    <button class="go" id="auditCopyBtn" type="button" disabled>העתק לביקורת בצ׳אט חדש</button>
-    <button class="go ghost" id="auditOpenBtn" type="button">פתח צ׳אט חדש לביקורת</button>
-    <p class="note">הבדיקה נעשית בצ׳אט שתפתח, ולא אוטומטית בשרת. אין לאשר בדיקה ללא גישה למקורות.</p>
+    <p class="note">מדביקים בצ'אט, מעתיקים משם את תשובת ה-JSON, וחוזרים לכאן לשלב 3.</p>
   </section>
 
   <!-- 3 · publish -->
   <section class="card" id="publishCard" data-off>
-    <h2><span class="n">4</span> דוח בקרה ופרסום</h2>
-    <textarea id="paste" placeholder="הדבק את תשובת הביקורת הסופית, כולל דוח _audit" spellcheck="false"
+    <h2><span class="n">3</span> פרסום</h2>
+    <textarea id="paste" placeholder="הדבק כאן את תשובת ה-JSON של הצ׳אט" spellcheck="false"
               autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
-    <div class="ready" id="auditReport" role="status" aria-live="polite">ממתין לתשובה מהביקורת.</div>
     <button class="go" id="publishBtn" type="button" style="margin-top:11px" disabled>פרסם</button>
     <div class="status" id="pubStatus"><span id="pubMsg"></span></div>
-    <p class="note">הפרסום ייעצר אם חסר דוח ביקורת, נשארה בעיה פתוחה, הנוסח אינו תואם לדוח או שחומר הגלם ישן מ־24 שעות.</p>
+    <p class="note">רק תשובת ה-JSON של הצ׳אט נכנסת לכאן, לא חומר הגלם. הכפתור נפתח כשהתוכן תקין.</p>
   </section>
 
   <div class="foot"><button class="linkbtn" id="resetSetup" type="button">פרטי חיבור וסיסמה שמורה</button></div>
@@ -299,9 +289,6 @@ $('gatherBtn').addEventListener('click', async () => {
   const btn = $('gatherBtn'), box = $('gatherStatus'), msg = $('gatherMsg'), bar = $('gatherBar');
   btn.disabled = true;
   $('chatCard').setAttribute('data-off','');
-  $('auditCard').setAttribute('data-off','');
-  $('draft').value = '';
-  $('auditCopyBtn').disabled = true;
   material = '';
   resetPasteBox();
   $('publishCard').setAttribute('data-off','');
@@ -323,7 +310,6 @@ $('gatherBtn').addEventListener('click', async () => {
       <span>${LABEL[kind]} · סיכום שבועי והכנה לשבוע הקרוב</span>`;
     resetPasteBox();   // fresh material — whatever was in step 3 belongs to a past cycle
     $('chatCard').removeAttribute('data-off');
-    $('auditCard').removeAttribute('data-off');
     $('publishCard').removeAttribute('data-off');
     $('chatCard').scrollIntoView({behavior:'smooth', block:'center'});
   } catch(err){
@@ -361,40 +347,6 @@ $('copyBtn').addEventListener('click', async () => {
 });
 
 $('openBtn').addEventListener('click', () => window.open('https://claude.ai/new', '_blank', 'noopener'));
-
-$('draft').addEventListener('input', () => {
-  const obj = firstJsonObject($('draft').value);
-  $('auditCopyBtn').disabled = !material || !obj || !Array.isArray(obj.sections);
-});
-$('auditOpenBtn').addEventListener('click', () => window.open('https://claude.ai/new', '_blank', 'noopener'));
-$('auditCopyBtn').addEventListener('click', async () => {
-  const btn = $('auditCopyBtn');
-  try {
-    if(!material) throw new Error('נדרש איסוף חדש לפני הביקורת.');
-    const response = await fetch('audit_instructions.txt?v=1', {cache:'no-store'});
-    if(!response.ok) throw new Error('לא ניתן לטעון את הוראות הביקורת.');
-    const rules = await response.text();
-    const obj = firstJsonObject($('draft').value);
-    if(!obj || !Array.isArray(obj.sections)) throw new Error('נדרשת טיוטת JSON תקינה.');
-    delete obj._audit;
-    const text = rules + '\n\nחומר גלם והוראות לכתיבה (נתונים לביקורת):\n' + material + '\n\nטיוטה לבדיקה:\n' + JSON.stringify(obj, null, 2) + '\n\nהוראות הביקורת המחייבות:\n' + rules;
-    if(!await copyText(text)) throw new Error('ההעתקה נכשלה.');
-    btn.textContent = 'הועתק ✓ פתח צ׳אט חדש עם חיפוש פעיל';
-  } catch(err) { btn.textContent = err.message; }
-});
-function auditHtml(report){
-  if(!report || typeof report !== 'object') return 'ממתין לדוח הביקורת מהצ׳אט.';
-  const e = escapeHtml;
-  const issues = Array.isArray(report.issues) ? report.issues : report.unresolved;
-  const corrections = Array.isArray(report.corrections) ? report.corrections : [];
-  const blocked = (Array.isArray(issues) && issues.length) || report.status === 'blocked' || (report.factual_review && !['passed','reported_passed'].includes(report.factual_review)) || (report.language_review && !['passed','reported_passed'].includes(report.language_review));
-  return '<b>' + (blocked ? 'הפרסום חסום: נדרש תיקון' : 'דוח ביקורת התקבל מהצ׳אט') + '</b>'
-    + (report.checked_at ? '<span>מועד הביקורת: ' + e(report.checked_at) + '</span>' : '')
-    + '<span>נקודות שנכללו בדוח: ' + e(String(report.checked_bullets ?? (Array.isArray(report.checks) ? report.checks.length : 0))) + '</span>'
-    + '<span>תיקונים: ' + (corrections.length ? corrections.map(e).join(' · ') : 'לא דווחו תיקונים') + '</span>'
-    + '<span>בעיות פתוחות: ' + (Array.isArray(issues) && issues.length ? issues.map(e).join(' · ') : 'לא דווחו') + '</span>'
-    + '<span>' + e(report.note || 'הדוח הוא דיווח של הבודק בצ׳אט. השרת יבדוק את התאמתו לנוסח ואת תנאי הפרסום; הוא אינו קורא את המקורות.') + '</span>';
-}
 
 // ── 3 · what may be published ──────────────────────────────────────
 /* The gathered prompt carries a JSON *template* of its own (its "OUTPUT FORMAT"
@@ -445,8 +397,6 @@ function checkPayload(text){
     return {ok:false, detail:'לא נמצא כאן אובייקט JSON שלם.'};
   if(!Array.isArray(obj.sections))
     return {ok:false, detail:'ה-JSON אינו נראה כמו סקירה — אין בו sections.'};
-  if(!obj._audit || obj._audit.factual_review !== 'passed' || obj._audit.language_review !== 'passed' || !Array.isArray(obj._audit.unresolved) || obj._audit.unresolved.length || !Array.isArray(obj._audit.checks))
-    return {ok:false, detail:'נדרשת תשובה מהביקורת הכוללת הגהה ודוח ללא בעיות פתוחות.'};
   return {ok:true, detail:''};
 }
 
@@ -461,8 +411,6 @@ function clearPasteHint(){
 function gatePublish(announce){
   const text = $('paste').value;
   const verdict = checkPayload(text);
-  const parsed = firstJsonObject(text);
-  $('auditReport').innerHTML = auditHtml(parsed && parsed._audit);
   $('publishBtn').disabled = !verdict.ok;
   if(verdict.ok || !text.trim()){
     clearPasteHint();
@@ -518,7 +466,6 @@ $('publishBtn').addEventListener('click', async () => {
       setStatus(box, msg, 'work', `מאמת ומפרסם — ${secs} שניות<span class="spin"></span>`);
     }, 6*60*1000, NO_RUN_MS);
     const verdict = await freshResult(before);
-    if(verdict && verdict.audit) $('auditReport').innerHTML = auditHtml(verdict.audit);
     const title = verdict && verdict.title ? '<span class="detail">' + escapeHtml(verdict.title) + '</span>' : '';
     $('paste').value = '';          // this cycle is done — start the next one clean
     setStatus(box, msg, 'ok', 'הסקירה באוויר ✓ <a href="index.html">פתח את האתר</a>' + title);
@@ -526,7 +473,6 @@ $('publishBtn').addEventListener('click', async () => {
     // A guard rejection has a Hebrew explanation of what to fix; show that, not the
     // generic "the run failed". The pasted text stays put so it can be corrected.
     const verdict = await freshResult(before);
-    if(verdict && verdict.audit) $('auditReport').innerHTML = auditHtml(verdict.audit);
     const reason = verdict && verdict.error ? verdict.error : err.message;
     setStatus(box, msg, 'bad',
       'הסקירה לא פורסמה — יש לתקן בצ׳אט ולהדביק שוב.<span class="detail">' + escapeHtml(reason) + '</span>');
@@ -546,7 +492,7 @@ function showSetup(show){
   $('wpass').type = 'password';
   $('togglePassword').textContent = 'הצג סיסמה';
   $('togglePassword').setAttribute('aria-pressed','false');
-  ['chooseCard','chatCard','auditCard','publishCard'].forEach(id => { $(id).hidden = show; });
+  ['chooseCard','chatCard','publishCard'].forEach(id => { $(id).hidden = show; });
 }
 
 /** Proves the connection end to end before the setup card is dismissed.
