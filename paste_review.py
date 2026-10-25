@@ -47,8 +47,6 @@ STATUS_FILE = Path("publish_status.json")
 ARCHIVE_DIR = Path("archive")
 
 DATA_JSON_KEY = {
-    "wallstreet_weekly_review": "wallstreetWeeklyReview",
-    "israel_weekly_review": "israelWeeklyReview",
     "daily_prep": "dailyPrep",
     "daily_summary": "dailySummary",
     "weekly_summary": "weeklySummary",
@@ -980,21 +978,25 @@ def archive_review(mode: str, result: Dict[str, Any], published_at: str) -> Path
 # MAIN
 # ══════════════════════════════════════════════════════════════
 
-def validate_review(result, snapshot):
+def main() -> None:
+    if not SNAPSHOT_FILE.exists():
+        raise SystemExit("חסר raw_review_input.json — הרץ קודם: python gather_review_input.py <mode>")
+    snapshot = json.loads(SNAPSHOT_FILE.read_text(encoding="utf-8"))
     mode = snapshot["mode"]
     expected_title = snapshot["expected_title"]
     first_heading = snapshot["first_heading"]
     review_date = snapshot["review_date"]
-    if mode in ("israel_weekly_review", "wallstreet_weekly_review"):
-        sections = result.get("sections", [])
-        if len(sections) != 2 or [s.get("heading") for s in sections] != ["סיכום שבועי", "הכנה לשבוע הקרוב"]:
-            raise ValueError("כל סקירת שוק חייבת להכיל סיכום שבועי והכנה לשבוע הקרוב, בסדר הזה.")
-        checked, summaries = [], []
-        for section, child in zip(sections, snapshot["parts"]):
-            part = validate_review({"title": child["expected_title"], "summary": section.get("summary", []), "sections": [section]}, child)
-            checked.append({"heading": section["heading"], "content": part["sections"][0]["content"]})
-            summaries.extend(section["heading"] + ": " + item for item in part.get("summary", []))
-        return {"title": expected_title, "date": review_date, "summary": summaries, "sections": checked}
+
+    input_file = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_INPUT
+    if not input_file.exists():
+        raise SystemExit(
+            f"חסר {input_file} — הדבק לתוכו את תשובת ה-JSON מהצ'אט (אפשר כולל ```json והסברים מסביב)."
+        )
+
+    print(f"Publishing {mode} (gathered {snapshot.get('generated_at', '')[:16]})")
+    print("── Basic payload check ──")
+    result = basic_payload_check(input_file.read_text(encoding="utf-8"))
+
     print("\n── Structure enforcement ──")
     result = enforce_structure(result, first_heading, expected_title)
     result = normalize_summary(result)
@@ -1044,30 +1046,6 @@ def validate_review(result, snapshot):
     result["date"] = review_date
     result = {k: v for k, v in result.items() if not str(k).startswith("_")}
 
-    return result
-
-
-def main() -> None:
-    if not SNAPSHOT_FILE.exists():
-        raise SystemExit("חסר raw_review_input.json — הרץ קודם: python gather_review_input.py <mode>")
-    snapshot = json.loads(SNAPSHOT_FILE.read_text(encoding="utf-8"))
-    mode = snapshot["mode"]
-    expected_title = snapshot["expected_title"]
-    first_heading = snapshot["first_heading"]
-    review_date = snapshot["review_date"]
-
-    input_file = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_INPUT
-    if not input_file.exists():
-        raise SystemExit(
-            f"חסר {input_file} — הדבק לתוכו את תשובת ה-JSON מהצ'אט (אפשר כולל ```json והסברים מסביב)."
-        )
-
-    print(f"Publishing {mode} (gathered {snapshot.get('generated_at', '')[:16]})")
-    print("── Basic payload check ──")
-    result = basic_payload_check(input_file.read_text(encoding="utf-8"))
-
-    result = validate_review(result, snapshot)
-
     try:
         data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
     except Exception:
@@ -1077,7 +1055,7 @@ def main() -> None:
     DATA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     archive_path = archive_review(mode, result, data["lastUpdated"])
 
-    bullets = sum(section["content"].count("\n* ") + 1 for section in result["sections"])
+    bullets = result["sections"][0]["content"].count("\n* ") + 1
     print(f"\n✅ data.json עודכן → {DATA_JSON_KEY[mode]} ({bullets} בולטים)")
     print(f"   הארכיון עודכן → {archive_path}")
     print("   כעת: git add data.json archive && git commit && git push (או שה-workflow עושה זאת אוטומטית)")

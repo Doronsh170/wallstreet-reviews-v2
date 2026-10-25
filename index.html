@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירות וול סטריט | Market Desk</title>
-<meta name="description" content="שתי סקירות שבועיות נפרדות: ישראל ווול סטריט. בכל סקירה סיכום שבועי והכנה לשבוע הקרוב">
+<meta name="description" content="סקירות וול סטריט בעברית: הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -212,7 +212,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 @media print{
-  .tabs,.actions,.status,.updated,.reveal,.modal-backdrop,.adminlink{display:none!important}
+  .tabs,.actions,.status,.updated,.reveal,.modal-backdrop{display:none!important}
   /* The full review is collapsed on screen but must always print in full. */
   #fullReview{display:block!important}
   body{background:#fff;font-size:14.5px}
@@ -235,10 +235,23 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
 </header>
 
 <main class="wrap">
-  <a class="adminlink" id="createReviewBtn" href="admin.html">✍ יצירת סקירה חדשה</a>
+  <!-- Level 1 — market chooser -->
+  <section id="marketScreen">
+    <div class="markets">
+      <button class="market-card" type="button" data-market="us">
+        <span class="flag">🇺🇸</span>
+        <span class="mname">וול סטריט</span>
+        <small>Wall Street</small>
+      </button>
+      <button class="market-card" type="button" data-market="il">
+        <span class="flag">🇮🇱</span>
+        <span class="mname">הבורסה בתל אביב</span>
+        <small>Tel Aviv</small>
+      </button>
+    </div>
 
-  <!-- Reserved market chooser; publishing navigation stays outside hidden views. -->
-  <section id="marketScreen" hidden></section>
+    <a class="adminlink" href="admin.html">⚙ פרסום סקירה חדשה</a>
+  </section>
 
   <!-- Level 2 — review types for the chosen market -->
   <section id="reviewScreen" hidden>
@@ -277,8 +290,6 @@ const DATA_PATH = 'data.json';
    blocked for anyone who receives the shared message. */
 const SITE_URL = 'https://doronsh170.github.io/wallstreet-reviews-v2/';
 const LABELS = {
- wallstreetWeeklyReview:{he:"וול סטריט", en:"סיכום שבועי והכנה לשבוע הקרוב", empty:"טרם פורסמה סקירת וול סטריט הכוללת סיכום והכנה."},
- israelWeeklyReview:{he:"ישראל", en:"סיכום שבועי והכנה לשבוע הקרוב", empty:"טרם פורסמה סקירת ישראל הכוללת סיכום והכנה."},
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
@@ -290,11 +301,12 @@ const LABELS = {
   israelWeeklyPrep:{he:'הכנה לשבוע', en:'israel week ahead', empty:'הרץ את Gather Review Input במצב israel_weekly_prep כדי ליצור אותה.'},
   archive:     {he:'ארכיון', en:'archive', empty:'עדיין לא פורסמו סקירות לארכיון.'}
 };
-const MARKETS = {combined:{he:"ישראל וול סטריט", flag:"🇮🇱 🇺🇸", tabs:["israelWeeklyReview","wallstreetWeeklyReview"]}};
+const MARKETS = {
+  us: {he:'וול סטריט', flag:'🇺🇸', tabs:['dailyPrep','intradayUpdate','dailySummary','weeklySummary','weeklyPrep']},
+  il: {he:'הבורסה בתל אביב', flag:'🇮🇱', tabs:['israelPrep','israelSummary','israelWeeklySummary','israelWeeklyPrep']}
+};
 /* Archive entries store the pipeline mode (snake_case) — map it to the site key. */
 const MODE_KEYS = {
- wallstreet_weekly_review:"wallstreetWeeklyReview", israel_weekly_review:"israelWeeklyReview",
- combined_weekly_summary:"weeklySummary", combined_weekly_prep:"weeklyPrep",
   daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_summary:'dailySummary',
   weekly_summary:'weeklySummary', israel_prep:'israelPrep', israel_summary:'israelSummary',
   israel_weekly_summary:'israelWeeklySummary', weekly_prep:'weeklyPrep',
@@ -328,7 +340,8 @@ function fmtDate(ymd){
 }
 
 function bulletsOf(review){
-  let content = (review.sections || []).map(section => section.content || "").flat().join("\n");
+  const section = (review.sections && review.sections[0]) || {};
+  let content = section.content ?? '';
   if(Array.isArray(content)) content = content.join('\n');
   return String(content).split('\n')
     .map(l => stripCtl(l).trim().replace(/^\*\s+/,'').replace(/^[•■\-–—]\s+/,''))
@@ -382,7 +395,7 @@ function renderReview(review, key){
   const heading = stripCtl((review.sections && review.sections[0] && review.sections[0].heading) || LABELS[key].he);
   let html = `<div class="review-head">
       <h2>${esc(stripCtl(review.title || heading))}</h2>
-      <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}${review.asOf ? ' · חומר הגלם עודכן: ' + esc(fmtDateTime(review.asOf)) : ''}</div>
+      <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}</div>
     </div>`;
   const summaries = summariesOf(review);
   // The summary opens the review. The full points sit below it, collapsed behind
@@ -395,7 +408,7 @@ function renderReview(review, key){
   }
   if(bullets.length){
     html += `<button class="reveal" id="fullReviewBtn" onclick="toggleFullReview(this)" aria-expanded="false" aria-controls="fullReview">הצג את הסקירה המלאה</button>`;
-    html += `<ul class="bullets" id="fullReview" hidden>${(review.sections || []).map(section => `<li><h3>${esc(section.heading)}</h3><ul>${bulletsOf({sections:[section]}).map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul></li>`).join('')}</ul>`;
+    html += `<ul class="bullets" id="fullReview" hidden>${bullets.map(b => `<li>${bulletHtml(b)}</li>`).join('')}</ul>`;
   }else{
     html += `<div class="empty"><h3>הסקירה ריקה</h3></div>`;
   }
@@ -446,7 +459,7 @@ function monthLabel(m){
 function entriesForMarket(entries){
   return (entries || []).filter(e => {
     const key = MODE_KEYS[e.mode];
-    return key && e.review;
+    return key && e.review && MARKETS[activeMarket].tabs.includes(key);
   });
 }
 
@@ -686,7 +699,7 @@ document.getElementById('aiNotice').addEventListener('click', e => { if(e.target
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeAiNotice(); });
 
 document.querySelectorAll('.market-card').forEach(c => c.addEventListener('click', () => openMarket(c.dataset.market, c)));
-document.getElementById('backBtn').hidden = true;
+document.getElementById('backBtn').addEventListener('click', showMarkets);
 
 (async function load(){
   try{
@@ -698,7 +711,7 @@ document.getElementById('backBtn').hidden = true;
     document.getElementById('updatedLine').textContent = 'שגיאה בטעינת data.json — ' + (e.message || e);
   }
   // The landing view is always the market chooser (level 1).
-  openMarket("combined");
+  showMarkets();
 })();
 </script>
 </body>

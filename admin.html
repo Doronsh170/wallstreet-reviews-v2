@@ -127,8 +127,6 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
     <input type="text" id="wurl" placeholder="https://market-desk-admin.sh6doron.workers.dev" autocomplete="off">
     <label for="wpass">סיסמה</label>
     <input type="password" id="wpass" placeholder="הסיסמה שהגדרת" autocomplete="current-password">
-    <button class="linkbtn" id="togglePassword" type="button" aria-controls="wpass" aria-pressed="false">הצג סיסמה</button>
-    <button class="go" id="cancelSetup" type="button" hidden>חזרה להפקת סקירה</button>
     <button class="go" id="saveSetup" type="button">שמור והתחל</button>
     <div class="status" id="setupStatus"><span id="setupMsg"></span></div>
     <p class="note">נשמר במכשיר הזה בלבד. אין כאן טוקן של GitHub.</p>
@@ -137,11 +135,16 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
   <!-- 1 · choose -->
   <section class="card" id="chooseCard">
     <h2><span class="n">1</span> בחירת סקירה</h2>
-    <p>בחר שוק. כל סקירה כוללת סיכום שבועי והכנה לשבוע הקרוב.</p>
-    <div id="marketRow" hidden></div>
-    <div class="row two" id="kindRow">
-      <button class="opt" type="button" data-kind="weeklySummary" aria-pressed="false">וול סטריט</button>
-      <button class="opt" type="button" data-kind="weeklyPrep" aria-pressed="false">ישראל</button>
+    <div class="row two" id="marketRow">
+      <button class="opt" type="button" data-market="us" aria-pressed="true"><span class="flag">🇺🇸</span>וול סטריט</button>
+      <button class="opt" type="button" data-market="il" aria-pressed="false"><span class="flag">🇮🇱</span>ישראל</button>
+    </div>
+    <div class="row three" id="kindRow">
+      <button class="opt" type="button" data-kind="prep" aria-pressed="true">בוקר</button>
+      <button class="opt" type="button" data-kind="intraday" aria-pressed="false">תוך יומי</button>
+      <button class="opt" type="button" data-kind="close" aria-pressed="false">סגירה</button>
+      <button class="opt" type="button" data-kind="weeklySummary" aria-pressed="false">סיכום שבוע</button>
+      <button class="opt" type="button" data-kind="weeklyPrep" aria-pressed="false">הכנה לשבוע</button>
     </div>
     <button class="go" id="gatherBtn" type="button">אסוף חומר גלם</button>
     <div class="status" id="gatherStatus"><span id="gatherMsg"></span><div class="bar" id="gatherBar" hidden><i></i></div></div>
@@ -161,14 +164,14 @@ label{display:block;font-size:13.5px;color:var(--ink-soft);font-weight:500;margi
   <!-- 3 · publish -->
   <section class="card" id="publishCard" data-off>
     <h2><span class="n">3</span> פרסום</h2>
-    <textarea id="paste" placeholder="הדבק כאן את תשובת ה-JSON של הצ׳אט" spellcheck="false"
+    <textarea id="paste" placeholder="הדבק כאן את תשובת ה-JSON של Claude" spellcheck="false"
               autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
     <button class="go" id="publishBtn" type="button" style="margin-top:11px" disabled>פרסם</button>
     <div class="status" id="pubStatus"><span id="pubMsg"></span></div>
-    <p class="note">רק תשובת ה-JSON של הצ׳אט נכנסת לכאן, לא חומר הגלם. הכפתור נפתח כשהתוכן תקין.</p>
+    <p class="note">רק תשובת ה-JSON של הצ'אט נכנסת לכאן — לא חומר הגלם. הכפתור נפתח כשהתוכן תקין.</p>
   </section>
 
-  <div class="foot"><button class="linkbtn" id="resetSetup" type="button">פרטי חיבור וסיסמה שמורה</button></div>
+  <div class="foot"><button class="linkbtn" id="resetSetup" type="button">החלפת חיבור</button></div>
 </div>
 
 <script>
@@ -186,13 +189,20 @@ const CFG = {
   get ok(){ return Boolean(this.url && this.pass); }
 };
 
-// Both weekly choices gather and publish Israel and Wall Street together.
-const MODES = {combined:{weeklySummary:"weekly_summary", weeklyPrep:"israel_weekly_summary"}};
-const LABEL = {weeklySummary:"וול סטריט", weeklyPrep:"ישראל"};
+// The four buttons map onto the pipeline's mode names. Tel Aviv has no intraday
+// review, so that button is disabled rather than silently doing something else.
+const MODES = {
+  us: { prep:'daily_prep',  intraday:'intraday_update', close:'daily_summary',
+        weeklySummary:'weekly_summary',        weeklyPrep:'weekly_prep' },
+  il: { prep:'israel_prep', intraday:null,              close:'israel_summary',
+        weeklySummary:'israel_weekly_summary', weeklyPrep:'israel_weekly_prep' }
+};
+const LABEL = {prep:'בוקר', intraday:'תוך יומי', close:'סגירה',
+               weeklySummary:'סיכום שבוע', weeklyPrep:'הכנה לשבוע'};
 
-let market = 'combined';
-let kind   = localStorage.getItem('md.kind')   || 'weeklySummary';
-if(!(kind in LABEL)) kind = 'weeklySummary';   // migrate retired daily choices
+let market = localStorage.getItem('md.market') || 'us';
+let kind   = localStorage.getItem('md.kind')   || 'prep';
+if(!(kind in LABEL)) kind = 'prep';   // an old stored "weekly" predates the split
 let material = '';       // the gathered prompt, held in memory for the copy button
 let publishAfter = null; // run id that was newest before we committed
 
@@ -270,7 +280,7 @@ function paintChoices(){
 $('marketRow').addEventListener('click', e => {
   const b = e.target.closest('[data-market]'); if(!b) return;
   market = b.dataset.market;
-  if(!MODES[market][kind]) kind = 'weeklySummary';   // Israel has no intraday — fall back
+  if(!MODES[market][kind]) kind = 'prep';   // Israel has no intraday — fall back
   localStorage.setItem('md.market', market);
   localStorage.setItem('md.kind', kind);
   paintChoices();
@@ -289,8 +299,6 @@ $('gatherBtn').addEventListener('click', async () => {
   const btn = $('gatherBtn'), box = $('gatherStatus'), msg = $('gatherMsg'), bar = $('gatherBar');
   btn.disabled = true;
   $('chatCard').setAttribute('data-off','');
-  material = '';
-  resetPasteBox();
   $('publishCard').setAttribute('data-off','');
   bar.hidden = false; bar.firstElementChild.style.width = '0';
   setStatus(box, msg, 'work', 'אוסף חומר גלם<span class="spin"></span>');
@@ -307,7 +315,7 @@ $('gatherBtn').addEventListener('click', async () => {
     bar.firstElementChild.style.width = '100%';
     setStatus(box, msg, 'ok', 'החומר מוכן ✓');
     $('readyBox').innerHTML = `<b>${escapeHtml(data.title || 'החומר מוכן')}</b>
-      <span>${LABEL[kind]} · סיכום שבועי והכנה לשבוע הקרוב</span>`;
+      <span>${LABEL[kind]} · ${market === 'us' ? 'וול סטריט' : 'תל אביב'}</span>`;
     resetPasteBox();   // fresh material — whatever was in step 3 belongs to a past cycle
     $('chatCard').removeAttribute('data-off');
     $('publishCard').removeAttribute('data-off');
@@ -488,10 +496,6 @@ function escapeHtml(s){
 
 function showSetup(show){
   $('setupCard').hidden = !show;
-  $('cancelSetup').hidden = !CFG.ok;
-  $('wpass').type = 'password';
-  $('togglePassword').textContent = 'הצג סיסמה';
-  $('togglePassword').setAttribute('aria-pressed','false');
   ['chooseCard','chatCard','publishCard'].forEach(id => { $(id).hidden = show; });
 }
 
@@ -512,12 +516,15 @@ $('saveSetup').addEventListener('click', async () => {
 
   btn.disabled = true;
   setStatus(box, msg, 'work', 'בודק חיבור<span class="spin"></span>');
+  CFG.set(url, pass);
+
   let r;
   try {
-    r = await fetch(url.replace(/\/+$/,'') + '/auth-check', {headers: {'Authorization': 'Bearer ' + pass}});
+    r = await fetch(CFG.url + '/auth-check', {headers: {'Authorization': 'Bearer ' + CFG.pass}});
   } catch (e) {
     // fetch only throws for network-level failures: DNS, TLS, a blocked CORS
     // preflight. An HTTP error status does NOT land here.
+    CFG.clear();
     setStatus(box, msg, 'bad',
       'לא הצלחתי להגיע לשרת. בדוק את הכתובת ושהיא נגישה.<span class="detail">'
       + escapeHtml(String(e && e.message || e)) + '</span>');
@@ -526,14 +533,16 @@ $('saveSetup').addEventListener('click', async () => {
   }
 
   if(r.status === 401){
+    CFG.clear();
     setStatus(box, msg, 'bad', 'השרת ענה, אבל הסיסמה נדחתה. ודא שהיא זהה ל-ADMIN_PASSWORD שהוגדר ב-Worker.');
   } else if(r.status === 404){
+    CFG.clear();
     setStatus(box, msg, 'bad',
       'השרת ענה והסיסמה התקבלה, אבל אין בו נקודת /auth-check — הגרסה שפרוסה ישנה. הרץ שוב npx wrangler deploy.');
   } else if(!r.ok){
+    CFG.clear();
     setStatus(box, msg, 'bad', 'השרת החזיר שגיאה ' + r.status + '.');
   } else {
-    CFG.set(url, pass);
     clearStatus(box);
     showSetup(false);
   }
@@ -541,18 +550,10 @@ $('saveSetup').addEventListener('click', async () => {
 });
 
 $('resetSetup').addEventListener('click', () => {
-  $('wurl').value = CFG.url; $('wpass').value = CFG.pass;
-  clearStatus($('setupStatus'));
+  CFG.clear();
+  $('wurl').value = ''; $('wpass').value = '';
   showSetup(true);
 });
-
-$('togglePassword').addEventListener('click', () => {
-  const visible = $('wpass').type === 'password';
-  $('wpass').type = visible ? 'text' : 'password';
-  $('togglePassword').textContent = visible ? 'הסתר סיסמה' : 'הצג סיסמה';
-  $('togglePassword').setAttribute('aria-pressed', String(visible));
-});
-$('cancelSetup').addEventListener('click', () => showSetup(false));
 
 paintChoices();
 showSetup(!CFG.ok);

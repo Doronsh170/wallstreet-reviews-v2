@@ -6,11 +6,18 @@ on:
       review_mode:
         description: "Choose review mode"
         required: true
-        default: "weekly_summary"
+        default: "daily_prep"
         type: choice
         options:
+          - daily_prep
+          - daily_summary
           - weekly_summary
+          - weekly_prep
+          - intraday_update
+          - israel_prep
+          - israel_summary
           - israel_weekly_summary
+          - israel_weekly_prep
 
 # Same group as "2 - Publish Review": a gather and a publish must never push at
 # the same time, or one of them loses the race and fails after burning API calls.
@@ -43,7 +50,7 @@ jobs:
           REVIEW_MODE: ${{ github.event.inputs.review_mode }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
-        run: python gather_combined_review.py "${{ github.event.inputs.review_mode }}"
+        run: python gather_review_input.py "${{ github.event.inputs.review_mode }}"
 
       - name: Commit raw input files
         run: |

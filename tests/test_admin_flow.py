@@ -106,7 +106,7 @@ class MockWorker(BaseHTTPRequestHandler):
             return self._send(200, dict(cls.verdict,
                                         finishedAt=f"2026-09-07T09:0{cls.publishes}:00+03:00"))
         if self.path == "/raw":
-            return self._send(200, {"content": RAW_MATERIAL, "mode": "weekly_summary",
+            return self._send(200, {"content": RAW_MATERIAL, "mode": "daily_prep",
                                     "title": TITLE, "generatedAt": "2026-09-07T06:00:00+03:00"})
         return self._send(404, {"error": "not found"})
 
@@ -230,33 +230,70 @@ def _run(servers, body, setup=True, password=PASSWORD):
         raise box["error"]
 
 
-def test_combined_defaults_and_legacy_choice_migration(servers):
+def test_defaults_are_wall_street_morning(servers):
     def body(page):
-        assert page.locator('#kindRow button').count() == 2
-        assert page.get_attribute('[data-kind="weeklySummary"]', "aria-pressed") == "true"
-        page.evaluate("localStorage.setItem('md.kind','intraday'); localStorage.setItem('md.market','il')")
+        assert page.get_attribute('[data-market="us"]', "aria-pressed") == "true"
+        assert page.get_attribute('[data-kind="prep"]', "aria-pressed") == "true"
+    drive(servers, body)
+
+
+def test_weekly_is_split_into_summary_and_prep(servers):
+    """Weekly summary and weekly prep are separate reviews, so they are separate
+    buttons — in both markets."""
+    def body(page):
+        for market, summary_mode, prep_mode in [("us", "weekly_summary", "weekly_prep"),
+                                                ("il", "israel_weekly_summary", "israel_weekly_prep")]:
+            page.click(f'[data-market="{market}"]')
+            assert page.is_enabled('[data-kind="weeklySummary"]')
+            assert page.is_enabled('[data-kind="weeklyPrep"]')
+            page.click('[data-kind="weeklyPrep"]')
+            page.click("#gatherBtn")
+            page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+            assert MockWorker.calls[-1] == ("/gather", {"mode": prep_mode})
+            page.click('[data-kind="weeklySummary"]')
+            page.click("#gatherBtn")
+            page.wait_for_selector("#gatherStatus.ok", timeout=40000)
+            assert MockWorker.calls[-1] == ("/gather", {"mode": summary_mode})
+    drive(servers, body)
+
+
+def test_a_stored_pre_split_choice_does_not_break_the_screen(servers):
+    """"weekly" was a valid stored choice before the split; it must not leave the
+    screen with nothing selected and the gather button dead."""
+    def body(page):
+        page.evaluate("localStorage.setItem('md.kind','weekly')")
         page.reload()
         page.wait_for_selector("#chooseCard:not([hidden])")
-        assert page.get_attribute('[data-kind="weeklySummary"]', "aria-pressed") == "true"
+        assert page.get_attribute('[data-kind="prep"]', "aria-pressed") == "true"
         assert page.is_enabled("#gatherBtn")
     drive(servers, body)
 
 
-def test_combined_modes_dispatch(servers):
+def test_israel_has_no_intraday_option(servers):
     def body(page):
-        for kind, mode in [("weeklySummary", "weekly_summary"), ("weeklyPrep", "israel_weekly_summary")]:
-            page.click(f'[data-kind="{kind}"]')
-            page.click("#gatherBtn")
-            page.wait_for_selector("#gatherStatus.ok", timeout=40000)
-            assert MockWorker.calls[-1] == ("/gather", {"mode": mode})
+        assert page.is_enabled('[data-kind="intraday"]')
+        page.click('[data-market="il"]')
+        assert page.is_disabled('[data-kind="intraday"]'), "Tel Aviv has no intraday mode"
+        assert page.is_enabled('[data-kind="weeklySummary"]')
+        assert page.is_enabled('[data-kind="weeklyPrep"]')
+    drive(servers, body)
+
+
+def test_switching_to_israel_off_intraday_falls_back(servers):
+    def body(page):
+        page.click('[data-kind="intraday"]')
+        page.click('[data-market="il"]')
+        assert page.get_attribute('[data-kind="prep"]', "aria-pressed") == "true"
     drive(servers, body)
 
 
 def test_last_choice_is_remembered(servers):
     def body(page):
+        page.click('[data-market="il"]')
         page.click('[data-kind="weeklyPrep"]')
         page.reload()
         page.wait_for_selector("#chooseCard:not([hidden])")
+        assert page.get_attribute('[data-market="il"]', "aria-pressed") == "true"
         assert page.get_attribute('[data-kind="weeklyPrep"]', "aria-pressed") == "true"
     drive(servers, body)
 
@@ -267,11 +304,11 @@ def test_full_flow_gather_copy_publish(servers):
         assert page.get_attribute("#chatCard", "data-off") is not None
         assert page.get_attribute("#publishCard", "data-off") is not None
 
-        page.click('[data-kind="weeklySummary"]')
+        page.click('[data-kind="close"]')
         page.click("#gatherBtn")
         page.wait_for_selector("#gatherStatus.ok", timeout=40000)
 
-        assert MockWorker.calls[0] == ("/gather", {"mode": "weekly_summary"})
+        assert MockWorker.calls[0] == ("/gather", {"mode": "daily_summary"})
         assert TITLE in page.inner_text("#readyBox")
         assert page.get_attribute("#chatCard", "data-off") is None
         assert page.get_attribute("#publishCard", "data-off") is None
@@ -458,7 +495,7 @@ GUARD_REASON = ("סתירת כיוון: הסקירה כותבת שמניית NVD
 def test_guard_rejection_shows_its_hebrew_reason(servers):
     """A rejected review must explain itself on screen, not in an Actions log."""
     MockWorker.publish_fails = True
-    MockWorker.verdict = {"ok": False, "mode": "weekly_summary", "error": GUARD_REASON}
+    MockWorker.verdict = {"ok": False, "mode": "daily_summary", "error": GUARD_REASON}
 
     def body(page):
         page.click("#gatherBtn")
@@ -483,7 +520,7 @@ def test_publishing_the_same_json_twice_still_reaches_a_verdict(servers):
     the run instead of writing an empty commit, so the second press ends in a verdict
     exactly like the first — it must not sit on the spinner."""
     MockWorker.publish_fails = False
-    MockWorker.verdict = {"ok": True, "mode": "weekly_summary", "title": TITLE, "bullets": 6}
+    MockWorker.verdict = {"ok": True, "mode": "daily_prep", "title": TITLE, "bullets": 6}
 
     def body(page):
         page.click("#gatherBtn")
@@ -529,7 +566,7 @@ def test_a_publish_whose_run_never_starts_stops_instead_of_hanging(servers):
 
 def test_success_shows_the_published_title(servers):
     MockWorker.publish_fails = False
-    MockWorker.verdict = {"ok": True, "mode": "weekly_summary", "title": TITLE, "bullets": 6}
+    MockWorker.verdict = {"ok": True, "mode": "daily_summary", "title": TITLE, "bullets": 6}
 
     def body(page):
         page.click("#gatherBtn")
@@ -546,21 +583,3 @@ def test_success_shows_the_published_title(servers):
         drive(servers, body)
     finally:
         MockWorker.verdict = {}
-
-
-def test_saved_password_can_be_viewed_without_clearing_connection(servers):
-    def body(page):
-        page.click('#resetSetup')
-        assert page.input_value('#wpass') == PASSWORD
-        assert page.get_attribute('#wpass', 'type') == 'password'
-        page.click('#togglePassword')
-        assert page.get_attribute('#wpass', 'type') == 'text'
-        page.click('#cancelSetup')
-        assert page.is_visible('#gatherBtn')
-        assert page.evaluate("localStorage.getItem('md.pass')") == PASSWORD
-        page.click('#resetSetup')
-        page.fill('#wpass', 'incorrect-replacement')
-        page.click('#saveSetup')
-        page.wait_for_selector('#setupStatus.bad')
-        assert page.evaluate("localStorage.getItem('md.pass')") == PASSWORD
-    drive(servers, body)
