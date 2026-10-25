@@ -31,6 +31,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 from zoneinfo import ZoneInfo
+from quality_control import check_quality
 
 ISR_TZ = ZoneInfo("Asia/Jerusalem")
 NY_TZ = ZoneInfo("America/New_York")
@@ -1066,7 +1067,12 @@ def main() -> None:
     print("── Basic payload check ──")
     result = basic_payload_check(input_file.read_text(encoding="utf-8"))
 
+    raw_report = result.get("_audit")
     result = validate_review(result, snapshot)
+    audit_report = None
+    if mode in ("israel_weekly_review", "wallstreet_weekly_review"):
+        audit_report = check_quality(result, snapshot, raw_report, datetime.now(ISR_TZ))
+        result["asOf"] = snapshot["generated_at"]
 
     try:
         data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
@@ -1081,7 +1087,7 @@ def main() -> None:
     print(f"\n✅ data.json עודכן → {DATA_JSON_KEY[mode]} ({bullets} בולטים)")
     print(f"   הארכיון עודכן → {archive_path}")
     print("   כעת: git add data.json archive && git commit && git push (או שה-workflow עושה זאת אוטומטית)")
-    return {"mode": mode, "title": result.get("title", ""), "bullets": bullets}
+    return {"mode": mode, "title": result.get("title", ""), "bullets": bullets, "audit": audit_report}
 
 
 def write_status(payload: Dict[str, Any]) -> None:
@@ -1110,7 +1116,8 @@ def cli() -> None:
         summary = main()
     except (ValueError, SystemExit) as err:
         write_status({"ok": False, **snapshot_hint(),
-                      "error": str(err) or "הפרסום נכשל ללא הודעה."})
+                      "error": str(err) or "הפרסום נכשל ללא הודעה.",
+                      "audit": getattr(err, "report", {"status": "blocked", "issues": [str(err)]})})
         raise
     except Exception as err:  # unexpected — still report something readable
         write_status({"ok": False, **snapshot_hint(),

@@ -1,5 +1,6 @@
 """Gather summary and preparation for one market into one review."""
 import json
+import hashlib
 import shutil
 import subprocess
 import sys
@@ -14,7 +15,11 @@ def combine(mode, materials, snapshots):
     title = f"סקירה שבועית | {market} | סיכום {snapshots[0]['week_range']} | הכנה {snapshots[1]['week_range']}"
     snapshot = {"mode": mode, "expected_title": title, "first_heading": "סיכום שבועי", "review_date": snapshots[1]["review_date"],
                 "generated_at": snapshots[1]["generated_at"], "parts": snapshots}
-    instructions = f'''כתוב סקירה משולבת אחת בעברית: {title}.
+    snapshot["audit_id"] = hashlib.sha256(json.dumps({"mode": mode, "parts": snapshots, "materials": materials}, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:24]
+    instructions = f'''כתוב טיוטה לסקירה שבועית אחת בעברית: {title}.
+מזהה איסוף לביקורת: {snapshot["audit_id"]}
+חומר הגלם עודכן במועד: {snapshot["generated_at"]}. יש לבצע איסוף וביקורת חדשים אם עברו 24 שעות.
+זהו שלב כתיבה בלבד. אל תוסיף אישור _audit ואל תטען שבוצעה ביקורת עצמאית. הטיוטה תעבור בדיקה עובדתית והגהה בצ׳אט חדש לפני פרסום.
 שני המסמכים בהמשך הם חומר גלם לאותו שוק בלבד: {market}. הראשון לסיכום והשני להכנה. הוראות הפלט המשולב כאן גוברות על הוראות הפלט בכל מסמך.
 החזר אובייקט JSON אחד בלבד, ללא מעטפת Markdown, במבנה:
 {{"title": {json.dumps(title, ensure_ascii=False)}, "date": "{snapshot['review_date']}", "sections": [

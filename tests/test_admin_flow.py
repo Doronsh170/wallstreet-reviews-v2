@@ -30,7 +30,7 @@ RAW_MATERIAL = (
     "@acct: $NVDA beats\n\n"
     "החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה."
 )
-REVIEW_JSON = '{"title":"x","sections":[]}'
+REVIEW_JSON = json.dumps({"title":"x", "sections":[], "_audit":{"factual_review":"passed", "language_review":"passed", "unresolved":[], "checks":[]}})
 PASTE_HINT = "יש להדביק כאן את תשובת ה-JSON המלאה של Claude."
 TITLE = "נקודות חשובות לקראת פתיחת המסחר בוול סטריט 🇺🇸 – יום שני, 7.9.2026"
 
@@ -281,7 +281,7 @@ def test_full_flow_gather_copy_publish(servers):
             "document.getElementById('copyBtn').textContent.includes('\u05d4\u05d5\u05e2\u05ea\u05e7')")
         assert page.evaluate("navigator.clipboard.readText()") == RAW_MATERIAL
 
-        reply = '```json\n{"title":"x","sections":[]}\n```'
+        reply = '```json\n' + REVIEW_JSON + '\n```'
         page.fill("#paste", reply)
         page.click("#publishBtn")
         page.wait_for_selector("#pubStatus.ok", timeout=40000)
