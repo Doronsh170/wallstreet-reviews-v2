@@ -47,8 +47,8 @@ STATUS_FILE = Path("publish_status.json")
 ARCHIVE_DIR = Path("archive")
 
 DATA_JSON_KEY = {
-    "combined_weekly_summary": "combinedWeeklySummary",
-    "combined_weekly_prep": "combinedWeeklyPrep",
+    "wallstreet_weekly_review": "wallstreetWeeklyReview",
+    "israel_weekly_review": "israelWeeklyReview",
     "daily_prep": "dailyPrep",
     "daily_summary": "dailySummary",
     "weekly_summary": "weeklySummary",
@@ -985,12 +985,12 @@ def validate_review(result, snapshot):
     expected_title = snapshot["expected_title"]
     first_heading = snapshot["first_heading"]
     review_date = snapshot["review_date"]
-    if mode.startswith("combined_weekly_"):
+    if mode in ("israel_weekly_review", "wallstreet_weekly_review"):
         sections = result.get("sections", [])
-        if len(sections) != 2 or [s.get("heading") for s in sections] != ["ישראל", "וול סטריט"]:
-            raise ValueError("סקירה משולבת חייבת להכיל שני חלקים: ישראל, וול סטריט, בסדר הזה.")
+        if len(sections) != 2 or [s.get("heading") for s in sections] != ["סיכום שבועי", "הכנה לשבוע הקרוב"]:
+            raise ValueError("כל סקירת שוק חייבת להכיל סיכום שבועי והכנה לשבוע הקרוב, בסדר הזה.")
         checked, summaries = [], []
-        for section, child in zip(sections, snapshot["markets"]):
+        for section, child in zip(sections, snapshot["parts"]):
             part = validate_review({"title": child["expected_title"], "summary": section.get("summary", []), "sections": [section]}, child)
             checked.append({"heading": section["heading"], "content": part["sections"][0]["content"]})
             summaries.extend(section["heading"] + ": " + item for item in part.get("summary", []))

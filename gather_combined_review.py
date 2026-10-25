@@ -1,4 +1,4 @@
-"""Gather both markets into one prompt and one publish snapshot."""
+"""Gather summary and preparation for one market into one review."""
 import json
 import shutil
 import subprocess
@@ -6,33 +6,34 @@ import sys
 import tempfile
 from pathlib import Path
 
-MODES = {"combined_weekly_summary": ("israel_weekly_summary", "weekly_summary"),
-         "combined_weekly_prep": ("israel_weekly_prep", "weekly_prep")}
+MODES = {"israel_weekly_review": ("israel_weekly_summary", "israel_weekly_prep"),
+         "wallstreet_weekly_review": ("weekly_summary", "weekly_prep")}
 
 def combine(mode, materials, snapshots):
-    title = ("סיכום שבועי" if mode.endswith("summary") else "הכנה לשבוע הקרוב") + " | ישראל וול סטריט | " + snapshots[1]["week_range"]
-    snapshot = {"mode": mode, "expected_title": title, "first_heading": "ישראל", "review_date": snapshots[1]["review_date"],
-                "generated_at": snapshots[1]["generated_at"], "markets": snapshots}
+    market = "ישראל" if mode == "israel_weekly_review" else "וול סטריט"
+    title = f"סקירה שבועית | {market} | סיכום {snapshots[0]['week_range']} | הכנה {snapshots[1]['week_range']}"
+    snapshot = {"mode": mode, "expected_title": title, "first_heading": "סיכום שבועי", "review_date": snapshots[1]["review_date"],
+                "generated_at": snapshots[1]["generated_at"], "parts": snapshots}
     instructions = f'''כתוב סקירה משולבת אחת בעברית: {title}.
-שני המסמכים בהמשך הם חומר גלם והוראות לכל שוק בנפרד. הוראות הפלט המשולב כאן גוברות על הוראות הפלט בכל מסמך.
+שני המסמכים בהמשך הם חומר גלם לאותו שוק בלבד: {market}. הראשון לסיכום והשני להכנה. הוראות הפלט המשולב כאן גוברות על הוראות הפלט בכל מסמך.
 החזר אובייקט JSON אחד בלבד, ללא מעטפת Markdown, במבנה:
 {{"title": {json.dumps(title, ensure_ascii=False)}, "date": "{snapshot['review_date']}", "sections": [
-{{"heading":"ישראל", "summary":["תקציר כל נקודה"], "content":"* כותרת: תוכן\\n* כותרת: תוכן"}},
-{{"heading":"וול סטריט", "summary":["תקציר כל נקודה"], "content":"* כותרת: תוכן\\n* כותרת: תוכן"}}]}}
+{{"heading":"סיכום שבועי", "summary":["תקציר כל נקודה"], "content":"* כותרת: תוכן\\n* כותרת: תוכן"}},
+{{"heading":"הכנה לשבוע הקרוב", "summary":["תקציר כל נקודה"], "content":"* כותרת: תוכן\\n* כותרת: תוכן"}}]}}
 כל חלק שומר על כללי המקורות, האימות, מספר הנקודות ואופק הזמן במסמך שלו. אין להעביר נתונים בין השווקים.
-אין להשמיט שוק: אם חסר חומר, ציין זאת במפורש בחלק הרלוונטי לפי כללי המסמך שלו.
+אין להשמיט את הסיכום או ההכנה. אם חסר חומר, ציין זאת במפורש בחלק הרלוונטי לפי כללי המסמך שלו. כל הסקירה מתייחסת ל-{market} בלבד.
 סיכום שבועי עוסק בשבוע שהסתיים; הכנה עוסקת בשבוע הקרוב ובאירועים מאומתים עם תאריך ושעת ישראל.
 '''
-    prompt = instructions + "\n\nחומר לישראל:\n" + materials[0] + "\n\nחומר לוול סטריט:\n" + materials[1] + "\n\n" + instructions
+    prompt = instructions + "\n\nחומר לסיכום השבוע:\n" + materials[0] + "\n\nחומר להכנה לשבוע הקרוב:\n" + materials[1] + "\n\n" + instructions
     return prompt, snapshot
 
 def main():
-    mode = sys.argv[1] if len(sys.argv) > 1 else "combined_weekly_summary"
-    mode = {"weekly_summary": "combined_weekly_summary", "weekly_prep": "combined_weekly_prep"}.get(mode, mode)
+    mode = sys.argv[1] if len(sys.argv) > 1 else "wallstreet_weekly_review"
+    mode = {"weekly_summary": "wallstreet_weekly_review", "israel_weekly_summary": "israel_weekly_review"}.get(mode, mode)
     if mode not in MODES:
-        raise SystemExit("Choose combined_weekly_summary or combined_weekly_prep")
+        raise SystemExit("Choose israel_weekly_review or wallstreet_weekly_review")
     # Child gathers write to a private directory. Publish the combined files only
-    # after both succeed, so a failed second market cannot leave a partial snapshot.
+    # after both succeed, so a failed preparation cannot leave a partial snapshot.
     script = Path(__file__).with_name("gather_review_input.py").resolve()
     materials, snapshots = [], []
     with tempfile.TemporaryDirectory() as temp:

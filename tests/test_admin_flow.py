@@ -244,7 +244,7 @@ def test_combined_defaults_and_legacy_choice_migration(servers):
 
 def test_combined_modes_dispatch(servers):
     def body(page):
-        for kind, mode in [("weeklySummary", "weekly_summary"), ("weeklyPrep", "weekly_prep")]:
+        for kind, mode in [("weeklySummary", "weekly_summary"), ("weeklyPrep", "israel_weekly_summary")]:
             page.click(f'[data-kind="{kind}"]')
             page.click("#gatherBtn")
             page.wait_for_selector("#gatherStatus.ok", timeout=40000)

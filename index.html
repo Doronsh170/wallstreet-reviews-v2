@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירות וול סטריט | Market Desk</title>
-<meta name="description" content="שתי סקירות משולבות לישראל ולוול סטריט: סיכום שבועי והכנה לשבוע הקרוב">
+<meta name="description" content="שתי סקירות שבועיות נפרדות: ישראל ווול סטריט. בכל סקירה סיכום שבועי והכנה לשבוע הקרוב">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -277,8 +277,8 @@ const DATA_PATH = 'data.json';
    blocked for anyone who receives the shared message. */
 const SITE_URL = 'https://doronsh170.github.io/wallstreet-reviews-v2/';
 const LABELS = {
- combinedWeeklySummary:{he:"סיכום שבועי", en:"weekly summary", empty:"טרם פורסם סיכום שבועי משולב."},
- combinedWeeklyPrep:{he:"הכנה לשבוע הקרוב", en:"week ahead", empty:"טרם פורסמה הכנה משולבת לשבוע הקרוב."},
+ wallstreetWeeklyReview:{he:"וול סטריט", en:"סיכום שבועי והכנה לשבוע הקרוב", empty:"טרם פורסמה סקירת וול סטריט הכוללת סיכום והכנה."},
+ israelWeeklyReview:{he:"ישראל", en:"סיכום שבועי והכנה לשבוע הקרוב", empty:"טרם פורסמה סקירת ישראל הכוללת סיכום והכנה."},
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
@@ -290,10 +290,11 @@ const LABELS = {
   israelWeeklyPrep:{he:'הכנה לשבוע', en:'israel week ahead', empty:'הרץ את Gather Review Input במצב israel_weekly_prep כדי ליצור אותה.'},
   archive:     {he:'ארכיון', en:'archive', empty:'עדיין לא פורסמו סקירות לארכיון.'}
 };
-const MARKETS = {combined:{he:"ישראל וול סטריט", flag:"🇮🇱 🇺🇸", tabs:["combinedWeeklySummary","combinedWeeklyPrep"]}};
+const MARKETS = {combined:{he:"ישראל וול סטריט", flag:"🇮🇱 🇺🇸", tabs:["israelWeeklyReview","wallstreetWeeklyReview"]}};
 /* Archive entries store the pipeline mode (snake_case) — map it to the site key. */
 const MODE_KEYS = {
- combined_weekly_summary:"combinedWeeklySummary", combined_weekly_prep:"combinedWeeklyPrep",
+ wallstreet_weekly_review:"wallstreetWeeklyReview", israel_weekly_review:"israelWeeklyReview",
+ combined_weekly_summary:"weeklySummary", combined_weekly_prep:"weeklyPrep",
   daily_prep:'dailyPrep', intraday_update:'intradayUpdate', daily_summary:'dailySummary',
   weekly_summary:'weeklySummary', israel_prep:'israelPrep', israel_summary:'israelSummary',
   israel_weekly_summary:'israelWeeklySummary', weekly_prep:'weeklyPrep',
