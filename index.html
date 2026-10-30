@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>סקירות וול סטריט | Market Desk</title>
-<meta name="description" content="סקירות וול סטריט בעברית: הכנה ליום מסחר, עדכון ביניים, סיכום יומי וסיכום שבועי">
+<title>מרכז הסקירות | Doron Tools</title>
+<meta name="description" content="סקירות וניתוחי שוק נבחרים בעברית על וול סטריט והבורסה בתל אביב, לצד ארכיון סקירות">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FBFAF6;      /* warm bulletin paper */
@@ -53,8 +53,8 @@ body{
 }
 .tab small{font-size:12px;color:var(--muted);font-weight:400}
 .tab:hover{border-color:var(--desk)}
-.tab[aria-selected="true"]{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
-.tab[aria-selected="true"] small{color:#BFD8DC}
+.tab[aria-pressed="true"]{background:var(--desk);border-color:var(--desk);color:#fff;font-weight:700}
+.tab[aria-pressed="true"] small{color:#BFD8DC}
 .tab:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 
 /* ── Market chooser (level 1) ── */
@@ -220,15 +220,52 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
   .masthead{padding-top:0}
 }
 
+
+/* Shared visual language with Doron Tools. */
+:root{--paper:#f5f7fa;--ink:#1a2332;--ink-soft:#4a5769;--muted:#616f82;--line:#e2e6ed;--brass:#2d6fba;--desk:#2d6fba;--desk-soft:#eaf1fa}
+[hidden]{display:none!important}
+.wrap{max-width:980px}
+body{font-size:16px}
+.brandbar{background:#fff;border-bottom:1px solid var(--line)}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:16px;padding-bottom:16px}
+.brandlink{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;direction:ltr}
+.brandmark{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#07795c,#2d6fba);color:white;font-size:17px;font-weight:800}
+.homelink{font-size:14px;color:var(--ink-soft);text-decoration:none}
+.masthead{padding:40px 18px 22px;text-align:right}
+.masthead h1,.market-card .mname,.review-head h2,.summary h4,.backbar .mlabel,.ai-modal h3{font-family:'Heebo',sans-serif}
+.masthead h1{font-size:clamp(28px,5vw,38px);font-weight:800;margin:10px 0}
+.masthead .kicker{letter-spacing:.08em;color:#07795c;font-size:12px}
+.masthead .tagline{max-width:680px;line-height:1.8}
+.rule{display:none}
+.updated{margin:0 auto;padding:0 18px}
+.markets{margin-top:24px}
+.market-card{align-items:flex-start;text-align:right;padding:26px;gap:10px;box-shadow:0 1px 2px rgba(16,24,40,.05);border-radius:16px}
+.market-card .flag{font-size:32px}.market-card .mname{font-size:21px}
+.market-card small{letter-spacing:0;text-transform:none;font-size:14px;color:var(--ink-soft)}
+.market-card::after{content:'לצפייה בסקירות ←';color:var(--desk);font-weight:600;font-size:14px;margin-top:8px}
+.market-card[data-market="il"]::after{color:#07795c}
+.card{box-shadow:0 4px 16px rgba(16,24,40,.04)}
+.tabs{gap:8px}.tab{flex:0 1 200px;flex-direction:row;justify-content:center;font-weight:600}.tab small{display:none}
+.tab[aria-pressed="true"]{background:var(--desk-soft);color:var(--desk);border-color:#b9cee8}
+.review-head h2{font-size:clamp(21px,4vw,27px);font-weight:700;line-height:1.5}
+.review-kind{color:#07795c;font-size:13px;font-weight:600;margin-bottom:6px}
+.context-note{font-size:13px;color:var(--ink-soft);background:var(--paper);padding:10px 12px;border-radius:8px;margin-top:12px}
+.summary{border:0}.summary h4{font-size:16px}
+.reveal:hover,.ai-modal .ok:hover{background:#245da0}
+.previous{margin-top:28px}.previous h3{font-size:18px;margin:0 0 8px}.previous .archive-item{padding:16px 4px}
+.adminlink{margin-top:22px;border:0;background:transparent;font-size:12px;font-weight:400;color:var(--muted)}
+@media(max-width:640px){.brandrow{padding-top:12px;padding-bottom:12px}.homelink{font-size:12px}.masthead{padding-top:28px}.tabs{display:flex}.tab{flex:1;padding:10px}.market-card{padding:22px}.actions{grid-template-columns:1fr}.review-head h2{font-size:21px}}
+@media print{.brandbar,.previous,.context-note,.adminlink{display:none!important}}
 </style>
 </head>
 <body>
 
 <header>
+  <div class="brandbar"><div class="wrap brandrow"><a class="brandlink" href="https://doronsh170.github.io/doron-tools/"><span class="brandmark">DS</span><span>Doron Tools</span></a><a class="homelink" href="https://doronsh170.github.io/doron-tools/">לכל הכלים ←</a></div></div>
   <div class="masthead wrap">
-    <div class="kicker">MARKET DESK</div>
+    <div class="kicker">סקירות וניתוחי שוק</div>
     <h1>מרכז הסקירות</h1>
-    <p class="tagline">סקירות שוק ההון בעברית: וול סטריט והבורסה בתל אביב, הכנה ליום מסחר וסיכומים</p>
+    <p class="tagline">סקירות וניתוחי שוק נבחרים על וול סטריט והבורסה בתל אביב. מתפרסמים מעת לעת בהתאם להתפתחויות.</p>
   </div>
   <div class="rule"></div>
   <div class="updated"><span id="updatedLine"></span><b id="activeLabel"></b></div>
@@ -241,12 +278,12 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
       <button class="market-card" type="button" data-market="us">
         <span class="flag">🇺🇸</span>
         <span class="mname">וול סטריט</span>
-        <small>Wall Street</small>
+        <small>סקירות נבחרות על השוק האמריקאי</small>
       </button>
       <button class="market-card" type="button" data-market="il">
         <span class="flag">🇮🇱</span>
         <span class="mname">הבורסה בתל אביב</span>
-        <small>Tel Aviv</small>
+        <small>סקירות נבחרות על השוק הישראלי</small>
       </button>
     </div>
 
@@ -259,7 +296,7 @@ ul.bullets li b.lead{font-weight:700;color:var(--ink)}
       <button class="back" id="backBtn" type="button">↩︎ חזרה לבחירת שוק</button>
       <span class="mlabel" id="marketLabel"></span>
     </div>
-    <nav class="tabs" id="tabs" role="tablist" aria-label="סוג סקירה"></nav>
+    <nav class="tabs" id="tabs" aria-label="ניווט בסקירות"></nav>
     <div class="status" id="status"></div>
     <article class="card" id="screen" aria-live="polite"></article>
   </section>
@@ -290,6 +327,7 @@ const DATA_PATH = 'data.json';
    blocked for anyone who receives the shared message. */
 const SITE_URL = 'https://doronsh170.github.io/wallstreet-reviews-v2/';
 const LABELS = {
+  latest: {he:'הסקירות האחרונות', en:'latest'},
   dailyPrep:   {he:'הכנה ליום מסחר', en:'daily prep',      empty:'הרץ את Gather Review Input במצב daily_prep כדי ליצור אותה.'},
   intradayUpdate:{he:'עדכון ביניים', en:'intraday update', empty:'הרץ את Gather Review Input במצב intraday_update כדי ליצור אותו.'},
   dailySummary:{he:'סיכום יום מסחר', en:'daily summary',    empty:'הרץ את Gather Review Input במצב daily_summary כדי ליצור אותו.'},
@@ -385,8 +423,8 @@ function summariesOf(review){
 function renderEmpty(key){
   return `<div class="empty">
     <div class="mark">◦</div>
-    <h3>עדיין לא נוצרה סקירה</h3>
-    <p>${esc(LABELS[key].empty)}</p>
+    <h3>טרם פורסמה סקירה לשוק הזה</h3>
+    <p>סקירות חדשות יופיעו כאן עם פרסומן.</p>
   </div>`;
 }
 
@@ -394,9 +432,16 @@ function renderReview(review, key){
   const bullets = bulletsOf(review);
   const heading = stripCtl((review.sections && review.sections[0] && review.sections[0].heading) || LABELS[key].he);
   let html = `<div class="review-head">
+      <div class="review-kind">${esc(LABELS[key].he)}</div>
       <h2>${esc(stripCtl(review.title || heading))}</h2>
       <div class="date">${review.date ? 'סקירה לתאריך: ' + esc(fmtDate(review.date)) : ''}</div>
     </div>`;
+  const parts = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jerusalem',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const part = type => parts.find(p => p.type === type).value;
+  const today = part('year') + '-' + part('month') + '-' + part('day');
+  if(review.date && review.date < today){
+    html += '<p class="context-note">סקירה קודמת · התוכן מתייחס למועד הסקירה ואינו עדכון שוק להיום.</p>';
+  }
   const summaries = summariesOf(review);
   // The summary opens the review. The full points sit below it, collapsed behind
   // a button, so the reader gets the gist first and expands for the full text.
@@ -435,9 +480,11 @@ function toggleFullReview(btn){
 }
 
 function render(){
-  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.key === active)));
+  document.querySelectorAll('.tab').forEach(t => {t.setAttribute('aria-pressed', String(t.dataset.key === active));});
   document.getElementById('activeLabel').textContent = active ? LABELS[active].he : '';
+  ++archiveLoadSeq;
   if(active === 'archive'){ renderArchive(); return; }
+  if(active === 'latest'){ renderLatest(); return; }
   const review = (data && active) ? data[active] : null;
   currentReview = review || null;
   document.getElementById('screen').innerHTML = review ? renderReview(review, active) : renderEmpty(active);
@@ -547,20 +594,49 @@ function closeArchiveEntry(){
 /* Build the review-type tabs for the chosen market and wire their clicks. */
 function buildTabs(market){
   const nav = document.getElementById('tabs');
-  const keys = MARKETS[market].tabs.concat('archive');
-  nav.innerHTML = keys.map(key =>
-    `<button class="tab" role="tab" data-key="${key}" aria-selected="false">${esc(LABELS[key].he)}<small>${esc(LABELS[key].en)}</small></button>`
+  nav.innerHTML = ['latest','archive'].map(key =>
+    `<button type="button" class="tab" data-key="${key}" aria-pressed="false">${esc(LABELS[key].he)}</button>`
   ).join('');
   nav.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { active = t.dataset.key; archiveEntry = null; render(); }));
 }
 
-/* Pick the most recently dated review WITHIN a market; fall back to its first tab. */
-function pickDefaultTab(market){
-  const dated = MARKETS[market].tabs
-    .filter(k => data && data[k] && data[k].date)
-    .filter(k => !(k === 'intradayUpdate' && isEmptyIntraday(data[k])))
-    .sort((a,b) => String(data[b].date).localeCompare(String(data[a].date)));
-  return dated[0] || MARKETS[market].tabs[0];
+function pickDefaultTab(){ return 'latest'; }
+
+async function renderLatest(){
+  const screen = document.getElementById('screen');
+  const market = activeMarket;
+  const seq = ++archiveLoadSeq;
+  const entries = MARKETS[market].tabs.filter(k => data && data[k] && bulletsOf(data[k]).length && !(k === 'intradayUpdate' && isEmptyIntraday(data[k])))
+    .map(key => ({key, review:data[key]}));
+  const merge = rows => {
+    const seen = new Set();
+    return rows.sort((a,b) => String(b.review.date || '').localeCompare(String(a.review.date || '')) || String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')))
+      .filter(e => { const id = e.key + '|' + e.review.date + '|' + e.review.title; if(seen.has(id)) return false; seen.add(id); return true; });
+  };
+  const show = rows => {
+    currentReview = rows[0]?.review || null;
+    if(!rows.length){screen.innerHTML = renderEmpty('latest'); return;}
+    screen.innerHTML = renderReview(rows[0].review,rows[0].key) + (rows.length > 1 ?
+      '<section class="previous"><h3>סקירות קודמות</h3><ul class="archive-list">' + rows.slice(1,7).map((e,i) =>
+        `<li><button type="button" class="archive-item" data-recent="${i+1}"><span class="atype">${esc(LABELS[e.key].he)}</span><span class="atitle">${esc(stripCtl(e.review.title || LABELS[e.key].he))}</span><span class="adate">${esc(fmtDate(e.review.date))}</span></button></li>`).join('') + '</ul><button type="button" class="back" id="allArchive">לכל הסקירות בארכיון ←</button></section>' : '');
+    screen.querySelectorAll('[data-recent]').forEach(button => button.addEventListener('click', () => {
+      const e = rows[Number(button.dataset.recent)];
+      archiveEntry = {mode:Object.keys(MODE_KEYS).find(mode => MODE_KEYS[mode] === e.key),review:e.review};
+      active = 'archive'; render();
+    }));
+    screen.querySelector('#allArchive')?.addEventListener('click', () => {active = 'archive';archiveEntry = null;render();});
+  };
+  show(merge(entries));
+  try{
+    if(!archiveIndex) archiveIndex = (await fetchArchiveJson('archive/index.json')).months || [];
+    // Include older entries of the same review type, rather than only current slots.
+    for(const month of archiveIndex.slice(0,2)){
+      if(!archiveMonths[month]) archiveMonths[month] = (await fetchArchiveJson('archive/' + month + '.json')).entries || [];
+      if(seq !== archiveLoadSeq || active !== 'latest' || market !== activeMarket) return;
+      entries.push(...entriesForMarket(archiveMonths[month]).filter(e => !(e.mode === 'intraday_update' && isEmptyIntraday(e.review))).map(e => ({key:MODE_KEYS[e.mode],review:e.review,publishedAt:e.publishedAt})));
+    }
+    if(seq === archiveLoadSeq && active === 'latest' && market === activeMarket) show(merge(entries));
+  }catch(e){ /* Current reviews remain readable when the archive is unavailable. */ }
 }
 
 function selectMarket(market){
@@ -706,9 +782,9 @@ document.getElementById('backBtn').addEventListener('click', showMarkets);
     const r = await fetch(DATA_PATH + '?v=' + Date.now(), {cache:'no-store'});
     if(!r.ok) throw new Error('data.json לא נמצא (' + r.status + ')');
     data = await r.json();
-    document.getElementById('updatedLine').textContent = data.lastUpdated ? 'עודכן לאחרונה: ' + fmtDateTime(data.lastUpdated) : 'טרם פורסמה סקירה ראשונה';
+    document.getElementById('updatedLine').textContent = '';
   }catch(e){
-    document.getElementById('updatedLine').textContent = 'שגיאה בטעינת data.json — ' + (e.message || e);
+    document.getElementById('updatedLine').textContent = 'לא ניתן לטעון כרגע את הסקירות. אפשר לנסות לרענן את העמוד.';
   }
   // The landing view is always the market chooser (level 1).
   showMarkets();
