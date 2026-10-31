@@ -1,14 +1,108 @@
 {
-  "mode": "israel_weekly_summary",
-  "generated_at": "2026-10-24T16:10:48.337590+03:00",
-  "expected_title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 19/10–23/10/2026",
+  "mode": "weekly_summary",
+  "generated_at": "2026-10-31T18:37:49.672371+02:00",
+  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 26/10–30/10/2026",
   "first_heading": "סיכום השבוע",
-  "review_date": "2026-10-23",
-  "title_date_str": "2026-10-24",
+  "review_date": "2026-10-30",
+  "title_date_str": "2026-10-31",
   "title_day_name": "שבת",
-  "week_range": "19/10–23/10/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "week_range": "26/10–30/10/2026",
+  "etf_pcts": {
+    "SPY": -1.7729,
+    "QQQ": -3.4739,
+    "DIA": -1.0713,
+    "IWM": -1.6478,
+    "XLE": 1.9066,
+    "XLK": -4.8903,
+    "XLF": -0.7552,
+    "XLY": -0.7057,
+    "XLV": 0.451,
+    "XLI": -1.6047,
+    "XLP": 1.4062,
+    "XLU": 0.6722,
+    "USO": 0.3805,
+    "BNO": 0.8903,
+    "GLD": -3.4702,
+    "SLV": -5.6684,
+    "IBIT": -5.1411,
+    "TLT": 0.4295,
+    "UUP": -0.1377,
+    "VIXY": 10.5042
+  },
+  "ticker_quotes": {
+    "INTC": {
+      "price": 65.76,
+      "pct": -28.5761,
+      "prev_close": 92.07,
+      "ts": 1793390400
+    },
+    "GOOGL": {
+      "price": 279.84,
+      "pct": -1.4023,
+      "prev_close": 283.82,
+      "ts": 1793390400
+    },
+    "META": {
+      "price": 614.99,
+      "pct": -1.526,
+      "prev_close": 624.52,
+      "ts": 1793390400
+    },
+    "AVGO": {
+      "price": 326.08,
+      "pct": -5.4841,
+      "prev_close": 345.0,
+      "ts": 1793390400
+    },
+    "RDDT": {
+      "price": 91.73,
+      "pct": -29.2207,
+      "prev_close": 129.6,
+      "ts": 1793390400
+    },
+    "APP": {
+      "price": 228.5,
+      "pct": -10.3605,
+      "prev_close": 254.91,
+      "ts": 1793390400
+    },
+    "COIN": {
+      "price": 143.54,
+      "pct": -10.6171,
+      "prev_close": 160.59,
+      "ts": 1793390400
+    },
+    "QQQ": {
+      "price": 690.49,
+      "pct": -3.4739,
+      "prev_close": 715.34,
+      "ts": 1793390400
+    },
+    "SPY": {
+      "price": 755.72,
+      "pct": -1.7729,
+      "prev_close": 769.36,
+      "ts": 1793390400
+    },
+    "NVDA": {
+      "price": 204.64,
+      "pct": -4.2217,
+      "prev_close": 213.66,
+      "ts": 1793390400
+    },
+    "AAPL": {
+      "price": 344.63,
+      "pct": -1.2267,
+      "prev_close": 348.91,
+      "ts": 1793390400
+    },
+    "MSFT": {
+      "price": 521.91,
+      "pct": -1.5524,
+      "prev_close": 530.14,
+      "ts": 1793390400
+    }
+  },
   "scheduled": {
     "macro": [],
     "earnings": []
