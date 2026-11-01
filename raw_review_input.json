@@ -1,16 +1,107 @@
 {
-  "mode": "israel_weekly_summary",
-  "generated_at": "2026-10-31T18:52:10.537727+02:00",
-  "expected_title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 26/10–30/10/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-10-30",
-  "title_date_str": "2026-10-31",
-  "title_day_name": "שבת",
-  "week_range": "26/10–30/10/2026",
+  "mode": "weekly_prep",
+  "generated_at": "2026-11-01T18:53:32.198076+02:00",
+  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 02/11–06/11/2026",
+  "first_heading": "לקראת השבוע",
+  "review_date": "2026-11-02",
+  "title_date_str": "2026-11-02",
+  "title_day_name": "שני",
+  "week_range": "02/11–06/11/2026",
   "etf_pcts": {},
   "ticker_quotes": {},
   "scheduled": {
     "macro": [],
-    "earnings": []
+    "earnings": [
+      {
+        "event": "ET",
+        "date": "2026-11-03",
+        "time_il": ""
+      },
+      {
+        "event": "BG",
+        "date": "2026-11-03",
+        "time_il": ""
+      },
+      {
+        "event": "ADM",
+        "date": "2026-11-03",
+        "time_il": ""
+      },
+      {
+        "event": "MCK",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "CVS",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "PAYP",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "COR",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "MET",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "PFGC",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "ALL",
+        "date": "2026-11-04",
+        "time_il": ""
+      },
+      {
+        "event": "CI",
+        "date": "2026-11-05",
+        "time_il": ""
+      },
+      {
+        "event": "CAH",
+        "date": "2026-11-05",
+        "time_il": ""
+      },
+      {
+        "event": "COP",
+        "date": "2026-11-05",
+        "time_il": ""
+      },
+      {
+        "event": "HUM",
+        "date": "2026-11-06",
+        "time_il": ""
+      },
+      {
+        "event": "PAGP",
+        "date": "2026-11-06",
+        "time_il": ""
+      },
+      {
+        "event": "KSPI",
+        "date": "2026-11-09",
+        "time_il": ""
+      },
+      {
+        "event": "JBS",
+        "date": "2026-11-09",
+        "time_il": ""
+      },
+      {
+        "event": "SKYD",
+        "date": "2026-11-09",
+        "time_il": ""
+      }
+    ]
   }
 }
