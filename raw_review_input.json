@@ -1,12 +1,12 @@
 {
-  "mode": "israel_weekly_prep",
-  "generated_at": "2026-11-01T19:05:14.551227+02:00",
-  "expected_title": "לקראת שבוע המסחר בבורסה בתל אביב 🇮🇱 – 02/11–06/11/2026",
-  "first_heading": "לקראת השבוע",
+  "mode": "intraday_update",
+  "generated_at": "2026-11-02T21:52:28.305388+02:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 2.11.2026, 21:52",
+  "first_heading": "עדכון ביניים",
   "review_date": "2026-11-02",
   "title_date_str": "2026-11-02",
   "title_day_name": "שני",
-  "week_range": "02/11–06/11/2026",
+  "week_range": null,
   "etf_pcts": {},
   "ticker_quotes": {},
   "scheduled": {
