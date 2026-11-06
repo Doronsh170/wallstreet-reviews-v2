@@ -2,7 +2,7 @@
 
 You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
 plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
-18:19–20:19 שעון ישראל, on 2026-11-05 (יום חמישי) — and nothing else.
+18:29–20:29 שעון ישראל, on 2026-11-06 (יום שישי) — and nothing else.
 Market state right now: השוק פתוח — שעות המסחר הרגילות בניו יורק. Never describe the market as trading or reacting when the regular
 session is not open.
 
@@ -63,8 +63,8 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום חמישי, 5.11.2026, 20:19",
-  "date": "2026-11-05",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 6.11.2026, 20:29",
+  "date": "2026-11-06",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
@@ -92,7 +92,7 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
-tweets, for the window 18:19–20:19 Israel time on 2026-11-05. Do NOT use it to find additional news, headlines,
+tweets, for the window 18:29–20:29 Israel time on 2026-11-06. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
@@ -100,70 +100,64 @@ prices or macro data. Content that is not present in the tweets does not enter t
 Already published on the site. Your update covers ONLY the last two hours. Mention an item below ONLY if there is a genuinely NEW development about it inside the two-hour window.
 
 [עדכון ביניים]
-* מניית אינטל ממשיכה להיחלש: מניית אינטל (INTC) יורדת בכ-6% נוספים היום, לאחר שצנחה בכ-29% ביום שישי. לפי דיווחים, המניה איבדה 57% מהשיא שנרשם לפני 86 ימי מסחר, אך עדיין מציגה עלייה של 58% מתחילת השנה.
-* אפל לקראת פרסום הדוחות: אפל (AAPL) צפויה לפרסם את תוצאותיה הכספיות לאחר נעילת המסחר היום. לפי הדיווח, פרסום התוצאות מתוכנן לשעה 16:30 בחוף המזרחי בארה״ב, ולאחריו תתקיים שיחת המשקיעים.
-* קראודסטרייק מרחיבה שיתופי פעולה: קראודסטרייק (CRWD) הודיעה בכנס Fal.Con Europe על שילוב פתרונות האבטחה שלה בתשתיות הבינה המלאכותית של דל ואנבידיה. במקביל, החברה מרחיבה את שיתוף הפעולה עם קורוויב להגנה על עומסי מחשוב ותשתיות ענן.
-* תקשורת לוויינית מתקדמת: לפי דיווחים, AST ספייסמובייל (ASTS) ו-AT&T (T) השלימו בהצלחה העברת חיבור פעיל מרשת סלולרית קרקעית לרשת לוויינית באמצעות טלפון רגיל ללא התאמות. השלב הבא שעליו דיווחו החברות הוא בדיקות בטא בתנאי שימוש אמיתיים לקראת שירות מסחרי.
-* מארוול ולומנטום במוקד האנליסטים: בנק ההשקעות B. Riley הותיר המלצת קנייה למארוול (MRVL), אך הפחית את מחיר היעד מ-365 ל-275 דולר בשל חששות מדילול ומסיכוני מיזוג עם לומנטום (LITE). במקביל, Stifel הוריד את המלצתו ללומנטום מהמלצת קנייה להחזק והפחית את מחיר היעד מ-1,232 ל-806 דולרים.
-* מניית סנדיסק מציגה שיפור ברווחיות: לפי דיווחים, שיעור הרווח הגולמי של סנדיסק (SNDK) עלה מ-29.8% ברבעון הפיסקלי הראשון של 2026 ל-85% ברבעון המקביל של 2027. מדובר בשיפור משמעותי ברווח הגולמי ביחס להכנסות.
-* מטא בוחנת גיוס חוב: לפי Bloomberg, מטא (META) בוחנת הנפקות אג״ח אפשריות בהיקף של לפחות 20 מיליארד דולר. הדיווח מתייחס לאפשרות לגיוס חוב, ולא להנפקה שכבר הושלמה.
-* סייפר מיינינג במוקד: בנק H.C. Wainwright חזר על המלצת קנייה לסייפר מיינינג (CIFR) עם מחיר יעד של 20 דולר, תוך ציון ביקוש לתשתיות מחשוב וצבר פרויקטים בהיקף של 5.9 גיגה-ואט. מנגד, Northland הותיר המלצת תשואת יתר אך הפחית את מחיר היעד מ-27.50 ל-14 דולר.
-* רוקט לאב משלימה שיגור: לפי דיווחים, רוקט לאב (RKLB) השלימה בהצלחה את המשימה ה-99 של משגר Electron. מדובר באבן דרך נוספת בפעילות השיגורים של החברה.
-* אנתרופיק בוחנת הנפקה בבריטניה: לפי Bloomberg, אנתרופיק מתכננת לאפשר השתתפות של משקיעים פרטיים בבריטניה במקביל להנפקה המתוכננת בארה״ב. הדיווח מתייחס לתכנון ההנפקה ולא להשלמתה.
-* מניות נוספות בשיא שנתי: לפי דיווחים, מניות ויזה (V), מאסטרקארד (MA), קוקה קולה (KO), ברקשייר האת'וויי (BRK.B), ריג'נרון (REGN) וורטקס (VRTX) הגיעו במהלך המסחר לשיאים של 52 שבועות. הנתון מתייחס לשיאים שנרשמו במהלך היום ולא בהכרח למחירי הנעילה.
-* נובמבר בראייה היסטורית: לפי נתונים שפורסמו, מאז 1980 עלה מדד S&P 500 בחודש נובמבר בשיעור ממוצע של 2.1%, עם תשואה חיובית ב-74% מהשנים. מדובר בנתון עונתי היסטורי שאינו מעיד בהכרח על כיוון המסחר בנובמבר הנוכחי.
+* ירידות חדות בוול סטריט: לפי דיווחים, מדד S&P 500 מחק במהלך המסחר כ-3 טריליון דולר משווי החברות הכלולות בו. מדובר באומדן במהלך המסחר ולא בנתון נעילה.
+* קרן הגידור Walleye מחזירה הון: לפי Bloomberg, קרן Walleye מתכננת להחזיר למשקיעים חלק מההון המנוהל, על פי מכתב ללקוחות. לא דווח על הנזלה כפויה.
+* מניות הטכנולוגיה בשוק דובי: לפי דיווחים, סנדיסק (SNDK) איבדה 66% מהשיא, מארוול (MRVL) איבדה 59%, אורקל (ORCL) איבדה 56% וסרוויסנאו (NOW) איבדה 57%. אלה ירידות מהשיא ולא שינויים יומיים.
+* אנתרופיק חושפת התחייבויות ענק: לפי דיווחים, התחייבויות עתידיות לתשתיות בינה מלאכותית מסתכמות ב-895 מיליארד דולר, מהם כ-448 מיליארד דולר עד סוף 2030 וכ-70 מיליארד דולר ב-12 החודשים הקרובים. התחייבויות לברודקום (AVGO) מסתכמות בכ-161 מיליארד דולר.
+* מיקרוסופט מוותרת על הרחבת תשתיות: לפי Bloomberg, מיקרוסופט (MSFT) ויתרה על אפשרות להוספת מאות מגה-ואט של קיבולת במיזם Nscale בטקסס, בשל עיכוב באישור חיבור לרשת החשמל.
+* גוגל מרחיבה השקעות בבינה מלאכותית: לפי דיווחים, אלפבית (GOOGL) מתכננת השקעה של 17 מיליארד דולר במרכז נתונים ראשון בוויומינג. במקביל דווח על השקת Gemini Omni 1.2 Flash עם יצירה ועריכת סרטונים באורך של עד 15 שניות.
+* איראן בוחנת הצעות גרעין: לפי NYT, איראן בוחנת הצעות קונקרטיות בנוגע לתוכנית הגרעין שלה. אין בדיווח אישור להשגת הסכם.
+* מנכ״ל ARM מתייחס למימושים: מנכ״ל ARM (ARM), רנה האס, טען כי הירידות במניות הטכנולוגיה משקפות חשיבה קצרת טווח ביחס להשפעה הכלכלית העתידית של הבינה המלאכותית.
+* התפתחויות בתחום אבטחת הסייבר: לפי דיווחים, OpenAI הציגה את GPT-6 Cyber, מודל המתמחה בזיהוי חולשות תוכנה ובפיתוח תיקוני אבטחה. ביצועיו המדווחים לא אומתו עצמאית.
+* ג׳יי.פי מורגן תחת בחינה אפשרית: לפי CNBC, מחוקקים דמוקרטים נערכים לבחון את קשרי ג׳יי.פי מורגן (JPM) עם ג׳פרי אפשטיין. מדובר בהיערכות לבחינה ולא בממצאי חקירה.
+* עדכוני אנליסטים: ברנשטיין הותירה המלצת תשואת יתר לריוט פלטפורמס (RIOT) והעלתה יעד מ-18 ל-30 דולר. BTIG הותירה המלצת קנייה ליוניטי (U) והעלתה יעד מ-53 ל-60 דולר.
+* ג׳נרל מילס בוחנת מכירת פעילות: לפי WSJ, ג׳נרל מילס שוקלת למכור את פעילות האגן דאז הבינלאומית. התכנון נמצא בשלב מוקדם ולא דווח על הסכם מחייב.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-11-05. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-11-06. Never mention in the review that these came from tweets/posts:
 
-@KobeissiLetter [Thu Nov 05 17:38:00 +0000 2026]: Anthropic has now disclosed a record $895 billion in future AI infrastructure spending commitments. This includes both purchase commitments and leases for computing power and related infrastructure. $448 billion, or 50%, is expected to be incurred by the end of 2030, with ~$70 billion due over the next 12 months. The biggest commitments are to Broadcom, $AVGO, at $161 billion, followed by Google …
+@KobeissiLetter [Fri Nov 06 17:43:18 +0000 2026]: BREAKING: Oracle stock, $ORCL, falls -5% after Microsoft ends its deal to rent AI cloud capacity from the company. Oracle is now down -68% from its record high. https://t.co/SshVPMuGH5
 
-@KobeissiLetter [Thu Nov 05 17:20:26 +0000 2026]: Tech Stocks in Bear Market Territory: 1. SanDisk, $SNDK: -66% 2. Arm Holdings, $ARM: -64% 3. Coinbase, $COIN: -63% 4. Nebius, $NBIS: -62% 5. Seagate, $STX: -60% 6. Marvell Technology, $MRVL: -59% 7. ServiceNow, $NOW: -57% 8. Oracle, $ORCL: -56% 9. AppLovin, $APP: -54% 10. Circle, $CRCL: -54% 11. Super Micro Computer, $SMCI: -51% 12. Micron, $MU: -48% 13. Dell, $DELL: -47% 14. SpaceX, $SPCX: -47% …
+@StockMKTNewz [Fri Nov 06 17:40:45 +0000 2026]: MICROSOFT $MSFT IS REPORTEDLY WINDING DOWN ITS DEAL TO RENT AI CLOUD CAPACITY FROM ORACLE $ORCL https://t.co/rA6ZTZeufc
 
-@StockMKTNewz [Thu Nov 05 16:30:41 +0000 2026]: MICROSOFT $MSFT HAS PASSED ON EXTRA DATA CENTER CAPACITY FROM AI CLOUD STARTUP NSCALE IN TEXAS Microsoft had an option to add hundreds of megawatts at Nscale's Ward County site, but decided not to move forward because the project was still waiting on approval for a power connection, per Bloomberg. Microsoft also pulled out of a UK data center deal with Nscale last month.
+@AIStockSavvy [Fri Nov 06 17:58:47 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: Microsoft Winds Down Oracle AI Computing Deal Amid $80 Billion Cloud Strategy Review — Bloomberg - $MSFT $ORCL $NVDA 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁 is winding down its 𝗢𝗿𝗮𝗰𝗹𝗲 AI computing arrangement. ➤ Microsoft declined to renew contracts involving older-generation 𝗡𝗩𝗜𝗗𝗜𝗔 𝗚𝗣𝗨𝘀. ➤ Oracle's rented computing capacity reportedly no longer met 𝗠𝗶𝗰𝗿𝗼𝘀𝗼𝗳𝘁'𝘀 specifications. ➤ Original 𝟮𝟬𝟮𝟯 …
 
-@AIStockSavvy [Thu Nov 05 17:10:04 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $GOOGL Google Gemini Omni 1.2 Flash is generally available on Google Cloud effective today. Gemini Omni 1.2 Flash video generation priced at $0.07 per second for 720p video; now supports video generation and editing up to 15 seconds.
+@wallstengine [Fri Nov 06 17:54:38 +0000 2026]: $MSFT WINDS DOWN AI CLOUD DEAL WITH $ORCL Microsoft has reportedly declined to renew its 2023 agreement to rent AI computing capacity from Oracle and has been gradually shutting down that capacity in recent months, Bloomberg reports. The deal was originally intended to power an AI-enhanced version of Bing. However, the Oracle servers used older-generation Nvidia GPUs that no longer met …
 
-@wallstengine [Thu Nov 05 16:22:51 +0000 2026]: DEMOCRATS ARE GEARING UP TO PROBE JPMORGAN'S $JPM RELATIONSHIP WITH JEFFREY EPSTEIN, PER CNBC https://t.co/CJCCwP5LKa
+@AIStockSavvy [Fri Nov 06 18:19:38 +0000 2026]: $RUN | Mizuho 𝗿𝗲𝗶𝘁𝗲𝗿𝗮𝘁𝗲𝘀 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on 𝗦𝘂𝗻𝗿𝘂𝗻, maintains PT at $𝟭𝟱 Analyst sees stronger 2027–28 net contracted value creation offsetting a lower 2026 estimate, with battery attach supporting cash growth. https://t.co/NHmvJXRd4G
 
-@AIStockSavvy [Thu Nov 05 17:05:10 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: $GOOGL Google will invest $17 bln to build its first data center in Wyoming.
+@AIStockSavvy [Fri Nov 06 18:01:08 +0000 2026]: I think that's potentially bullish for $NVDA and modern AI infrastructure providers, although it creates risks for $ORCL and companies relying on older hardware. Microsoft cutting AI spending, or preparing for the next massive GPU upgrade cycle?
 
-@wallstengine [Thu Nov 05 17:14:46 +0000 2026]: $ARM CEO SAYS THE TECH SELLOFF SHOWS SHORT-TERM THINKING ON AI
+@AIStockSavvy [Fri Nov 06 17:46:41 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Microsoft Is Winding Down Oracle Deal to Rent AI Cloud Capacity - Bloomberg - $MSFT $ORCL In Recent Months, Microsoft Has Been Turning off Rented Computing Capacity From Oracle After Declining to Renew the Contract
 
-@AIStockSavvy [Thu Nov 05 17:03:52 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: OpenAI launches GPT-6 Cyber. - $MSFT $NVDA $AMD
+@AIStockSavvy [Fri Nov 06 18:09:51 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $META Muse Introduces AI-Powered Spaces to Build Personalized Apps and Automate Daily Tasks 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗠𝘂𝘀𝗲 introduces 𝗦𝗽𝗮𝗰𝗲𝘀, customizable interactive experiences within its app. ➤ Users can create 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹𝗶𝘇𝗲𝗱 𝘁𝗼𝗼𝗹𝘀 simply by describing their ideas. ➤ Spaces support 𝗱𝗮𝗶𝗹𝘆 𝗽𝗹𝗮𝗻𝗻𝗶𝗻𝗴, productivity, entertainment, and creative projects. ➤ Users can 𝗺𝗼𝗱𝗶𝗳𝘆 𝗱𝗲𝘀𝗶𝗴𝗻𝘀, features, and …
 
-@AIStockSavvy [Thu Nov 05 17:01:18 +0000 2026]: $ARM | ARM CEO: Tech Selloff Shows Short-Term Thinking on AI - WSJ Arm CEO Rene Haas says the post-midterms tech selloff ignores the longer-term thesis about AI's impact on the economy. "The short-term blitz that happened in terms of the election, and people talking about spending, etc., etc.," Haas says on CNBC. "To me, I look at that as very, very short-term thinking." He says intelligence as a …
+@AIStockSavvy [Fri Nov 06 17:03:31 +0000 2026]: $WULF | Northland 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on 𝗧𝗲𝗿𝗮𝗪𝘂𝗹𝗳 𝗜𝗻𝗰., cuts PT to $𝟮𝟮.𝟱𝟬 from $𝟯𝟬.𝟬𝟬 Analyst sees TeraWulf as a top AI infrastructure value proposition, backed by a management team capable of driving meaningful upside. https://t.co/Y2d3h20C1y
 
-@AIStockSavvy [Thu Nov 05 16:59:26 +0000 2026]: $RIOT | Bernstein 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on 𝗥𝗶𝗼𝘁 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺𝘀, raises PT to $𝟯𝟬 from $𝟭𝟴 https://t.co/Ot2LHnP5AN
+@AIStockSavvy [Fri Nov 06 16:50:56 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: ByteDance Eyes Massive Brazil Data Center Expansion Beyond $10 Billion Project - Bloomberg - $NVDA $AMD 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗕𝘆𝘁𝗲𝗗𝗮𝗻𝗰𝗲 is considering a major 𝗔𝗜 𝗱𝗮𝘁𝗮 𝗰𝗲𝗻𝘁𝗲𝗿 expansion in Brazil. ➤ Proposed expansion would exceed the existing $𝟭𝟬 𝗯𝗶𝗹𝗹𝗶𝗼𝗻, 𝟯𝟬𝟬-𝗠𝗪 project. ➤ ByteDance is seeking developers for the 𝘀𝗲𝗰𝗼𝗻𝗱 𝗽𝗵𝗮𝘀𝗲 in Ceará. ➤ Company is exploring another 𝗱𝗼𝗺𝗲𝘀𝘁𝗶𝗰-𝗳𝗼𝗰𝘂𝘀𝗲𝗱 data …
 
-@AIStockSavvy [Thu Nov 05 16:49:00 +0000 2026]: $U | BTIG 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗕𝘂𝘆 on 𝗨𝗻𝗶𝘁𝘆 𝗦𝗼𝗳𝘁𝘄𝗮𝗿𝗲, raises PT to $𝟲𝟬 from $𝟱𝟯 Analyst sees healthy growth as product adoption, ad spend, Runtime, non-gaming, and AI opportunities ramp. https://t.co/edNKuzZ1Cu
+@AIStockSavvy [Fri Nov 06 16:55:14 +0000 2026]: $WULF | Northland 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗢𝘂𝘁𝗽𝗲𝗿𝗳𝗼𝗿𝗺 on 𝗧𝗲𝗿𝗮𝗪𝘂𝗹𝗳 𝗜𝗻𝗰., 𝗰𝘂𝘁𝘀 PT to $𝟮𝟮.𝟱 from $𝟯𝟬.𝟬 https://t.co/xXjlp2KaxA
 
-@KobeissiLetter [Thu Nov 05 16:26:42 +0000 2026]: On today's stock market crash: As an investor, on days like today, you have to ask yourself one question: What fundamentally changed over the last 24 hours? The shift in the fundamental backdrop cannot be attributed solely to the Midterm Election results; markets had already largely priced in the outcome. So, what changed between yesterday and today? What is the fundamental reason for today's …
+@AIStockSavvy [Fri Nov 06 16:54:19 +0000 2026]: $KTOS | Canaccord 𝗺𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝘀 𝗕𝘂𝘆 on 𝗞𝗿𝗮𝘁𝗼𝘀 𝗗𝗲𝗳𝗲𝗻𝘀𝗲 &amp; 𝗦𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗦𝗼𝗹𝘂𝘁𝗶𝗼𝗻𝘀, cuts PT to $𝟭𝟮𝟬 from $𝟭𝟯𝟱 Analyst sees strong Q3/26 growth and EBITDA beats, led by elevated KGS demand, despite weaker Unmanned Systems and negative FCF. https://t.co/KUhxaWXLgI
 
-@AIStockSavvy [Thu Nov 05 16:36:52 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Iran Reviewing ‘Concrete Proposals’ On Nuclear Program - NYT - $QQQ $SPY $USO
+@KobeissiLetter [Fri Nov 06 17:19:00 +0000 2026]: Investors took record leverage into this week's decline: US leveraged ETFs attracted +$9.5 billion in inflows in the week ending October 16th, their largest weekly intake on record in data going back to 2006. This is more than double the previous weekly record inflow of +$4.5 billion, set in 2024. By comparison, the largest weekly outflow was -$7.5 billion in late 2025. This comes as the 3x …
 
-@AIStockSavvy [Thu Nov 05 16:35:59 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Hedge Fund Walleye To Return Part Of Its Capital: Client Letter - Bloomberg - $SPY $QQQ
+@KobeissiLetter [Fri Nov 06 18:22:00 +0000 2026]: Retail demand for stocks is incredibly strong: Retail investors purchased US equities in the 22 consecutive sessions ending November 3rd, the 3rd-longest streak since the memestock mania in 2021. This also ranks as their 6th-longest purchasing streak since 2017. Over this period, retail investors bought ~$33 billion in equities, their 5th-largest purchase since 2017. This equals an average of …
 
-@KobeissiLetter [Thu Nov 05 17:59:00 +0000 2026]: Today's chart is for the history books. Yesterday's post-election rally now looks like a rounding error in the S&amp;P 500. The S&amp;P 500 has now erased -$3 trillion today. That's -$750 billion per hour since the market opened. https://t.co/9RDiIVEFsP
+@AIStockSavvy [Fri Nov 06 16:45:26 +0000 2026]: OpenAI CFO confirmed the company is in fundraising talks, with the implied valuation roughly 50% higher than the financing round completed in March. - CNBC
 
-@AIStockSavvy [Thu Nov 05 17:05:38 +0000 2026]: ⚡ 𝐔𝐏𝐃𝐀𝐓𝐄: OpenAI Launches GPT-6 Cyber, Rated “Critical” for Cybersecurity Capabilities 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀: ➤ 𝗢𝗽𝗲𝗻𝗔𝗜 releases 𝗚𝗣𝗧-𝟲 𝗖𝘆𝗯𝗲𝗿 to select vetted security customers. ➤ Model receives 𝗖𝗿𝗶𝘁𝗶𝗰𝗮𝗹 cybersecurity classification, upgraded from GPT-5.6 Cyber's High rating. ➤ Researchers identified 𝟴𝟭 previously unknown, high-severity 𝗙𝗶𝗿𝗲𝗳𝗼𝘅 vulnerabilities. ➤ 𝗠𝗼𝘇𝗶𝗹𝗹𝗮 has begun releasing fixes for …
+@StockMKTNewz [Fri Nov 06 17:01:01 +0000 2026]: BRIAN FEROLDI JUST JOINED THE SHOW https://t.co/RCV1nLlWzI
 
-@wallstengine [Thu Nov 05 17:37:58 +0000 2026]: PERPLEXITY JUST LAUNCHED AI TEAMMATES. You can now hire an entire team of AI agents inside Perplexity and have them work together without constantly telling them what to do. Each teammate gets its own desktop, browser and persistent conversation. Here's what they can do: Work proactively: Give them ongoing jobs, and they'll monitor things in the background and take action when something changes, …
+@StockMKTNewz [Fri Nov 06 16:34:50 +0000 2026]: DAN NILES JUST JOINED THE STREAM
 
-@wallstengine [Thu Nov 05 17:52:54 +0000 2026]: Serval is offering new engineers a paid first-week vacation worth up to $10,000. Eligible engineering and deployment hires get a weeklong trip planned with a dedicated concierge. If a current employee refers an eligible hire who joins, the employee and new hire each receive $30,000, in addition to the new hire’s vacation. Co-founder and CTO @AlexAtServal announced the offer as part of …
+@StockMKTNewz [Fri Nov 06 17:20:02 +0000 2026]: RT @WOLF_Financial: BRIAN FEROLDI SAYS HE WAITS A YEAR AFTER AN IPO BEFORE BUYING: “When a company goes from private to public, all of a s…
 
-@wallstengine [Thu Nov 05 17:16:50 +0000 2026]: OPENAI INTRODUCES GPT-6 CYBER OpenAI has introduced GPT-6 Cyber, a specialized AI model designed to discover software vulnerabilities, validate exploits and develop fixes, with stronger safeguards to keep its actions within authorized boundaries. The model powered OpenAI's recent Linux kernel research, where autonomous AI agents: • Reproduced 1,724 vulnerabilities. • Developed working exploits …
+@StockMKTNewz [Fri Nov 06 17:19:57 +0000 2026]: RT @WOLF_Financial: BRIAN FEROLDI SAYS ANTHROPIC’S FIRST EARNINGS REPORT WILL BE ITS “FIRST TRUE TEST” AS A PUBLIC COMPANY On IPOs in gene…
 
-@KobeissiLetter [Thu Nov 05 16:35:02 +0000 2026]: RT @TKL_Adam: Our perspective on today's market crash. In the era of AI, the biggest technological revolution in human history, people are…
+@StockMKTNewz [Fri Nov 06 17:45:31 +0000 2026]: RT @WOLF_Financial: “If making money was easy, everybody would be a millionaire... So if the game feels hard, that’s because it is and it’s…
 
-@StockMKTNewz [Thu Nov 05 18:01:46 +0000 2026]: Anthropic owned Claude just posted this: “Introducing Personal Finance in Claude, in beta in the US.“ https://t.co/NPf4YBYFb9
+@StockMKTNewz [Fri Nov 06 16:54:52 +0000 2026]: RT @WOLF_Financial: WHAT WOULD YOU ASK DAN IVES ABOUT THE ANTHROPIC IPO? @DivesTech is live with us right now. Partner and Senior Managing…
 
-@AIStockSavvy [Thu Nov 05 18:16:47 +0000 2026]: Dems promised to make life more affordable. So far, it’s just the stocks. 😂😂
-
-@wallstengine [Thu Nov 05 17:54:01 +0000 2026]: General Mills is weighing a sale of its international Häagen-Dazs business, with planning in early stages, per WSJ https://t.co/5C6LWRHwvy
-
-@KobeissiLetter [Thu Nov 05 17:41:54 +0000 2026]: RT @WhiteWhaleLabs: One account worth following.
-
-@gurgavin [Thu Nov 05 17:01:15 +0000 2026]: RT @Wealthsimple: Wealthsimple Presents: Something Good is Going to Happen https://t.co/CbJNrcazdL
+@StockMKTNewz [Fri Nov 06 16:54:41 +0000 2026]: RT @WOLF_Financial: DAN NILES SAYS MOST INVESTORS GET "FOCUS ON THE BIG PICTURE" WRONG "They'll say ignore all this, this is short-term no…
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
