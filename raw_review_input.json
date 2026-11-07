@@ -1,14 +1,108 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-11-06T20:29:52.961751+02:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שישי, 6.11.2026, 20:29",
-  "first_heading": "עדכון ביניים",
+  "mode": "weekly_summary",
+  "generated_at": "2026-11-07T17:49:33.159139+02:00",
+  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 02/11–06/11/2026",
+  "first_heading": "סיכום השבוע",
   "review_date": "2026-11-06",
-  "title_date_str": "2026-11-06",
-  "title_day_name": "שישי",
-  "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "title_date_str": "2026-11-07",
+  "title_day_name": "שבת",
+  "week_range": "02/11–06/11/2026",
+  "etf_pcts": {
+    "SPY": 0.3124,
+    "QQQ": 1.3987,
+    "DIA": -0.3986,
+    "IWM": 0.9927,
+    "XLE": -0.0162,
+    "XLK": 1.4534,
+    "XLF": -0.5913,
+    "XLY": -0.051,
+    "XLV": -0.0595,
+    "XLI": 0.1231,
+    "XLP": -1.2822,
+    "XLU": -0.3926,
+    "USO": 0.1349,
+    "BNO": -0.4958,
+    "GLD": -0.791,
+    "SLV": -0.1278,
+    "IBIT": -0.3486,
+    "TLT": -0.0122,
+    "UUP": 0.7261,
+    "VIXY": -0.8954
+  },
+  "ticker_quotes": {
+    "NVDA": {
+      "price": 186.64,
+      "pct": 2.7753,
+      "prev_close": 181.6,
+      "ts": 1793998800
+    },
+    "ORCL": {
+      "price": 116.1,
+      "pct": 0.8163,
+      "prev_close": 115.16,
+      "ts": 1793998800
+    },
+    "GOOGL": {
+      "price": 284.78,
+      "pct": 0.7821,
+      "prev_close": 282.57,
+      "ts": 1793998800
+    },
+    "MSFT": {
+      "price": 530.61,
+      "pct": -0.9927,
+      "prev_close": 535.93,
+      "ts": 1793998800
+    },
+    "INTC": {
+      "price": 56.28,
+      "pct": 7.7129,
+      "prev_close": 52.25,
+      "ts": 1793998800
+    },
+    "IBM": {
+      "price": 245.0,
+      "pct": -0.8539,
+      "prev_close": 247.11,
+      "ts": 1793998800
+    },
+    "AMD": {
+      "price": 449.04,
+      "pct": 11.0386,
+      "prev_close": 404.4,
+      "ts": 1793998800
+    },
+    "ARM": {
+      "price": 174.62,
+      "pct": 4.7385,
+      "prev_close": 166.72,
+      "ts": 1793998800
+    },
+    "AVGO": {
+      "price": 293.69,
+      "pct": 0.7409,
+      "prev_close": 291.53,
+      "ts": 1793998800
+    },
+    "MRVL": {
+      "price": 141.2,
+      "pct": 5.7282,
+      "prev_close": 133.55,
+      "ts": 1793998800
+    },
+    "MU": {
+      "price": 690.0,
+      "pct": 5.1204,
+      "prev_close": 656.39,
+      "ts": 1793998800
+    },
+    "QCOM": {
+      "price": 165.41,
+      "pct": 5.5247,
+      "prev_close": 156.75,
+      "ts": 1793998800
+    }
+  },
   "scheduled": {
     "macro": [],
     "earnings": []
