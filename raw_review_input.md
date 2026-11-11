@@ -173,7 +173,6 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $NVDA: $173.73 (daily: +2.87%), prev close: $168.89
   $CRWV: $60.77 (daily: +24.71%), prev close: $48.73
   $GOOGL: $293.45 (daily: +2.11%), prev close: $287.38
-  $AMD: $552.90 (daily: +7.32%), prev close: $515.21
   $IREN: $20.84 (daily: +5.63%), prev close: $19.73
   $NBIS: $154.69 (daily: +15.44%), prev close: $134.00
   $AAPL: $355.63 (daily: +2.04%), prev close: $348.51
@@ -181,6 +180,7 @@ INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
   $ORCL: $128.38 (daily: +8.82%), prev close: $117.98
   $HOOD: $84.58 (daily: +4.00%), prev close: $81.33
   $TSLA: $390.84 (daily: +2.91%), prev close: $379.78
+  $UAL: $118.37 (daily: -1.82%), prev close: $120.56
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
   נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: +0.01%, BNO: +0.67%)
@@ -198,7 +198,7 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ MANDATORY MACRO TIMING CHECK (verification only) ══
-Use web search to verify the macro calendar for 2026-11-11: which of the majors (CPI headline AND core,
+Use web search to verify the macro calendar for 2026-11-12: which of the majors (CPI headline AND core,
 PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
 actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
 review as a story only if it appears in the source tweets or the verified economic block, with the figures
@@ -220,7 +220,7 @@ Published before the session. Use it to resolve scheduled items (expected → ac
 * שורה תחתונה: נתון האינפלציה של 15:30 יקבע את כיוון המסחר ואת השאלה אם ה-Fed יעלה ריבית בהחלטה של השבוע הבא. לפי דיווחים השוק מתמחר הסתברות של 62% להעלאה כבר בישיבה הקרובה ו-71% עד אוקטובר, ולכן קריאה חמה מהצפי תדחוף את התשואה ל-10 שנים מעל 5% ותכביד קודם כל על הטכנולוגיה.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-11-11. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-11-12. Never mention in the review that these came from tweets/posts:
 
 @KobeissiLetter [Wed Nov 11 10:15:57 +0000 2026]: Our direct experience with Nvidia, never shared before: 22 months ago, we published the below analysis raising concerns that Nvidia's AI chips were potentially being routed to China through Singapore. Less than 24 hours later, Nvidia's Head of PR contacted us, directly addressing our analysis. Their message to us is included below. At the time, in the previous 3 quarters, $17.4 billion of …
 
@@ -228,7 +228,13 @@ Source tweets/posts from X (Twitter) — gathered 2026-11-11. Never mention in t
 
 @AIStockSavvy [Wed Nov 11 20:09:23 +0000 2026]: $IREN: FROM GROUNDBREAKING TO A TESTED GB300 CLUSTER IN JUST 14 MONTHS IREN says its first 50MW AI cloud deployment for Microsoft beat the industry construction benchmark by 22% with GPUs included.
 
+@gurgavin [Wed Nov 11 22:02:58 +0000 2026]: ODDS OF JENSEN HUANG OUT AT NVIDIA CEO JUST JUMPED TO 64% ON THE NEWS OF THE SECOND AFFAIR ON KALSHI $NVDA https://t.co/A1VHo6VJMs
+
 @StockMKTNewz [Wed Nov 11 11:30:21 +0000 2026]: Google $GOOGL is looking to raise ~$3 billion equivalent through its first bond sales in Hong Kong and Singapore dollars
+
+@KobeissiLetter [Wed Nov 11 22:04:35 +0000 2026]: BREAKING: Nvidia, $NVDA, CEO Jensen Huang reportedly had another affair with a senior Nvidia employee, per NYT. The relationship was reportedly with Kimberly Powell, Nvidia's VP of Health Care who reports to Jensen Huang. Witnesses claim that Jensen Huang's security detained a person who “recorded an encounter” between them and offered an NDA. Nvidia stock is falling sharply on the news.
+
+@gurgavin [Wed Nov 11 21:58:23 +0000 2026]: JUST IN : NVIDIA CEO JENSEN HUANG HAD ANOTHER AFFAIR WITH AN NVIDIA EMPLOYEE PER NEW YORK TIMES HUANG'S ALLEGED RELATIONSHIP WAS WITH NVIDIA HEALTH CARE VP KIMBERLY POWELL JENSEN HUANG HUNG UP THE CALL ON NYT AFTER THEY ASKED HIM ABOUT IT ; NVIDIA HAS DECLINED COMMENT $NVDA
 
 @AIStockSavvy [Wed Nov 11 21:14:53 +0000 2026]: $NBIS reports before the bell tomorrow. What would impress you more, a revenue beat or stronger guidance? https://t.co/YODC4RjGdC
 
@@ -255,11 +261,5 @@ Source tweets/posts from X (Twitter) — gathered 2026-11-11. Never mention in t
 @wallstengine [Wed Nov 11 18:04:22 +0000 2026]: UNITED AIRLINES TO BLOCK AI AGENTS FROM BOOKING FLIGHTS - WSJ $UAL will still allow AI agents to display flight options and prices, but not complete bookings, citing privacy and accidental-purchase risks. CEO Scott Kirby: "I don't want to create another middleman." https://t.co/PpthKFT6vK
 
 @wallstengine [Wed Nov 11 12:39:04 +0000 2026]: CoreWeave $CRWV CEO Michael Intrator says he sees "no reason" the company's partnership with Nvidia will change. https://t.co/KT6mlSCZKu
-
-@StockMKTNewz [Wed Nov 11 11:21:29 +0000 2026]: Anthropic $ANT expects to issue $3 billion to $3.5 billion of shares to Japanese 🇯🇵 investors in its IPO
-
-@AIStockSavvy [Wed Nov 11 14:05:22 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Supermicro Now Shipping Next-Generation Servers Powered by 6th Gen AMD EPYC™ 9006 Series CPUs for Cloud, HPC, and Agentic AI Workloads - $SMCI $AMD https://t.co/Jpf5LjWBnd
-
-@StockMKTNewz [Wed Nov 11 18:46:05 +0000 2026]: $AMD is back to having a larger market cap than JPMorgan $JPM https://t.co/JCt9Frkd8h
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
