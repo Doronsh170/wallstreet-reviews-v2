@@ -1,14 +1,102 @@
 {
-  "mode": "israel_weekly_summary",
-  "generated_at": "2026-11-07T18:11:17.728498+02:00",
-  "expected_title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 02/11–06/11/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-11-06",
-  "title_date_str": "2026-11-07",
-  "title_day_name": "שבת",
-  "week_range": "02/11–06/11/2026",
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "mode": "daily_summary",
+  "generated_at": "2026-11-11T23:54:56.268562+02:00",
+  "expected_title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 11.11.2026",
+  "first_heading": "סיכום המסחר",
+  "review_date": "2026-11-11",
+  "title_date_str": "2026-11-11",
+  "title_day_name": "רביעי",
+  "week_range": null,
+  "etf_pcts": {
+    "SPY": 1.3188,
+    "QQQ": 2.3149,
+    "DIA": 0.5194,
+    "IWM": 0.8946,
+    "XLE": 1.8647,
+    "XLK": 3.2266,
+    "XLF": 0.5833,
+    "XLY": -0.0496,
+    "XLV": 0.0371,
+    "XLI": 1.3276,
+    "XLP": 0.4614,
+    "XLU": 0.2058,
+    "USO": 0.0141,
+    "BNO": 0.6683,
+    "GLD": -1.1344,
+    "SLV": 0.3657,
+    "IBIT": 1.3436,
+    "TLT": 0.0495,
+    "UUP": 0.6861,
+    "VIXY": -6.7731
+  },
+  "ticker_quotes": {
+    "NVDA": {
+      "price": 173.73,
+      "pct": 2.8658,
+      "prev_close": 168.89,
+      "ts": 1794430800
+    },
+    "CRWV": {
+      "price": 60.77,
+      "pct": 24.7076,
+      "prev_close": 48.73,
+      "ts": 1794430800
+    },
+    "GOOGL": {
+      "price": 293.45,
+      "pct": 2.1122,
+      "prev_close": 287.38,
+      "ts": 1794430800
+    },
+    "AMD": {
+      "price": 552.9,
+      "pct": 7.3155,
+      "prev_close": 515.21,
+      "ts": 1794430800
+    },
+    "IREN": {
+      "price": 20.84,
+      "pct": 5.626,
+      "prev_close": 19.73,
+      "ts": 1794430800
+    },
+    "NBIS": {
+      "price": 154.69,
+      "pct": 15.4403,
+      "prev_close": 134.0,
+      "ts": 1794430800
+    },
+    "AAPL": {
+      "price": 355.63,
+      "pct": 2.043,
+      "prev_close": 348.51,
+      "ts": 1794430800
+    },
+    "MU": {
+      "price": 811.3,
+      "pct": 11.8865,
+      "prev_close": 725.11,
+      "ts": 1794430800
+    },
+    "ORCL": {
+      "price": 128.38,
+      "pct": 8.8151,
+      "prev_close": 117.98,
+      "ts": 1794430800
+    },
+    "HOOD": {
+      "price": 84.58,
+      "pct": 3.9961,
+      "prev_close": 81.33,
+      "ts": 1794430800
+    },
+    "TSLA": {
+      "price": 390.84,
+      "pct": 2.9122,
+      "prev_close": 379.78,
+      "ts": 1794430800
+    }
+  },
   "scheduled": {
     "macro": [],
     "earnings": []

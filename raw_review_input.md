@@ -1,8 +1,22 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior investment advisor writing your signature WEEKLY review in Hebrew for the
-TEL AVIV STOCK EXCHANGE (הבורסה לניירות ערך בתל אביב) for the trading week 02/11–06/11/2026. This review
-SUMS UP the Tel Aviv week that ended. PAST TENSE. ONLY events and moves from THIS specific week.
+You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
+2026-11-11 (יום רביעי). PAST TENSE.
+
+SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
+- Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
+- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "מניות השבבים ממשיכות לרכז עניין",
+  "הנפט ממשיך לטפס", "אבן דרך במגזר הבריאות", "סנטימנט מעורב בפתיחה" — never a generic label like
+  "חדשות" / "מאקרו" / "מניות". Up to 40 characters, and NO ":" inside the headline itself.
+  A single-stock story opens with "מניית <שם בעברית> (TICKER)".
+- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences (a 4th only when the story
+  truly demands it). EVERY point must deliver real depth: (1) what happened, with the few figures that carry
+  the story, (2) the background and context (על רקע..., בעקבות...), and (3) why it matters — the mechanism or
+  the implication for investors. Never leave a point as a bare headline-fact.
+- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article — no
+  filler points, no padding.
+- Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
+  analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
 ══ HORIZON — THIS IS A REVIEW OF A SESSION THAT ENDED ══
 Every point covers what ACTUALLY happened in the session being reviewed: which data was released (actual vs
@@ -13,69 +27,90 @@ place only — the closing bottom-line point, and there only to name what the re
 its day and Israel time. A point whose subject is a future release, a future report or a future decision
 does not belong in this review at all.
 
-SIGNATURE POINT FORMAT (follow it exactly):
-- Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
-- The opening mini-headline: 2-6 Hebrew words, SPECIFIC to the story — e.g. "הבנקים ממשיכים להוביל",
-  "אבן דרך בסקטור הנדל"ן", "סנטימנט זהיר לקראת הפתיחה" — never a generic label like "חדשות" / "מאקרו".
-  Up to 40 characters, and NO ":" inside the headline itself. A single-stock story opens with
-  "מניית <שם החברה> (טיקר אם הופיע בציוץ)".
-- After the headline: flowing, professional Hebrew prose — 2-3 concise sentences. EVERY point delivers real
-  depth: (1) what happened, with the few figures that carry the story (ONLY figures that appear in a source),
-  (2) the background and context (על רקע..., בעקבות...), and (3) why it matters for the investor.
-- STRONG points only: fewer, deeper points beat many thin ones. This is a briefing, not an article.
-- Voice: a senior investment advisor explaining the Tel Aviv market to clients — analytical, confident,
-  readable. Weave the numbers into the story, don't stack them.
+This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
+KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
+two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
+a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
+NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
+fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
+* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
+  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
+  session — how it opened, what moved it, how it closed — not a list of numbers.
+* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
+  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
+  NOT import a story that web search found on its own:
+  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
+    mechanism explained simply.
+  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
+    expectations, yields, sector rotation).
+  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
+  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
+  - Commodities, dollar and yields — direction and meaning, not a list of prices.
+  - After-hours earnings, or geopolitics that moved markets today — when truly material.
+* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
+Every direction word MUST match the DIRECTIONAL FACTS block.
 
-THIS REVIEW SUMMARIZES THE CURATED HEBREW SOURCES for the week that ended:
-- The stories come EXCLUSIVELY from the source posts below. Do NOT add prices, index levels, percentages,
-  movers or macro data that do not appear in a source. A figure enters ONLY if a source states it.
-- Do NOT independently determine who rose or fell over the week. Direction and magnitude come from the sources.
-6-9 STRONG points TOTAL in three blocks, in this order:
-* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the Tel Aviv week as one story, as the
-  sources framed it: how it opened, what set the tone, how it closed. Describe direction and drivers
-  qualitatively, with only figures that appear in a source.
-* SUMMARY points (4-7) — ONE thematic point per major Tel Aviv story of the week (banks, real estate, tech,
-  defense, notable companies, Bank of Israel), each with its own specific headline. Pick the STRONGEST stories
-  from the sources — do NOT force categories or pad. Every one of these points covers something that ALREADY
-  happened this week.
-* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught the Tel Aviv investor.
-  This is the ONLY point that may look ahead, and only to name the next scheduled event with its date and
-  Israel time. Do NOT write a preparation block for the coming week.
-If the sources do not contain enough material, write fewer points rather than padding. Never invent stories.
-NO US market / Wall Street content AT ALL — the Israel reviews cover the Tel Aviv market only. Skip source
-posts about US indices, US macro or US stocks entirely, even when they carry figures. No ISO dates.
+══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
+The review is built EXCLUSIVELY from two sources:
+1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
+2. The source tweets below — the ONLY source for stories, news and narrative.
+Web search is permitted for THREE narrow purposes ONLY:
+  a. Verifying a claim of an all-time high / 52-week high before writing it.
+  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
+     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
+  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
+     and cross-checking that an event you present as upcoming was not already released.
+FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
+in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
+cover a story — the review does not cover it either.
+══════════════════════════════════════════════════════
 
 Rules:
-- Write ONLY in Hebrew. English only for tickers, index names, and well-known financial terms in parentheses on first use.
-- SUMMARY of the week that ended: EVERY number must appear in a source post. NEVER invent, estimate, or recall numbers from memory. A story whose source carries no figures is summarized WITHOUT figures.
-- BOTTOM LINE ONLY: you MAY state the date and Israel time of the next scheduled event (Bank of Israel decision, Israeli macro release) verified via web search. Nothing else may be added from web search, and no other bullet may look ahead.
-- No buy/sell recommendations, no price targets, no "כדאי לקנות/למכור".
+- Write ONLY in Hebrew. English only for tickers ($AAPL), index names (S&P 500), and well-known financial terms in parentheses on first use.
+- Be specific: every claim must include a number, percentage, or ticker. No vague statements.
+- Do NOT repeat information across bullets. One company = one bullet (merge multiple news items).
+- No buy/sell recommendations, no price targets of your own, no "כדאי לקנות/למכור".
+- EVERY number must come from: (1) the verified Finnhub data above, (2) a specific tweet, or (3) one of the PERMITTED verification searches listed in the SOURCE HIERARCHY block. NEVER invent, estimate, or recall numbers from memory or from general knowledge. When in doubt, omit the number and keep the story, or omit the point entirely.
+- If a tweet contradicts the Finnhub data, the Finnhub data is correct.
+- SINGLE-SOURCE ATTRIBUTION: a story reported in the tweets citing a news outlet (WSJ, NYT, FT, Axios, Reuters) keeps that attribution in Hebrew: "לפי WSJ", "לפי דיווח ב-NYT". A story appearing in only ONE tweet with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
+- Directional words (צונח/יורד/מזנק/עולה) are factual claims — they MUST match the DIRECTIONAL FACTS block.
+- Sector percentages (XLE/XLK/...) — ONLY from the Finnhub data. Missing sector → omit.
+- Never claim an all-time high (שיא כל הזמנים) or 52-week high without web-search verification or an explicit tweet stating it. A tweet-sourced high keeps its scope exactly: 52-week high ≠ all-time high.
+- CPI mentioned → ALWAYS both headline AND Core CPI. Economic data → always actual vs forecast vs previous.
+- IPO (הנפקה ראשונית) ≠ ETF (תעודת סל). Nasdaq 100 (QQQ, ~NDX) ≠ Nasdaq Composite (IXIC) — never mix their levels.
 - Attribution: Claude→Anthropic, ChatGPT→OpenAI, Gemini→Google. Donald Trump is the CURRENT US President — never "לשעבר".
-- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only, and only when a source itself cites them.
-- SINGLE-SOURCE ATTRIBUTION: a story appearing in only ONE source post with no outlet attribution is written with a hedge: "לפי דיווחים" — never as an established fact.
+- No URLs, no Markdown links, no source domains in brackets. Attribution style: לפי Reuters / לפי Bloomberg only.
 - Dates in visible text: Israeli format ONLY, e.g. "יום שני, 6.7.2026". NEVER write an ISO date (2026-07-06) inside the title or the bullets.
 - NEVER use the ";" character anywhere. Use a comma or start a new sentence instead.
 - NEVER use an em dash / double hyphen ("—" or "--") as a clause separator. Use a comma, a colon, or start a new sentence instead.
-- Never OPEN a bullet with a raw ticker. Open with the Hebrew company name.
-- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, correct gender and number agreement. A sentence that would sound odd spoken aloud gets rewritten in simpler Hebrew.
-- Never mention in the review that the items came from tweets/posts/X accounts.
+- Never write "נתון בפועל עדיין לא קיים". If a figure has not been released yet, give only the forecast (צפי) and the previous reading (נתון קודם).
+- Never OPEN a bullet with a raw ticker like "$TSLA:" or "$AMZN:". Open with the Hebrew company name: "מניית טסלה (TSLA):", "מניית אמזון (AMZN):", "מניית מטא (META):".
+- EVERY Hebrew company/stock name gets its ticker in parentheses on FIRST mention — "קורוויב (CRWV)", "ג'יי.פי מורגן (JPM)" — both in the bullet body AND in the summary item. Indices (S&P 500) and private companies with no listed ticker are exempt.
+- Correct Hebrew causative syntax: a driver "הקפיץ את מחיר הנפט" (never "קפץ את הנפט"), and price moves belong to "מחיר הנפט/הזהב", not to the asset as a direct object.
+- NATURAL HEBREW: the review must read as if a person wrote it — modern, standard Hebrew (עברית תקנית), flowing and clear, professional but plain. NO translated-English phrasing (תרגומית), no literal English idioms, no inflated or "clever" wording, correct gender and number agreement throughout. Read every sentence back: if it would sound odd spoken aloud by an Israeli investment advisor, rewrite it in simpler, more natural Hebrew.
+- Finnhub and the measurement ETFs (SPY/QQQ/DIA/USO/BNO/GLD/UUP/VIXY/TLT...) are a hidden verification layer ONLY. NEVER mention Finnhub, "proxy", "דרך USO", "האינדיקציה מ-", or any technical data-source wording in the visible text — describe the asset itself (נפט, זהב, דולר, תשואות) directly.
+- SIGN-FLIP: if the verified data shows a stock DOWN, do NOT describe it positively (עלתה/התחזקה/הובילה/בלטה לחיוב). If the news is positive but the stock fell, write: "למרות החדשות, המניה ירדה".
 
 ══ PRE-OUTPUT SELF-VERIFICATION (MANDATORY — do this BEFORE returning the JSON) ══
 Go over every bullet you wrote and check, one by one:
-1. NUMBERS: every percentage, price and figure traces to a specific source post (the next scheduled event named in the bottom-line point excepted).
-   Any number you cannot point to a source line for — DELETE it or the whole claim.
-2. SCOPE: no story, price, index level or data point appears that is absent from the source posts (the next scheduled event named in the bottom-line point excepted).
-3. DIRECTIONS: every directional claim (עלה/ירד/זינק/צנח) is stated by a source post — you did not determine
-   any direction or magnitude yourself.
-4. ATTRIBUTION: a story a source reports citing a news outlet keeps "לפי <outlet>". A story appearing in only
-   ONE source post with no outlet attribution carries "לפי דיווחים" — never stated as an established fact.
-5. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, and the bullet count fits the
-   instructions above (6-9 bullets).
-6. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
-   number/direction in the summary passes checks 1-4 as well.
-7. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
-   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets rewritten.
-8. HORIZON: every point except the closing bottom line describes what ALREADY happened in the
+1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
+   tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
+   DELETE it or the whole claim.
+2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
+   matches the instructions (never describe a closed market as open or trading).
+3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
+4. SIGN-FLIP: no stock that fell is described positively.
+5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
+6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
+   (the permitted verification purposes excepted).
+7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (EXACTLY 6 bullets including the bottom line).
+8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
+   number/direction in the summary passes checks 1-5 as well.
+9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
+   phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
+   rewritten. Every bullet stays within 3-4 lines (~60 words) — trim any bullet that runs long.
+10. HORIZON: every point except the closing bottom line describes what ALREADY happened in the
    session being reviewed. No point's subject is a future release, report or decision. Scheduled
    events appear only inside the bottom-line point.
 If ANY check fails — fix the bullet and re-run the checks. Only then return the JSON.
@@ -84,17 +119,17 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום שבוע המסחר בבורסה בתל אביב 🇮🇱 – 02/11–06/11/2026",
-  "date": "2026-11-06",
+  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 11.11.2026",
+  "date": "2026-11-11",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום השבוע",
+      "heading": "סיכום המסחר",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -103,76 +138,128 @@ CRITICAL — OUTPUT FORMAT (MANDATORY):
   what happened and why it matters — in your own words, up to ~20 words. Do NOT copy the first sentence of the
   bullet verbatim. All the same verification and direction rules apply to the summary as to the bullets.
 
-══ WEB SEARCH POLICY (WEEKLY — TWO PARTS) ══
-SUMMARY of the week that ended (02/11–06/11/2026): the stories come EXCLUSIVELY from the source posts
-below. Web search is for VERIFICATION ONLY there — confirming a name or figure that already appears in a source
-post. Do NOT use it to add news, index levels, prices or macro data to the summary part.
-This is a SUMMARY of a week that ended — there is no preparation part. Do NOT use web search to build a
-look-ahead to the coming week. The one exception is the closing bottom-line point, where you may name the
-next scheduled Bank of Israel decision or Israeli macro release, with its date and Israel time, and nothing
-more.
+US-ISRAEL TIME OFFSET TODAY: +7 hours (add 7 hours to US Eastern Time)
+Key times in Israel time today:
+- US economic data releases (CPI, NFP, PPI, GDP, Jobless Claims): 15:30 שעון ישראל
+- ISM PMI, JOLTS, Consumer Confidence: 17:00 שעון ישראל
+- FOMC rate decision / minutes: 21:00 שעון ישראל | Fed Chair press conference: 21:30 שעון ישראל
+- US market open: 16:30 שעון ישראל | US market close: 23:00 שעון ישראל
+USE ONLY THESE TIMES. Do NOT calculate your own offset.
+
+══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
+DAILY PERFORMANCE:
+  S&P 500 (SPY ETF): $759.81 (daily: +1.32%), prev close: $749.92
+  Nasdaq 100 (QQQ ETF): $690.38 (daily: +2.31%), prev close: $674.76
+  Dow Jones (DIA ETF): $524.44 (daily: +0.52%), prev close: $521.73
+  Russell 2000 (IWM ETF): $283.09 (daily: +0.89%), prev close: $280.58
+  Energy Sector (XLE ETF): $63.37 (daily: +1.86%), prev close: $62.21
+  Technology Sector (XLK ETF): $174.36 (daily: +3.23%), prev close: $168.91
+  Financials Sector (XLF ETF): $58.63 (daily: +0.58%), prev close: $58.29
+  Consumer Discretionary Sector (XLY ETF): $120.99 (daily: -0.05%), prev close: $121.05
+  Healthcare Sector (XLV ETF): $188.95 (daily: +0.04%), prev close: $188.88
+  Industrials Sector (XLI ETF): $170.97 (daily: +1.33%), prev close: $168.73
+  Consumer Staples Sector (XLP ETF): $91.45 (daily: +0.46%), prev close: $91.03
+  Utilities Sector (XLU ETF): $43.82 (daily: +0.21%), prev close: $43.73
+  WTI Crude Oil (USO ETF): $141.47 (daily: +0.01%), prev close: $141.45
+  Brent Crude Oil (BNO ETF): $58.75 (daily: +0.67%), prev close: $58.36
+  Gold (GLD ETF): $365.17 (daily: -1.13%), prev close: $369.36
+  Silver (SLV ETF): $46.65 (daily: +0.37%), prev close: $46.48
+  Bitcoin (IBIT ETF): $42.24 (daily: +1.34%), prev close: $41.68
+  US 20Y+ Bonds (TLT ETF): $80.92 (daily: +0.05%), prev close: $80.88
+  US Dollar (UUP ETF): $29.35 (daily: +0.69%), prev close: $29.15
+  VIX Volatility (VIXY ETF): $16.93 (daily: -6.77%), prev close: $18.16
+
+INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
+  $NVDA: $173.73 (daily: +2.87%), prev close: $168.89
+  $CRWV: $60.77 (daily: +24.71%), prev close: $48.73
+  $GOOGL: $293.45 (daily: +2.11%), prev close: $287.38
+  $AMD: $552.90 (daily: +7.32%), prev close: $515.21
+  $IREN: $20.84 (daily: +5.63%), prev close: $19.73
+  $NBIS: $154.69 (daily: +15.44%), prev close: $134.00
+  $AAPL: $355.63 (daily: +2.04%), prev close: $348.51
+  $MU: $811.30 (daily: +11.89%), prev close: $725.11
+  $ORCL: $128.38 (daily: +8.82%), prev close: $117.98
+  $HOOD: $84.58 (daily: +4.00%), prev close: $81.33
+  $TSLA: $390.84 (daily: +2.91%), prev close: $379.78
+
+DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
+  נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: +0.01%, BNO: +0.67%)
+  זהב: יורד (GLD: -1.13%)
+  ביטקוין: עולה (IBIT: +1.34%)
+  דולר: עולה (UUP: +0.69%)
+  תנודתיות / VIX: יורד (VIXY: -6.77%)
+  אג"ח ארוכות / TLT: יציב/כמעט ללא שינוי (TLT: +0.05%)
+
+The % changes above are ACCURATE — use them for direction and magnitude.
+The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
+For exact index LEVELS (points), gold/oil absolute prices, VIX level, Bitcoin price, 10Y yield: verify via web search. Do NOT estimate them from ETF prices.
+For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — never invent sector percentages.
+If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
+══════════════════════════════════════════════════════════════════════════════
+
+══ MANDATORY MACRO TIMING CHECK (verification only) ══
+Use web search to verify the macro calendar for 2026-11-11: which of the majors (CPI headline AND core,
+PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
+actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
+review as a story only if it appears in the source tweets or the verified economic block, with the figures
+they provide (actual, forecast, previous AND the market implication). Never present an already-released
+event as upcoming, and never import from the search a macro story the sources did not cover.
+IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
+bottom-line point.
 ══════════════════════════════════
 
-מקורות מרשת X (בעברית) — Never mention in the review that these came from posts/X:
+══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
+Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
 
-@calcalist [Fri Nov 06 09:05:00 +0000 2026]: לא פיצוץ, רק סוף להתחלה | @shulman_sophie, מתוך הסיכום השבועי של #מוסף_כלכליסט הבורסה האמריקאית נכנסה השבוע למאניה דפרסיה. התנודתיות גבוהה מאי פעם ויום שמתחיל בעליות יכול להסתיים בירידות ולהפך. בחירות האמצע בארצות הברית והחששות מחידוש המלחמה באיראן הם חלק מהסיפור, אבל עיקר הדרמה היא AI: בשוק ההון כבר תוהים בקול האם כולם, כולל ענקיות הטכנולוגיה הרציניות ביותר, הגזימו במרדף אחרי המהפכה הטכנולוגית …
+[נקודות מרכזיות]
+* חוזים בעלייה קלה לפני האינפלציה: החוזים על S&P 500 עולים 0.19%, החוזים על הדאו ג'ונס מוסיפים 151 נקודות והחוזים על נאסד״ק 100 כמעט ללא שינוי. השוק צפוי להיפתח ב-16:30 שעון ישראל אחרי ארבעה ימי ירידות רצופים. באסיה נרשמו ירידות חדות, הקוספי הקוריאני איבד 2.8% והניקיי ירד 2.6%.
+* מדד המחירים לצרכן של 15:30: הלשכה לסטטיסטיקה של העבודה תפרסם היום ב-15:30 שעון ישראל את מדד המחירים לצרכן לאוגוסט, בצפי לעלייה של 0.4% בחודש ו-3.4% בשנה, ובליבה 0.4% בחודש ו-2.4% בשנה, לעומת נתון קודם של 3.4% ו-2.5%. אתמול עלה מדד המחירים ליצרן ל-5.4% מול צפי ל-5.3%, והליבה טיפסה ל-4.6%.
+* התשואות מתקרבות ל-5 אחוזים: תשואת האג״ח ל-10 שנים עומדת על 4.955% והתשואה ל-30 שנה על 5.362%, אחרי עלייה של כ-95 נקודות בסיס מאז תחילת המלחמה באיראן. תשואה גבוהה יותר מעלה את שיעור ההיוון של הרווחים העתידיים ומייקרת מימון, ולכן הלחץ מתרכז במניות הצמיחה. האג״ח הארוכות יורדות 1.16% והתנודתיות עולה 3.42%.
+* מחיר הסולר שובר שיא: מחיר הסולר בארה״ב חצה לראשונה 6 דולר לגלון, עלייה של 74% בתשעה חודשים, ובחלק מהמדינות הוא כבר מעל 8 דולר על רקע מחסור בהיצע. מחיר הנפט עולה היום 5.61% ומחיר הברנט 6.42%, לפי דיווחים סביב 105 דולר לחבית. דלק יקר מחלחל לסעיפי התחבורה במדד ומרים את ציפיות האינפלציה לקראת הנתון.
+* מניית אורקל (ORCL) אחרי הדוח: המניה ירדה 5.38% במסחר הרגיל לקראת הפרסום, ולאחר הנעילה דיווחה החברה על הכנסות של 19.3 מיליארד דולר, צמיחה של 30%, ורווח מתואם של 1.92 דולר למניה, שניהם מעל הצפי. צבר ההתחייבויות לביצוע הגיע ל-664 מיליארד דולר לעומת 455.3 מיליארד לפני שנה, והמניה עלתה במסחר המאוחר. המשקיעים יבחנו היום אם המהלך מחזיק בפתיחה.
+* שורה תחתונה: נתון האינפלציה של 15:30 יקבע את כיוון המסחר ואת השאלה אם ה-Fed יעלה ריבית בהחלטה של השבוע הבא. לפי דיווחים השוק מתמחר הסתברות של 62% להעלאה כבר בישיבה הקרובה ו-71% עד אוקטובר, ולכן קריאה חמה מהצפי תדחוף את התשואה ל-10 שנים מעל 5% ותכביד קודם כל על הטכנולוגיה.
+══════════════════════════════════════════════════════════════
 
-@SponserNews [Wed Nov 04 16:00:37 +0000 2026]: ת”א 35 צנח ב-2% מתחת ל-4,000 נקודות; קמטק וטאואר בלטו בירידות: המסחר בתל אביב ננעל בירידות חדות, מדד הדגל שבר רף פסיכולוגי חשוב; מניות הטכנולוגיה והתקשורת בלטו בירידות, לצד עליות במניות האנרגיה הירוקה dlvr.​it/TWBbRJ
+Source tweets/posts from X (Twitter) — gathered 2026-11-11. Never mention in the review that these came from tweets/posts:
 
-@matanshitrit [Fri Nov 06 06:52:29 +0000 2026]: מדד התנודתיות של הנאסד"ק (VXN) זינק אמש ב-52.55% ל-38.26 - העלייה היומית השנייה בגודלה אי פעם אחרי קורונה - 16/3/2020 (54.48%). גם תנודתיות אופציות ה-VIX (VVIX) רשמה את הקפיצה הגדולה ביותר זה שנתיים ויותר. https://t.co/fXOWq4yplK
+@KobeissiLetter [Wed Nov 11 10:15:57 +0000 2026]: Our direct experience with Nvidia, never shared before: 22 months ago, we published the below analysis raising concerns that Nvidia's AI chips were potentially being routed to China through Singapore. Less than 24 hours later, Nvidia's Head of PR contacted us, directly addressing our analysis. Their message to us is included below. At the time, in the previous 3 quarters, $17.4 billion of …
 
-@fundercoil [Fri Nov 06 11:22:49 +0000 2026]: נאסד״ק צנח ב-5.​52% ונכנס לתיקון כשהחששות לתשתיות ה-AI החריפו dlvr.​it/TWD4Kj https://t.co/udjzZzxbnx
+@KobeissiLetter [Wed Nov 11 09:20:34 +0000 2026]: BREAKING: CoreWeave stock, $CRWV, surges over +16% after posting stronger than expected earnings due to AI. Nasdaq 100 futures extend gains to +1.5% on the day. https://t.co/3JwUmWRssb
 
-@TheMarker [Sat Nov 07 09:00:06 +0000 2026]: אחרי הירידות אתמול: המסחר בת"א ננעל בעליות חדות, ת"א 35 זינק ב-3% https://t.co/bwhjKZys7X
+@AIStockSavvy [Wed Nov 11 20:09:23 +0000 2026]: $IREN: FROM GROUNDBREAKING TO A TESTED GB300 CLUSTER IN JUST 14 MONTHS IREN says its first 50MW AI cloud deployment for Microsoft beat the industry construction benchmark by 22% with GPUs included.
 
-@matanshitrit [Tue Nov 03 06:05:53 +0000 2026]: נאסד"ק 100 נכנס אמש לטריטוריה של תיקון בפעם השלישית השנה (על בסיס שער הסגירה) - ועדיין עם תשואה של קצת יותר מ-10% מתחילת השנה. שוק המניות הוא רכבת הרים. מי שרוצה ליהנות מהעליות, צריך לדעת להחזיק חזק גם בירידות. הבעיה היא שחלק מהמשקיעים יורדים מהרכבת דווקא בתחנה הלא נכונה... https://t.co/oZDshHXq06
+@StockMKTNewz [Wed Nov 11 11:30:21 +0000 2026]: Google $GOOGL is looking to raise ~$3 billion equivalent through its first bond sales in Hong Kong and Singapore dollars
 
-@SponserNews [Thu Nov 05 07:16:55 +0000 2026]: אל על רשמה שיא הכנסות ברבעון, אך רווח הנקי נשחק עקב זינוק הוצאות הדלק ושערוכים: למרות זינוק מרשים בהכנסות הרווח של אל על ירד לכ-174.​8 מיליון דולר, בשל עלייה בהוצאות הדלק, שיערוך שלילי של אופציות והשפעות מטבע; ברקע: תרומה בולטת של מועדון FLYCARD dlvr.​it/TWC3QZ
+@AIStockSavvy [Wed Nov 11 21:14:53 +0000 2026]: $NBIS reports before the bell tomorrow. What would impress you more, a revenue beat or stronger guidance? https://t.co/YODC4RjGdC
 
-@ModiShafrir [Thu Nov 05 13:34:49 +0000 2026]: שחיקת מעמדה של ישראל בארה"ב (הודעת טראמפ ביום הבחירות על ביטול הסיוע הבטחוני לישראל, והתבטאות סגן הנשיא ואנס לאחר הכשלון בבחירות כנגד ישראל), בשילוב עם תוצאות הבחירות בישראל (אשר הגבירו את החשש מבחירות נוספות) הובילו השבוע לעלייה נוספת בפרמיית הסיכון של ישראל: ✅ראו הירידות החדות במדד המניות המקומיים (בניגוד למגמה הגלובאלית). ✅היחלשות השקל כנגד הדולר (בניגוד למגמת היחלשות הדולר בעולם בשבוע …
+@wallstengine [Wed Nov 11 15:18:38 +0000 2026]: 88% OF 232 NVIDIA $NVDA EMPLOYEES SURVEYED WANT JENSEN HUANG TO STAY CEO
 
-@SponserNews [Wed Nov 04 12:12:55 +0000 2026]: קמטק רשמה הכנסות שיא של 161 מיליון דולר - מעל הרף העליון של תחזיות השוק: המניה מטפסת אחרי הדוחות כאשר קמטק צופה ברבעון הבא עלייה של 40% בהכנסות בהשוואה לרבעון המקביל אשתקד ל-180 מיליון דולר; עמית: "לראשונה יש לנו נראות עסקית לטווח של כשנה קדימה" dlvr.​it/TWBPXL
+@StockMKTNewz [Wed Nov 11 13:17:07 +0000 2026]: ANTHROPIC $ANT IPO IS SAID TO BE MULTIPLE TIMES OVERSUBSCRIBED - Bloomberg
 
-@SponserNews [Wed Nov 04 10:51:14 +0000 2026]: נייס מעלה תחזית רווח למניה אך שחיקה ברווחיות מאותתת על לחצים: נייס צפויה לרשום ברבעון הבא הוצאות בגין ארגון מחדש זה, לפני מס, בהיקף של בין 15-20 מיליון דולר; נייס רשמה עלייה בהכנסות ברבעון ל-790 מיליון דולר dlvr.​it/TWBLDN
+@wallstengine [Wed Nov 11 14:58:55 +0000 2026]: CoreWeave $CRWV CEO Michael Intrator, asked on CNBC why it isn't buying back bonds yielding ~15%, said: "I can deploy the capital at a higher rate of return." Jim Cramer pressed whether it can really earn over 16%. Intrator also said he canceled his 10b5-1 stock trading plan.
 
-@TheMarker [Sat Nov 07 11:02:52 +0000 2026]: נסגר העיתון החופשי האחרון ברוסיה: "לא נהרגנו, הם רצחו אותנו" https://t.co/mtkgEEcg6t
+@KobeissiLetter [Wed Nov 11 16:08:54 +0000 2026]: Berkshire Hathaway is making a historic comeback: Berkshire Hathaway outperformed the S&P 500 by +19.2 percentage points over the 1 month ending Thursday, its largest rolling monthly outperformance since 2010. This also ranks as the 4th-largest such outperformance in 30 years. By comparison, its biggest monthly rolling outperformance occurred during the 2008 Financial Crisis, at +29.6 percentage …
 
-@fundercoil [Fri Nov 06 11:25:19 +0000 2026]: מטא מתמחרת אג"ח ב-9 מיליארד אירו; מיקרוסופט השלימה הנפקה של 25 מיליארד דולר dlvr.​it/TWD4Pn https://t.co/DOHN39SRod
+@StockMKTNewz [Wed Nov 11 19:22:06 +0000 2026]: Google $GOOGL is adding its Gemini AI app to Apple’s $AAPL CarPlay system - Bloomberg https://t.co/HG7gCaq1Ug
 
-@SponserNews [Thu Nov 05 15:55:14 +0000 2026]: בורסת ת”א נצבעה באדום: מדד ת”א 35 התרסק ב-3.​7%: ירידות חדות במדדים המובילים על רקע עדכון המדדים והירידות בארה"ב, מחזור המסחר היה ער והסתכם ב-19.​38 מיליארד שקל; קמטק, טאואר ופאלו אלטו צללו בחדות מעל 8% כ"א; הדולר נושק ל-3.​20 dlvr.​it/TWCSBj
+@wallstengine [Wed Nov 11 20:11:16 +0000 2026]: Strong day across the AI trade as CoreWeave's earnings lifted sentiment: $CRWV +24% - Best since June '25 $MU +15% - Best since July SK hynix +11% $ORCL +10% $NVDA +4% Anthropic's pre-IPO perp on @liquidtrading also rose 8% to an implied $1.82T valuation amid strong IPO demand https://t.co/4EQQZ6vPvT
 
-@SponserNews [Wed Nov 04 07:39:10 +0000 2026]: דוראל מפעילה שלב נוסף בפרויקט באינדיאנה: צופה הכנסות של 86 מיליון שקל: הפרויקט מהווה חלק מ-Hub אינדיאנה, ארה"ב בהספק כולל של כ-2.​9 מגה-וואט (DC), כאשר חלקו הצפוני כבר הופעל; הפרויקט כולו ישתרע על שטח הגדול משטחה של תל אביב-יפו dlvr.​it/TWBC1j
+@StockMKTNewz [Wed Nov 11 18:31:44 +0000 2026]: Nvidia $NVDA stock is now up by 5% so far today 🟢🟢🟢🟢🟢 https://t.co/hxLitrPvip
 
-@calcalist [Fri Nov 06 08:20:00 +0000 2026]: מערכת הביטחון לא יכולה לוותר על הסיוע האמריקאי | @YAzulai, מתוך הסיכום השבועי של #מוסף_כלכליסט נשיא ארצות הברית דונלד טראמפ הטיל השבוע פצצה כשהכריז שבסוף השנה יופסק הסיוע הביטחוני לישראל, שעומד על 3.8 מיליארד דולר בשנה, בנימוק ש"ישראל היא מדינה משגשגת מאוד. היא לא צריכה את זה", כפי שסיפר לפוקס ניוז. בייחוד הפתיעה טענתו כי ראש הממשלה בנימין נתניהו היה מי שהציע זאת. נתניהו אכן סיפר על רצונו להגיע …
+@StockMKTNewz [Wed Nov 11 16:25:51 +0000 2026]: Michael Burry thinks Nvidia $NVDA could soon. Be a “heck of a trade” setup
 
-@matanshitrit [Fri Nov 06 13:39:13 +0000 2026]: דוח תעסוקה חזק בארה״ב - תוספת משרות מעל הצפי כולל עדכונים כלפי מעלה בחודשיים הקודמים, ירידה באבטלה והאצה בשכר.... עליית ריבית בדצמבר? https://t.co/GA9GPJkJ87
+@StockMKTNewz [Wed Nov 11 13:39:42 +0000 2026]: Robinhood $HOOD just released some October operating data October Net Deposits were ~$15B, bringing 2026 Net Deposits through October to ~$70B - This includes ~$9B of Net Deposits from Trump Accounts through October, including ~$6.5B in October October Trading Volumes: - Equity Notional Volumes were ~$325B, up 1% MoM and up 2% YoY - Options Contracts Traded were ~289M contracts, flat MoM and up …
 
-@SponserNews [Wed Nov 04 12:44:01 +0000 2026]: סולאראדג’ צוללת אחרי הדוחות: סיפקה תחזית הכנסות חלשה לרבעון הבא: שוקי ניר: "על רקע המשך אי-הוודאות ובהתחשב בציפיות להכנסות נמוכות יותר ברבעון הרביעי אנו נוקטים צעדים נחושים לצמצום עלויות, למיקוד הפעילות ולתמיכה ברווחיות, לנוכח הביקושים המתונים" dlvr.​it/TWBQnG
+@StockMKTNewz [Wed Nov 11 10:45:59 +0000 2026]: Finland 🇫🇮 approved Tesla's $TSLA assisted driving system in the country with immediate effect - Bloomberg https://t.co/g6PDoTNy9k
 
-@fundercoil [Fri Nov 06 16:34:29 +0000 2026]: הירידה החדה ביותר של הנאסד״ק ביום אחד מזה 19 חודשים: תחילת התפוצצות בועת ה-AI או הזדמנות? dlvr.​it/TWDJwy https://t.co/VkaaFXNMSV
+@wallstengine [Wed Nov 11 18:04:22 +0000 2026]: UNITED AIRLINES TO BLOCK AI AGENTS FROM BOOKING FLIGHTS - WSJ $UAL will still allow AI agents to display flight options and prices, but not complete bookings, citing privacy and accidental-purchase risks. CEO Scott Kirby: "I don't want to create another middleman." https://t.co/PpthKFT6vK
 
-@SponserNews [Thu Nov 05 12:56:10 +0000 2026]: מנהל רשות המסים מזהיר: בחירות נוספות יאריכו את מס הרכישה של 8%: שי אהרונוביץ’ מזהיר מהמשך הקיפאון בנדל"ן, אינו שולל הקלות מס למשקיעים ומעריך כי ב-2027 לא תהיה הפחתת מסים. באוצר מחפשים מקורות לעוד 30–40 מיליארד שקל. dlvr.​it/TWCJDY
+@wallstengine [Wed Nov 11 12:39:04 +0000 2026]: CoreWeave $CRWV CEO Michael Intrator says he sees "no reason" the company's partnership with Nvidia will change. https://t.co/KT6mlSCZKu
 
-@SponserNews [Thu Nov 05 09:30:57 +0000 2026]: בזק ואדגר מקדמות דאטה סנטר בהשקעה של עד חצי מיליארד שקל: החברות חתמו על מזכר הבנות לא מחייב להקמת מרכז נתונים בפתח תקווה; בזק צופה הכנסות שנתיות של עד 80 מיליון שקל ו-EBITDA של עד 40 מיליון שקל dlvr.​it/TWC89C
+@StockMKTNewz [Wed Nov 11 11:21:29 +0000 2026]: Anthropic $ANT expects to issue $3 billion to $3.5 billion of shares to Japanese 🇯🇵 investors in its IPO
 
-@SponserNews [Wed Nov 04 08:32:56 +0000 2026]: אפקון נכנסת לתחום השרתים: התקשרה בהסכם לרכישת שליטה בחברת מיזוג וקרור: החברה הבת של אפקון תרכוש 51% מהחברה הנרכשת תמורת 8 מיליון שקל, במטרה להרחיב את פעילותה בתחום המורכב של חוות שרתים dlvr.​it/TWBDz9
+@AIStockSavvy [Wed Nov 11 14:05:22 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Supermicro Now Shipping Next-Generation Servers Powered by 6th Gen AMD EPYC™ 9006 Series CPUs for Cloud, HPC, and Agentic AI Workloads - $SMCI $AMD https://t.co/Jpf5LjWBnd
 
-@SponserNews [Wed Nov 04 07:12:10 +0000 2026]: אורקל מבטלת עסקת שבבי AI של 7 מיליארד דולר עם טנסנט: העסקה בוטלה בעקבות לחץ אמריקאי, מה שמעלה שאלות לגבי יכולתה של טנסנט להשיג שבבים מתקדמים מחוץ לסין dlvr.​it/TWBB2h
-
-@globesnews [Sat Nov 07 14:24:07 +0000 2026]: הרווח התפעולי של ברקשייר ירד ברבעון, ויש מניה אחת שהיא לא הפסיקה לקנות https://t.co/HsMOl4T3cB https://t.co/cIMCQnbUiP
-
-@calcalist [Fri Nov 06 16:00:03 +0000 2026]: "פריבילגיה מטורפת": היזם הבכיר שמוציא 200 אלף דולר בשנה על סוכני AI https://t.co/RSCLL9cKD8 https://t.co/KhIP4taMvZ
-
-@TheMarker [Sat Nov 07 14:00:19 +0000 2026]: עם הר של מזומנים: ירידה ברווחי ברקשייר, שלא מפסיקה לרכוש מניות של עצמה https://t.co/3VJeljmeX9
-
-@matanshitrit [Thu Nov 05 15:50:06 +0000 2026]: בדרך כלל אני מציג את הסטטיסטיקה הזו על מדד ה-S&P 500, אבל בימים אלה נראה שמתבקש להציג אותה דווקא על הנאסד"ק 100. אז מי מכם שהספיק להפקיד סכום חד פעמי דווקא בשיא כל הזמנים אולי - אם זה מרגיע אתכם, היסטורית, אחרי 15 שנות השקעה כל התקופות במדגם הסתיימו בתשואה חיובית. אז בסך הכול צריך קצת סבלנות... 15 שנה, בקטנה 😅 יהיה בסדר, תמחקו את האפליקציות (:
-
-@matanshitrit [Thu Nov 05 11:01:09 +0000 2026]: אי אפשר להגיד שהתמחור פה לא צעק לשמיים ושהתיקון לא היה מתבקש. מתי הוא יגיע ומה יהיה הטריגר? את זה תמיד קשה לדעת מראש. בתחילת מאי מדד ת״א 125 כבר עלה בכ-20% מתחילת השנה. היום? נשארנו עם כ-2%-3% בלבד. ובין לבין, מיליארדי שקלים זרמו למסלולי מניות ישראל, כפי שאני מציג מדי חודש. בדיעבד, גם התזמון של האזהרה על התמחור הגבוה יצא לא רע…, אבל נזכיר שמכפילים הם לא כלי לתזמון השוק, אלא בעיקר להבנת הסיכונים …
-
-@fundercoil [Sat Nov 07 14:51:31 +0000 2026]: 7 המופלאות: גוגל מתכננת השקעה של 17 מיליארד דולר בוויומינג; מטא השלימה גיוס חוב של 15 מיליארד דולר dlvr.​it/TWDvMs https://t.co/ZnWHiNvL6i
-
-@fundercoil [Sat Nov 07 14:49:20 +0000 2026]: נכסים ובנין חזרה לרווח; רוטשטיין מקדמת 874 דירות בירושלים dlvr.​it/TWDvKc https://t.co/RYia8owKlb
-
-@fundercoil [Sat Nov 07 14:46:53 +0000 2026]: בקשה לייצוגית נגד חברת ביטוח; נשיא פאלו אלטו מכר בכ-13.​4 מיליון דולר dlvr.​it/TWDvGR https://t.co/10wpk54eLW
+@StockMKTNewz [Wed Nov 11 18:46:05 +0000 2026]: $AMD is back to having a larger market cap than JPMorgan $JPM https://t.co/JCt9Frkd8h
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
