@@ -1,7 +1,17 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature END-OF-DAY review in Hebrew for
-2026-11-11 (יום רביעי). PAST TENSE.
+You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
+trading week 09/11–13/11/2026. This review SUMS UP the week that ended. PAST TENSE. ONLY events and moves
+from THIS specific week. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse Friday's daily change with the weekly change. Where only a daily number is given for a symbol, do NOT present it as a weekly change.
+
+══ HORIZON — THIS IS A REVIEW OF A SESSION THAT ENDED ══
+Every point covers what ACTUALLY happened in the session being reviewed: which data was released (actual vs
+forecast vs previous), what moved the market and through what mechanism, how the indices, sectors and leading
+stocks responded, and what those events mean for the investor.
+Do NOT turn this into a briefing for the next session. An event that has not happened yet belongs in ONE
+place only — the closing bottom-line point, and there only to name what the reader should watch next, with
+its day and Israel time. A point whose subject is a future release, a future report or a future decision
+does not belong in this review at all.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -18,37 +28,26 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-══ HORIZON — THIS IS A REVIEW OF A SESSION THAT ENDED ══
-Every point covers what ACTUALLY happened in the session being reviewed: which data was released (actual vs
-forecast vs previous), what moved the market and through what mechanism, how the indices, sectors and leading
-stocks responded, and what those events mean for the investor.
-Do NOT turn this into a briefing for the next session. An event that has not happened yet belongs in ONE
-place only — the closing bottom-line point, and there only to name what the reader should watch next, with
-its day and Israel time. A point whose subject is a future release, a future report or a future decision
-does not belong in this review at all.
-
-This is a professional MARKET REVIEW — NOT a data dump. Explain the day — don't copy the data.
-KEEP IT SHORT: EXACTLY 6 points TOTAL (including the bottom-line point) — a review the reader finishes in
-two minutes, not an article. Each point is 3-4 lines, up to ~60 words. Cut every sentence that does not add
-a fact or a mechanism. Fewer, deeper points beat many thin ones, so pick only the strongest stories of the day.
-NEVER write mood-only sentences ("אווירה זהירה אך תומכת", "סנטימנט מעורב") — every sentence must carry a
-fact, a number or a mechanism. A sentence whose deletion loses no information must be deleted.
-* FIRST point — the day's story in one narrative (headline that captures the day, e.g. "יום תנודתי שהסתיים בירוק"):
-  what the major indices did (direction + rounded %, from the verified data) woven into ONE story of the
-  session — how it opened, what moved it, how it closed — not a list of numbers.
-* MIDDLE points (4) — ONE point per real story. Pick the STRONGEST stories of the day FROM THE SOURCE TWEETS
-  (and the verified Finnhub blocks), using the menu below as categories — do NOT force every category, and do
-  NOT import a story that web search found on its own:
-  - הסיפור של היום: WHY the market moved — the main driver, with clear cause-and-effect and the transmission
-    mechanism explained simply.
-  - Macro data released today: actual vs forecast vs previous AND the market implication (repricing of rate
-    expectations, yields, sector rotation).
-  - Leading and lagging sectors (sector percentages ONLY from the verified data) and what drove them.
-  - 1-3 notable stock stories with the REASON for each move. Each significant story gets its own point.
-  - Commodities, dollar and yields — direction and meaning, not a list of prices.
-  - After-hours earnings, or geopolitics that moved markets today — when truly material.
-* LAST point — "שורה תחתונה למחר: ..." — what investors should watch in the next session and why.
-Every direction word MUST match the DIRECTIONAL FACTS block.
+8-10 points TOTAL in three blocks, in this order (the weekly review is the extended one, but every sentence
+must still carry a fact, a number or a mechanism — no mood-only filler):
+* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
+  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
+* SUMMARY points (6-8) — ONE thematic point per major story of the week, each with its own specific headline.
+  Every one of these points covers something that ALREADY happened this week.
+  Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
+  outside the tweets:
+  - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
+  - Macro data ONLY as it appears in the tweets or the verified economic block, with the full numbers they
+    provide (actual vs forecast vs previous) and the market implication — merge related releases into one point.
+    Do NOT web-search for macro data the sources did not cover, and do NOT fill in missing
+    actual/forecast/previous figures from memory.
+  - The week's defining sector/technology story, with the transmission mechanism.
+  - Notable company news: earnings, M&A, milestones — merged where related.
+  - Commodities and the dollar with weekly context, or geopolitics with market impact.
+* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
+  and the opportunities. This is the ONLY point that may look ahead, and only to name the next scheduled
+  release or Fed event with its date and Israel time. Do NOT write a preparation block for the coming week.
+  Seasonal/historical context is welcome when verified.
 
 ══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
 The review is built EXCLUSIVELY from two sources:
@@ -58,8 +57,8 @@ Web search is permitted for THREE narrow purposes ONLY:
   a. Verifying a claim of an all-time high / 52-week high before writing it.
   b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
      cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-  c. Verifying the NEXT session's scheduled macro calendar (Israel times, consensus) for the bottom-line point,
-     and cross-checking that an event you present as upcoming was not already released.
+  c. Verifying the next scheduled release or Fed event (date, Israel time, consensus) for the closing
+     bottom-line point ONLY — this review has no preparation block.
 FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
 in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
 cover a story — the review does not cover it either.
@@ -96,20 +95,20 @@ Go over every bullet you wrote and check, one by one:
 1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
    tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
    DELETE it or the whole claim.
-2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
-   matches the instructions (never describe a closed market as open or trading).
+2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
+   "no weekly figure" note is described qualitatively or as a daily move labeled as such.
 3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
 4. SIGN-FLIP: no stock that fell is described positively.
 5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
 6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
    (the permitted verification purposes excepted).
 7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
-   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (EXACTLY 6 bullets including the bottom line).
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (8-10 bullets).
 8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
    number/direction in the summary passes checks 1-5 as well.
 9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
-   rewritten. Every bullet stays within 3-4 lines (~60 words) — trim any bullet that runs long.
+   rewritten.
 10. HORIZON: every point except the closing bottom line describes what ALREADY happened in the
    session being reviewed. No point's subject is a future release, report or decision. Scheduled
    events appear only inside the bottom-line point.
@@ -119,17 +118,17 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום יום המסחר בוול סטריט 🇺🇸 – יום רביעי, 11.11.2026",
-  "date": "2026-11-11",
+  "title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 09/11–13/11/2026",
+  "date": "2026-11-13",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום המסחר",
+      "heading": "סיכום השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום המסחר". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -148,47 +147,69 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
 DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $759.81 (daily: +1.32%), prev close: $749.92
-  Nasdaq 100 (QQQ ETF): $690.38 (daily: +2.31%), prev close: $674.76
-  Dow Jones (DIA ETF): $524.44 (daily: +0.52%), prev close: $521.73
-  Russell 2000 (IWM ETF): $283.09 (daily: +0.89%), prev close: $280.58
-  Energy Sector (XLE ETF): $63.37 (daily: +1.86%), prev close: $62.21
-  Technology Sector (XLK ETF): $174.36 (daily: +3.23%), prev close: $168.91
-  Financials Sector (XLF ETF): $58.63 (daily: +0.58%), prev close: $58.29
-  Consumer Discretionary Sector (XLY ETF): $120.99 (daily: -0.05%), prev close: $121.05
-  Healthcare Sector (XLV ETF): $188.95 (daily: +0.04%), prev close: $188.88
-  Industrials Sector (XLI ETF): $170.97 (daily: +1.33%), prev close: $168.73
-  Consumer Staples Sector (XLP ETF): $91.45 (daily: +0.46%), prev close: $91.03
-  Utilities Sector (XLU ETF): $43.82 (daily: +0.21%), prev close: $43.73
-  WTI Crude Oil (USO ETF): $141.47 (daily: +0.01%), prev close: $141.45
-  Brent Crude Oil (BNO ETF): $58.75 (daily: +0.67%), prev close: $58.36
-  Gold (GLD ETF): $365.17 (daily: -1.13%), prev close: $369.36
-  Silver (SLV ETF): $46.65 (daily: +0.37%), prev close: $46.48
-  Bitcoin (IBIT ETF): $42.24 (daily: +1.34%), prev close: $41.68
-  US 20Y+ Bonds (TLT ETF): $80.92 (daily: +0.05%), prev close: $80.88
-  US Dollar (UUP ETF): $29.35 (daily: +0.69%), prev close: $29.15
-  VIX Volatility (VIXY ETF): $16.93 (daily: -6.77%), prev close: $18.16
+  S&P 500 (SPY ETF): $754.37 (daily: -0.36%), prev close: $757.12
+  Nasdaq 100 (QQQ ETF): $679.89 (daily: -1.20%), prev close: $688.17
+  Dow Jones (DIA ETF): $523.15 (daily: +0.13%), prev close: $522.47
+  Russell 2000 (IWM ETF): $277.54 (daily: -0.32%), prev close: $278.44
+  Energy Sector (XLE ETF): $64.96 (daily: +0.98%), prev close: $64.33
+  Technology Sector (XLK ETF): $170.28 (daily: -2.01%), prev close: $173.77
+  Financials Sector (XLF ETF): $58.68 (daily: +0.81%), prev close: $58.21
+  Consumer Discretionary Sector (XLY ETF): $119.98 (daily: -0.40%), prev close: $120.46
+  Healthcare Sector (XLV ETF): $188.85 (daily: +0.54%), prev close: $187.83
+  Industrials Sector (XLI ETF): $168.78 (daily: -0.39%), prev close: $169.44
+  Consumer Staples Sector (XLP ETF): $92.35 (daily: +1.42%), prev close: $91.06
+  Utilities Sector (XLU ETF): $44.04 (daily: +0.53%), prev close: $43.81
+  WTI Crude Oil (USO ETF): $145.58 (daily: -0.34%), prev close: $146.07
+  Brent Crude Oil (BNO ETF): $61.06 (daily: +0.08%), prev close: $61.01
+  Gold (GLD ETF): $355.45 (daily: +0.16%), prev close: $354.89
+  Silver (SLV ETF): $44.13 (daily: -2.19%), prev close: $45.12
+  Bitcoin (IBIT ETF): $38.94 (daily: -3.52%), prev close: $40.36
+  US 20Y+ Bonds (TLT ETF): $79.38 (daily: -0.43%), prev close: $79.72
+  US Dollar (UUP ETF): $29.50 (daily: +0.27%), prev close: $29.42
+  VIX Volatility (VIXY ETF): $17.94 (daily: +2.46%), prev close: $17.51
 
 INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $NVDA: $173.73 (daily: +2.87%), prev close: $168.89
-  $CRWV: $60.77 (daily: +24.71%), prev close: $48.73
-  $GOOGL: $293.45 (daily: +2.11%), prev close: $287.38
-  $IREN: $20.84 (daily: +5.63%), prev close: $19.73
-  $NBIS: $154.69 (daily: +15.44%), prev close: $134.00
-  $AAPL: $355.63 (daily: +2.04%), prev close: $348.51
-  $MU: $811.30 (daily: +11.89%), prev close: $725.11
-  $ORCL: $128.38 (daily: +8.82%), prev close: $117.98
-  $HOOD: $84.58 (daily: +4.00%), prev close: $81.33
-  $TSLA: $390.84 (daily: +2.91%), prev close: $379.78
-  $UAL: $118.37 (daily: -1.82%), prev close: $120.56
+  $NVDA: $162.85 (daily: -2.01%), prev close: $166.19
+  $SPCX: $139.11 (daily: -0.59%), prev close: $139.94
+  $AMD: $534.06 (daily: -8.75%), prev close: $585.30
+  $INTC: $59.66 (daily: -2.52%), prev close: $61.20
+  $NVDL: $17.83 (daily: -3.98%), prev close: $18.57
+  $NVDU: $70.95 (daily: -3.77%), prev close: $73.73
+  $QQQ: $679.89 (daily: -1.20%), prev close: $688.17
+  $QQQM: $279.97 (daily: -1.21%), prev close: $283.39
+  $SPYM: $88.77 (daily: -0.40%), prev close: $89.13
+  $TQQQ: $57.68 (daily: -3.67%), prev close: $59.88
+  $VOO: $693.38 (daily: -0.38%), prev close: $696.00
+
+WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):
+  S&P 500 (SPY ETF): weekly +2.59% (from $735.29 to $754.37)
+  Nasdaq 100 (QQQ ETF): weekly +3.63% (from $656.10 to $679.89)
+  Dow Jones (DIA ETF): weekly +2.13% (from $512.22 to $523.15)
+  Russell 2000 (IWM ETF): weekly +1.41% (from $273.67 to $277.54)
+  Energy Sector (XLE ETF): weekly +5.42% (from $61.62 to $64.96)
+  Technology Sector (XLK ETF): weekly +3.36% (from $164.74 to $170.28)
+  Financials Sector (XLF ETF): weekly +2.66% (from $57.16 to $58.68)
+  Consumer Discretionary Sector (XLY ETF): weekly +2.04% (from $117.58 to $119.98)
+  Healthcare Sector (XLV ETF): weekly +2.19% (from $184.80 to $188.85)
+  WTI Crude Oil (USO ETF): weekly -1.91% (from $148.41 to $145.58)
+  Brent Crude Oil (BNO ETF): weekly -1.86% (from $62.22 to $61.06)
+  Gold (GLD ETF): weekly -4.58% (from $372.52 to $355.45)
+  Bitcoin (IBIT ETF): weekly -9.19% (from $42.88 to $38.94)
+  US 20Y+ Bonds (TLT ETF): weekly -3.10% (from $81.92 to $79.38)
+  $NVDA: weekly -12.75% (from $186.64 to $162.85)
+  $AMD: weekly +18.93% (from $449.04 to $534.06)
+  $INTC: weekly +6.01% (from $56.28 to $59.66)
+  $QQQ: weekly +3.63% (from $656.10 to $679.89)
+
+NOTE — no weekly figure is available for: $SPCX, $NVDL, $NVDU, $QQQM, $SPYM, $TQQQ, $VOO. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
 
 DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: +0.01%, BNO: +0.67%)
-  זהב: יורד (GLD: -1.13%)
-  ביטקוין: עולה (IBIT: +1.34%)
-  דולר: עולה (UUP: +0.69%)
-  תנודתיות / VIX: יורד (VIXY: -6.77%)
-  אג"ח ארוכות / TLT: יציב/כמעט ללא שינוי (TLT: +0.05%)
+  נפט (WTI/ברנט): מעורב — להשתמש בניסוח ניטרלי בלבד (USO: -0.34%, BNO: +0.08%)
+  זהב: עולה (GLD: +0.16%)
+  ביטקוין: יורד (IBIT: -3.52%)
+  דולר: עולה (UUP: +0.27%)
+  תנודתיות / VIX: עולה (VIXY: +2.46%)
+  אג"ח ארוכות / TLT: יורד (TLT: -0.43%)
 
 The % changes above are ACCURATE — use them for direction and magnitude.
 The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
@@ -198,68 +219,77 @@ If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
 ══════════════════════════════════════════════════════════════════════════════
 
 ══ MANDATORY MACRO TIMING CHECK (verification only) ══
-Use web search to verify the macro calendar for 2026-11-12: which of the majors (CPI headline AND core,
-PPI, NFP, Jobless Claims, Consumer Sentiment, ISM PMI, GDP, Retail Sales, FOMC decision/minutes) were
-actually released today and which are still ahead. This check protects TIMING ONLY — a release enters the
-review as a story only if it appears in the source tweets or the verified economic block, with the figures
-they provide (actual, forecast, previous AND the market implication). Never present an already-released
-event as upcoming, and never import from the search a macro story the sources did not cover.
-IN ADDITION — verify the NEXT session's scheduled macro calendar (Israel times, consensus) for the
-bottom-line point.
+The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
+they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
+the week of 09/11–13/11/2026 was indeed released in that week (headline AND core where relevant),
+and that nothing already released is written as 'expected'.
+This review has NO preparation part. Do NOT build a look-ahead to the coming week from search. The one
+exception is the closing bottom-line point, where you may name the next scheduled release or Fed event with
+its date, Israel time and consensus, and nothing more.
+Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
+actual/forecast/previous figures from memory or from search results.
 ══════════════════════════════════
 
-══ CONTEXT: THIS MORNING'S PRE-MARKET BRIEFING ══
-Published before the session. Use it to resolve scheduled items (expected → actual), do NOT quote it verbatim.
+Source tweets/posts from X (Twitter) — gathered 2026-11-14. Never mention in the review that these came from tweets/posts:
 
-[נקודות מרכזיות]
-* חוזים בעלייה קלה לפני האינפלציה: החוזים על S&P 500 עולים 0.19%, החוזים על הדאו ג'ונס מוסיפים 151 נקודות והחוזים על נאסד״ק 100 כמעט ללא שינוי. השוק צפוי להיפתח ב-16:30 שעון ישראל אחרי ארבעה ימי ירידות רצופים. באסיה נרשמו ירידות חדות, הקוספי הקוריאני איבד 2.8% והניקיי ירד 2.6%.
-* מדד המחירים לצרכן של 15:30: הלשכה לסטטיסטיקה של העבודה תפרסם היום ב-15:30 שעון ישראל את מדד המחירים לצרכן לאוגוסט, בצפי לעלייה של 0.4% בחודש ו-3.4% בשנה, ובליבה 0.4% בחודש ו-2.4% בשנה, לעומת נתון קודם של 3.4% ו-2.5%. אתמול עלה מדד המחירים ליצרן ל-5.4% מול צפי ל-5.3%, והליבה טיפסה ל-4.6%.
-* התשואות מתקרבות ל-5 אחוזים: תשואת האג״ח ל-10 שנים עומדת על 4.955% והתשואה ל-30 שנה על 5.362%, אחרי עלייה של כ-95 נקודות בסיס מאז תחילת המלחמה באיראן. תשואה גבוהה יותר מעלה את שיעור ההיוון של הרווחים העתידיים ומייקרת מימון, ולכן הלחץ מתרכז במניות הצמיחה. האג״ח הארוכות יורדות 1.16% והתנודתיות עולה 3.42%.
-* מחיר הסולר שובר שיא: מחיר הסולר בארה״ב חצה לראשונה 6 דולר לגלון, עלייה של 74% בתשעה חודשים, ובחלק מהמדינות הוא כבר מעל 8 דולר על רקע מחסור בהיצע. מחיר הנפט עולה היום 5.61% ומחיר הברנט 6.42%, לפי דיווחים סביב 105 דולר לחבית. דלק יקר מחלחל לסעיפי התחבורה במדד ומרים את ציפיות האינפלציה לקראת הנתון.
-* מניית אורקל (ORCL) אחרי הדוח: המניה ירדה 5.38% במסחר הרגיל לקראת הפרסום, ולאחר הנעילה דיווחה החברה על הכנסות של 19.3 מיליארד דולר, צמיחה של 30%, ורווח מתואם של 1.92 דולר למניה, שניהם מעל הצפי. צבר ההתחייבויות לביצוע הגיע ל-664 מיליארד דולר לעומת 455.3 מיליארד לפני שנה, והמניה עלתה במסחר המאוחר. המשקיעים יבחנו היום אם המהלך מחזיק בפתיחה.
-* שורה תחתונה: נתון האינפלציה של 15:30 יקבע את כיוון המסחר ואת השאלה אם ה-Fed יעלה ריבית בהחלטה של השבוע הבא. לפי דיווחים השוק מתמחר הסתברות של 62% להעלאה כבר בישיבה הקרובה ו-71% עד אוקטובר, ולכן קריאה חמה מהצפי תדחוף את התשואה ל-10 שנים מעל 5% ותכביד קודם כל על הטכנולוגיה.
-══════════════════════════════════════════════════════════════
+@KobeissiLetter [Fri Nov 13 14:56:45 +0000 2026]: BREAKING: AMD, $AMD, has outperformed Nvidia, $NVDA, by +53.2 percentage points over the last 5 trading days, the most since Nvidia’s IPO in January 1999. Over this period, $AMD rallied +44.7%, while $NVDA dropped -8.5%. The previous record for AMD's 5-day outperformance over Nvidia since 1999 was set in April 2016, at +49.9 percentage points. So far in 2026, $AMD is outperforming $NVDA by +184 …
 
-Source tweets/posts from X (Twitter) — gathered 2026-11-12. Never mention in the review that these came from tweets/posts:
+@KobeissiLetter [Sat Nov 14 07:10:14 +0000 2026]: BREAKING: Elon Musk publicly questions the credibility of Nvidia's, $NVDA, board of directors amid the controversy surrounding Jensen Huang's departure as CEO. "This is the board making decisions about what used to be the most valuable company on Earth!?" Musk said. Nvidia's Board Members include: 1. Harvey Jones: Chairman, Square Wave Ventures 2. Stephen Neal: Former Chairman, Cooley LLP 3. …
 
-@KobeissiLetter [Wed Nov 11 10:15:57 +0000 2026]: Our direct experience with Nvidia, never shared before: 22 months ago, we published the below analysis raising concerns that Nvidia's AI chips were potentially being routed to China through Singapore. Less than 24 hours later, Nvidia's Head of PR contacted us, directly addressing our analysis. Their message to us is included below. At the time, in the previous 3 quarters, $17.4 billion of …
+@AIStockSavvy [Sat Nov 14 00:26:24 +0000 2026]: ⚡ 𝗨𝗣𝗗𝗔𝗧𝗘: SOROS FUND RAMPS UP $INTC 𝗜𝗡𝗧𝗘𝗟 STAKE TO $𝟯𝟰𝟬.𝟯 𝗠𝗜𝗟𝗟𝗜𝗢𝗡 Soros Fund Management sharply increased its Intel holdings in the third quarter while cutting positions in Apple and ON Semiconductor, Reuters reported. The family office held 𝟮.𝟴𝟯 𝗺𝗶𝗹𝗹𝗶𝗼𝗻 Intel shares, up from just 100,000 at the end of June. 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀 ➤ 𝗜𝗡𝗧𝗘𝗟 𝗦𝗧𝗔𝗞𝗘 𝗦𝗨𝗥𝗚𝗘𝗦: The fund disclosed a 2.83 million-share position …
 
-@KobeissiLetter [Wed Nov 11 09:20:34 +0000 2026]: BREAKING: CoreWeave stock, $CRWV, surges over +16% after posting stronger than expected earnings due to AI. Nasdaq 100 futures extend gains to +1.5% on the day. https://t.co/3JwUmWRssb
+@AIStockSavvy [Fri Nov 13 22:23:04 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $ANT ANTHROPIC’S $𝟲𝟰 𝗕𝗜𝗟𝗟𝗜𝗢𝗡 IPO DRAWS 𝟲𝗫 ORDERS FOR AVAILABLE SHARES - Reuters Early institutional interest in Anthropic’s IPO is outpacing the opening days of $SPCX SpaceX’s roadshow, according to Reuters sources. Demand is building but investors remain divided over revenue forecasts, competition and whether Claude can sustain its edge beyond coding. 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀 ➤ 𝗗𝗘𝗠𝗔𝗡𝗗 𝗦𝗨𝗥𝗚𝗘: …
 
-@AIStockSavvy [Wed Nov 11 20:09:23 +0000 2026]: $IREN: FROM GROUNDBREAKING TO A TESTED GB300 CLUSTER IN JUST 14 MONTHS IREN says its first 50MW AI cloud deployment for Microsoft beat the industry construction benchmark by 22% with GPUs included.
+@KobeissiLetter [Fri Nov 13 09:20:05 +0000 2026]: BREAKING: Retail investors bought +$730 million in Nvidia, $NVDA, stock on Tuesday, their largest daily purchase since March. This was preceded by +$590 million on Monday and followed by +$300 million on Wednesday. In total, retail investors bought +$1.6 billion in Nvidia shares in 3 trading days ending Wednesday, retail's largest 3-day purchase in at least 12 months. Over the same period, the 2x …
 
-@gurgavin [Wed Nov 11 22:02:58 +0000 2026]: ODDS OF JENSEN HUANG OUT AT NVIDIA CEO JUST JUMPED TO 64% ON THE NEWS OF THE SECOND AFFAIR ON KALSHI $NVDA https://t.co/A1VHo6VJMs
+@KobeissiLetter [Thu Nov 12 23:31:33 +0000 2026]: Investors buying the dip in US equity ETFs at an unprecedented pace: The S&P 500 ETF, $VOO, attracted +$16.9 billion in inflows over 5 trading days ending November 10th, the most among major US equity ETFs. This was followed by the Nasdaq 100 ETF, $QQQ, and the total US stock market ETF, $VTI, at +$5.3 billion and +$3.3 billion, respectively. At the same time, the S&P 500 ETF, $SPYM, and the …
 
-@StockMKTNewz [Wed Nov 11 11:30:21 +0000 2026]: Google $GOOGL is looking to raise ~$3 billion equivalent through its first bond sales in Hong Kong and Singapore dollars
+@StockMKTNewz [Fri Nov 13 23:33:47 +0000 2026]: Tesla $TSLA just posted this: "Select customers are now being invited to purchase Cybercab for personal use" The Image says the Cybercab starts at $29,990 https://t.co/rBbHPnUL87
 
-@KobeissiLetter [Wed Nov 11 22:04:35 +0000 2026]: BREAKING: Nvidia, $NVDA, CEO Jensen Huang reportedly had another affair with a senior Nvidia employee, per NYT. The relationship was reportedly with Kimberly Powell, Nvidia's VP of Health Care who reports to Jensen Huang. Witnesses claim that Jensen Huang's security detained a person who “recorded an encounter” between them and offered an NDA. Nvidia stock is falling sharply on the news.
+@StockMKTNewz [Fri Nov 13 22:19:08 +0000 2026]: SpaceX $SPCX just posted this: “Recovering the entire launch vehicle is considered the holy grail of rocketry. On this mission, we will attempt to recover both stages of Starship for the first time” https://t.co/CYililXely
 
-@gurgavin [Wed Nov 11 21:58:23 +0000 2026]: JUST IN : NVIDIA CEO JENSEN HUANG HAD ANOTHER AFFAIR WITH AN NVIDIA EMPLOYEE PER NEW YORK TIMES HUANG'S ALLEGED RELATIONSHIP WAS WITH NVIDIA HEALTH CARE VP KIMBERLY POWELL JENSEN HUANG HUNG UP THE CALL ON NYT AFTER THEY ASKED HIM ABOUT IT ; NVIDIA HAS DECLINED COMMENT $NVDA
+@StockMKTNewz [Fri Nov 13 23:52:55 +0000 2026]: BRAD GERSTNER AND GAVIN BAKER JUST SAID THIS LETTER TO NVIDIA'S $NVDA BOARD OF DIRECTORS "To the Distinguished Nvidia Board, We write as shareholders to share a view that we believe is widely agreed to among shareholders and to make a simple request. Given the extraordinary success of Jensen Huang s leadership over a long period of time and given the massive uncertainty associated with recent …
 
-@AIStockSavvy [Wed Nov 11 21:14:53 +0000 2026]: $NBIS reports before the bell tomorrow. What would impress you more, a revenue beat or stronger guidance? https://t.co/YODC4RjGdC
+@AIStockSavvy [Sat Nov 14 00:29:24 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: $NVDA EX-NVIDIA CEO 𝗝𝗘𝗡𝗦𝗘𝗡 𝗛𝗨𝗔𝗡𝗚 MISLED TOP EXECUTIVES ABOUT AFFAIR - REUTERS Jensen Huang portrayed his interactions with Chinese businesswoman Alice Huang as routine customer dealings, according to sources and correspondence reviewed by Reuters. The report follows his resignation as Nvidia CEO and the board’s launch of an independent investigation. 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀 ➤ 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗟 …
 
-@wallstengine [Wed Nov 11 15:18:38 +0000 2026]: 88% OF 232 NVIDIA $NVDA EMPLOYEES SURVEYED WANT JENSEN HUANG TO STAY CEO
+@wallstengine [Sat Nov 14 00:01:31 +0000 2026]: TWO MAJOR NVIDIA SHAREHOLDERS HAVE WRITTEN TO THE BOARD ASKING IT TO LEAVE THE DOOR OPEN FOR JENSEN HUANG'S RETURN Brad Gerstner, chief executive of Altimeter Capital, and Gavin Baker, managing partner and chief investment officer of Atreides Management, have sent a joint letter to $NVDA board. They ask the board to pursue "a slow, measured, and deliberate process regarding the future leadership …
 
-@StockMKTNewz [Wed Nov 11 13:17:07 +0000 2026]: ANTHROPIC $ANT IPO IS SAID TO BE MULTIPLE TIMES OVERSUBSCRIBED - Bloomberg
+@KobeissiLetter [Sat Nov 14 12:32:25 +0000 2026]: On the Nvidia situation: Nvidia's board can still make things right. It has now been 48 hours since Jensen Huang resigned from his role as CEO, President, and board member of Nvidia. Meanwhile, a thorough investigation has not been completed, countless critical questions are unanswered, and one of the world's greatest CEOs was forced out before the full facts of the situation were established. In …
 
-@wallstengine [Wed Nov 11 14:58:55 +0000 2026]: CoreWeave $CRWV CEO Michael Intrator, asked on CNBC why it isn't buying back bonds yielding ~15%, said: "I can deploy the capital at a higher rate of return." Jim Cramer pressed whether it can really earn over 16%. Intrator also said he canceled his 10b5-1 stock trading plan.
+@KobeissiLetter [Fri Nov 13 21:05:40 +0000 2026]: BREAKING: Elon Musk announces that a petition is currently underway to reinstate Jensen Huang as CEO of Nvidia, $NVDA. Musk says he will be signing the petition and supports Jensen Huang's return to the company.
 
-@KobeissiLetter [Wed Nov 11 16:08:54 +0000 2026]: Berkshire Hathaway is making a historic comeback: Berkshire Hathaway outperformed the S&P 500 by +19.2 percentage points over the 1 month ending Thursday, its largest rolling monthly outperformance since 2010. This also ranks as the 4th-largest such outperformance in 30 years. By comparison, its biggest monthly rolling outperformance occurred during the 2008 Financial Crisis, at +29.6 percentage …
+@KobeissiLetter [Fri Nov 13 07:23:00 +0000 2026]: BREAKING: An internal post urging Nvidia’s, $NVDA, board to reinstate Jensen Huang has drawn over 1,600 comments, with the majority in “full support” of reinstating him, per WIRED. The post urges the Board of Directors to “consider employee sentiment” regarding Jensen Huang’s departure from the company.
 
-@StockMKTNewz [Wed Nov 11 19:22:06 +0000 2026]: Google $GOOGL is adding its Gemini AI app to Apple’s $AAPL CarPlay system - Bloomberg https://t.co/HG7gCaq1Ug
+@gurgavin [Sat Nov 14 00:24:37 +0000 2026]: *EX-NVIDIA CEO HUANG MISLED GENERAL COUNSEL ON AFFAIR *HUANG CHARACTERIZED TIES TO ALICE HUANG AS ROUTINE BUSINESS DEALS TO NVDA LEADERS *HUANG PRESSED NVIDIA’S LEGAL TEAM TO WEIGH NYT LAWSUIT OVER COVERAGE $NVDA
 
-@wallstengine [Wed Nov 11 20:11:16 +0000 2026]: Strong day across the AI trade as CoreWeave's earnings lifted sentiment: $CRWV +24% - Best since June '25 $MU +15% - Best since July SK hynix +11% $ORCL +10% $NVDA +4% Anthropic's pre-IPO perp on @liquidtrading also rose 8% to an implied $1.82T valuation amid strong IPO demand https://t.co/4EQQZ6vPvT
+@KobeissiLetter [Sat Nov 14 00:53:51 +0000 2026]: BREAKING: China’s trade surplus surged +$84 billion YoY in the first 10 months of 2026, or +8.8%, to a record $1.04 trillion. This marks the 3rd consecutive YoY increase for this period of the year, totalling +$348 billion. China’s 2026 surplus has already surpassed every previous full-year total except 2025, when it rose to a record $1.18 trillion. In October alone, the trade surplus increased …
 
-@StockMKTNewz [Wed Nov 11 18:31:44 +0000 2026]: Nvidia $NVDA stock is now up by 5% so far today 🟢🟢🟢🟢🟢 https://t.co/hxLitrPvip
+@KobeissiLetter [Fri Nov 13 11:48:36 +0000 2026]: BREAKING: The US Treasury posted a -$404 billion budget deficit in October, the largest October deficit in history. This marks a +$120 billion YoY increase and a +$337 billion surge from October 2024. This comes as government outlays jumped +$84 billion YoY, to $773 billion, their largest for any October on record. Defense spending was a major driver, surging +$29 billion YoY, to $129 billion, …
 
-@StockMKTNewz [Wed Nov 11 16:25:51 +0000 2026]: Michael Burry thinks Nvidia $NVDA could soon. Be a “heck of a trade” setup
+@StockMKTNewz [Fri Nov 13 18:18:56 +0000 2026]: Jensen Huang will still be getting more than $800 Million per year in dividends from his shares of Nvidia $NVDA stock
 
-@StockMKTNewz [Wed Nov 11 13:39:42 +0000 2026]: Robinhood $HOOD just released some October operating data October Net Deposits were ~$15B, bringing 2026 Net Deposits through October to ~$70B - This includes ~$9B of Net Deposits from Trump Accounts through October, including ~$6.5B in October October Trading Volumes: - Equity Notional Volumes were ~$325B, up 1% MoM and up 2% YoY - Options Contracts Traded were ~289M contracts, flat MoM and up …
+@gurgavin [Thu Nov 12 23:12:18 +0000 2026]: THE ANTHROPIC IPO IS NOW MORE THAN 6 TIMES OVERSUBSCRIBED $ANT
 
-@StockMKTNewz [Wed Nov 11 10:45:59 +0000 2026]: Finland 🇫🇮 approved Tesla's $TSLA assisted driving system in the country with immediate effect - Bloomberg https://t.co/g6PDoTNy9k
+@gurgavin [Thu Nov 12 02:00:27 +0000 2026]: THIS IS CRAZY SOMEONE FILMED JENSEN HUANG “BEING AFFECTIONATE” WITH AN NVIDIA EMPLOYEE AT A HOTEL DURING DTC JENSEN’S SECURITY NOTICED PULLED THE PERSON ASIDE AND “OFFERED THEM AN NDA” $NVDA https://t.co/jB6vcof74S
 
-@wallstengine [Wed Nov 11 18:04:22 +0000 2026]: UNITED AIRLINES TO BLOCK AI AGENTS FROM BOOKING FLIGHTS - WSJ $UAL will still allow AI agents to display flight options and prices, but not complete bookings, citing privacy and accidental-purchase risks. CEO Scott Kirby: "I don't want to create another middleman." https://t.co/PpthKFT6vK
+@KobeissiLetter [Sat Nov 14 08:06:00 +0000 2026]: BREAKING: An open letter to reinstate Jensen Huang as CEO of Nvidia, $NVDA, now has over 65,000 signatures, alleging that Huang was removed "without meaningful due process." The letter has been signed by more than 35,000 shareholders and 4,700 current and former Nvidia employees. Elon Musk has publicly stated that he has signed the petition and fully supports Huang's return to the company. We …
 
-@wallstengine [Wed Nov 11 12:39:04 +0000 2026]: CoreWeave $CRWV CEO Michael Intrator says he sees "no reason" the company's partnership with Nvidia will change. https://t.co/KT6mlSCZKu
+@StockMKTNewz [Fri Nov 13 19:14:09 +0000 2026]: Nvidia’s $NVDA board of directors said it has not formally engaged with any potential candidates, saying any speculation about who may takeover is premature - CNBC https://t.co/6RBRKxQSUW
+
+@wallstengine [Fri Nov 13 21:54:11 +0000 2026]: Qualcomm raised $4 billion in the bond market across five tranches: 2028: $750M at 5.00% 2029: $750M at 5.15% 2031: $1B at 5.35% 2033: $750M at 5.60% 2036: $750M at 5.80% For context, $QCOM is paying 5.80% to borrow for 10 years, compared with the US10Y tsy. yield of 5.14%
+
+@wallstengine [Fri Nov 13 21:30:33 +0000 2026]: Retail investors bought $1.96B of Nvidia $NVDA stock this week, the most since March 2025, despite its record weekly market-cap loss following Jensen Huang's resignation, with Vanda Research expecting purchases to top $2B after Friday's flows, per WSJ.
+
+@KobeissiLetter [Fri Nov 13 00:33:33 +0000 2026]: US AI is generating far more revenue than Chinese AI: As of the end of September, OpenAI and Anthropic had a combined estimated annualized revenue run rate of $105 billion. This is nearly 10 times the $11 billion generated by 6 Chinese AI companies, including Alibaba, ByteDance, DeepSeek, Z Dot ai, Moonshot AI, and MiniMax. ByteDance accounted for 36% of this figure at $4 billion. In Q3 alone, …
+
+@gurgavin [Fri Nov 13 21:50:55 +0000 2026]: ALL IN THE LAST 24 HOURS *FAA GROUNDS ALL U.S. FLIGHTS *RADIO FREQUENCY + RADAR OUTAGES REPORTED AT MULTIPLE AIR TRAFFIC CONTROL CENTRES *CHICAGO O'HARE &amp; MIDWAY GROUND STOPPED EARLIER OVER EQUIPMENT OUTAGE *MICROSOFT HIT BY 24+ HR GLOBAL OUTAGE WHAT IS HAPPENING ??
+
+@gurgavin [Thu Nov 12 21:52:47 +0000 2026]: MY OFFICIAL STATEMENT ON THE RUMOURS $NVDA https://t.co/YITXvZhgkW
+
+@gurgavin [Thu Nov 12 04:32:23 +0000 2026]: NIGHTS LIKE THESE I DONT WANNA SLEEP WHAT HAPPENS IF THE BOARD FIRES JENSEN AT 5 AM ??? $NVDA
+
+@gurgavin [Thu Nov 12 00:47:48 +0000 2026]: UPDATE FROM BLOOMBERG NVIDIA’S BOARD IS CURRENTLY IN A MEETING AND CONSIDERING REPLACING NVIDIA CEO $NVDA
+
+@StockMKTNewz [Fri Nov 13 17:33:18 +0000 2026]: When I type Anthropic into my brokerage platform, this was the only ETF that shows up as of 10/26/26 $ANTW - the Anthropic AI Lab Ecosystem ETF The ETF launched by Harbor Capital and is part of their new AI Labs Ecosystem Suite ANTW seeks exposure to companies Harbor believes to be most closely positioned to benefit from the success and growth of the Anthropic AI ecosystem Here are the current …
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
