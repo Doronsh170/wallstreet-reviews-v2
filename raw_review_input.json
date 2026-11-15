@@ -1,104 +1,107 @@
 {
-  "mode": "weekly_summary",
-  "generated_at": "2026-11-14T15:12:02.011813+02:00",
-  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 09/11–13/11/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-11-13",
-  "title_date_str": "2026-11-14",
-  "title_day_name": "שבת",
-  "week_range": "09/11–13/11/2026",
-  "etf_pcts": {
-    "SPY": -0.3632,
-    "QQQ": -1.2032,
-    "DIA": 0.1302,
-    "IWM": -0.3232,
-    "XLE": 0.9793,
-    "XLK": -2.0084,
-    "XLF": 0.8074,
-    "XLY": -0.3985,
-    "XLV": 0.543,
-    "XLI": -0.3895,
-    "XLP": 1.4166,
-    "XLU": 0.525,
-    "USO": -0.3355,
-    "BNO": 0.082,
-    "GLD": 0.1578,
-    "SLV": -2.1941,
-    "IBIT": -3.5183,
-    "TLT": -0.4265,
-    "UUP": 0.2719,
-    "VIXY": 2.4557
-  },
-  "ticker_quotes": {
-    "NVDA": {
-      "price": 162.85,
-      "pct": -2.0097,
-      "prev_close": 166.19,
-      "ts": 1794603600
-    },
-    "SPCX": {
-      "price": 139.11,
-      "pct": -0.5931,
-      "prev_close": 139.94,
-      "ts": 1794603600
-    },
-    "AMD": {
-      "price": 534.06,
-      "pct": -8.7545,
-      "prev_close": 585.3,
-      "ts": 1794603600
-    },
-    "INTC": {
-      "price": 59.66,
-      "pct": -2.5163,
-      "prev_close": 61.2,
-      "ts": 1794603600
-    },
-    "NVDL": {
-      "price": 17.83,
-      "pct": -3.9849,
-      "prev_close": 18.57,
-      "ts": 1794603600
-    },
-    "NVDU": {
-      "price": 70.95,
-      "pct": -3.7705,
-      "prev_close": 73.73,
-      "ts": 1794603600
-    },
-    "QQQ": {
-      "price": 679.89,
-      "pct": -1.2032,
-      "prev_close": 688.17,
-      "ts": 1794603600
-    },
-    "QQQM": {
-      "price": 279.97,
-      "pct": -1.2068,
-      "prev_close": 283.39,
-      "ts": 1794603600
-    },
-    "SPYM": {
-      "price": 88.77,
-      "pct": -0.4039,
-      "prev_close": 89.13,
-      "ts": 1794603600
-    },
-    "TQQQ": {
-      "price": 57.68,
-      "pct": -3.674,
-      "prev_close": 59.88,
-      "ts": 1794603600
-    },
-    "VOO": {
-      "price": 693.38,
-      "pct": -0.3764,
-      "prev_close": 696.0,
-      "ts": 1794603600
-    }
-  },
+  "mode": "weekly_prep",
+  "generated_at": "2026-11-15T18:07:28.026234+02:00",
+  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 16/11–20/11/2026",
+  "first_heading": "לקראת השבוע",
+  "review_date": "2026-11-16",
+  "title_date_str": "2026-11-16",
+  "title_day_name": "שני",
+  "week_range": "16/11–20/11/2026",
+  "etf_pcts": {},
+  "ticker_quotes": {},
   "scheduled": {
     "macro": [],
-    "earnings": []
+    "earnings": [
+      {
+        "event": "PDD",
+        "date": "2026-11-16",
+        "time_il": ""
+      },
+      {
+        "event": "BIDU",
+        "date": "2026-11-16",
+        "time_il": ""
+      },
+      {
+        "event": "XPEV",
+        "date": "2026-11-16",
+        "time_il": ""
+      },
+      {
+        "event": "TSN",
+        "date": "2026-11-16",
+        "time_il": ""
+      },
+      {
+        "event": "NVDA",
+        "date": "2026-11-17",
+        "time_il": ""
+      },
+      {
+        "event": "HD",
+        "date": "2026-11-17",
+        "time_il": ""
+      },
+      {
+        "event": "DIS",
+        "date": "2026-11-17",
+        "time_il": ""
+      },
+      {
+        "event": "TME",
+        "date": "2026-11-17",
+        "time_il": ""
+      },
+      {
+        "event": "TGT",
+        "date": "2026-11-18",
+        "time_il": ""
+      },
+      {
+        "event": "LOW",
+        "date": "2026-11-18",
+        "time_il": ""
+      },
+      {
+        "event": "VIPS",
+        "date": "2026-11-18",
+        "time_il": ""
+      },
+      {
+        "event": "TJX",
+        "date": "2026-11-18",
+        "time_il": ""
+      },
+      {
+        "event": "BABA",
+        "date": "2026-11-19",
+        "time_il": ""
+      },
+      {
+        "event": "WMT",
+        "date": "2026-11-19",
+        "time_il": ""
+      },
+      {
+        "event": "NTES",
+        "date": "2026-11-19",
+        "time_il": ""
+      },
+      {
+        "event": "FUTU",
+        "date": "2026-11-19",
+        "time_il": ""
+      },
+      {
+        "event": "RERE",
+        "date": "2026-11-19",
+        "time_il": ""
+      },
+      {
+        "event": "HPE",
+        "date": "2026-11-23",
+        "time_il": ""
+      }
+    ]
   }
 }
