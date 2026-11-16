@@ -1,107 +1,16 @@
 {
-  "mode": "weekly_prep",
-  "generated_at": "2026-11-15T18:07:28.026234+02:00",
-  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 16/11–20/11/2026",
-  "first_heading": "לקראת השבוע",
+  "mode": "intraday_update",
+  "generated_at": "2026-11-16T21:18:18.954545+02:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שני, 16.11.2026, 21:18",
+  "first_heading": "עדכון ביניים",
   "review_date": "2026-11-16",
   "title_date_str": "2026-11-16",
   "title_day_name": "שני",
-  "week_range": "16/11–20/11/2026",
+  "week_range": null,
   "etf_pcts": {},
   "ticker_quotes": {},
   "scheduled": {
     "macro": [],
-    "earnings": [
-      {
-        "event": "PDD",
-        "date": "2026-11-16",
-        "time_il": ""
-      },
-      {
-        "event": "BIDU",
-        "date": "2026-11-16",
-        "time_il": ""
-      },
-      {
-        "event": "XPEV",
-        "date": "2026-11-16",
-        "time_il": ""
-      },
-      {
-        "event": "TSN",
-        "date": "2026-11-16",
-        "time_il": ""
-      },
-      {
-        "event": "NVDA",
-        "date": "2026-11-17",
-        "time_il": ""
-      },
-      {
-        "event": "HD",
-        "date": "2026-11-17",
-        "time_il": ""
-      },
-      {
-        "event": "DIS",
-        "date": "2026-11-17",
-        "time_il": ""
-      },
-      {
-        "event": "TME",
-        "date": "2026-11-17",
-        "time_il": ""
-      },
-      {
-        "event": "TGT",
-        "date": "2026-11-18",
-        "time_il": ""
-      },
-      {
-        "event": "LOW",
-        "date": "2026-11-18",
-        "time_il": ""
-      },
-      {
-        "event": "VIPS",
-        "date": "2026-11-18",
-        "time_il": ""
-      },
-      {
-        "event": "TJX",
-        "date": "2026-11-18",
-        "time_il": ""
-      },
-      {
-        "event": "BABA",
-        "date": "2026-11-19",
-        "time_il": ""
-      },
-      {
-        "event": "WMT",
-        "date": "2026-11-19",
-        "time_il": ""
-      },
-      {
-        "event": "NTES",
-        "date": "2026-11-19",
-        "time_il": ""
-      },
-      {
-        "event": "FUTU",
-        "date": "2026-11-19",
-        "time_il": ""
-      },
-      {
-        "event": "RERE",
-        "date": "2026-11-19",
-        "time_il": ""
-      },
-      {
-        "event": "HPE",
-        "date": "2026-11-23",
-        "time_il": ""
-      }
-    ]
+    "earnings": []
   }
 }
