@@ -669,7 +669,7 @@ const MAX_SHARE_URL_CHARS = 6000;
 function reviewDeepLink(review, key){
   const mode = Object.keys(MODE_KEYS).find(m => MODE_KEYS[m] === key);
   if(!mode || !/^\d{4}-\d{2}-\d{2}$/.test(String(review.date || ''))) return SITE_URL;
-  const params = new URLSearchParams({review:mode,date:review.date,title:String(review.title || '')});
+  const params = new URLSearchParams({review:mode,date:review.date});
   return SITE_URL + '?' + params.toString();
 }
 
@@ -677,14 +677,13 @@ async function openSharedReview(){
   const params = new URLSearchParams(window.location.search);
   const mode = params.get('review');
   const date = params.get('date');
-  const title = params.get('title');
   const key = MODE_KEYS[mode];
   if(!key || !/^\d{4}-\d{2}-\d{2}$/.test(String(date || ''))) return false;
   const market = MARKETS.us.tabs.includes(key) ? 'us' : MARKETS.il.tabs.includes(key) ? 'il' : null;
   if(!market) return false;
   aiNoticeSeen = true;
   selectMarket(market);
-  const matches = r => r && r.date === date && (!title || r.title === title);
+  const matches = r => r && r.date === date;
   let review = matches(data && data[key]) ? data[key] : null;
   if(!review){
     const month = date.slice(0,7);
@@ -699,6 +698,13 @@ async function openSharedReview(){
   if(review){
     archiveEntry = {mode,review};
     render();
+    const full = document.getElementById('fullReview');
+    const button = document.getElementById('fullReviewBtn');
+    if(full && button){
+      full.removeAttribute('hidden');
+      button.textContent = 'הסתר את הסקירה המלאה';
+      button.setAttribute('aria-expanded','true');
+    }
     document.title = review.title + ' | Doron Tools';
   }else{
     archiveEntry = null;
