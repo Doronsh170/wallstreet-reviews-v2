@@ -354,6 +354,7 @@ let data = null;
 let activeMarket = null;
 let active = null;
 let currentReview = null;   // the review shown right now (live tab OR archive entry)
+let currentReviewKey = null; // source mode of the displayed review, for stable deep links
 let archiveIndex = null;    // ["2026-07", ...] newest first, from archive/index.json
 const archiveMonths = {};   // month → entries[] cache
 let archiveMonth = null;
@@ -429,6 +430,7 @@ function renderEmpty(key){
 }
 
 function renderReview(review, key){
+  currentReviewKey = key;
   const bullets = bulletsOf(review);
   const heading = stripCtl((review.sections && review.sections[0] && review.sections[0].heading) || LABELS[key].he);
   let html = `<div class="review-head">
@@ -663,6 +665,50 @@ function showMarkets(){
    gracefully instead of producing a dead button. */
 const MAX_SHARE_URL_CHARS = 6000;
 
+/* Stable direct link to one specific review, including archive entries. */
+function reviewDeepLink(review, key){
+  const mode = Object.keys(MODE_KEYS).find(m => MODE_KEYS[m] === key);
+  if(!mode || !/^\d{4}-\d{2}-\d{2}$/.test(String(review.date || ''))) return SITE_URL;
+  const params = new URLSearchParams({review:mode,date:review.date,title:String(review.title || '')});
+  return SITE_URL + '?' + params.toString();
+}
+
+async function openSharedReview(){
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get('review');
+  const date = params.get('date');
+  const title = params.get('title');
+  const key = MODE_KEYS[mode];
+  if(!key || !/^\d{4}-\d{2}-\d{2}$/.test(String(date || ''))) return false;
+  const market = MARKETS.us.tabs.includes(key) ? 'us' : MARKETS.il.tabs.includes(key) ? 'il' : null;
+  if(!market) return false;
+  aiNoticeSeen = true;
+  selectMarket(market);
+  const matches = r => r && r.date === date && (!title || r.title === title);
+  let review = matches(data && data[key]) ? data[key] : null;
+  if(!review){
+    const month = date.slice(0,7);
+    try{
+      const entries = (await fetchArchiveJson('archive/' + month + '.json')).entries || [];
+      archiveMonths[month] = entries;
+      const entry = entries.find(e => e.mode === mode && matches(e.review));
+      if(entry) review = entry.review;
+    }catch(e){}
+  }
+  active = 'archive';
+  if(review){
+    archiveEntry = {mode,review};
+    render();
+    document.title = review.title + ' | Doron Tools';
+  }else{
+    archiveEntry = null;
+    ++archiveLoadSeq;
+    document.getElementById('screen').innerHTML = '<div class="empty"><h3>הסקירה המבוקשת לא נמצאה</h3><p>ייתכן שהסקירה הוסרה או טרם פורסמה.</p></div>';
+    document.getElementById('activeLabel').textContent = 'סקירה';
+  }
+  return true;
+}
+
 async function shareWhatsApp(){
   // currentReview covers both a live tab and an opened archive entry.
   const review = currentReview;
@@ -670,7 +716,8 @@ async function shareWhatsApp(){
   // The share button must NEVER fail: any error while condensing the summary falls
   // back to sharing the title + site link, which always works.
   const title = '*' + stripCtl(String(review.title || (LABELS[active] || {}).he || 'סקירה חדשה')) + '*';
-  const cta = '👈 לצפייה בסקירה המלאה: ' + SITE_URL;
+  const deepLink = reviewDeepLink(review, currentReviewKey);
+  const cta = '👈 לצפייה בסקירה המלאה: ' + deepLink;
   let lines;
   try{
     // The WhatsApp message carries the CONDENSED summary (תקציר), not the full points,
@@ -703,7 +750,7 @@ async function shareWhatsApp(){
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   try {
     if (!navigator.share) throw new Error('share-unsupported');
-    await navigator.share({ title: String(review.title || ''), text: message, url: SITE_URL });
+    await navigator.share({ title: String(review.title || ''), text: message });
     return;
   } catch (err) {
     // AbortError = the user closed the share sheet on purpose — stop quietly.
@@ -786,8 +833,8 @@ document.getElementById('backBtn').addEventListener('click', showMarkets);
   }catch(e){
     document.getElementById('updatedLine').textContent = 'לא ניתן לטעון כרגע את הסקירות. אפשר לנסות לרענן את העמוד.';
   }
-  // The landing view is always the market chooser (level 1).
-  showMarkets();
+  // Shared URLs open the exact review, not the market chooser.
+  if(!(await openSharedReview())) showMarkets();
 })();
 </script>
 </body>
