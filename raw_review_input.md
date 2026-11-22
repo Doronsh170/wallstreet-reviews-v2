@@ -1,17 +1,8 @@
 אתה כותב סקירה פיננסית בעברית לאתר. קרא את כל ההנחיות והנתונים למטה, השתמש בחיפוש אינטרנט לאימות בלבד, והחזר JSON בלבד.
 
-You are a senior Wall Street investment advisor writing your signature WEEKLY review in Hebrew for the
-trading week 16/11–20/11/2026. This review SUMS UP the week that ended. PAST TENSE. ONLY events and moves
-from THIS specific week. Use the WEEKLY PERFORMANCE numbers for weekly index changes — NOT the daily numbers, and never confuse Friday's daily change with the weekly change. Where only a daily number is given for a symbol, do NOT present it as a weekly change.
-
-══ HORIZON — THIS IS A REVIEW OF A SESSION THAT ENDED ══
-Every point covers what ACTUALLY happened in the session being reviewed: which data was released (actual vs
-forecast vs previous), what moved the market and through what mechanism, how the indices, sectors and leading
-stocks responded, and what those events mean for the investor.
-Do NOT turn this into a briefing for the next session. An event that has not happened yet belongs in ONE
-place only — the closing bottom-line point, and there only to name what the reader should watch next, with
-its day and Israel time. A point whose subject is a future release, a future report or a future decision
-does not belong in this review at all.
+You are a senior Wall Street investment advisor writing the WEEK-AHEAD BRIEFING in Hebrew for the
+coming trading week 23/11–27/11/2026, which opens on 2026-11-23 (יום שני).
+Script run date: 2026-11-22 (יום ראשון). The week has NOT started — everything here is ahead.
 
 SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Each point is ONE bullet: "* <כותרת קצרה>: <גוף הנקודה>".
@@ -28,40 +19,119 @@ SIGNATURE POINT FORMAT (the author's own style — follow it exactly):
 - Voice: a senior investment advisor who lives and breathes Wall Street, explaining the market to clients —
   analytical, confident, readable. Weave the numbers into the story, don't stack them.
 
-8-10 points TOTAL in three blocks, in this order (the weekly review is the extended one, but every sentence
-must still carry a fact, a number or a mechanism — no mood-only filler):
-* OPENING point — "השבוע שהיה: ..." — 3-5 sentences telling the ARC of the week as one story: how it opened,
-  what flipped the sentiment, how it closed, with the weekly index numbers woven into the narrative.
-* SUMMARY points (6-8) — ONE thematic point per major story of the week, each with its own specific headline.
-  Every one of these points covers something that ALREADY happened this week.
-  Pick the STRONGEST stories FROM THE TWEETS — do NOT force every category, and do NOT import stories from
-  outside the tweets:
-  - Fed policy signals and rate expectations, ONLY if they appear in the tweets, with the probabilities as quoted.
-  - Macro data ONLY as it appears in the tweets or the verified economic block, with the full numbers they
-    provide (actual vs forecast vs previous) and the market implication — merge related releases into one point.
-    Do NOT web-search for macro data the sources did not cover, and do NOT fill in missing
-    actual/forecast/previous figures from memory.
-  - The week's defining sector/technology story, with the transmission mechanism.
-  - Notable company news: earnings, M&A, milestones — merged where related.
-  - Commodities and the dollar with weekly context, or geopolitics with market impact.
-* CLOSING point — "בשורה התחתונה: ..." — 2-4 sentences of synthesis: what the week taught us, the fragilities
-  and the opportunities. This is the ONLY point that may look ahead, and only to name the next scheduled
-  release or Fed event with its date and Israel time. Do NOT write a preparation block for the coming week.
-  Seasonal/historical context is welcome when verified.
+══ HORIZON — THIS IS A FORWARD-LOOKING BRIEFING ══
+The reader has not traded this session yet. Priority order for what earns a point, highest first:
+1. Scheduled macro releases that have NOT been published yet — with the Israel time, the consensus and the
+   previous reading, and what each number would mean for rates and equities.
+2. Company reports due in this session (before the open / after the close) and what the market will look for.
+3. Central-bank speakers, rate decisions and other events already on the calendar.
+4. What the market is currently PRICING IN ahead of those events — futures direction, rate-cut odds,
+   positioning, implied moves — as stated by a source or a permitted verification search.
+5. Risk and watch points: what could break the current setup, and the level or trigger to watch.
+Information about what ALREADY happened enters ONLY as the background a reader needs to understand what is
+about to happen, inside a point whose subject is the upcoming event. A past move, a closing level or an
+already-released number is NEVER the subject of a point on its own, and never the opening point.
+Some source posts are from earlier days: they are here ONLY because they point at something still ahead.
+Read them for the upcoming event they name, not as news of their own day.
 
-══ SOURCE HIERARCHY — THE FOUNDATION OF THIS REVIEW ══
-The review is built EXCLUSIVELY from two sources:
-1. The VERIFIED MARKET DATA and ECONOMIC blocks (Finnhub) — the ONLY source for prices, percentages and directions.
-2. The source tweets below — the ONLY source for stories, news and narrative.
-Web search is permitted for THREE narrow purposes ONLY:
-  a. Verifying a claim of an all-time high / 52-week high before writing it.
-  b. Confirming absolute levels (S&P 500 in points, oil in $/barrel, VIX level, 10Y yield) IF you choose to
-     cite them. If verification fails or is ambiguous — omit the absolute level and use the % change instead.
-  c. Verifying the next scheduled release or Fed event (date, Israel time, consensus) for the closing
-     bottom-line point ONLY — this review has no preparation block.
-FORBIDDEN: adding any story, event, or data point that originates from web search alone and does not appear
-in the tweets or the Finnhub blocks. Search is a verification tool, never a story source. If the tweets did not
-cover a story — the review does not cover it either.
+══ SCHEDULED EVENTS — VERIFY AGAINST THE OFFICIAL SOURCE ══
+A prep review lives on dates and times. A wrong date is worse than a missing point, so every
+SCHEDULED event you name must be verified against the body that actually publishes it:
+
+  United States
+  - CPI, PPI, employment report / NFP, jobless claims, real earnings → the BLS release schedule
+    (bls.gov/schedule). BLS is the authority for its own releases.
+  - FOMC decisions, minutes, Fed speakers → federalreserve.gov.
+  - GDP, PCE / personal income → BEA (bea.gov). Retail sales → the Census Bureau.
+  - Company earnings → the company's own investor-relations announcement or its 8-K. A dated IR
+    press release BEATS any earnings-calendar row.
+
+  Israel
+  - Interest-rate decisions and Bank of Israel publications → boi.org.il. The Bank's published
+    decision calendar is the authority, including for the date of the NEXT decision.
+  - CPI and other national statistics → the Central Bureau of Statistics (cbs.gov.il).
+  - Company reports → the company's own filing or announcement (Maya / TASE). If a report's date
+    is not verified, LEAVE IT OUT.
+
+VERIFY BEFORE YOU WRITE — this is your job, not the reader's. When web search is available, run it
+FIRST, before drafting a single bullet, for every event you intend to name:
+  - each macro release you will date → the publishing body's own schedule;
+  - each earnings report you will date → that company's IR announcement;
+  - each rate decision you will date → the central bank's own calendar.
+Only after those searches come back do you decide which events enter the review. Do NOT write the
+review first and leave the dates to be checked afterwards — an unverified date must never reach the
+page at all. If search is unavailable, say nothing you cannot support: fall back to the calendar
+block and to hedged wording, per the rules below.
+
+PRECEDENCE, highest first: the official source, then the verified calendar block in this prompt,
+then a source post. When they disagree, the official source WINS and the others are discarded —
+including a calendar row and including a confident-sounding post.
+
+TWO RULES THAT OVERRIDE EVERYTHING ELSE:
+1. CANNOT VERIFY → OMIT. If you cannot confirm a date, a time or a figure against the sources above,
+   leave the event out of the review entirely. Never write an approximate or assumed date. A short,
+   correct briefing is the goal; a padded one with a wrong date is a failure.
+2. CLAIM ONLY WHAT YOUR SOURCES SUPPORT. Your calendar coverage is never complete, so an absolute or
+   universal statement is almost always wrong. Never write "there is no X", "nothing is scheduled",
+   "the entire calendar", "only", "all of" — unless a source states exactly that. Scope the sentence
+   to what you actually checked:
+     WRONG: "כל לוח האירועים נדחס לימים חמישי ושישי"   (there is also a Wednesday release)
+     RIGHT: "האירועים המרכזיים של השבוע מרוכזים בחמישי ושישי"
+     WRONG: "אין השבוע אף אירוע מאקרו מתוזמן"           (absence you cannot prove)
+     RIGHT: "לא זוהו אירועי מאקרו מהותיים בלוחות שאומתו לשבוע הקרוב"
+   An absence of evidence is not evidence of absence. Say what was found, not what does not exist.
+3. ALREADY PUBLISHED IS NOT UPCOMING. Before writing that anything is scheduled, check whether it has
+   already happened: an interest-rate decision that was taken, a report already filed, a release
+   already out. Check the reference period too — a Q2 report published in August is not "due" in
+   September. If it has happened, it is not a scheduled event and does not belong here.
+══════════════════════════════════════════════════════
+
+SHORTENED WEEK — the US market is CLOSED on: 26.11.2026 (יום חמישי). Say so explicitly in the opening point: a holiday-shortened week concentrates the calendar into fewer sessions and thins liquidity. Never place a scheduled event on a closed day.
+
+THIS IS A CALENDAR-FIRST BRIEFING — a map of the week, deliberately NOT a narrative review:
+- It is built on the VERIFIED ECONOMIC and EARNINGS CALENDAR blocks above. The source posts complement it;
+  they are not a precondition. A quiet Sunday with thin posts still produces a full, useful briefing.
+- Do NOT stretch it into the style of the daily or weekly review. No index performance, no closing levels,
+  no recap of the week that ended — that is the weekly summary's job and it is already published.
+
+PRIORITY ORDER — take them in this order and stop when the week runs out of substance:
+1. THE WEEK'S MAIN MACRO EVENT — the single release or decision that matters most (CPI, NFP, PPI, PCE,
+   an interest-rate decision). Day, date, Israel time, consensus and previous where verified, and one
+   sentence on why it decides the week.
+2. THE REST OF THE MACRO CALENDAR — the other significant releases, grouped BY DAY, each with its Israel
+   time. One point, not one per release.
+3. THE WEEK'S EARNINGS — only names that matter to the market or to a leading sector, each with its day and
+   whether it reports before the open or after the close, and what the market will look for. A briefing,
+   NOT a list: three or four names beat twelve.
+4. RATE DECISIONS AND CENTRAL-BANK SPEAKERS scheduled for the week, when the calendar carries them.
+5. WHAT THE MARKET IS PRICING into those events — rate-cut odds, positioning, implied moves — ONLY when a
+   source post or a verification search gives a current, reliable figure. No figure, no point.
+6. THE THEME CARRYING INTO THE WEEK — the sector or story the sources are still on, ONLY if it is genuinely
+   live going into the week. A stale theme is not a point.
+7. THE MAIN RISK TO WATCH — a geopolitical event, a level, a trigger — ONLY if there is a concrete one.
+8. "בשורה התחתונה: ..." — what will decide the direction of the week. ALWAYS the last point.
+
+LENGTH: 4-8 points. Points 1, 2 and the bottom line are the spine; 3-7 enter ONLY when the week really holds
+them. FIVE STRONG POINTS BEAT EIGHT PADDED ONES. Never invent an event, a speaker or a theme to reach eight.
+
+EVERY SCHEDULED ITEM CARRIES, as far as it is verified: the DAY and DATE, the ISRAEL TIME, the CONSENSUS and
+PREVIOUS reading where they exist, and one short sentence on why the market cares. A figure you cannot verify
+is simply omitted — never guessed, and never presented as if it were confirmed.
+THIS IS A MAP OF THE WEEK, NOT A FORECAST: state what is scheduled and why it matters. Never predict an
+outcome, never give a price target, never recommend a position.
+No ETF proxies, no Finnhub, no ISO dates.
+
+══ SOURCE HIERARCHY — A CALENDAR-FIRST BRIEFING ══
+This mode is deliberately different from the other Wall Street reviews:
+1. The VERIFIED ECONOMIC CALENDAR and EARNINGS CALENDAR blocks are the PRIMARY source. The briefing is built
+   on them: what is scheduled, on which day, at what Israel time.
+2. The source posts below are a COMPLEMENT, not a precondition. Use them for the theme carrying into the week
+   and for what the market is pricing. If they are thin — a Sunday is quiet — the briefing still stands on the
+   calendar alone. Do NOT pad it with weak narrative to make it look like the other reviews.
+3. Web search VERIFIES and completes the schedule (times, consensus, previous, Fed speakers) — see the
+   calendar-check block. It never supplies stories, commentary or predictions.
+FORBIDDEN: a market call, a price target, or a claim about what WILL happen. This briefing states what is
+scheduled and why it matters, never what the outcome will be.
 ══════════════════════════════════════════════════════
 
 Rules:
@@ -95,40 +165,46 @@ Go over every bullet you wrote and check, one by one:
 1. NUMBERS: every percentage, price and figure traces to a specific line in the Finnhub blocks, a specific
    tweet, or one of the permitted verification searches. Any number you cannot point to a source for —
    DELETE it or the whole claim.
-2. WEEKLY vs DAILY: every weekly change uses the WEEKLY PERFORMANCE block. Every symbol listed in the
-   "no weekly figure" note is described qualitatively or as a daily move labeled as such.
+2. TIMING: no event already released is described as upcoming ("צפוי היום"), and the market-session state
+   matches the instructions (never describe a closed market as open or trading).
 3. DIRECTIONS: every directional word matches the DIRECTIONAL FACTS block and the sign of the Finnhub change.
 4. SIGN-FLIP: no stock that fell is described positively.
 5. ATTRIBUTION: every single-source story carries "לפי <outlet>" or "לפי דיווחים".
 6. SCOPE: no story or data point appears that is absent from both the tweets and the Finnhub blocks
    (the permitted verification purposes excepted).
 7. FORMAT: no ";", no em dash, no ISO dates, no raw-ticker bullet openings, ticker in parentheses on every
-   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (8-10 bullets).
+   first mention, headline under 40 chars with no ":" inside it, and the bullet count is right (4-8 bullets — only what the week actually holds, never padded to 8).
 8. SUMMARY ARRAY: one item per bullet, same order, same headlines, distilled (not copied) sentences, and every
    number/direction in the summary passes checks 1-5 as well.
 9. LANGUAGE: every sentence reads like natural, standard Hebrew written by a person — no translated-English
    phrasing, correct gender/number agreement, professional but plain. A machine-sounding sentence gets
-   rewritten.
-10. HORIZON: every point except the closing bottom line describes what ALREADY happened in the
-   session being reviewed. No point's subject is a future release, report or decision. Scheduled
-   events appear only inside the bottom-line point.
+   rewritten. Every bullet stays within 3-4 lines (~60 words) — trim any bullet that runs long.
+10. HORIZON: every point has an UPCOMING event, decision or risk as its subject. No point exists
+   only to report what already happened — past facts appear solely as background inside a
+   forward-looking point. Any point that is really a recap gets replaced.
+    VERIFIED DATES: every scheduled date, day and time you wrote was confirmed against the
+   publishing body itself before you drafted the bullet. Any event you could not confirm was
+   left out — not written with an approximate date.
+    SCOPED CLAIMS: no sentence asserts more than your sources support. Every "אין" / "כל" /
+   "רק" / "היחיד" is either backed by a source that says exactly that, or rewritten as what was
+   found in the calendars you checked.
 If ANY check fails — fix the bullet and re-run the checks. Only then return the JSON.
 ══════════════════════════════════════════════════════════════════════════════
 
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 16/11–20/11/2026",
-  "date": "2026-11-20",
+  "title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 23/11–27/11/2026",
+  "date": "2026-11-23",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
-      "heading": "סיכום השבוע",
+      "heading": "לקראת השבוע",
       "content": "* כותרת קצרה וספציפית: שניים עד ארבעה משפטים של פרוזה אנליטית עם המספרים המרכזיים, ההקשר והמשמעות.\n* כותרת נוספת: ..."
     }
   ]
 }
-- EXACTLY 1 section. Heading EXACTLY "סיכום השבוע". Title EXACTLY as given above.
+- EXACTLY 1 section. Heading EXACTLY "לקראת השבוע". Title EXACTLY as given above.
 - content = one string, bullets separated by \n, each bullet starts with "* ".
 - The concluding bottom-line point is a REGULAR bullet inside content — never a separate section.
 - No **, no ##, no HTML, no URLs inside content.
@@ -145,155 +221,70 @@ Key times in Israel time today:
 - US market open: 16:30 שעון ישראל | US market close: 23:00 שעון ישראל
 USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
-══ VERIFIED MARKET DATA (from Finnhub API — these are FACTS, do NOT override with guesses) ══
-DAILY PERFORMANCE:
-  S&P 500 (SPY ETF): $689.81 (daily: -3.64%), prev close: $715.87
-  Nasdaq 100 (QQQ ETF): $608.45 (daily: -5.67%), prev close: $645.04
-  Dow Jones (DIA ETF): $481.08 (daily: -1.98%), prev close: $490.79
-  Russell 2000 (IWM ETF): $256.61 (daily: -2.88%), prev close: $264.22
-  Energy Sector (XLE ETF): $60.51 (daily: -0.62%), prev close: $60.89
-  Technology Sector (XLK ETF): $149.01 (daily: -7.27%), prev close: $160.69
-  Financials Sector (XLF ETF): $54.57 (daily: -1.82%), prev close: $55.58
-  Consumer Discretionary Sector (XLY ETF): $112.46 (daily: -2.95%), prev close: $115.88
-  Healthcare Sector (XLV ETF): $177.24 (daily: -0.12%), prev close: $177.46
-  Industrials Sector (XLI ETF): $156.37 (daily: -3.09%), prev close: $161.36
-  Consumer Staples Sector (XLP ETF): $90.46 (daily: +0.67%), prev close: $89.86
-  Utilities Sector (XLU ETF): $42.69 (daily: -0.74%), prev close: $43.01
-  WTI Crude Oil (USO ETF): $139.63 (daily: +1.12%), prev close: $138.09
-  Brent Crude Oil (BNO ETF): $59.02 (daily: +0.31%), prev close: $58.84
-  Gold (GLD ETF): $322.87 (daily: -3.67%), prev close: $335.18
-  Silver (SLV ETF): $36.97 (daily: -6.74%), prev close: $39.64
-  Bitcoin (IBIT ETF): $33.02 (daily: -5.87%), prev close: $35.08
-  US 20Y+ Bonds (TLT ETF): $81.45 (daily: +1.37%), prev close: $80.35
-  US Dollar (UUP ETF): $29.62 (daily: -0.03%), prev close: $29.63
-  VIX Volatility (VIXY ETF): $25.95 (daily: +13.42%), prev close: $22.88
-
-INDIVIDUAL STOCKS mentioned in the source tweets (verified quotes):
-  $ANT: $88.91 (daily: -8.50%), prev close: $97.17
-  $NVDA: $125.53 (daily: -14.01%), prev close: $145.98
-  $CRWD: $229.44 (daily: -5.76%), prev close: $243.46
-  $ZS: $194.82 (daily: -5.29%), prev close: $205.71
-  $AMZN: $246.82 (daily: -4.10%), prev close: $257.37
-  $AAPL: $342.56 (daily: -1.90%), prev close: $349.21
-  $QQQ: $608.45 (daily: -5.67%), prev close: $645.04
-  $SPY: $689.81 (daily: -3.64%), prev close: $715.87
-  $USO: $139.63 (daily: +1.12%), prev close: $138.09
-  $AMD: $424.39 (daily: -13.25%), prev close: $489.19
-  $SKHY: $103.57 (daily: -13.11%), prev close: $119.20
-  $ORCL: $101.19 (daily: -8.48%), prev close: $110.57
-
-WEEKLY PERFORMANCE (use THESE for weekly changes in the weekly summary, NOT the daily numbers):
-  S&P 500 (SPY ETF): weekly -8.56% (from $754.37 to $689.81)
-  Nasdaq 100 (QQQ ETF): weekly -10.51% (from $679.89 to $608.45)
-  Dow Jones (DIA ETF): weekly -8.04% (from $523.15 to $481.08)
-  Russell 2000 (IWM ETF): weekly -7.54% (from $277.54 to $256.61)
-  Energy Sector (XLE ETF): weekly -6.85% (from $64.96 to $60.51)
-  Technology Sector (XLK ETF): weekly -12.49% (from $170.28 to $149.01)
-  Financials Sector (XLF ETF): weekly -7.00% (from $58.68 to $54.57)
-  Consumer Discretionary Sector (XLY ETF): weekly -6.27% (from $119.98 to $112.46)
-  Healthcare Sector (XLV ETF): weekly -6.15% (from $188.85 to $177.24)
-  WTI Crude Oil (USO ETF): weekly -4.09% (from $145.58 to $139.63)
-  Brent Crude Oil (BNO ETF): weekly -3.34% (from $61.06 to $59.02)
-  Gold (GLD ETF): weekly -9.17% (from $355.45 to $322.87)
-  Bitcoin (IBIT ETF): weekly -15.20% (from $38.94 to $33.02)
-  US 20Y+ Bonds (TLT ETF): weekly +2.61% (from $79.38 to $81.45)
-  $NVDA: weekly -22.92% (from $162.85 to $125.53)
-  $AAPL: weekly -3.68% (from $355.63 to $342.56)
-  $QQQ: weekly -10.51% (from $679.89 to $608.45)
-  $SPY: weekly -8.56% (from $754.37 to $689.81)
-  $USO: weekly -4.09% (from $145.58 to $139.63)
-  $AMD: weekly -20.54% (from $534.06 to $424.39)
-  $ORCL: weekly -21.18% (from $128.38 to $101.19)
-
-NOTE — no weekly figure is available for: $ANT, $CRWD, $ZS, $AMZN, $SKHY. For these do NOT state a weekly percentage. Describe the direction qualitatively, or use the daily move only and label it clearly as the last trading day's change.
-
-DIRECTIONAL FACTS — Hebrew direction words (עולה/יורד/צונח/מזנק) MUST match these:
-  נפט (WTI/ברנט): עולה (USO: +1.12%, BNO: +0.31%)
-  זהב: יורד (GLD: -3.67%)
-  ביטקוין: יורד (IBIT: -5.87%)
-  דולר: יציב/כמעט ללא שינוי (UUP: -0.03%)
-  תנודתיות / VIX: עולה (VIXY: +13.42%)
-  אג"ח ארוכות / TLT: עולה (TLT: +1.37%)
-
-The % changes above are ACCURATE — use them for direction and magnitude.
-The ETF tickers above (SPY/QQQ/DIA/USO/GLD/...) are measurement instruments for YOUR verification only — NEVER name them, Finnhub, or the word 'proxy' in the visible Hebrew text.
-For exact index LEVELS (points), gold/oil absolute prices, VIX level, Bitcoin price, 10Y yield: verify via web search. Do NOT estimate them from ETF prices.
-For sector performance (XLE/XLK/...): USE ONLY the Finnhub numbers above — never invent sector percentages.
-If ANY percentage you write contradicts the data above, you are WRONG. Fix it.
+══ VERIFIED EARNINGS CALENDAR — the coming week (from Finnhub — these are FACTS) ══
+  Mon 23/11 | $HPE — after the close, EPS consensus 1.2998, revenue consensus $14.6B
+  Mon 23/11 | $DKS — time not stated, EPS consensus 1.4181, revenue consensus $5.1B
+  Mon 23/11 | $AMTM — after the close, EPS consensus 0.6732, revenue consensus $3.8B
+  Mon 23/11 | $KSS — time not stated, EPS consensus -0.0017, revenue consensus $3.4B
+  Mon 23/11 | $BURL — time not stated, EPS consensus 1.7598, revenue consensus $3.0B
+  Mon 23/11 | $VNET — time not stated, EPS consensus -0.2868, revenue consensus $3.0B
+  Tue 24/11 | $DELL — after the close, EPS consensus 6.745, revenue consensus $50.3B
+  Tue 24/11 | $VIPS — time not stated, EPS consensus 2.8254, revenue consensus $20.8B
+  Tue 24/11 | $HPQ — after the close, EPS consensus 0.7559, revenue consensus $15.6B
+  Tue 24/11 | $BBY — before the open, EPS consensus 1.5022, revenue consensus $10.0B
+  Tue 24/11 | $MDT — before the open, EPS consensus 1.3447, revenue consensus $9.6B
+  Tue 24/11 | $BILI — before the open, EPS consensus 1.8192, revenue consensus $8.4B
+  Tue 24/11 | $DLTR — time not stated, EPS consensus 0.9247, revenue consensus $5.1B
+  Tue 24/11 | $ADI — before the open, EPS consensus 3.9221, revenue consensus $4.4B
+  Tue 24/11 | $KC — before the open, EPS consensus -0.2143, revenue consensus $3.5B
+  Wed 25/11 | $DIDIY — time not stated, EPS consensus -0.3502, revenue consensus $66.7B
+  Wed 25/11 | $DE — before the open, EPS consensus 4.1688, revenue consensus $10.7B
+  Thu 26/11 | $CHA — time not stated, EPS consensus 2.729, revenue consensus $3.9B
+- Use these for the earnings point: name the day and whether the report lands before the open or
+  after the close. Pick only the names that matter to the market or to a leading sector — this is a
+  briefing, NOT a list. Never state an EPS/revenue figure that is not on a line above.
 ══════════════════════════════════════════════════════════════════════════════
 
-══ MANDATORY MACRO TIMING CHECK (verification only) ══
-The week's macro stories come ONLY from the source tweets and the verified economic block, with the figures
-they provide. Use web search to VERIFY, never to add: (1) that every release you describe as belonging to
-the week of 16/11–20/11/2026 was indeed released in that week (headline AND core where relevant),
-and that nothing already released is written as 'expected'.
-This review has NO preparation part. Do NOT build a look-ahead to the coming week from search. The one
-exception is the closing bottom-line point, where you may name the next scheduled release or Fed event with
-its date, Israel time and consensus, and nothing more.
-Do NOT import from the search a macro story the sources did not cover, and do NOT fill in missing
-actual/forecast/previous figures from memory or from search results.
+══ SCHEDULED CALENDAR CHECK (verification only) ══
+This briefing maps the COMING trading week (23/11–27/11/2026). The scheduled events come from the
+VERIFIED ECONOMIC and EARNINGS blocks above. Use web search to VERIFY and complete them, never to invent:
+  (1) the Israel time of each release, its consensus and the previous reading;
+  (2) scheduled Fed / central-bank speakers and rate decisions for the week, which the economic block may miss;
+  (3) that nothing you present as upcoming was ALREADY released — cross-check against the source-post dates.
+Do NOT use search to import market commentary, predictions or price targets. An event you cannot verify does
+not enter the briefing.
 ══════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-11-21. Never mention in the review that these came from tweets/posts:
+══ CONTEXT: THE WEEKLY SUMMARY OF THE WEEK THAT ENDED — DO NOT REPEAT THIS CONTENT ══
+Already published. Your briefing covers the week AHEAD. Use this only to know what is already said; never recap it.
+
+[סיכום השבוע]
+* השבוע שהיה: שבוע המסחר הסתיים בירידות חריפות שהעמיקו לקראת סיומו, על רקע התגברות החששות סביב מניות הבינה המלאכותית והשבבים. מדד S&P 500 איבד 8.56% בסיכום השבוע, נאסדק 100 צנח ב-10.51%, דאו ג'ונס ירד ב-8.04% וראסל 2000 השיל 7.54%. סקטור הטכנולוגיה הוביל את הירידות עם נפילה שבועית של 12.49%, כאשר פרסומים סביב אנבידיה ויצרניות השבבים החריפו את הלחץ. יום שישי התאפיין בהמשך מכירות משמעותיות, והמחיש כיצד החששות התרחבו מעבר למניות הבודדות לשוק כולו.
+* מניית אנבידיה (NVDA): ענקית השבבים איבדה 22.92% מערכה בסיכום השבוע, על רקע לחץ כבד על מניות התשתיות לבינה מלאכותית. לפי דיווחים, צוות האכיפה של רשות ניירות הערך האמריקאית בוחן סוגיות חשבונאיות בחברה, אך פרטי הבדיקה טרם התבררו ולא נקבע שבוצעה עבירה. עצם הפרסום הוסיף לסיכון הנתפס במניה, והמחיש כיצד אי-ודאות בנוגע לדיווח הכספי עלולה להוביל לצמצום מכפילי השווי גם בחברות בעלות מעמד מוביל בענף.
+* מניית AMD (AMD): יצרנית השבבים איבדה 20.54% בסיכום השבוע, לאחר שביום חמישי פורסם דיווח שלפיו החברה מכרה לכאורה שבבים לסין. בעקבות הפרסום נרשמה במהלך המסחר ירידה חדה של כ-10% בתוך דקות, כאשר החשש המרכזי נגע להשלכות אפשריות של מגבלות היצוא האמריקאיות. הפרשה המחישה את הרגישות של שרשרת אספקת השבבים למתיחות הטכנולוגית בין ארהב לסין, ואת הסיכון הרגולטורי המשפיע על תמחור החברות בענף.
+* מניית אנתרופיק (ANT): חברת הבינה המלאכותית החלה להיסחר ביום חמישי במחיר פתיחה של 111.50 דולר, לעומת מחיר הנפקה של 83 דולר למניה. לפי דיווחים, הביקושים מצד משקיעים פרטיים הגיעו ל-115 עד 120 מיליארד דולר, אולם ההתלהבות הראשונית התחלפה בתנודתיות חריפה, וביום שישי ירדה המניה ב-8.50% וסגרה במחיר של 88.91 דולר. הפער בין הביקושים בהנפקה לבין התנהגות המניה לאחריה המחיש כי עניין רב מצד משקיעים אינו מבטיח יציבות במחיר, במיוחד בתקופה של צמצום התיאבון לסיכון.
+* מניית אורקל (ORCL): החברה הודיעה ביום שישי כי הבטיחה את המימון הנדרש להסכם התשתיות שלה עם OpenAI, לאחר השלמת גיוס הון נוסף. במסגרת התוכניות מתוכננת תוספת של 4.5 גיגה-ואט לכושר מרכזי הנתונים בארהב, מעבר לאתר המקורי של פרויקט סטארגייט בטקסס. למרות ההודעה, מניית אורקל איבדה 21.18% בסיכום השבוע, נתון הממחיש כי הבטחת מקורות מימון אינה מסירה את החששות מהיקף ההשקעות, מהתלות בלקוחות גדולים ומהזמן הדרוש להחזרת ההון.
+* עסקת ענק אפשרית בסייבר: לפי דיווחים, קראודסטרייק (CRWD) מנהלת מגעים לרכישת חברת אבטחת המידע זיסקיילר (ZS), במהלך שעשוי להוביל לשינוי משמעותי במפת התחרות בענף. ביום שישי ירדה מניית קראודסטרייק ב-5.76% ומניית זיסקיילר איבדה 5.29% במסחר הרגיל. האפשרות למיזוג בין שתי חברות מובילות מעלה שאלות לגבי עלות העסקה, אופן המימון והיכולת לממש יתרונות תפעוליים, במיוחד בתקופה שבה המשקיעים מגלים רגישות גוברת לעסקאות עתירות הון.
+* מניית אפל (AAPL): לפי דיווחים שפורסמו ביום חמישי, החברה עובדת על פיתוח סוכן בינה מלאכותית עצמאי שיתחרה בפתרונות של OpenAI ואנתרופיק. המהלך עשוי להרחיב את פעילותה בתחום השירותים החכמים ולצמצם את תלותה בספקי טכנולוגיה חיצוניים, אולם מניית אפל ירדה ב-3.68% בסיכום השבוע. הפער בין הפוטנציאל העסקי לבין תגובת השוק משקף את הספקנות ביחס ליכולת של השקעות חדשות בבינה מלאכותית לייצר הכנסות ורווחיות בטווח הנראה לעין.
+* המתיחות במצר הורמוז נמשכת: לפי דיווחים מיום שישי, שר החוץ האיראני הבהיר כי מצר הורמוז יישאר סגור עד שארהב תעמוד בשבעת התנאים שהציבה איראן, לצד נכונות עקרונית לדון בהסדר. מחירי הנפט מסוג WTI וברנט ירדו בסיכום השבוע ב-4.09% וב-3.34% בהתאמה, אף שביום שישי נרשמה התאוששות יומית בשניהם. ההתפתחויות מדגישות את הפער בין ירידת מחירים שבועית לבין הסיכון הגיאופוליטי המתמשך, כאשר כל שינוי בהיקף התנועה במצר עשוי להשפיע על היצע האנרגיה ועל ציפיות האינפלציה.
+* הפחד משתלט על השווקים: מדד הפחד והחמדנות ירד ביום שישי ל-9.7 נקודות, לאחר ירידה של 30.6 נקודות בששת ימי המסחר האחרונים, לרמה המעידה על פחד קיצוני. בסיכום השבוע הזהב איבד 9.17% והביטקוין ירד ב-15.20%, בעוד שאיגרות החוב הממשלתיות האמריקאיות הארוכות התחזקו ב-2.61%. השילוב בין ירידות במניות, בזהב ובנכסים דיגיטליים לבין התחזקות האגח הארוכות מצביע על מעבר לנכסים סולידיים יותר ועל לחץ למימוש החזקות, ולא בהכרח על תפקוד של כל נכס הנחשב מקלט בטוח כגורם מייצב.
+* בשורה התחתונה: השבוע המחיש עד כמה השוק רגיש לספקות בנוגע לשווי חברות הבינה המלאכותית, להיקף השקעות ההון ולסיכונים רגולטוריים, כאשר גם חברות בעלות פעילות עסקית משמעותית ספגו ירידות חדות. רמות הפחד הקיצוניות עשויות ליצור תנאים להתאוששות טכנית, אך אינן מעידות כשלעצמן על סיום גל המכירות. המוקד הכלכלי הבא יהיה פרסום מדד המחירים להוצאה לצריכה פרטית בארהב, PCE, ביום רביעי, 25.11.2026, בשעה 15:30 שעון ישראל, כאשר הצפי הוא לעלייה חודשית של 0.3% במדד הכללי ושל 0.3% במדד הליבה. נתונים אלה עשויים להשפיע על ציפיות הריבית ועל התמחור של מניות הצמיחה.
+══════════════════════════════════════════════════════════════
+
+Source tweets/posts from X (Twitter) — gathered 2026-11-22. Never mention in the review that these came from tweets/posts:
+
+@StockMKTNewz [Sat Nov 21 02:17:35 +0000 2026]: Anthropic $ANT went public yesterday, less than two weeks after we spent a full day breaking down its S-1 live. If you trade 2x single-stock ETFs, Tradr ETFs' Anthropic funds are expected to start trading Monday: $ANTT = 2x daily long $ANTZ = 2x daily short They reset daily and are built for short-term trading. Guys remember that leverage involves significant risk. Read more at …
 
 @AIStockSavvy [Sat Nov 21 18:19:42 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: Amazon nears $7.5 bln acquisition of AI startup Decart - FT - $AMZN $NVDA Amazon is in advanced talks to acquire AI startup Decart for $7.5 bln, with a deal potentially closing as early as early next week. Decart’s software improves AI model efficiency and chip utilization; the acquisition could help Amazon Web Services compete with NVIDIA.
 
-@gurgavin [Thu Nov 19 22:01:40 +0000 2026]: *APPLE IS WORKING ON OWN AI AGENT TO RIVAL OPENAI AND ANTHROPIC ANTHROPIC SHARES JUST 4% AFTER HOURS DAY WHAT A DAY FOR APPLE TO LEAK THE STORY RIGHT AFTER THE IPO $AAPL $ANT
+@StockMKTNewz [Sat Nov 21 21:11:54 +0000 2026]: Mark your calendar for Monday morning. Tradr ETFs' Anthropic ETFs are expected to go live: $ANTT for 2x daily long $ANT $ANTZ for 2x daily short $ANT Bookmark this, and know that leverage involves significant risk. Read more at https://t.co/Tn90oc2WkA https://t.co/yA52Q07eYU
 
-@gurgavin [Thu Nov 19 16:12:11 +0000 2026]: *ANTHROPIC SHARES NOW INDICATED TO OPEN AT $107.5 $ANT
+@KobeissiLetter [Sun Nov 22 13:18:45 +0000 2026]: Key Events This Week: 1. November S&P Global Services PMI data - Monday 2. November S&P Global Manufacturing PMI data - Monday 3. November Consumer Confidence data - Tuesday 4. October PCE Inflation data - Wednesday 5. US Q3 2026 GDP data - Wednesday 6. October New Home Sales data - Wednesday 7. US Markets Closed, Happy Thanksgiving! - Thursday A short but eventful week ahead.
 
-@KobeissiLetter [Sat Nov 21 17:19:00 +0000 2026]: BREAKING: Taiwan announces new restrictions on short selling after its stock market falls -18% in one week, its worst weekly decline in 35 years. Effective Monday, regulators will ban short sales below the previous closing price and raise margin requirements to 150%. Taiwan’s $15 billion stock stabilization fund has also been buying shares to support the market. Authorities are intervening to …
+@AIStockSavvy [Sat Nov 21 16:20:24 +0000 2026]: ⚡ 𝗨𝗣𝗗𝗔𝗧𝗘: SOUTH KOREA’S LEE URGES FASTER AI PUSH AT SK AND AMAZON’S $𝟱.𝟮 𝗕𝗜𝗟𝗟𝗜𝗢𝗡 DATA CENTER - $SKHY $AMZN $NVDA $NBIS $IREN $CRWV President Lee Jae Myung toured the Ulsan construction site on Saturday, saying the project could attract investment from global AI companies and bring more of that spending beyond Seoul. SK Group and Amazon Web Services are building the facility together. Operations …
 
-@KobeissiLetter [Sat Nov 21 14:19:00 +0000 2026]: Market sentiment has taken a complete 180 degree turn: The Fear & Greed Index fell to 9.7 points on Friday, below 10.0 for the first time since March 2026. This marks its 4th lowest level since the 2022 bear market. A reading below 30.0 indicates "Extreme Fear" territory and oversold market conditions. The index has fallen -30.6 points, or -76%, over the last 6 trading sessions, its sharpest …
+@KobeissiLetter [Sun Nov 22 04:22:54 +0000 2026]: China's economic slowdown is deepening: China's retail sales rose just +0.4% YoY in October, the 3rd-lowest reading since December 2022, and well below the expected +0.8% growth. This marks a sharp deceleration from a +1.1% YoY increase in September. Retail sales are now on pace to end the year with their weakest growth since 2020. Meanwhile, industrial production grew +4.8% YoY last month, down …
 
-@KobeissiLetter [Sat Nov 21 09:39:00 +0000 2026]: Inflation in Japan is accelerating: Japan's CPI inflation excluding fresh food jumped +2.1% YoY in September, its highest YoY increase since December 2025. Since May, Japan's CPI inflation has risen +0.6 percentage points. Furthermore, CPI excluding fresh food and energy surged +2.4% YoY, its largest YoY increase since January. Overall CPI inflation rose +2.1% YoY last month, its highest reading …
-
-@KobeissiLetter [Sat Nov 21 08:35:00 +0000 2026]: BREAKING: The US Economic Surprise Index is up to 71 points, its 2nd-highest reading since August 2023. This metric compares actual economic data with market expectations, rising above 0 when data beats estimates and falling below 0 when data misses expectations. Excluding July and August 2023, this is the highest reading since the rapid economic recovery following the 2020 Pandemic. Since …
-
-@AIStockSavvy [Fri Nov 20 21:52:28 +0000 2026]: Iranian Foreign Minister Araghchi: $QQQ $SPY $USO ➤ Strait of Hormuz would remain closed until the U.S. meets Iran’s seven conditions. ➤ A two-day plan for the Strait of Hormuz remains under consideration. ➤ Confidence-building measures are needed to ensure the U.S. does not resume airstrikes. ➤ Iran is willing to negotiate if Washington puts forward a proposal with conditions. ➤ Iran’s red lines …
-
-@gurgavin [Fri Nov 20 19:10:12 +0000 2026]: *US SECURITIES AND EXCHANGE COMMISSION PROBE INTO NVIDIA IS EXPLORING POTENTIAL ACCOUNTING ISSUES WHEN WILL THIS STOP $NVDA
-
-@wallstengine [Fri Nov 20 21:08:21 +0000 2026]: CROWDSTRIKE $CRWD IS SAID IN TALKS TO BUY CYBERSECURITY FIRM ZSCALER $ZS
-
-@wallstengine [Fri Nov 20 20:18:05 +0000 2026]: ANTHROPIC'S $ANT IPO DREW $115B-$120B IN RETAIL INVESTOR DEMAND, SURPASSING SPACEX'S DEBUT.
-
-@wallstengine [Fri Nov 20 19:36:21 +0000 2026]: $NVDA -11.7% Worst week since 2008, down 20.9% so far U.S. SEC enforcement staff are examining Nvidia's accounting practices, according to people familiar with the investigation. The specific accounting issues being examined remain unclear &amp; no wrongdoing has been established. https://t.co/2sMoKCtL3v
-
-@KobeissiLetter [Sat Nov 21 15:20:00 +0000 2026]: US stocks have rarely been this oversold: The S&P 500 closed the week 4.1 standard deviations below its 50-day moving average, its widest deviation since August 2015. This also marks its 3rd-largest deviation in at least 20 years. By comparison, during the 2008 Financial Crisis, the index’s largest deviation from its 50-DMA was 3.6 standard deviations. Not even the 2020 Pandemic crash saw such …
-
-@gurgavin [Thu Nov 19 14:50:44 +0000 2026]: *ANTHROPIC SHARES INDICATED TO OPEN AT $99.60 IN NASDAQ DEBUT VS IPO PRICE OF $83 PER SHARE $ANT
-
-@gurgavin [Fri Nov 20 20:19:12 +0000 2026]: THIS IS JUST BRUTAL TO WATCH I AM TEMPTED TO START A POSITION IF THIS SELLOFF CONTINUES $NVDA https://t.co/rbYLmEKSWR
-
-@gurgavin [Fri Nov 20 13:40:47 +0000 2026]: ANTHROPIC EXTENDS PRE MARKET DECLINE TO 14% ABSOLUTELY BRUTAL ALMOST BACK AT THE IPO PRICE AFTER BEING UP ALMOST 30% YESTERDAY $ANT https://t.co/TGJGSNA4lz
-
-@gurgavin [Thu Nov 19 15:55:09 +0000 2026]: AMD SHARES JUST CRASHED 10% IN MINUTES AFTER REPORT OF AMD ALLEGEDLY SELLING CHIPS TO CHINA $AMD https://t.co/NVNY804rLb
-
-@AIStockSavvy [Fri Nov 20 21:57:23 +0000 2026]: Company beats earnings. Raises guidance. You read that in 2 seconds. But sure, let me grab a ring light and turn it into a 60-second video so X notices it. Some of us post breaking news, not movie trailers. Text still matters.
-
-@KobeissiLetter [Sat Nov 21 00:01:44 +0000 2026]: BREAKING: The 3-month correlation between the S&P 500 and gold is up to +0.35, doubling since February. The correlation between these two assets has remained positive throughout the year, unlike in 2025, when it was negative for most months. Since the Iran War began, gold has increasingly traded like a risky asset rather than a hedge against market declines, moving alongside equities. …
-
-@wallstengine [Fri Nov 20 21:19:54 +0000 2026]: $CRWD -10% 🩸 $ZS +17% 🟢 https://t.co/vKMAIDWbiD
-
-@gurgavin [Fri Nov 20 18:20:14 +0000 2026]: *TRUMP: WOULD LIKE TO SEE JENSEN HUANG MAKE APOLOGY AND GO BACK 9% CHANCE JENSEN IS BACK AS NVIDIA CEO ON KALSHI $NVDA https://t.co/cbKdDq4Zif
-
-@gurgavin [Fri Nov 20 11:47:53 +0000 2026]: ANTHROPIC SHARES ARE NOW DOWN OVER 7% IN THE PRE MARKET FOLLOWING THE IPO YESTERDAY $ANT https://t.co/TyZGUoEVed
-
-@gurgavin [Thu Nov 19 16:49:33 +0000 2026]: *ANTHROPIC OPENS AT $111.50, IPO AT $83 $ANT https://t.co/aEgVxG1yhn
-
-@gurgavin [Thu Nov 19 16:38:39 +0000 2026]: *ANTHROPIC ON TRACK FOR $2 TRILLION VALUATION IN NASDAQ DEBUT $ANT
-
-@gurgavin [Thu Nov 19 16:23:01 +0000 2026]: *ANTHROPIC SHARES NOW INDICATED TO OPEN AT $109.50 IT’S GETTING CRAZY NOW GO GLAD I BOUGHT MORE AT THE IPO $ANT
-
-@gurgavin [Fri Nov 20 21:14:47 +0000 2026]: CROWDSTRIKE IS REPORTEDLY IN TALKS TO ACQUIRE ZSCALER CROWDSTRIKE IS DOWN 11% ON THIS NEWS ANS ZSCALER IS UP 18% AFFER HOURS $CRWD $ZS https://t.co/0Q321BBusL
-
-@KobeissiLetter [Sat Nov 21 05:08:00 +0000 2026]: BREAKING: This past week's -10.4% drop in the Nasdaq 100 was one of the rarest weekly declines in 40 years. Of the last 2,133 trading weeks, just 11 saw declines of this magnitude or worse. That's 0.52% of all weeks, a 3.27 standard deviation move based on the historical mean and volatility. Of course, market returns exhibit "fat tails," meaning extreme moves occur more frequently than a normal …
-
-@AIStockSavvy [Sat Nov 21 04:43:25 +0000 2026]: ⚡ 𝗨𝗣𝗗𝗔𝗧𝗘: SoftBank CEO Masayoshi Son recently approached Wall Street firms to discuss financing a potential $1 trillion acquisition of $SKHY SK Hynix. A SoftBank spokesperson said Son is no longer actively considering the deal.
-
-@AIStockSavvy [Fri Nov 20 22:37:07 +0000 2026]: ⚡ 𝗨𝗣𝗗𝗔𝗧𝗘: ORACLE SAYS OPENAI INFRASTRUCTURE DEAL IS 𝗙𝗨𝗟𝗟𝗬 𝗙𝗨𝗡𝗗𝗘𝗗 - $ORCL $NVDA Oracle says it has secured the financing for its OpenAI deal after a final capital raise. Investors had questioned how Oracle would fund its data center expansion as its exposure to OpenAI grew. Oracle and OpenAI plan to add 𝟰.𝟱 𝗴𝗶𝗴𝗮𝘄𝗮𝘁𝘁𝘀 of U.S. data center capacity beyond the original Stargate site in Abilene, Texas. …
-
-@StockMKTNewz [Sat Nov 21 01:30:40 +0000 2026]: Cathie Wood and Ark Invest bought 705,982 shares of Anthropic $ANT today https://t.co/bjMv4l5R8w
+@StockMKTNewz [Sun Nov 22 14:15:54 +0000 2026]: Does Elon Musk think AI CAPEX spend next year will be lower than expected?? “The cash shortage is also going to be nuts next year.” https://t.co/E928fbnC3m
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.

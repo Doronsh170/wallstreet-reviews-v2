@@ -1,110 +1,107 @@
 {
-  "mode": "weekly_summary",
-  "generated_at": "2026-11-21T20:39:41.495396+02:00",
-  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 16/11–20/11/2026",
-  "first_heading": "סיכום השבוע",
-  "review_date": "2026-11-20",
-  "title_date_str": "2026-11-21",
-  "title_day_name": "שבת",
-  "week_range": "16/11–20/11/2026",
-  "etf_pcts": {
-    "SPY": -3.6403,
-    "QQQ": -5.6725,
-    "DIA": -1.9784,
-    "IWM": -2.8802,
-    "XLE": -0.6241,
-    "XLK": -7.2687,
-    "XLF": -1.8172,
-    "XLY": -2.9513,
-    "XLV": -0.124,
-    "XLI": -3.0925,
-    "XLP": 0.6677,
-    "XLU": -0.744,
-    "USO": 1.1152,
-    "BNO": 0.3059,
-    "GLD": -3.6727,
-    "SLV": -6.7356,
-    "IBIT": -5.8723,
-    "TLT": 1.369,
-    "UUP": -0.0337,
-    "VIXY": 13.4178
-  },
-  "ticker_quotes": {
-    "ANT": {
-      "price": 88.91,
-      "pct": -8.5006,
-      "prev_close": 97.17,
-      "ts": 1795208400
-    },
-    "NVDA": {
-      "price": 125.53,
-      "pct": -14.0088,
-      "prev_close": 145.98,
-      "ts": 1795208400
-    },
-    "CRWD": {
-      "price": 229.44,
-      "pct": -5.7586,
-      "prev_close": 243.46,
-      "ts": 1795208400
-    },
-    "ZS": {
-      "price": 194.82,
-      "pct": -5.2939,
-      "prev_close": 205.71,
-      "ts": 1795208400
-    },
-    "AMZN": {
-      "price": 246.82,
-      "pct": -4.0992,
-      "prev_close": 257.37,
-      "ts": 1795208400
-    },
-    "AAPL": {
-      "price": 342.56,
-      "pct": -1.9043,
-      "prev_close": 349.21,
-      "ts": 1795208400
-    },
-    "QQQ": {
-      "price": 608.45,
-      "pct": -5.6725,
-      "prev_close": 645.04,
-      "ts": 1795208400
-    },
-    "SPY": {
-      "price": 689.81,
-      "pct": -3.6403,
-      "prev_close": 715.87,
-      "ts": 1795208400
-    },
-    "USO": {
-      "price": 139.63,
-      "pct": 1.1152,
-      "prev_close": 138.09,
-      "ts": 1795208400
-    },
-    "AMD": {
-      "price": 424.39,
-      "pct": -13.2464,
-      "prev_close": 489.19,
-      "ts": 1795208400
-    },
-    "SKHY": {
-      "price": 103.57,
-      "pct": -13.1124,
-      "prev_close": 119.2,
-      "ts": 1795208400
-    },
-    "ORCL": {
-      "price": 101.19,
-      "pct": -8.4833,
-      "prev_close": 110.57,
-      "ts": 1795208400
-    }
-  },
+  "mode": "weekly_prep",
+  "generated_at": "2026-11-22T17:48:14.326081+02:00",
+  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 23/11–27/11/2026",
+  "first_heading": "לקראת השבוע",
+  "review_date": "2026-11-23",
+  "title_date_str": "2026-11-23",
+  "title_day_name": "שני",
+  "week_range": "23/11–27/11/2026",
+  "etf_pcts": {},
+  "ticker_quotes": {},
   "scheduled": {
     "macro": [],
-    "earnings": []
+    "earnings": [
+      {
+        "event": "HPE",
+        "date": "2026-11-23",
+        "time_il": ""
+      },
+      {
+        "event": "DKS",
+        "date": "2026-11-23",
+        "time_il": ""
+      },
+      {
+        "event": "AMTM",
+        "date": "2026-11-23",
+        "time_il": ""
+      },
+      {
+        "event": "KSS",
+        "date": "2026-11-23",
+        "time_il": ""
+      },
+      {
+        "event": "BURL",
+        "date": "2026-11-23",
+        "time_il": ""
+      },
+      {
+        "event": "VNET",
+        "date": "2026-11-23",
+        "time_il": ""
+      },
+      {
+        "event": "DELL",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "VIPS",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "HPQ",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "BBY",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "MDT",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "BILI",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "DLTR",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "ADI",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "KC",
+        "date": "2026-11-24",
+        "time_il": ""
+      },
+      {
+        "event": "DIDIY",
+        "date": "2026-11-25",
+        "time_il": ""
+      },
+      {
+        "event": "DE",
+        "date": "2026-11-25",
+        "time_il": ""
+      },
+      {
+        "event": "CHA",
+        "date": "2026-11-26",
+        "time_il": ""
+      }
+    ]
   }
 }
