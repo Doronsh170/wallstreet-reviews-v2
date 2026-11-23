@@ -752,7 +752,7 @@ async function shareWhatsApp(){
   // 2) If it is unavailable or fails: mobile falls back to the whatsapp://
   //    app scheme (same tab, so no blank window); desktop copies the text to
   //    the clipboard and says so.
-  const message = lines.join('\n');
+  const message = lines.join('\n') + '\n\nלכל הכלים הפיננסיים של דורון שרייבמן:\nhttps://doronsh170.github.io/doron-tools/';
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   try {
     if (!navigator.share) throw new Error('share-unsupported');
