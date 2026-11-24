@@ -2,7 +2,7 @@
 
 You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
 plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
-19:41–21:41 שעון ישראל, on 2026-11-24 (יום שלישי) — and nothing else.
+19:52–21:52 שעון ישראל, on 2026-11-24 (יום שלישי) — and nothing else.
 Market state right now: השוק פתוח — שעות המסחר הרגילות בניו יורק. Never describe the market as trading or reacting when the regular
 session is not open.
 
@@ -63,7 +63,7 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שלישי, 24.11.2026, 21:41",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שלישי, 24.11.2026, 21:52",
   "date": "2026-11-24",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
@@ -92,7 +92,7 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
-tweets, for the window 19:41–21:41 Israel time on 2026-11-24. Do NOT use it to find additional news, headlines,
+tweets, for the window 19:52–21:52 Israel time on 2026-11-24. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
@@ -100,21 +100,18 @@ prices or macro data. Content that is not present in the tweets does not enter t
 Already published on the site. Your update covers ONLY the last two hours. Mention an item below ONLY if there is a genuinely NEW development about it inside the two-hour window.
 
 [עדכון ביניים]
-* אנבידיה (NVDA): לפי CNBC, דירקטוריון החברה אינו שוקל להחזיר את ג'נסן הואנג לתפקיד המנכ״ל. בעקבות הדיווח המניה ירדה לשפל יומי חדש, והשלימה ירידה של 34% מהשיא שנרשם ב-6 באוקטובר. מנכ״ל OpenAI, סם אלטמן, אמר שקשה לדמיין את מהפכת הבינה המלאכותית ללא מעורבותו של הואנג.
-* נאסד״ק 100: המדד העמיק את הירידות ל-2.3% במהלך המסחר הרגיל, על רקע הדיווחים שלפיהם דירקטוריון אנבידיה אינו שוקל את החזרת ג'נסן הואנג לתפקיד המנכ״ל.
-* פיגורים בהלוואות בארה״ב: שיעור הפיגורים החמורים בהלוואות סטודנטים עלה ברבעון השלישי של 2026 ל-10.9%, הרמה הגבוהה ביותר מאז סוף 2019. שיעור הפיגורים החמורים בהלוואות רכב הגיע ל-5.7%, שיא בנתונים, ומצביע על המשך הלחץ על יכולת ההחזר של לווים.
-* הנפקת אנתרופיק (Anthropic): לפי CNBC, בראד גרסטנר מקרן Altimeter Capital מתכנן להשקיע 5 מיליארד דולר בהנפקת החברה. מדובר בהתחייבות הגבוהה פי חמישה מכל השקעה קודמת שלו בהנפקה ראשונית.
-* מחשוב על של AMD: לפי דיווחים, מחשב העל Lux, המבוסס על מעבדי AMD, נפתח לשימוש חוקרים במעבדה הלאומית אוק רידג'. המערכת משמשת תשתית בינה מלאכותית למשימת Genesis של משרד האנרגיה האמריקאי.
-* ספקיות טכנולוגיה זרות: לפי דיווחים, סגן מזכיר המדינה האמריקאי הלברג הבהיר כי וושינגטון אינה מתכוונת לפגוע בספקיות כמו אריקסון, ASML, סמסונג ו-SK Hynix או להוציא אותן משרשראות האספקה בארה״ב.
-* תקלות בבנקים בארה״ב: התקבלו דיווחים רבים על קשיים בגישה לחשבונות ובכניסה לשירותי הבנקאות המקוונת של JPMorgan Chase, בנק אוף אמריקה, וולס פארגו ו-U.S. Bank. לפי הדיווחים, אלפי לקוחות נתקלו בתקלות, אך טרם הובהר הגורם להן.
-* ביקוש לשבבי בינה מלאכותית: מנכ״ל OpenAI, סם אלטמן, הזהיר מפני ספירה כפולה של ביקושים בתוכניות יצרניות השבבים. לדבריו, כמה יצרניות מניחות במקביל שחברות הבינה המלאכותית הגדולות ירכשו חלק משמעותי מתפוקתן, אף שלא כולן יזדקקו לכל הכמויות המתוכננות.
-* חברת הבינה המלאכותית Noeri: לפי דיווחים, החברה הושקה עם מימון של 110 מיליון דולר לפיתוח מערכות בינה מלאכותית ארגוניות המסוגלות לשפר את ביצועיהן באופן עצמאי.
-* תמונת העדכונים: הדיווחים על עתיד הנהלת אנבידיה מלווים בהעמקת הירידות בנאסד״ק, ובמקביל עולות שאלות לגבי היקף הביקוש העתידי לשבבי בינה מלאכותית.
+* אנבידיה (NVDA): בניגוד לדיווח הקודם, לפי Bloomberg, ג'נסן הואנג חזר לתפקיד המנכ״ל והתנצל בפני העובדים. לדבריו, הדירקטוריון השתכנע כי אין מניעה להחזרתו מטעמי ביטחון לאומי.
+* חומרת בינה מלאכותית: לפי דיווחים, מניות אנלוג דיווייסס יורדות ב-17%, HPE ב-16%, דל ומיקרון ב-11%, ואנבידיה בכמעט 8%. מנכ״ל HPE ציין כי הביקוש גבוה משמעותית מצבר ההזמנות, אך החברה הזהירה משחיקה בשולי הרווח בשנה הבאה.
+* קורוויב (CRWV): לפי דיווחים, מספר סדרות אג״ח של החברה ירדו לשפל מאז הנפקתן, על רקע חששות לגבי יכולת ההתמדה בקצב ההשקעות בבינה מלאכותית. איגרות החוב הנושאות ריבית של 9% לפדיון ב-2031 נסחרו במחיר של 76.6 סנט לדולר ערך נקוב.
+* קרנות סל על הזהב: לפי דיווחים, קרנות סל המגובות בזהב פיזי רשמו בשבוע שעבר פדיונות בהיקף של 20 טונות זהב, הרמה השבועית הגבוהה ביותר מאז יוני. מחצית מהפדיונות נרשמה בקרן GLD.
+* סיטאדל סקיוריטיז: לפי Bloomberg, הכנסות המסחר נטו בתשעת החודשים הראשונים של השנה הסתכמו ביותר מ-15 מיליארד דולר, מעל השיא השנתי של 2025. הכנסות המסחר ברבעון השלישי צמחו ב-29% והרווח הנקי עלה בכ-13% בהשוואה לרבעון המקביל.
+* מטא (META) וולמארט: לפי דיווחים, לקוחות וולמארט יכולים לבצע רכישות באמצעות סוכן הבינה המלאכותית של מטא, הכולל איתור מוצרים, בניית סל קניות והשלמת הרכישה בהתאם לתקציב שהוגדר.
+* סאנופי (SNY): לפי דיווחים, החברה רשמה את יום המסחר הטוב ביותר שלה מאז 2008, לאחר שהסכימה לרכוש את אינסמד תמורת 41 מיליארד דולר. הרכישה מרחיבה את פעילותה בתחום הטיפול במחלות ריאה לקראת פקיעת הפטנט על דופיקסנט.
+* טארגט (TGT): לפי דיווחים, מניית הקמעונאית הגיעה במהלך המסחר לשיא של 52 שבועות.
+* אינפלציה בארה״ב: לפי דיווחים, 57% מהצרכנים בנובמבר ייחסו את ההרעה במצבם הכלכלי לעומת השנה הקודמת לעליית המחירים, שיעור שיא ועלייה של 24 נקודות אחוז מאז מרץ 2024. מנגד, הנשיא טראמפ טען כי המחירים יורדים במהירות וכי האינפלציה התמתנה.
 ══════════════════════════════════════════════════════════════
 
 Source tweets/posts from X (Twitter) — gathered 2026-11-24. Never mention in the review that these came from tweets/posts:
-
-@KobeissiLetter [Tue Nov 24 17:46:05 +0000 2026]: BREAKING: Global physical gold-backed ETFs posted -20 tonnes in gold outflows last week, their largest weekly withdrawal since June. Gold ETFs have seen outflows in 3 of the last 5 weeks, totalling -30 tonnes net. Last week's outflows were driven by the US's largest gold-backed ETF, $GLD, which recorded -10 tonnes in withdrawals. US outflows totalled -12 tonnes, followed by China and the UK, both …
 
 @gurgavin [Tue Nov 24 18:10:42 +0000 2026]: NVIDIA SHARES ARE DOWN ALMOST 8% TODAY MAYBE THEY SHOULD FIRE AND HIRE JENSEN AGAIN $NVDA https://t.co/F4kpQbGaMC
 
@@ -126,13 +123,13 @@ Source tweets/posts from X (Twitter) — gathered 2026-11-24. Never mention in t
 
 @wallstengine [Tue Nov 24 18:54:02 +0000 2026]: YOU CAN NOW LET $META'S AI DO YOUR WALMART BLACK FRIDAY SHOPPING Starting today, customers can shop Walmart's Black Friday deals directly through Muse, Meta's personal AI agent. Muse can search for products, build a cart and complete the purchase on Walmart's website and at Sam's Club. Shoppers set a spending limit and can approve purchases and review everything the agent buys. Walmart says …
 
+@StockMKTNewz [Tue Nov 24 18:23:18 +0000 2026]: Target $TGT stock hit new 52 WEEK HIGHS 🟢 at some point today https://t.co/ciBinSR49d
+
 @wallstengine [Tue Nov 24 19:11:46 +0000 2026]: JENSEN HUANG THANKED THE TRUMP ADMIN IN FRONT OF NVIDIA STAFF FOR INTELLIGENCE THAT HELPED THE BOARD BRING HIM BACK AS $NVDA CEO https://t.co/7j9EZfWNl8
 
 @StockMKTNewz [Tue Nov 24 18:12:51 +0000 2026]: My sponsors over at Tradr ETFs now have options on $ANTT and $ANTZ ... Calls and puts on the 2x daily long and short Anthropic $ANT ETFs Options may not be suitable for all investors. Leveraged ETFs involve significant risk. See https://t.co/EUgWBjY4CM https://t.co/JH5c5auizc
 
 @AIStockSavvy [Tue Nov 24 19:14:40 +0000 2026]: NIGHTGLASS FLAGGED $589.66 BEFORE THE BELL Mizuho initiated $LMT at Buy with a $765 target. Shares popped on the news and hit $590.10 before slipping back below $589.66. Nightglass had $589.66 marked as resistance before the bell. That gave you a price to watch as the stock ran. https://t.co/Bemj9oq9dw
-
-@StockMKTNewz [Tue Nov 24 18:23:18 +0000 2026]: Target $TGT stock hit new 52 WEEK HIGHS 🟢 at some point today https://t.co/ciBinSR49d
 
 @AIStockSavvy [Tue Nov 24 19:32:55 +0000 2026]: Trump: Prices are falling rapidly across the board. Egg prices were four times higher when we took office. We inherited record-high prices and the worst inflation ever, but have brought inflation down to a very good level. - $QQQ $SPY
 
