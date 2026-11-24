@@ -1,107 +1,16 @@
 {
-  "mode": "weekly_prep",
-  "generated_at": "2026-11-22T17:48:14.326081+02:00",
-  "expected_title": "לקראת שבוע המסחר בוול סטריט 🇺🇸 – 23/11–27/11/2026",
-  "first_heading": "לקראת השבוע",
-  "review_date": "2026-11-23",
-  "title_date_str": "2026-11-23",
-  "title_day_name": "שני",
-  "week_range": "23/11–27/11/2026",
+  "mode": "intraday_update",
+  "generated_at": "2026-11-24T21:41:20.773977+02:00",
+  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שלישי, 24.11.2026, 21:41",
+  "first_heading": "עדכון ביניים",
+  "review_date": "2026-11-24",
+  "title_date_str": "2026-11-24",
+  "title_day_name": "שלישי",
+  "week_range": null,
   "etf_pcts": {},
   "ticker_quotes": {},
   "scheduled": {
     "macro": [],
-    "earnings": [
-      {
-        "event": "HPE",
-        "date": "2026-11-23",
-        "time_il": ""
-      },
-      {
-        "event": "DKS",
-        "date": "2026-11-23",
-        "time_il": ""
-      },
-      {
-        "event": "AMTM",
-        "date": "2026-11-23",
-        "time_il": ""
-      },
-      {
-        "event": "KSS",
-        "date": "2026-11-23",
-        "time_il": ""
-      },
-      {
-        "event": "BURL",
-        "date": "2026-11-23",
-        "time_il": ""
-      },
-      {
-        "event": "VNET",
-        "date": "2026-11-23",
-        "time_il": ""
-      },
-      {
-        "event": "DELL",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "VIPS",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "HPQ",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "BBY",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "MDT",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "BILI",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "DLTR",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "ADI",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "KC",
-        "date": "2026-11-24",
-        "time_il": ""
-      },
-      {
-        "event": "DIDIY",
-        "date": "2026-11-25",
-        "time_il": ""
-      },
-      {
-        "event": "DE",
-        "date": "2026-11-25",
-        "time_il": ""
-      },
-      {
-        "event": "CHA",
-        "date": "2026-11-26",
-        "time_il": ""
-      }
-    ]
+    "earnings": []
   }
 }
