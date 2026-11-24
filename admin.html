@@ -312,6 +312,7 @@ $('gatherBtn').addEventListener('click', async () => {
 
     const data = await api('/raw');
     material = data.content || '';
+    if (material.trim()) material += '\n\nהנחיית סגנון מחייבת: אין לפתוח משפטים בביטוי "לפי הדיווחים". יש לנסח את העובדות באופן ישיר ומקצועי, לגוון את פתיחות המשפטים ולציין מקור ספציפי כשנדרש, תוך שמירה על הבחנה בין עובדה מאומתת לדיווח או הערכה.';
     bar.firstElementChild.style.width = '100%';
     setStatus(box, msg, 'ok', 'החומר מוכן ✓');
     $('readyBox').innerHTML = `<b>${escapeHtml(data.title || 'החומר מוכן')}</b>
