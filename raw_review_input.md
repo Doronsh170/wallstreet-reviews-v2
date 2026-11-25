@@ -2,7 +2,7 @@
 
 You are writing a SHORT INTRADAY UPDATE in Hebrew for a financial website. The update is a
 plain-language SUMMARY of what the curated X (Twitter) sources posted in the last two hours —
-19:52–21:52 שעון ישראל, on 2026-11-24 (יום שלישי) — and nothing else.
+15:30–17:30 שעון ישראל, on 2026-11-25 (יום רביעי) — and nothing else.
 Market state right now: השוק פתוח — שעות המסחר הרגילות בניו יורק. Never describe the market as trading or reacting when the regular
 session is not open.
 
@@ -63,8 +63,8 @@ If ANY check fails — fix the bullet and re-run the checks. Only then return th
 CRITICAL — OUTPUT FORMAT (MANDATORY):
 - Return ONLY a JSON object, no backticks, no explanations, in EXACTLY this structure:
 {
-  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום שלישי, 24.11.2026, 21:52",
-  "date": "2026-11-24",
+  "title": "עדכון ביניים מוול סטריט 🇺🇸 – יום רביעי, 25.11.2026, 17:30",
+  "date": "2026-11-25",
   "summary": ["כותרת הנקודה: תמצית אמיתית של הנקודה במשפט קצר אחד", "כותרת שנייה: ...", "..."],
   "sections": [
     {
@@ -92,7 +92,7 @@ USE ONLY THESE TIMES. Do NOT calculate your own offset.
 
 ══ WEB SEARCH POLICY ══
 Web search is for VERIFICATION ONLY — confirming a name, time or figure that already appears in the source
-tweets, for the window 19:52–21:52 Israel time on 2026-11-24. Do NOT use it to find additional news, headlines,
+tweets, for the window 15:30–17:30 Israel time on 2026-11-25. Do NOT use it to find additional news, headlines,
 prices or macro data. Content that is not present in the tweets does not enter the update.
 ══════════════════════════════════
 
@@ -111,48 +111,82 @@ Already published on the site. Your update covers ONLY the last two hours. Menti
 * אינפלציה בארה״ב: לפי דיווחים, 57% מהצרכנים בנובמבר ייחסו את ההרעה במצבם הכלכלי לעומת השנה הקודמת לעליית המחירים, שיעור שיא ועלייה של 24 נקודות אחוז מאז מרץ 2024. מנגד, הנשיא טראמפ טען כי המחירים יורדים במהירות וכי האינפלציה התמתנה.
 ══════════════════════════════════════════════════════════════
 
-Source tweets/posts from X (Twitter) — gathered 2026-11-24. Never mention in the review that these came from tweets/posts:
+Source tweets/posts from X (Twitter) — gathered 2026-11-25. Never mention in the review that these came from tweets/posts:
 
-@gurgavin [Tue Nov 24 18:10:42 +0000 2026]: NVIDIA SHARES ARE DOWN ALMOST 8% TODAY MAYBE THEY SHOULD FIRE AND HIRE JENSEN AGAIN $NVDA https://t.co/F4kpQbGaMC
+@KobeissiLetter [Wed Nov 25 13:31:27 +0000 2026]: BREAKING: US October PCE inflation, the Fed's preferred inflation metric, rises to 3.8%, its 2nd-highest level since April 2023. Core PCE inflation also rose to 3.3%, above expectations of 3.2%. CPI, PPI, and PCE inflation all continue to push higher. December rate hike odds are rising.
 
-@AIStockSavvy [Tue Nov 24 19:19:57 +0000 2026]: 📊 𝐈𝐍𝐕𝐄𝐒𝐓𝐎𝐑 𝐍𝐎𝐓𝐄: COREWEAVE BONDS HIT 𝗥𝗘𝗖𝗢𝗥𝗗 𝗟𝗢𝗪𝗦, ERASING MONDAY’S GAINS - $CRWV $NVDA Several CoreWeave bonds fell to their lowest prices since issuance on Tuesday as investors again questioned whether the pace of AI investment is sustainable. 👉 𝗞𝗲𝘆 𝗛𝗶𝗴𝗵𝗹𝗶𝗴𝗵𝘁𝘀 ➤ 𝟮𝟬𝟯𝟭 𝗡𝗢𝗧𝗘𝗦: CoreWeave’s 9% notes due in 2031 traded as low as 𝟳𝟲.𝟲 𝗰𝗲𝗻𝘁𝘀 on the dollar. ➤ 𝟮𝟬𝟯𝟮 𝗡𝗢𝗧𝗘𝗦: Its 9.625% notes due in 2032 fell …
+@KobeissiLetter [Wed Nov 25 14:45:06 +0000 2026]: BREAKING: The Nasdaq 100 extends losses to over -4.5% on the day after the Trump Administration announces new tariffs and PCE inflation comes in hot. https://t.co/P50q1Jw8AG
 
-@StockMKTNewz [Tue Nov 24 19:17:38 +0000 2026]: NVIDIA $NVDA CEO JENSEN HUANG APOLOGIZED TO EMPLOYEES IN A TUESDAY ALL-HANDS MEETING He reportedly called it "the hardest company meeting" he's ever done, per Bloomberg. Then he explained why the board brought him back: Not because he's a "tech bro" or above the law. Not because the government wanted him back. The board was assured there was no national security threat, he told staff. What else …
+@KobeissiLetter [Wed Nov 25 13:52:06 +0000 2026]: BREAKING: Market expectations for a December rate hike rise above 97% after US PCE inflation hits its 2nd highest level since April 2023. This will mark the Fed's second interest rate hike of 2026. 12 months ago, markets expected 3 rate cuts in 2026. Higher rates are on the way.
 
-@wallstengine [Tue Nov 24 18:58:10 +0000 2026]: AI HARDWARE IS GETTING HIT HARD TODAY Analog Devices -17% $HPE -16% $DELL -11% Micron -11% Nvidia -7% HPE's CEO says AI demand is "multiples" of its backlog and supply is "severely constrained," but the company warned the servers it's selling will squeeze margins next year.
+@AIStockSavvy [Wed Nov 25 13:32:41 +0000 2026]: US Jobless Claims Data: $QQQ $SPY ➤ Continued Jobless Claims (Nov. 14): 1,697K (Forecast 1,721K, Previous 1,763K) ➤ Initial Jobless Claims (Nov. 21): 189K (Forecast 200K, Previous 203K) ➤ Initial Jobless Claims 4-Week Average (Nov. 21): 196K (Forecast --, Previous 197.75K)
 
-@wallstengine [Tue Nov 24 18:54:02 +0000 2026]: YOU CAN NOW LET $META'S AI DO YOUR WALMART BLACK FRIDAY SHOPPING Starting today, customers can shop Walmart's Black Friday deals directly through Muse, Meta's personal AI agent. Muse can search for products, build a cart and complete the purchase on Walmart's website and at Sam's Club. Shoppers set a spending limit and can approve purchases and review everything the agent buys. Walmart says …
+@wallstengine [Wed Nov 25 15:22:59 +0000 2026]: COREWEAVE'S $CRWV 2031 BONDS NOW YIELD NEARLY 18% AS THEY FALL AGAIN: TRADEWEB DATA.
 
-@StockMKTNewz [Tue Nov 24 18:23:18 +0000 2026]: Target $TGT stock hit new 52 WEEK HIGHS 🟢 at some point today https://t.co/ciBinSR49d
+@StockMKTNewz [Wed Nov 25 14:25:44 +0000 2026]: Starbucks $SBUX has tapped advisers to prepare for a potential sale of its Japan 🇯🇵 business for several billion dollars - Bloomberg https://t.co/AKBxTIbJ9i
 
-@wallstengine [Tue Nov 24 19:11:46 +0000 2026]: JENSEN HUANG THANKED THE TRUMP ADMIN IN FRONT OF NVIDIA STAFF FOR INTELLIGENCE THAT HELPED THE BOARD BRING HIM BACK AS $NVDA CEO https://t.co/7j9EZfWNl8
+@AIStockSavvy [Wed Nov 25 15:27:57 +0000 2026]: 📢 𝐉𝐔𝐒𝐓 𝐈𝐍: Some $CRWV Coreweave Bonds Fall, 2031 Bond Yield Hits 17.91% - Tradeweb Data
 
-@StockMKTNewz [Tue Nov 24 18:12:51 +0000 2026]: My sponsors over at Tradr ETFs now have options on $ANTT and $ANTZ ... Calls and puts on the 2x daily long and short Anthropic $ANT ETFs Options may not be suitable for all investors. Leveraged ETFs involve significant risk. See https://t.co/EUgWBjY4CM https://t.co/JH5c5auizc
+@AIStockSavvy [Wed Nov 25 14:49:22 +0000 2026]: 📢 𝗝𝗨𝗦𝗧 𝗜𝗡: Nasdaq 100 Falls 20% From Peak, On Track To Enter Bear Market - Bloomberg - $QQQ $SPY
 
-@AIStockSavvy [Tue Nov 24 19:14:40 +0000 2026]: NIGHTGLASS FLAGGED $589.66 BEFORE THE BELL Mizuho initiated $LMT at Buy with a $765 target. Shares popped on the news and hit $590.10 before slipping back below $589.66. Nightglass had $589.66 marked as resistance before the bell. That gave you a price to watch as the stock ran. https://t.co/Bemj9oq9dw
+@AIStockSavvy [Wed Nov 25 14:25:19 +0000 2026]: $CRWV + $CRWD: AI COMPUTE MEETS ROUND-THE-CLOCK SECURITY Expanded partnership brings 24/7 threat hunting to CoreWeave’s AI workloads, while CoreWeave powers CrowdStrike SafeMind’s training and inference.
 
-@AIStockSavvy [Tue Nov 24 19:32:55 +0000 2026]: Trump: Prices are falling rapidly across the board. Egg prices were four times higher when we took office. We inherited record-high prices and the worst inflation ever, but have brought inflation down to a very good level. - $QQQ $SPY
+@AIStockSavvy [Wed Nov 25 13:38:50 +0000 2026]: U.S. Trade Representative Greer: The latest proposed tariffs largely follow the agreements we have reached. - $QQQ $SPY
 
-@wallstengine [Tue Nov 24 18:13:29 +0000 2026]: Sanofi $SNY just had its best day since 2008 after agreeing to buy Insmed for $41 billion, adding lung disease drug Brinsupri ahead of Dupixent's patent cliff. https://t.co/OO4nXIK385
+@AIStockSavvy [Wed Nov 25 13:38:20 +0000 2026]: $AAPL quietly up nearly 13% in 3 months while AI stocks get crushed. Apparently, being “behind in AI” is a bullish thesis now. 😂 https://t.co/r6kjXNxHkm
 
-@KobeissiLetter [Tue Nov 24 19:38:05 +0000 2026]: Inflation is America’s biggest concern: In November, a record 57% of US consumers cited higher prices as a reason for their financial situation worsening compared with a year earlier. This figure has surged +24 percentage points since March 2024. By comparison, this proportion peaked at 48% during the 2008 Financial Crisis and the Great Inflation of the 1970s. To put this into perspective, in …
+@AIStockSavvy [Wed Nov 25 13:31:17 +0000 2026]: US PCE Inflation: $QQQ $SPY ➤ Core PCE YoY (Oct): 3.3% (Forecast 3.2%, Previous 3.1%) ➤ Core PCE QoQ (Q3, SAAR Revised): 2.5% (Forecast 2.5%, Previous 2.5%) ➤ PCE YoY (Oct): 3.8% (Forecast 3.8%, Previous 3.6%) ➤ PCE MoM (Oct): 0.3% (Forecast 0.3%, Previous 0.5%) ➤ PCE QoQ (Q3, SAAR Revised): 2.1% (Forecast --, Previous 2.1%)
 
-@KobeissiLetter [Tue Nov 24 18:42:02 +0000 2026]: Market corrections are a regular phenomenon: The US equity market has recorded an average of 1 correction of 10%+ per year since 1930. Since 2000, the S&P 500 has seen 24 regular corrections. Despite these declines, the S&P 500 has delivered positive annual returns in 19 calendar years since 2000. Furthermore, US stocks have posted 3.4 pullbacks of 5%+ per year on average since 1930. By …
+@KobeissiLetter [Wed Nov 25 13:38:59 +0000 2026]: BREAKING: The US Financial Crimes Enforcement Network (FinCEN) has suffered a cybersecurity breach, resulting in unauthorized access to a "limited subset" of its systems, per a US government official. FinCEN oversees some of the US government's most sensitive financial intelligence, including reports of suspicious banking activity.
 
-@wallstengine [Tue Nov 24 19:23:53 +0000 2026]: JENSEN HUANG TOLD NVIDIA STAFF TODAY WAS "THE HARDEST COMPANY MEETING" HE'S EVER DONE THE HARDER MEETING, HE SAID, WAS WITH HIS WIFE https://t.co/t8KTN7BV4s
+@StockMKTNewz [Wed Nov 25 15:24:39 +0000 2026]: CoreWeave $CRWV stock is down by 10% today CRWV stock is now down by 46.6% so far in 2026 https://t.co/D89OpTEj2a
 
-@wallstengine [Tue Nov 24 19:24:34 +0000 2026]: JENSEN HUANG TO NVIDIA STAFF ON TRUMP: "HE IS MY PRESIDENT. I AM IN SERVICE OF MAKING OUR PRESIDENT — OUR COUNTRY — SUCCESSFUL"; TRUMP LOVES NVIDIA
+@StockMKTNewz [Wed Nov 25 14:38:58 +0000 2026]: Anthropic $ANT just dropped under a $1 Trillion market cap for the first time as a public company https://t.co/4ohnITp4tz
 
-@wallstengine [Tue Nov 24 19:10:11 +0000 2026]: JENSEN HUANG TOLD NVIDIA EMPLOYEES HE IS IN THERAPY &amp; APOLOGIZED FOR VIOLATING THE COMPANY'S CODE OF CONDUCT: WSJ
+@AIStockSavvy [Wed Nov 25 14:48:52 +0000 2026]: Fear index below 10 😳😳 $QQQ $SPY https://t.co/7KfjfNxKnx
 
-@wallstengine [Tue Nov 24 18:52:55 +0000 2026]: For those who trade futures, NinjaTrader is running a holiday offer for new customers. Terms apply. Futures trading involves substantial risk.
+@StockMKTNewz [Wed Nov 25 13:50:37 +0000 2026]: GOLDMAN SACHS STRATEGIST SAYS IT'S TOO EARLY TO BUY THE AI SELLOFF Christian Mueller-Glissmann told Bloomberg TV markets are in a "pretty fragile regime" and investors need to see real profits from all the AI spending first. His biggest worry is a repeat of late 2018, when Fed tightening hit growth and forced the central bank to ease
 
-@StockMKTNewz [Tue Nov 24 19:28:41 +0000 2026]: CITADEL SECURITIES HAS ALREADY MADE MORE IN 9 MONTHS OF 2026 THAN IN ALL OF 2025, PER BLOOMBERG Net trading revenue is above $15 billion through September, passing last year's record. Here's the quarter that pushed it there: Q3 revenue: more than $3.4B, up 29% year over year Q3 net income: about $1.19B, up about 13% This is the market-making firm, separate from Ken Griffin's Citadel hedge fund.
+@wallstengine [Wed Nov 25 13:38:14 +0000 2026]: U.S. PROPOSES NEW TARIFFS ON 14 TRADING PARTNERS OVER INDUSTRIAL OVERCAPACITY 🇨🇳 China: 20% (up to 40% if trade truce is broken) 🇻🇳 Vietnam: Up to 35% 🇮🇳 India: Up to 25% (17% if a deal is reached) 🇰🇷 South Korea: Up to 25% 🇹🇼 Taiwan: Up to 25% 🇮🇩 Indonesia: Up to 25% 🇲🇾 Malaysia: Up to 25% 🇹🇭 Thailand: Up to 25% 🇰🇭 Cambodia: Up to 25% 🇪🇺 European Union: Up to 20% 🇯🇵 Japan: Up to 20% 🇨🇭 …
 
-@wallstengine [Tue Nov 24 19:07:32 +0000 2026]: Ken Griffin's market-making firm, Citadel Securities, generated more than $15 billion in net trading revenue in the first 9 months of 2026, already surpassing its full-year 2025 record. Q3 financials: Trading revenue: $3.4B+, up 29% YoY Net income: $1.19B, up 13% YoY https://t.co/vMaVBwL7vs
+@wallstengine [Wed Nov 25 13:32:58 +0000 2026]: US JOBLESS CLAIMS JUST DROPPED TO 189,000, BELOW THE 200,000 EXPECTED
 
-@gurgavin [Tue Nov 24 18:56:40 +0000 2026]: RT @McLarenF1: Happy Guru Nanak Jayanti 🧡 #McLarenF1 https://t.co/8QqUaeLqHG
+@KobeissiLetter [Wed Nov 25 15:18:00 +0000 2026]: BREAKING: Bitcoin falls below $57,500 and ETH nears $1,600 as the selloff in crypto gains momentum. Another -$500 million worth of levered positions have been liquidated over the last 24 hours. https://t.co/oyvKjyQ9US
 
-@KobeissiLetter [Tue Nov 24 18:15:25 +0000 2026]: RT @TKL_Adam: Looking forward to joining the great Charles Payne, @cvpayne, at 2:45 PM ET, in my first TV appearance since Jensen Huang has…
+@wallstengine [Wed Nov 25 13:30:41 +0000 2026]: US 🇺🇸 PCE / GDP DATA: Core PCE YoY: 3.3% (Est. 3.2%, Prior 3.1%) Core PCE MoM: 0.3% (Est. 0.3%, Prior 0.3%) PCE YoY: 3.8% (Est. 3.8%, Prior 3.7%) PCE MoM: 0.3% (Est. 0.3%, Prior 0.5%) Q3 GDP (2nd Est.): 4.3% (Est. 3.5%, Prior 3.4%) Spending MoM: 0.3% (Est. 0.4%, Prior 0.6%)
+
+@wallstengine [Wed Nov 25 13:49:23 +0000 2026]: USTR JAMIESON GREER ON NVIDIA: "COMPANY IS STRUCTURALLY IMPORTANT… HAVE TO MAKE SURE THAT COMPANY REMAINS ON TOP."
+
+@wallstengine [Wed Nov 25 13:33:29 +0000 2026]: US 🇺🇸 ECONOMY GREW AT A 4.3% PACE IN Q3, REVISED UP FROM 3.4% &amp; THE FASTEST IN NEARLY 3 YEARS
+
+@StockMKTNewz [Wed Nov 25 13:33:55 +0000 2026]: 🇺🇸 PCE for October just came in at +3.8% YoY above expectations +3.7% YoY
+
+@StockMKTNewz [Wed Nov 25 13:57:11 +0000 2026]: Please stop sending me notifications each of my stocks are down by 5% today
+
+@StockMKTNewz [Wed Nov 25 13:32:02 +0000 2026]: US 🇺🇸 GDP for Q3 just came in at +4.3% above expectations of +3.4% (2nd GDP reading out of 3)
+
+@wallstengine [Wed Nov 25 14:53:33 +0000 2026]: CNN'S FEAR &amp; GREED INDEX JUST PLUNGED TO 9, "EXTREME FEAR," ITS LOWEST LEVEL SINCE MARCH https://t.co/k16Obmzpgr
+
+@wallstengine [Wed Nov 25 14:46:20 +0000 2026]: THE NASDAQ 100 HAS NOW WIPED OUT ALL OF MONDAY'S 6.9% JENSEN HUANG RALLY, AND CHIP STOCKS HAVE ERASED EVEN MORE
+
+@wallstengine [Wed Nov 25 14:52:27 +0000 2026]: WHITE HOUSE HASSETT: WE EXPECT WARSH AND THE FED WILL BE DATA DRIVEN
+
+@wallstengine [Wed Nov 25 14:45:54 +0000 2026]: EU 🇪🇺 SAYS THE US MUST RESPECT ITS 15% TARIFF CEILING, AFTER WASHINGTON PROPOSED UP TO 20% IN NEW TARIFFS ON EUROPEAN GOODS
+
+@wallstengine [Wed Nov 25 13:52:20 +0000 2026]: Living Brain and OpenHuman say they've used AI agents with persistent memory and recursive self-improvement to solve 15 mathematical conjectures, some dating back over 100 years. For Erdős Problem 985, Living Brain identified the exact theorem needed from a 17-million-line Lean library, allowing its AI agents to complete the proof in a single line of Lean. What's particularly interesting is that …
+
+@wallstengine [Wed Nov 25 13:37:34 +0000 2026]: Kalshi now gives a 93% chance of a 25 bp Fed rate hike on December 9, after the Fed's preferred inflation gauge came in hot. https://t.co/1uCCJHEV0s
+
+@StockMKTNewz [Wed Nov 25 14:52:47 +0000 2026]: The Stock Market Fear and Greed Index just dropped back down into single digits currently at Extreme Fear: 9/100 https://t.co/8ay0wFyW3E
+
+@StockMKTNewz [Wed Nov 25 14:46:07 +0000 2026]: *THERE ARE 0 STOCKS IN MY PORTFOLIO THAT ARE GREEN TO START TRADING TODAY
+
+@StockMKTNewz [Wed Nov 25 14:31:17 +0000 2026]: The 🇺🇸 stock market is back open for the trading day https://t.co/bQZVcnVby1
+
+@StockMKTNewz [Wed Nov 25 15:26:53 +0000 2026]: This is how every stock in the S&amp;P 500 has performed so far in today's early trading https://t.co/VLsqEbMKCH
+
+@StockMKTNewz [Wed Nov 25 15:20:30 +0000 2026]: Carl Icahn is now estimated to be worth $1.2 Billion Icahn's esimtaed net worth is down by $21 Billion over the last 5 years according to Bloomberg
+
+@AIStockSavvy [Wed Nov 25 14:35:01 +0000 2026]: Technology, Financial, Software are 🩸🩸🩸 Consumer defensive, Telecom only 🟢 https://t.co/FFWDzvP1Oh
 
 החזר עכשיו אך ורק את ה-JSON בפורמט שהוגדר למעלה.
