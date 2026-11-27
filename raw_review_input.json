@@ -1,14 +1,108 @@
 {
-  "mode": "intraday_update",
-  "generated_at": "2026-11-25T20:55:18.895372+02:00",
-  "expected_title": "עדכון ביניים מוול סטריט 🇺🇸 – יום רביעי, 25.11.2026, 20:55",
-  "first_heading": "עדכון ביניים",
-  "review_date": "2026-11-25",
-  "title_date_str": "2026-11-25",
-  "title_day_name": "רביעי",
-  "week_range": null,
-  "etf_pcts": {},
-  "ticker_quotes": {},
+  "mode": "weekly_summary",
+  "generated_at": "2026-11-28T00:37:30.159434+02:00",
+  "expected_title": "סיכום שבוע המסחר בוול סטריט 🇺🇸 – 23/11–27/11/2026",
+  "first_heading": "סיכום השבוע",
+  "review_date": "2026-11-27",
+  "title_date_str": "2026-11-28",
+  "title_day_name": "שבת",
+  "week_range": "23/11–27/11/2026",
+  "etf_pcts": {
+    "SPY": 1.6213,
+    "QQQ": 2.6911,
+    "DIA": 1.2628,
+    "IWM": 1.8299,
+    "XLE": 1.2644,
+    "XLK": 2.7986,
+    "XLF": 1.1502,
+    "XLY": 2.1108,
+    "XLV": 0.2831,
+    "XLI": 1.6017,
+    "XLP": 0.4117,
+    "XLU": 0.2752,
+    "USO": -1.5155,
+    "BNO": -0.7912,
+    "GLD": 2.1225,
+    "SLV": 6.1995,
+    "IBIT": -0.6164,
+    "TLT": -1.1795,
+    "UUP": 0.4054,
+    "VIXY": -7.7749
+  },
+  "ticker_quotes": {
+    "NVDA": {
+      "price": 150.49,
+      "pct": 0.7971,
+      "prev_close": 149.3,
+      "ts": 1795813200
+    },
+    "AAPL": {
+      "price": 358.54,
+      "pct": 0.8324,
+      "prev_close": 355.58,
+      "ts": 1795813200
+    },
+    "ANT": {
+      "price": 91.88,
+      "pct": 10.9796,
+      "prev_close": 82.79,
+      "ts": 1795813200
+    },
+    "SPCX": {
+      "price": 133.59,
+      "pct": 4.8258,
+      "prev_close": 127.44,
+      "ts": 1795813200
+    },
+    "WULF": {
+      "price": 10.77,
+      "pct": 7.3779,
+      "prev_close": 10.03,
+      "ts": 1795813200
+    },
+    "DELL": {
+      "price": 316.96,
+      "pct": 6.699,
+      "prev_close": 297.06,
+      "ts": 1795813200
+    },
+    "SNDK": {
+      "price": 85.36,
+      "pct": 15.9625,
+      "prev_close": 73.61,
+      "ts": 1795813200
+    },
+    "CIFR": {
+      "price": 5.68,
+      "pct": 3.0853,
+      "prev_close": 5.51,
+      "ts": 1795813200
+    },
+    "CORZ": {
+      "price": 11.36,
+      "pct": 4.9908,
+      "prev_close": 10.82,
+      "ts": 1795813200
+    },
+    "GLXY": {
+      "price": 11.69,
+      "pct": 1.1246,
+      "prev_close": 11.56,
+      "ts": 1795813200
+    },
+    "IREN": {
+      "price": 13.61,
+      "pct": 5.9144,
+      "prev_close": 12.85,
+      "ts": 1795813200
+    },
+    "ORCL": {
+      "price": 107.13,
+      "pct": 3.1286,
+      "prev_close": 103.88,
+      "ts": 1795813200
+    }
+  },
   "scheduled": {
     "macro": [],
     "earnings": []
